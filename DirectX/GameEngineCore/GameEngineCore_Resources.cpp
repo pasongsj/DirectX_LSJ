@@ -1,35 +1,19 @@
-#include "TestRectRotation.h"
-#include <GameEnginePlatform/GameEngineWindow.h>
-#include <GameEngineCore/GameEngineLevel.h>
-#include <GameEngineCore/GameEngineCamera.h>
+#include "GameEngineCore.h"
+#include <GameEngineBase\GameEngineDebug.h>
+#include <GameEnginePlatform\GameEngineWindow.h>
+#include <GameEnginePlatform\GameEngineSound.h>
+#include "GameEngineResource.h"
 
-TestRectRotation::TestRectRotation()
+#include "GameEngineMesh.h"
+#include "GameEngineTexture.h"
+#include "GameEngineRenderTarget.h"
+
+
+void GameEngineCore::CoreResourcesInit()
 {
-}
-
-TestRectRotation::~TestRectRotation()
-{
-}
-
-
-
-
-void TestRectRotation::Update(float _Delta)
-{
-
-}
-
-
-void TestRectRotation::Render(float _Delta)
-{
-	HDC Dc = GameEngineWindow::GetWindowBackBufferHdc();
-
-	const int VertexCount = 24;
-
-	// float4 Pos = {640, 360};
-
 	// 최초의 버텍스의 위치를 로컬공간이라고 부릅니다.
-	float4 ArrVertex[VertexCount];
+	std::vector<float4> ArrVertex;
+	ArrVertex.resize(24);
 	// 앞면
 	ArrVertex[0] = { -0.5f, -0.5f, 0.5f };
 	ArrVertex[1] = { 0.5f, -0.5f,0.5f };
@@ -65,39 +49,19 @@ void TestRectRotation::Render(float _Delta)
 	ArrVertex[23] = ArrVertex[3].RotaitonXDegReturn(-90.0f);
 
 
-	POINT ArrPoint[VertexCount];
+	GameEngineMesh::Create("Box", ArrVertex);
+	// GameEngineMesh::Create("Rect");
+	//GameEngineMesh::Create("Box");
 
-	GetTransform().SetLocalScale({ 100, 100, 100 });
-	// GetTransform().AddLocalRotation({ _Delta * 360.0f, _Delta * 360.0f, _Delta * 360.0f });
+	// GameEngineMesh::Find();
 
-	GetTransform().SetView(GetLevel()->GetMainCamera()->GetView());
+	GameEngineTexture::Create("Box", "C:www");
 
-	// 
+}
 
-
-	for (size_t i = 0; i < VertexCount; i++)
-	{
-		ArrVertex[i] = ArrVertex[i] * GetTransform().GetWorldMatrixRef();
-		ArrPoint[i] = ArrVertex[i].ToWindowPOINT();
-	}
-
-	for (size_t i = 0; i < 6; i++)
-	{
-		size_t Index = i * 4;
-
-		float4 Vector0 = ArrVertex[Index + 0];
-		float4 Vector1 = ArrVertex[Index + 1];
-		float4 Vector2 = ArrVertex[Index + 2];
-
-		float4 Dir0 = Vector0 - Vector1;
-		float4 Dir1 = Vector1 - Vector2;
-
-		float4 Cross = float4::Cross3DReturn(Dir0, Dir1);
-		if (0 <= Cross.z)
-		{
-			continue;
-		}
-
-		Polygon(Dc, &ArrPoint[i * 4], 4);
-	}
-};
+void GameEngineCore::CoreResourcesEnd()
+{
+	GameEngineResource<GameEngineMesh>::ResourcesClear();
+	GameEngineResource<GameEngineTexture>::ResourcesClear();
+	GameEngineResource<GameEngineRenderTarget>::ResourcesClear();
+}
