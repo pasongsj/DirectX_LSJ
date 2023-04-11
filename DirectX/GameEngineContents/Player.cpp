@@ -1,3 +1,4 @@
+#include "PrecompileHeader.h"
 #include "Player.h"
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -104,11 +105,12 @@ void Player::Update(float _DeltaTime)
 		GetTransform()->AddLocalScale({ -ScaleSpeed * _DeltaTime, 0.0f, 0.0f });
 	}
 
-	// Render1->GetTransform()->SetWorldPosition({ 0.0f, 0.0f, 0.0f });
+	 Render1->GetTransform()->SetWorldPosition({ 0.0f, 0.0f, 0.0f });
+	 Render1->GetTransform()->SetWorldScale({ 100, 100, 100 });
 
 
-
-	Render1->GetTransform()->SetLocalRotation(-GetTransform()->GetWorldRotation());
+	//Render1->GetTransform()->SetLocalRotation(-GetTransform()->GetWorldRotation());
+	 Render1->GetTransform()->SetWorldRotation(float4::Null);
 }
 
 void Player::Start()

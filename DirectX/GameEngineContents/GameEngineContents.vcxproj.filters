@@ -11,6 +11,7 @@
     <ClInclude Include="Player.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="PrecompileHeader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -23,6 +24,7 @@
     <ClCompile Include="Player.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="PrecompileHeader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">

@@ -20,19 +20,8 @@ public:
 
 	void SetWorldScale(const float4& _Value)
 	{
-		//float4 LocalPostionValue = WorldPostion * Parent.InverseReturn();
-		//float4 WorldPostionValue = LocalPostion * Parent;
-
-		WorldScale = _Value;
-
-		if (nullptr == Parent)
-		{
-			LocalScale = WorldScale;
-		}
-		else
-		{
-			LocalScale = WorldScale * Parent->GetWorldMatrixRef().InverseReturn();
-		}
+		AbsoluteScale = true;
+		LocalScale = WorldScale = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -40,42 +29,8 @@ public:
 
 	void SetWorldRotation(const float4& _Value)
 	{
-		if (true == IsDebug())
-		{
-			int a = 0;
-		}
-
-		// 90 0 0 
-		// 여기에는 이미 최종값이 들어가 있다.
-		// 내가 어떤 과정을 거쳐서 여기로 들어온 것이다.
-
-		// 최종적으로 적용된 행렬이다.
-		WorldRotation = _Value;
-		// 부모가 적용됐기 때문에 나는 이상태가 된겁니다.
-
-		// RotationMatrix 이게 최종 나의 회전행렬이다.
-		// RotationMatrix <= 누구때문에 나는 이렇게 되었나?
-
-
-		if (nullptr == Parent)
-		{
-			LocalRotation = WorldRotation;
-		}
-		else
-		{
-			//float4 Quaternion = WorldRotation.EulerDegToQuaternion();
-			//float4x4 WorldRotationMatrix = WorldRotation.QuaternionToRotationMatrix();
-
-			//float4x4 LocalRotationMatrix;
-			//LocalRotationMatrix = Parent->GetWorldMatrixRef().InverseReturn() * WorldRotationMatrix;
-
-			//LocalRotationMatrix.DecomposeRotQuaternion(LocalQuaternion);
-
-			//LocalRotation = LocalQuaternion.QuaternionToEulerDeg();
-
-			float4 Rot = Parent->GetWorldRotation();
-			LocalRotation = WorldRotation - Parent->GetWorldRotation();
-		}
+		AbsoluteRotation = true;
+		LocalRotation = WorldRotation = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -83,23 +38,17 @@ public:
 
 	void SetWorldPosition(const float4& _Value)
 	{
-		WorldPosition = _Value;
-
-		if (nullptr == Parent)
-		{
-			LocalPosition = WorldPosition;
-		}
-		else
-		{
-			LocalPosition = WorldPosition * Parent->GetWorldMatrixRef().InverseReturn();
-		}
+		AbsolutePosition = true;
+		LocalPosition = WorldPosition = _Value;
 
 		TransformUpdate();
 		CalChild();
 	}
 
-	void SetLocalScale(const float4& _Value)
+	void SetLocalScale(const float4& _Value, bool isChildCul = false)
 	{
+
+		AbsoluteScale = false;/*(true == isChildCul ? AbsoluteScale : false);*/
 		LocalScale = _Value;
 
 		if (nullptr == Parent)
@@ -115,8 +64,9 @@ public:
 		CalChild();
 	}
 
-	void SetLocalRotation(const float4& _Value)
+	void SetLocalRotation(const float4& _Value, bool isChildCul = false)
 	{
+		AbsoluteRotation = false;/*(true == isChildCul ? AbsoluteRotation : false);*/
 		LocalRotation = _Value;
 
 		if (nullptr == Parent)
@@ -133,8 +83,9 @@ public:
 		CalChild();
 	}
 
-	void SetLocalPosition(const float4& _Value)
+	void SetLocalPosition(const float4& _Value, bool isChildCul = false)
 	{
+		AbsolutePosition = false;/*(true == isChildCul ? AbsolutePosition : false);*/
 		LocalPosition = _Value;
 
 		if (nullptr == Parent)
@@ -274,9 +225,9 @@ public:
 	{
 		for (GameEngineTransform* ChildTrans : Child)
 		{
-			ChildTrans->SetLocalScale(ChildTrans->GetLocalScale());
-			ChildTrans->SetLocalRotation(ChildTrans->GetLocalRotation());
-			ChildTrans->SetLocalPosition(ChildTrans->GetLocalPosition());
+			ChildTrans->SetLocalScale(ChildTrans->GetLocalScale(), true);
+			ChildTrans->SetLocalRotation(ChildTrans->GetLocalRotation(), true);
+			ChildTrans->SetLocalPosition(ChildTrans->GetLocalPosition(), true);
 		}
 	}
 
@@ -286,6 +237,9 @@ protected:
 
 private:
 	void TransformUpdate();
+	bool AbsoluteScale = false;
+	bool AbsoluteRotation = false;
+	bool AbsolutePosition = false;
 
 	float4 LocalScale = float4::One;
 	float4 LocalRotation = float4::Null;

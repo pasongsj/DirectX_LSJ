@@ -1,3 +1,4 @@
+#include "PrecompileHeader.h"
 #include "GameEngineTransform.h"
 #include "GameEngineObject.h"
 
@@ -20,15 +21,47 @@ void GameEngineTransform::TransformUpdate()
 	LocalPositionMatrix.Pos(LocalPosition);
 
 	LocalWorldMatrix = LocalScaleMatrix * LocalRotationMatrix * LocalPositionMatrix;
+	
 
 	if (nullptr == Parent)
 	{
 		WorldMatrix = LocalWorldMatrix;
 	}
-	else
+	else // Â÷ÀÌ
 	{
-		WorldMatrix = LocalWorldMatrix * Parent->GetWorldMatrixRef();
+		float4x4 ParentWorldMatrix = Parent->GetWorldMatrixRef();		
+		float4 PScale, PRoatation, PPosition;							
+		ParentWorldMatrix.Decompose(PScale, PRoatation, PPosition);									 	
+
+
+		if (true == AbsoluteScale)																	 	
+		{																							 	
+			PScale = float4::One;
+		}
+		if (true == AbsoluteRotation)
+		{
+			PRoatation = float4::Null;
+			PRoatation.EulerDegToQuaternion();
+		}
+		if (true == AbsolutePosition)
+		{
+			PPosition = float4::Zero;
+		}
+
+		float4x4 MatScale, MatRot, MatPos;
+
+		//scale
+		MatScale.Scale(PScale);
+
+		//rot
+		MatRot = PRoatation.QuaternionToRotationMatrix();
+
+		//pos
+		MatPos.Pos(PPosition);
+
+		WorldMatrix = LocalWorldMatrix * (MatScale * MatRot * MatPos);
 	}
+	
 }
 
 void GameEngineTransform::SetParent(GameEngineTransform* _Parent)
