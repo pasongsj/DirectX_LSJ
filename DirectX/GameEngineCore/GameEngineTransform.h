@@ -45,10 +45,10 @@ public:
 		CalChild();
 	}
 
-	void SetLocalScale(const float4& _Value, bool isChildCul = false)
+	void SetLocalScale(const float4& _Value)
 	{
 
-		AbsoluteScale = false;/*(true == isChildCul ? AbsoluteScale : false);*/
+		AbsoluteScale = false;
 		LocalScale = _Value;
 
 		if (nullptr == Parent)
@@ -64,9 +64,9 @@ public:
 		CalChild();
 	}
 
-	void SetLocalRotation(const float4& _Value, bool isChildCul = false)
+	void SetLocalRotation(const float4& _Value)
 	{
-		AbsoluteRotation = false;/*(true == isChildCul ? AbsoluteRotation : false);*/
+		AbsoluteRotation = false;
 		LocalRotation = _Value;
 
 		if (nullptr == Parent)
@@ -83,9 +83,9 @@ public:
 		CalChild();
 	}
 
-	void SetLocalPosition(const float4& _Value, bool isChildCul = false)
+	void SetLocalPosition(const float4& _Value)
 	{
-		AbsolutePosition = false;/*(true == isChildCul ? AbsolutePosition : false);*/
+		AbsolutePosition = false;
 		LocalPosition = _Value;
 
 		if (nullptr == Parent)
@@ -225,9 +225,9 @@ public:
 	{
 		for (GameEngineTransform* ChildTrans : Child)
 		{
-			ChildTrans->SetLocalScale(ChildTrans->GetLocalScale(), true);
-			ChildTrans->SetLocalRotation(ChildTrans->GetLocalRotation(), true);
-			ChildTrans->SetLocalPosition(ChildTrans->GetLocalPosition(), true);
+			ChildTrans->SetLocalScale(ChildTrans->GetLocalScale());
+			ChildTrans->SetLocalRotation(ChildTrans->GetLocalRotation());
+			ChildTrans->SetLocalPosition(ChildTrans->GetLocalPosition());
 		}
 	}
 
