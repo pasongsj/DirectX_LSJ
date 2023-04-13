@@ -55,9 +55,10 @@ public:
 			return nullptr;
 		}
 
-		return NamedResources[_Name];
+		return NamedResources[UpperName];
 	}
 
+	virtual void Setting() {}
 
 protected:
 	static std::shared_ptr<ResourcesType> Create(const std::string_view& _Name)
@@ -92,6 +93,7 @@ private:
 		NamedResources.clear();
 		UnNamedRes.clear();
 	}
+
 };
 
 template<typename ResourcesType>

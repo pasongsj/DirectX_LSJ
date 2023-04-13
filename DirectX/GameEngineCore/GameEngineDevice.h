@@ -1,7 +1,6 @@
 #pragma once
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
-#include <memory>
 
 // Ό³Έν :
 class GameEngineDevice
@@ -56,12 +55,6 @@ private:
 	static IDXGIAdapter* GetHighPerformanceAdapter();
 
 	static std::shared_ptr<class GameEngineRenderTarget> BackBufferTarget;
-
-	// HBITMAP
-	// static ID3D11Texture2D* BackBufferTexture;
-
-	// HDC
-	// static ID3D11RenderTargetView* RenderTarget;
 
 	// constrcuter destructer
 	GameEngineDevice();

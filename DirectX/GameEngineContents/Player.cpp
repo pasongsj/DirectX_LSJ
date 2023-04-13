@@ -105,7 +105,7 @@ void Player::Update(float _DeltaTime)
 		GetTransform()->AddLocalScale({ -ScaleSpeed * _DeltaTime, 0.0f, 0.0f });
 	}
 
-	 Render1->GetTransform()->SetWorldPosition({ 0.0f, 0.0f, 0.0f });
+	 //Render1->GetTransform()->SetWorldPosition({ 0.0f, 0.0f, 0.0f });s
 	 Render1->GetTransform()->SetWorldScale({ 100, 100, 100 });
 
 
@@ -144,8 +144,13 @@ void Player::Start()
 
 	// 나는 스케일을 1로 고정해 놓는게 좋다.
 	Render0 = CreateComponent<GameEngineRenderer>();
+	Render0->SetPipeLine("2DTexture");
 	Render1 = CreateComponent<GameEngineRenderer>();
+	Render1->SetPipeLine("2DTexture");
 	Render2 = CreateComponent<GameEngineRenderer>();
+	Render2->SetPipeLine("2DTexture");
+	
+	
 
 	Render1->GetTransform()->DebugOn();
 

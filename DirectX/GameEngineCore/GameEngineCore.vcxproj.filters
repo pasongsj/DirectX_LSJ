@@ -51,6 +51,27 @@
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="PrecompileHeader.h" />
+    <ClInclude Include="GameEngineRenderingPipeLine.h">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineShader.h">
+      <Filter>Object\Rendering\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineVertexShader.h">
+      <Filter>Object\Rendering\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineVertexBuffer.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineIndexBuffer.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineDirectBuffer.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineVertex.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineCore.cpp" />
@@ -106,6 +127,27 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="PrecompileHeader.cpp" />
+    <ClCompile Include="GameEngineRenderingPipeLine.cpp">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineShader.cpp">
+      <Filter>Object\Rendering\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineVertexShader.cpp">
+      <Filter>Object\Rendering\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineVertexBuffer.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineIndexBuffer.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineDirectBuffer.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineVertex.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -128,6 +170,9 @@
     </Filter>
     <Filter Include="Device">
       <UniqueIdentifier>{281c8b7c-e9ee-42c5-ad5f-b20af5b642aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Rendering\Shader">
+      <UniqueIdentifier>{a1635737-ad29-4cb4-b180-58dde070e5e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
