@@ -46,12 +46,12 @@ void GameEngineCore::CoreResourcesInit()
 		std::vector<GameEngineVertex> ArrVertex;
 		ArrVertex.resize(4);
 		// 앞면
-		ArrVertex[0] = { { -0.5f, 0.5f, 0.0f }, float4::Red };
+		ArrVertex[0] = { { -0.5f, 0.5f, 0.0f }, float4::Red }; // vertax의 컬러가 차이가 있다면 자동으로 인스턴싱한다.
 		ArrVertex[1] = { { 0.5f, 0.5f,0.0f }, float4::Red };
 		ArrVertex[2] = { { 0.5f, -0.5f,0.0f }, float4::Red };
 		ArrVertex[3] = { { -0.5f, -0.5f,0.0f }, float4::Red };
 
-		std::vector<UINT> ArrIndex = { 0, 1, 2, 0, 3, 2 };
+		std::vector<UINT> ArrIndex = { 0, 1, 2, 0, 2, 3 };
 
 		GameEngineVertexBuffer::Create("Rect", ArrVertex);
 		GameEngineIndexBuffer::Create("Rect", ArrIndex);
@@ -155,7 +155,7 @@ void GameEngineCore::CoreResourcesInit()
 		// 와이어 프레임은 선으로 표현하는 겁니다. 
 		Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
 		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
-		Desc.FrontCounterClockwise = TRUE;
+		Desc.FrontCounterClockwise = FALSE;
 
 		std::shared_ptr<GameEngineRasterizer> Res = GameEngineRasterizer::Create("EngineBase", Desc);
 	}
