@@ -15,12 +15,14 @@
 #include "GameEngineRenderingPipeLine.h"
 #include "GameEngineRasterizer.h"
 #include "GameEnginePixelShader.h"
+#include "GameEngineConstantBuffer.h"
 
 #include "GameEngineVertexShader.h"
 
 
 void GameEngineCore::CoreResourcesInit()
 {
+	// 버텍스 버퍼의 내용과 인풋 레이아웃의 내용이 더 중요하다.
 	GameEngineVertex::LayOut.AddInputLayOut("POSITION", DXGI_FORMAT_R32G32B32A32_FLOAT);
 	GameEngineVertex::LayOut.AddInputLayOut("COLOR", DXGI_FORMAT_R32G32B32A32_FLOAT);
 
@@ -46,10 +48,10 @@ void GameEngineCore::CoreResourcesInit()
 		std::vector<GameEngineVertex> ArrVertex;
 		ArrVertex.resize(4);
 		// 앞면
-		ArrVertex[0] = { { -0.5f, 0.5f, 0.0f }, float4::Red }; // vertax의 컬러가 차이가 있다면 자동으로 인스턴싱한다.
-		ArrVertex[1] = { { 0.5f, 0.5f,0.0f }, float4::Red };
-		ArrVertex[2] = { { 0.5f, -0.5f,0.0f }, float4::Red };
-		ArrVertex[3] = { { -0.5f, -0.5f,0.0f }, float4::Red };
+		ArrVertex[0] = { { -0.5f, 0.5f, 0.0f }, float4::Red };
+		ArrVertex[1] = { { 0.5f, 0.5f, 0.0f }, float4::Green };
+		ArrVertex[2] = { { 0.5f, -0.5f, 0.0f }, float4::Black };
+		ArrVertex[3] = { { -0.5f, -0.5f, 0.0f }, float4::White };
 
 		std::vector<UINT> ArrIndex = { 0, 1, 2, 0, 2, 3 };
 
@@ -170,18 +172,20 @@ void GameEngineCore::CoreResourcesInit()
 			Pipe->SetVertexShader("TextureShader.hlsl");
 			Pipe->SetRasterizer("EngineBase");
 			Pipe->SetPixelShader("TextureShader.hlsl");
+			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
 		}
 	}
 }
 
 void GameEngineCore::CoreResourcesEnd()
 {
-	GameEngineResource<GameEnginePixelShader>::ResourcesClear();
-	GameEngineResource<GameEngineRasterizer>::ResourcesClear();
-	GameEngineResource<GameEngineVertexShader>::ResourcesClear();
-	GameEngineResource<GameEngineIndexBuffer>::ResourcesClear();
-	GameEngineResource<GameEngineVertexBuffer>::ResourcesClear();
-	GameEngineResource<GameEngineMesh>::ResourcesClear();
-	GameEngineResource<GameEngineTexture>::ResourcesClear();
-	GameEngineResource<GameEngineRenderTarget>::ResourcesClear();
+	GameEngineConstantBuffer::ResourcesClear();
+	GameEnginePixelShader::ResourcesClear();
+	GameEngineRasterizer::ResourcesClear();
+	GameEngineVertexShader::ResourcesClear();
+	GameEngineIndexBuffer::ResourcesClear();
+	GameEngineVertexBuffer::ResourcesClear();
+	GameEngineMesh::ResourcesClear();
+	GameEngineTexture::ResourcesClear();
+	GameEngineRenderTarget::ResourcesClear();
 }
