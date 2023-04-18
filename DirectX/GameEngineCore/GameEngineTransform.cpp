@@ -4,6 +4,7 @@
 
 GameEngineTransform::GameEngineTransform()
 {
+	TransformUpdate();
 }
 
 GameEngineTransform::~GameEngineTransform()

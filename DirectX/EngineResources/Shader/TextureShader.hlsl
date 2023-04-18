@@ -1,11 +1,20 @@
 // 쉐이더를 짜게되면 다음의 규칙을 지켜야 한다.
 
+// 0~ 16번 슬롯 
+// 선언해 놨다고 쓰는게 아니에요.
+cbuffer TransformData : register(b0)
+{
+    float4x4 WorldMatrix;
+}
+
 // 어떤 정보가 들어올지 구조체로 만들어야 합니다.
 // 어디가 포지션이고 어디가 컬이고
 // 이름 마음대로
 struct Input
 {
     // 시맨틱      어떤역할을 가졌는지 
+    // 버텍스 쉐이더에다가 순서를 어떻게 해놓건 사실 그건 상관이 없어요.
+    // 중요한건 버텍스 버퍼고 
     float4 Pos   : POSITION;
     float4 Color : COLOR;
 };
@@ -18,28 +27,36 @@ struct OutPut
     float4 Color : COLOR;
 };
 
+
+// 월드뷰프로젝션
+
 OutPut Texture_VS(Input _Value)
 {
     OutPut OutPutValue = (OutPut)0;
 
-    OutPutValue.Pos = _Value.Pos;
+    _Value.Pos.w = 1.0f;
+    OutPutValue.Pos = mul(_Value.Pos, WorldMatrix);
+    // OutPutValue.Pos = _Value.Pos;
     OutPutValue.Color = _Value.Color;
 
     // 다음단계에서 사용할 정보들.
-    // _Value.Pos *= 월드뷰프로젝션;
+    // OutPutValue.Pos *= 월드뷰프로젝션;
 
     return OutPutValue;
 }
 
-struct OutColor
+cbuffer OutPixelColor : register(b0)
 {
-    // 깔아놓은 도화지중 0번째 도화지에 출력해라.
-    float4 Color : SV_Target0;
-};
+    float4 OutColor;
+}
 
-OutColor Texture_PS(OutPut _Value)
+cbuffer OutPixelColor1 : register(b1)
 {
-    OutColor ReturnColor = (OutColor)0;
-    ReturnColor.Color = _Value.Color;
-    return ReturnColor;
+    float4 OutColor1;
+}
+
+
+float4 Texture_PS(OutPut _Value) : SV_Target0
+{
+    return OutColor;
 }
