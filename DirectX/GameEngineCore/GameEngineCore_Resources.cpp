@@ -132,9 +132,8 @@ void GameEngineCore::CoreResourcesInit()
 		circleVertex.resize(3 * n);
 		circle.resize(3 * n);
 		circleIndex.resize(3 * n);
-		//SimpleVertex* vertices = malloc(sizeof(SimpleVertex) * 10 * 3); // 10 triangles, 3 verticies per triangle
-		float deltaTheta = 2 * GameEngineMath::PIE / n; // Change in theta for each vertex
 
+		float deltaTheta = 2 * GameEngineMath::PIE / n; // Change in theta for each vertex
 
 		for (int i = 0; i < n; i++) 
 		{
@@ -142,15 +141,15 @@ void GameEngineCore::CoreResourcesInit()
 			int index = 3 * i;
 	
 			circleVertex[index + 0] = float4::Zero;
-			circleVertex[index + 1] = float4{ cos(theta), sin(theta), 0 };
-			circleVertex[index + 2] = float4(cos(theta + deltaTheta), sin(theta + deltaTheta), 0);
+			circleVertex[index + 2] = float4{ cos(theta), sin(theta), 0 };
+			circleVertex[index + 1] = float4(cos(theta + deltaTheta), sin(theta + deltaTheta), 0);
 
 		}
 
 		for (int i = 0; i < 3 * n; i++)
 		{
 			circle[i] = { circleVertex[i] , float4::White };
-			circleIndex[i] = static_cast<UINT>(3 * n - i - 1);
+			circleIndex[i] = static_cast<UINT>(i);
 		}
 
 
