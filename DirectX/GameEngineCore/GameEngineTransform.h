@@ -21,7 +21,7 @@ public:
 	void SetWorldScale(const float4& _Value)
 	{
 		AbsoluteScale = true;
-		LocalScale = WorldScale = _Value;
+		//LocalScale = WorldScale = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -30,7 +30,7 @@ public:
 	void SetWorldRotation(const float4& _Value)
 	{
 		AbsoluteRotation = true;
-		LocalRotation = WorldRotation = _Value;
+		//LocalRotation = WorldRotation = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -39,7 +39,7 @@ public:
 	void SetWorldPosition(const float4& _Value)
 	{
 		AbsolutePosition = true;
-		LocalPosition = WorldPosition = _Value;
+		//LocalPosition = WorldPosition = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -51,14 +51,14 @@ public:
 		AbsoluteScale = false;
 		LocalScale = _Value;
 
-		if (nullptr == Parent)
-		{
-			WorldScale = LocalScale;
-		}
-		else
-		{
-			WorldScale = LocalScale * Parent->GetWorldMatrixRef();
-		}
+		//if (nullptr == Parent)
+		//{
+		//	WorldScale = LocalScale;
+		//}
+		//else
+		//{
+		//	WorldScale = LocalScale * Parent->GetWorldMatrixRef();
+		//}
 
 		TransformUpdate();
 		CalChild();
@@ -69,15 +69,15 @@ public:
 		AbsoluteRotation = false;
 		LocalRotation = _Value;
 
-		if (nullptr == Parent)
-		{
-			WorldRotation = LocalRotation;
-		}
-		else
-		{
-			//  180         90, 0,           90, 0, 0
-			WorldRotation = LocalRotation + Parent->GetWorldRotation();
-		}
+		//if (nullptr == Parent)
+		//{
+		//	WorldRotation = LocalRotation;
+		//}
+		//else
+		//{
+		//	//  180         90, 0,           90, 0, 0
+		//	WorldRotation = LocalRotation + Parent->GetWorldRotation();
+		//}
 
 		TransformUpdate();
 		CalChild();
@@ -88,14 +88,14 @@ public:
 		AbsolutePosition = false;
 		LocalPosition = _Value;
 
-		if (nullptr == Parent)
-		{
-			WorldPosition = LocalPosition;
-		}
-		else
-		{
-			WorldPosition = LocalPosition * Parent->GetWorldMatrixRef();
-		}
+		//if (nullptr == Parent)
+		//{
+		//	WorldPosition = LocalPosition;
+		//}
+		//else
+		//{
+		//	LocalPosition = LocalPosition * Parent->GetWorldMatrixRef();
+		//}
 
 		TransformUpdate();
 		CalChild();
@@ -162,20 +162,20 @@ public:
 	}
 
 
-	float4 GetWorldPosition()
-	{
-		return WorldPosition;
-	}
+	//float4 GetWorldPosition()
+	//{
+	//	return WorldPosition;
+	//}
 
-	float4 GetWorldScale()
-	{
-		return WorldScale;
-	}
+	//float4 GetWorldScale()
+	//{
+	//	return WorldScale;
+	//}
 
-	float4 GetWorldRotation()
-	{
-		return WorldRotation;
-	}
+	//float4 GetWorldRotation()
+	//{
+	//	return WorldRotation;
+	//}
 
 
 	float4x4 GetLocalWorldMatrix()
@@ -246,10 +246,10 @@ private:
 	Quaternion LocalQuaternion = DirectX::XMQuaternionIdentity();
 	float4 LocalPosition = float4::Zero;
 
-	float4 WorldScale = float4::One;
-	float4 WorldRotation = float4::Null;
-	Quaternion WorldQuaternion = DirectX::XMQuaternionIdentity();
-	float4 WorldPosition = float4::Zero;
+	//float4 WorldScale = float4::One;
+	//float4 WorldRotation = float4::Null;
+	//Quaternion WorldQuaternion = DirectX::XMQuaternionIdentity();
+	//float4 WorldPosition = float4::Zero;
 
 	float4x4 LocalScaleMatrix;
 	float4x4 LocalRotationMatrix;
