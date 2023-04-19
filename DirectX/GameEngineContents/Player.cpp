@@ -137,21 +137,21 @@ void Player::Start()
 		GameEngineInput::CreateKey("PlayerSpeedBoost", VK_LSHIFT);
 	}
 
+		// ¿ø
 	{
 		Render0 = CreateComponent<GameEngineRenderer>();
 		Render0->SetPipeLine("2DTextureCircle");
 		Render0->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", float4::White);
 		Render0->GetTransform()->SetLocalScale({ 50.0f, 50.0f , 50.0f });
-
 	}
 
 	 //Å¥ºê
 	{
-		//Render0 = CreateComponent<GameEngineRenderer>();
-		//Render0->SetPipeLine("3DTexture");
-		//Render0->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", float4::White);
-		//Render0->GetTransform()->SetLocalScale({ 100.0f, 100.0f , 100.0f });
-		//Render0->GetTransform()->SetLocalRotation(float4(0, 0, 0));
+		Render0 = CreateComponent<GameEngineRenderer>();
+		Render0->SetPipeLine("3DTexture");
+		Render0->GetShaderResHelper().SetConstantBufferLink("OutPixelColor", float4::White);
+		Render0->GetTransform()->SetLocalScale({ 100.0f, 100.0f , 100.0f });
+		Render0->GetTransform()->SetLocalRotation(float4(0, 0, 0));
 
 		Render1 = CreateComponent<GameEngineRenderer>();
 		Render1->SetPipeLine("3DTexture");
