@@ -17,7 +17,7 @@ void GameEngineShaderResHelper::Copy(const GameEngineShaderResHelper& _ResHelper
 
 void GameEngineConstantBufferSetter::Setting()
 {
-	Res->ChangeData(CPUData, CPUDataSize);
+	Res->ChangeData(CPUData, static_cast<UINT>(CPUDataSize));
 
 	ShaderType Type = ParentShader->GetType();
 

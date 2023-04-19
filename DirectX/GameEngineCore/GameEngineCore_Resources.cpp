@@ -61,9 +61,6 @@ void GameEngineCore::CoreResourcesInit()
 	}
 
 	{
-
-		
-
 		// 최초의 버텍스의 위치를 로컬공간이라고 부릅니다.
 		std::vector<float4> ArrVertex;
 		ArrVertex.resize(24);
@@ -123,6 +120,43 @@ void GameEngineCore::CoreResourcesInit()
 		std::string _Name = "Cube";
 		GameEngineVertexBuffer::Create(_Name, cube);
 		GameEngineIndexBuffer::Create(_Name, cubeIndex);
+
+	}
+	{
+
+		int n = 30; // number of triangles
+		std::vector<float4> circleVertex;
+		std::vector<GameEngineVertex> circle;
+		std::vector<UINT> circleIndex;
+
+		circleVertex.resize(3 * n);
+		circle.resize(3 * n);
+		circleIndex.resize(3 * n);
+		//SimpleVertex* vertices = malloc(sizeof(SimpleVertex) * 10 * 3); // 10 triangles, 3 verticies per triangle
+		float deltaTheta = 2 * GameEngineMath::PIE / n; // Change in theta for each vertex
+
+
+		for (int i = 0; i < n; i++) 
+		{
+			float theta = i * deltaTheta; // Theta is the angle for that triangle
+			int index = 3 * i;
+	
+			circleVertex[index + 0] = float4::Zero;
+			circleVertex[index + 1] = float4{ cos(theta), sin(theta), 0 };
+			circleVertex[index + 2] = float4(cos(theta + deltaTheta), sin(theta + deltaTheta), 0);
+
+		}
+
+		for (int i = 0; i < 3 * n; i++)
+		{
+			circle[i] = { circleVertex[i] , float4::White };
+			circleIndex[i] = static_cast<UINT>(3 * n - i - 1);
+		}
+
+
+		std::string _Name = "Circle";
+		GameEngineVertexBuffer::Create(_Name, circle);
+		GameEngineIndexBuffer::Create(_Name, circleIndex);
 
 	}
 
@@ -201,8 +235,6 @@ void GameEngineCore::CoreResourcesInit()
 			Pipe->SetPixelShader("TextureShader.hlsl");
 			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
 		}
-	}
-	{
 		{
 			std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("3DTexture");
 			Pipe->SetVertexBuffer("Cube");
@@ -211,8 +243,18 @@ void GameEngineCore::CoreResourcesInit()
 			Pipe->SetRasterizer("EngineBase");
 			Pipe->SetPixelShader("TextureShader.hlsl");
 			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
+		}		
+		{
+			std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTextureCircle");
+			Pipe->SetVertexBuffer("Circle");
+			Pipe->SetIndexBuffer("Circle");
+			Pipe->SetVertexShader("TextureShader.hlsl");
+			Pipe->SetRasterizer("EngineBase");
+			Pipe->SetPixelShader("TextureShader.hlsl");
+			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
 		}
 	}
+
 }
 
 void GameEngineCore::CoreResourcesEnd()
