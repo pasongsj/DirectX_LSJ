@@ -26,6 +26,9 @@ private:
 	std::shared_ptr<class GameEngineRenderer> Render0;
 	std::shared_ptr<class GameEngineRenderer> Render1;
 	std::shared_ptr<class GameEngineRenderer> Render2;
+	std::shared_ptr<class GameEngineRenderer> Render3;
+	std::shared_ptr<class GameEngineRenderer> Render4;
+	std::shared_ptr<class GameEngineRenderer> Render5;
 
 };
 

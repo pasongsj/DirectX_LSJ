@@ -60,64 +60,71 @@ void GameEngineCore::CoreResourcesInit()
 
 	}
 
-	//{
+	{
 
-	//	
+		
 
-	//	// 최초의 버텍스의 위치를 로컬공간이라고 부릅니다.
-	//	std::vector<float4> ArrVertex;
-	//	ArrVertex.resize(24);
-	//	// 앞면
-	//	ArrVertex[0] = { -0.5f, 0.5f, 0.0f  };
-	//	ArrVertex[1] = { 0.5f, 0.5f, 0.0f	};
-	//	ArrVertex[2] = { 0.5f, -0.5f, 0.0f	};
-	//	ArrVertex[3] = { -0.5f, -0.5f, 0.0f };
+		// 최초의 버텍스의 위치를 로컬공간이라고 부릅니다.
+		std::vector<float4> ArrVertex;
+		ArrVertex.resize(24);
+		// 앞면
+		ArrVertex[0] = { -0.5f, 0.5f, -0.5f };
+		ArrVertex[1] = { 0.5f, 0.5f, -0.5f };
+		ArrVertex[2] = { 0.5f, -0.5f, -0.5f };
+		ArrVertex[3] = { -0.5f, -0.5f, -0.5f };
 
-	//	// 뒷면
-	//	ArrVertex[4] = ArrVertex[0].RotaitonXDegReturn(180.0f);
-	//	ArrVertex[5] = ArrVertex[1].RotaitonXDegReturn(180.0f);
-	//	ArrVertex[6] = ArrVertex[2].RotaitonXDegReturn(180.0f);
-	//	ArrVertex[7] = ArrVertex[3].RotaitonXDegReturn(180.0f);
+		// 뒷면
+		ArrVertex[4] = ArrVertex[0].RotaitonXDegReturn(180.0f);
+		ArrVertex[5] = ArrVertex[1].RotaitonXDegReturn(180.0f);
+		ArrVertex[6] = ArrVertex[2].RotaitonXDegReturn(180.0f);
+		ArrVertex[7] = ArrVertex[3].RotaitonXDegReturn(180.0f);
 
-	//	// 왼쪽면
-	//	ArrVertex[8] = ArrVertex[0].RotaitonYDegReturn(90.0f);
-	//	ArrVertex[9] = ArrVertex[1].RotaitonYDegReturn(90.0f);
-	//	ArrVertex[10] = ArrVertex[2].RotaitonYDegReturn(90.0f);
-	//	ArrVertex[11] = ArrVertex[3].RotaitonYDegReturn(90.0f);
+		// 왼쪽면
+		ArrVertex[8] = ArrVertex[0].RotaitonYDegReturn(90.0f);
+		ArrVertex[9] = ArrVertex[1].RotaitonYDegReturn(90.0f);
+		ArrVertex[10] = ArrVertex[2].RotaitonYDegReturn(90.0f);
+		ArrVertex[11] = ArrVertex[3].RotaitonYDegReturn(90.0f);
 
-	//	// 오른쪽
-	//	ArrVertex[12] = ArrVertex[0].RotaitonYDegReturn(-90.0f);
-	//	ArrVertex[13] = ArrVertex[1].RotaitonYDegReturn(-90.0f);
-	//	ArrVertex[14] = ArrVertex[2].RotaitonYDegReturn(-90.0f);
-	//	ArrVertex[15] = ArrVertex[3].RotaitonYDegReturn(-90.0f);
+		// 오른쪽
+		ArrVertex[12] = ArrVertex[0].RotaitonYDegReturn(-90.0f);
+		ArrVertex[13] = ArrVertex[1].RotaitonYDegReturn(-90.0f);
+		ArrVertex[14] = ArrVertex[2].RotaitonYDegReturn(-90.0f);
+		ArrVertex[15] = ArrVertex[3].RotaitonYDegReturn(-90.0f);
 
-	//	ArrVertex[16] = ArrVertex[0].RotaitonXDegReturn(90.0f);
-	//	ArrVertex[17] = ArrVertex[1].RotaitonXDegReturn(90.0f);
-	//	ArrVertex[18] = ArrVertex[2].RotaitonXDegReturn(90.0f);
-	//	ArrVertex[19] = ArrVertex[3].RotaitonXDegReturn(90.0f);
+		ArrVertex[16] = ArrVertex[0].RotaitonXDegReturn(90.0f);
+		ArrVertex[17] = ArrVertex[1].RotaitonXDegReturn(90.0f);
+		ArrVertex[18] = ArrVertex[2].RotaitonXDegReturn(90.0f);
+		ArrVertex[19] = ArrVertex[3].RotaitonXDegReturn(90.0f);
 
-	//	ArrVertex[20] = ArrVertex[0].RotaitonXDegReturn(-90.0f);
-	//	ArrVertex[21] = ArrVertex[1].RotaitonXDegReturn(-90.0f);
-	//	ArrVertex[22] = ArrVertex[2].RotaitonXDegReturn(-90.0f);
-	//	ArrVertex[23] = ArrVertex[3].RotaitonXDegReturn(-90.0f);
+		ArrVertex[20] = ArrVertex[0].RotaitonXDegReturn(-90.0f);
+		ArrVertex[21] = ArrVertex[1].RotaitonXDegReturn(-90.0f);
+		ArrVertex[22] = ArrVertex[2].RotaitonXDegReturn(-90.0f);
+		ArrVertex[23] = ArrVertex[3].RotaitonXDegReturn(-90.0f);
 
-	//	std::vector<GameEngineVertex> cube;
-	//	cube.resize(4);
-	//	for (int i = 0; i < 6; i++)
-	//	{
-	//		for (int j = 0; j < 4; j++)
-	//		{
-	//			cube[j] = { ArrVertex[i * 4 + j], float4::White };
+		std::vector<GameEngineVertex> cube;
+		std::vector<UINT> cubeIndex;
+		cube.resize(24);
+		cubeIndex.resize(36);
+		for (UINT i = 0; i < 6; i++)
+		{
+			for (UINT j = 0; j < 4; j++)
+			{
+				cube[i * 4 + j] = { ArrVertex[i * 4 + j], float4::White };
 
-	//		}
-	//		std::vector<UINT> cubeIndex = { 0, 1, 2, 0, 2, 3 };
+			}
+			cubeIndex.push_back(i * 4 + 0);
+			cubeIndex.push_back(i * 4 + 1);
+			cubeIndex.push_back(i * 4 + 2);
+			cubeIndex.push_back(i * 4 + 0);
+			cubeIndex.push_back(i * 4 + 2);
+			cubeIndex.push_back(i * 4 + 3);
 
-	//		std::string _Name = "Rect" + std::to_string(i);
-	//		GameEngineVertexBuffer::Create(_Name, cube);
-	//		GameEngineIndexBuffer::Create(_Name, cubeIndex);
-	//	}
+		}
+		std::string _Name = "Cube";
+		GameEngineVertexBuffer::Create(_Name, cube);
+		GameEngineIndexBuffer::Create(_Name, cubeIndex);
 
-	//}
+	}
 
 	// 버텍스 쉐이더 컴파일
 	{
@@ -130,10 +137,6 @@ void GameEngineCore::CoreResourcesInit()
 
 		GameEngineVertexShader::Load(Files[0].GetFullPath(), "Texture_VS");
 		GameEnginePixelShader::Load(Files[0].GetFullPath(), "Texture_PS");
-
-		//for (size_t i = 0; i < Files.size(); i++)
-		//{
-		//}
 
 	}
 
@@ -193,6 +196,17 @@ void GameEngineCore::CoreResourcesInit()
 			//}
 			Pipe->SetVertexBuffer("Rect");
 			Pipe->SetIndexBuffer("Rect");
+			Pipe->SetVertexShader("TextureShader.hlsl");
+			Pipe->SetRasterizer("EngineBase");
+			Pipe->SetPixelShader("TextureShader.hlsl");
+			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
+		}
+	}
+	{
+		{
+			std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("3DTexture");
+			Pipe->SetVertexBuffer("Cube");
+			Pipe->SetIndexBuffer("Cube");
 			Pipe->SetVertexShader("TextureShader.hlsl");
 			Pipe->SetRasterizer("EngineBase");
 			Pipe->SetPixelShader("TextureShader.hlsl");
