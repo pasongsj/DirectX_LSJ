@@ -126,7 +126,8 @@ void GameEngineCamera::Update(float _DeltaTime)
 			RotMouseDir.x = Dir.y;
 			RotMouseDir.y = Dir.x;
 
-			GetTransform()->AddWorldRotation(RotMouseDir);
+			//GetTransform()->AddWorldRotation(RotMouseDir);
+			GetTransform()->AddLocalRotation(RotMouseDir);
 		}
 
 	}

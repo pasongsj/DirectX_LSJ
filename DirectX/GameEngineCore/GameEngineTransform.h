@@ -152,20 +152,20 @@ public:
 		SetLocalPosition(TransData.LocalPosition + _Value);
 	}
 
-	void AddWorldScale(const float4& _Value)
-	{
-		SetWorldScale(TransData.LocalScale + _Value);
-	}
+	//void AddWorldScale(const float4& _Value)
+	//{
+	//	SetWorldScale(TransData.LocalScale + _Value);
+	//}
 
-	void AddWorldRotation(const float4& _Value)
-	{
-		SetWorldRotation(TransData.LocalRotation + _Value);
-	}
+	//void AddWorldRotation(const float4& _Value)
+	//{
+	//	SetWorldRotation(TransData.LocalRotation + _Value);
+	//}
 
-	void AddWorldPosition(const float4& _Value)
-	{
-		SetWorldPosition(TransData.LocalPosition + _Value);
-	}
+	//void AddWorldPosition(const float4& _Value)
+	//{
+	//	SetWorldPosition(TransData.LocalPosition + _Value);
+	//}
 
 	float4 GetWorldForwardVector()
 	{
