@@ -8,26 +8,26 @@
     <ClInclude Include="GameEngineObject.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineResource.h">
-      <Filter>Resources</Filter>
+    <ClInclude Include="GameEngineActor.h">
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineComponent.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineActor.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineTransform.h">
-      <Filter>Object</Filter>
+    <ClInclude Include="GameEngineResource.h">
+      <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineCamera.h">
       <Filter>Object\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineCollision.h">
-      <Filter>Object\Collision</Filter>
+    <ClInclude Include="GameEngineTransform.h">
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineRenderer.h">
       <Filter>Object\Rendering\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineCollision.h">
+      <Filter>Object\Collision</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineUpdateObject.h">
       <Filter>Object</Filter>
@@ -54,6 +54,7 @@
     <ClInclude Include="GameEnginePixelShader.h">
       <Filter>Resources\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineEnum.h" />
     <ClInclude Include="GameEngineDirectBuffer.h">
       <Filter>Resources\Buffer</Filter>
     </ClInclude>
@@ -62,6 +63,12 @@
     </ClInclude>
     <ClInclude Include="GameEngineVertexBuffer.h">
       <Filter>Resources\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineRenderTarget.h">
+      <Filter>Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineTexture.h">
+      <Filter>Resources\Texture</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineMesh.h">
       <Filter>Resources\Mesh</Filter>
@@ -73,13 +80,7 @@
       <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineRasterizer.h">
-      <Filter>Resources\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineRenderTarget.h">
-      <Filter>Resources\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineTexture.h">
-      <Filter>Resources\Texture</Filter>
+      <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineConstantBuffer.h">
       <Filter>Resources\Buffer</Filter>
@@ -87,7 +88,6 @@
     <ClInclude Include="GameEngineShaderResHelper.h">
       <Filter>Object\Rendering\Component</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineEnum.h" />
     <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h">
       <Filter>ThirdParty\DirectXTex\Header</Filter>
     </ClInclude>
@@ -100,26 +100,26 @@
     <ClCompile Include="GameEngineObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineResource.cpp">
-      <Filter>Resources</Filter>
+    <ClCompile Include="GameEngineActor.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineComponent.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineActor.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineTransform.cpp">
-      <Filter>Object</Filter>
+    <ClCompile Include="GameEngineResource.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineCamera.cpp">
       <Filter>Object\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineCollision.cpp">
-      <Filter>Object\Collision</Filter>
+    <ClCompile Include="GameEngineTransform.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineRenderer.cpp">
       <Filter>Object\Rendering\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineCollision.cpp">
+      <Filter>Object\Collision</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineUpdateObject.cpp">
       <Filter>Object</Filter>
@@ -130,11 +130,11 @@
     <ClCompile Include="GameEngineNameObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineDevice.cpp">
-      <Filter>Device</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngineCore_Resources.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineDevice.cpp">
+      <Filter>Device</Filter>
     </ClCompile>
     <ClCompile Include="PrecompileHeader.cpp" />
     <ClCompile Include="GameEngineRenderingPipeLine.cpp">
@@ -158,6 +158,12 @@
     <ClCompile Include="GameEngineVertexBuffer.cpp">
       <Filter>Resources\Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineRenderTarget.cpp">
+      <Filter>Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineTexture.cpp">
+      <Filter>Resources\Texture</Filter>
+    </ClCompile>
     <ClCompile Include="GameEngineMesh.cpp">
       <Filter>Resources\Mesh</Filter>
     </ClCompile>
@@ -169,12 +175,6 @@
     </ClCompile>
     <ClCompile Include="GameEngineRasterizer.cpp">
       <Filter>Resources\RenderingSetting</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineRenderTarget.cpp">
-      <Filter>Resources\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineTexture.cpp">
-      <Filter>Resources\Texture</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineConstantBuffer.cpp">
       <Filter>Resources\Buffer</Filter>
@@ -194,53 +194,53 @@
       <UniqueIdentifier>{b420b215-6a8f-4fa5-bec3-c52265a46089}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object\Rendering">
-      <UniqueIdentifier>{0a63dceb-6245-49be-b59a-e31e0edd1663}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Collision">
-      <UniqueIdentifier>{ce3921ec-539c-4423-ad8d-bccfa4b07e96}</UniqueIdentifier>
+      <UniqueIdentifier>{6e970db4-fd75-4e59-8a4d-7b21615522d4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object\Rendering\Component">
-      <UniqueIdentifier>{6def4466-d24a-432b-857e-69e43f9607b0}</UniqueIdentifier>
+      <UniqueIdentifier>{f3e34708-461c-4917-b95d-a8a102a5db52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Collision">
+      <UniqueIdentifier>{3dbe9019-535c-4c9f-aa31-c8224e96e539}</UniqueIdentifier>
     </Filter>
     <Filter Include="Device">
-      <UniqueIdentifier>{281c8b7c-e9ee-42c5-ad5f-b20af5b642aa}</UniqueIdentifier>
+      <UniqueIdentifier>{912f4888-0107-43c1-a4a3-ed450b50069c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\Shader">
-      <UniqueIdentifier>{a1635737-ad29-4cb4-b180-58dde070e5e8}</UniqueIdentifier>
+      <UniqueIdentifier>{bde1d68e-2fec-4cf5-b959-c44aeb0fd9df}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\Buffer">
-      <UniqueIdentifier>{7e8e72d6-9d85-4475-b645-e7e0b324b758}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\Mesh">
-      <UniqueIdentifier>{ef092d2b-d62f-4dab-a533-2d3ee3866f3b}</UniqueIdentifier>
+      <UniqueIdentifier>{d556acda-5ce1-4dcd-822d-de021ef20113}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\Texture">
-      <UniqueIdentifier>{dd5a0228-737c-4fd4-ae93-cdb99af93dcf}</UniqueIdentifier>
+      <UniqueIdentifier>{0a70c050-d852-4563-8333-4a24134fabc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Mesh">
+      <UniqueIdentifier>{000cb8ac-71ff-46b9-ac15-26c892332f90}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\RenderingSetting">
-      <UniqueIdentifier>{853ff7c8-a6fa-4405-9ed3-2b0561a2f6b7}</UniqueIdentifier>
+      <UniqueIdentifier>{a8bf701a-f489-444e-b5dd-208bf9fa554c}</UniqueIdentifier>
     </Filter>
     <Filter Include="ThirdParty">
-      <UniqueIdentifier>{3fa2cdc6-1257-4950-b236-995e3f513426}</UniqueIdentifier>
+      <UniqueIdentifier>{62388acb-3a2b-4860-bb86-2f306dbd2b29}</UniqueIdentifier>
     </Filter>
     <Filter Include="ThirdParty\DirectXTex">
-      <UniqueIdentifier>{995c79db-8111-4f28-8ada-1bacdaca1af8}</UniqueIdentifier>
+      <UniqueIdentifier>{499d1ceb-48c3-48cf-89d6-0e062d91007a}</UniqueIdentifier>
     </Filter>
     <Filter Include="ThirdParty\DirectXTex\bin">
-      <UniqueIdentifier>{dd63a8ea-11a2-4d74-b078-46783cc6a1a7}</UniqueIdentifier>
+      <UniqueIdentifier>{50e6f3a7-94f1-4576-9bff-4e714bb6179d}</UniqueIdentifier>
     </Filter>
     <Filter Include="ThirdParty\DirectXTex\Header">
-      <UniqueIdentifier>{3eb4f496-0aab-43d1-a68b-aa0c555354de}</UniqueIdentifier>
+      <UniqueIdentifier>{409840f9-8d27-4b2c-beda-631d45461368}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl">
-      <Filter>ThirdParty\DirectXTex\Header</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ThirdParty\DirectXTex\lib\x64\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\bin</Filter>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl">
+      <Filter>ThirdParty\DirectXTex\Header</Filter>
+    </None>
   </ItemGroup>
 </Project>

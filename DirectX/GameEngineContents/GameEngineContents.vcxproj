@@ -175,10 +175,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="PrecompileHeader.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="PrecompileHeader.h" />
     <ClInclude Include="TitleLevel.h">
       <SubType>
       </SubType>
@@ -198,8 +195,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PrecompileHeader.cpp">
-      <SubType>
-      </SubType>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -209,17 +204,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">
-      <Project>{99fc0deb-3e9e-45ee-ab16-8c6c09544647}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GameEngineCore\GameEngineCore.vcxproj">
-      <Project>{9033e3d0-984e-458f-8989-ffaf39b3e5aa}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GameEnginePlatform\GameEnginePlatform.vcxproj">
-      <Project>{3d3d8a4d-8303-4733-a2f9-afe6c757a795}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
