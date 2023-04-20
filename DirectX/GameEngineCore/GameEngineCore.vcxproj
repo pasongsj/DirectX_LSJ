@@ -284,6 +284,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineActor.cpp">
@@ -419,6 +420,14 @@
     <ProjectReference Include="..\GameEnginePlatform\GameEnginePlatform.vcxproj">
       <Project>{3d3d8a4d-8303-4733-a2f9-afe6c757a795}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="ThirdParty\DirectXTex\lib\x64\DirectXTex.lib">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -57,7 +57,7 @@ public:
 	void SetWorldScale(const float4& _Value)
 	{
 		AbsoluteScale = true;
-		//LocalScale = WorldScale = _Value;
+		TransData.LocalScale = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -66,7 +66,7 @@ public:
 	void SetWorldRotation(const float4& _Value)
 	{
 		AbsoluteRotation = true;
-		//LocalRotation = WorldRotation = _Value;
+		TransData.LocalRotation = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -76,6 +76,7 @@ public:
 	{
 		AbsolutePosition = true;
 		//LocalPosition = WorldPosition = _Value;
+		TransData.LocalPosition = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -152,20 +153,20 @@ public:
 		SetLocalPosition(TransData.LocalPosition + _Value);
 	}
 
-	//void AddWorldScale(const float4& _Value)
-	//{
-	//	SetWorldScale(TransData.LocalScale + _Value);
-	//}
+	void AddWorldScale(const float4& _Value)
+	{
+		SetWorldScale(TransData.LocalScale + _Value);
+	}
 
-	//void AddWorldRotation(const float4& _Value)
-	//{
-	//	SetWorldRotation(TransData.LocalRotation + _Value);
-	//}
+	void AddWorldRotation(const float4& _Value)
+	{
+		SetWorldRotation(TransData.LocalRotation + _Value);
+	}
 
-	//void AddWorldPosition(const float4& _Value)
-	//{
-	//	SetWorldPosition(TransData.LocalPosition + _Value);
-	//}
+	void AddWorldPosition(const float4& _Value)
+	{
+		SetWorldPosition(TransData.LocalPosition + _Value);
+	}
 
 	float4 GetWorldForwardVector()
 	{
