@@ -4,12 +4,11 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
 
-
-PlayLevel::PlayLevel()
+PlayLevel::PlayLevel() 
 {
 }
 
-PlayLevel::~PlayLevel()
+PlayLevel::~PlayLevel() 
 {
 }
 
@@ -18,8 +17,8 @@ void PlayLevel::Start()
 {
 	{
 		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("ContentsResources");
-		NewDir.Move("ContentsResources");
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 
@@ -30,12 +29,14 @@ void PlayLevel::Start()
 		}
 
 		int a = 0;
-
 	}
 
-	GetMainCamera()->SetProjectionType(CameraType::Perspective);
 
-	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+
+	GetMainCamera()->SetProjectionType(CameraType::Perspective);
+	GetMainCamera()->GetTransform()->SetLocalPosition({0, 0, -1000.0f});
+
+
 
 	std::shared_ptr<Player> NewPlayer = CreateActor<Player>("Player");
 

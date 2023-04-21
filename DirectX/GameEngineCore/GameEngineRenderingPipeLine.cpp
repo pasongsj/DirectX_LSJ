@@ -8,19 +8,19 @@
 #include "GameEnginePixelShader.h"
 #include "GameEngineInputLayOut.h"
 
-GameEngineRenderingPipeLine::GameEngineRenderingPipeLine()
+GameEngineRenderingPipeLine::GameEngineRenderingPipeLine() 
 {
 	InputLayOutPtr = std::make_shared<GameEngineInputLayOut>();
 }
 
-GameEngineRenderingPipeLine::~GameEngineRenderingPipeLine()
+GameEngineRenderingPipeLine::~GameEngineRenderingPipeLine() 
 {
 }
 
 // 매쉬 + 머티리얼
 
 // 점에 대한 정보를 준비하고
-void GameEngineRenderingPipeLine::InputAssembler1()
+void GameEngineRenderingPipeLine::InputAssembler1() 
 {
 	if (nullptr == InputLayOutPtr)
 	{
@@ -58,7 +58,7 @@ void GameEngineRenderingPipeLine::VertexShader()
 }
 
 // 점의 정보를 토대로 어떤 순서로 그릴지 정하고
-void GameEngineRenderingPipeLine::InputAssembler2()
+void GameEngineRenderingPipeLine::InputAssembler2() 
 {
 	GameEngineDevice::GetContext()->IASetPrimitiveTopology(TOPOLOGY);
 
@@ -72,19 +72,19 @@ void GameEngineRenderingPipeLine::InputAssembler2()
 }
 
 // 여기서부터
-void GameEngineRenderingPipeLine::HullShader()
+void GameEngineRenderingPipeLine::HullShader() 
 {
 
 }
-void GameEngineRenderingPipeLine::Tessellator()
+void GameEngineRenderingPipeLine::Tessellator() 
 {
 
 }
-void GameEngineRenderingPipeLine::DomainShader()
+void GameEngineRenderingPipeLine::DomainShader() 
 {
 
 }
-void GameEngineRenderingPipeLine::GeometryShaeder()
+void GameEngineRenderingPipeLine::GeometryShaeder() 
 {
 
 }
@@ -94,7 +94,7 @@ void GameEngineRenderingPipeLine::GeometryShaeder()
 // 뷰포트도 곱해줍니다.
 // 화면 컬링 
 // 픽셀 건지기
-void GameEngineRenderingPipeLine::Rasterizer()
+void GameEngineRenderingPipeLine::Rasterizer() 
 {
 	if (nullptr == RasterizerPtr)
 	{
@@ -109,7 +109,7 @@ void GameEngineRenderingPipeLine::Rasterizer()
 }
 
 
-void GameEngineRenderingPipeLine::PixelShader()
+void GameEngineRenderingPipeLine::PixelShader() 
 {
 	if (nullptr == PixelShaderPtr)
 	{
@@ -122,7 +122,7 @@ void GameEngineRenderingPipeLine::PixelShader()
 
 	// GameEngineDevice::GetContext()->PSSetShader
 }
-void GameEngineRenderingPipeLine::OutputMerger()
+void GameEngineRenderingPipeLine::OutputMerger() 
 {
 	// GameEngineDevice::GetContext()->OMSetRenderTargets
 }
@@ -225,7 +225,7 @@ void GameEngineRenderingPipeLine::Render()
 	// 메쉬 <= 외형이 어떻게 보일것인가.
 	//         픽셀건져내기할 범위를 지정하는 Rasterizer
 	//         w나누기를 하고 뷰포트를 곱해서
-
+	
 	// 머티리얼 <= 색깔이 어떻게 나올것인가?
 	//             레스터라이저 + 픽셀쉐이더 + 버텍스 쉐이더
 }

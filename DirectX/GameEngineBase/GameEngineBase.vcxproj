@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{99FC0DEB-3E9E-45EE-AB16-8C6C09544647}</ProjectGuid>
+    <ProjectGuid>{a6e9bfee-96ec-4fc9-9219-12202f5126cc}</ProjectGuid>
     <RootNamespace>GameEngineBase</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -203,8 +203,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PrecompileHeader.cpp">
-      <SubType>
-      </SubType>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -249,10 +247,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="PrecompileHeader.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="PrecompileHeader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

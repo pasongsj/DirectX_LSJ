@@ -5,11 +5,11 @@
 #include "GameEngineString.h"
 
 
-GameEngineDirectory::GameEngineDirectory()
+GameEngineDirectory::GameEngineDirectory() 
 {
 }
 
-GameEngineDirectory::~GameEngineDirectory()
+GameEngineDirectory::~GameEngineDirectory() 
 {
 }
 void GameEngineDirectory::MoveParentToDirectory(const std::string_view& _String)
@@ -30,7 +30,7 @@ bool GameEngineDirectory::Move(const std::string_view& _String)
 GameEnginePath GameEngineDirectory::GetPlusFileName(const std::string_view& _String)
 {
 
-	std::string PathString = Path.GetPathToString();
+	std::string PathString = Path.GetFullPath();
 	PathString += "\\";
 	PathString += _String;
 
@@ -88,7 +88,7 @@ std::vector<GameEngineFile> GameEngineDirectory::GetAllFile(std::vector<std::str
 		std::string Path = Entry.path().string();
 		std::string Ext = Entry.path().extension().string();
 		std::string UpperExt = GameEngineString::ToUpper(Ext);
-
+		
 		bool Check = false;
 
 		for (size_t i = 0; i < UpperExts.size(); i++)

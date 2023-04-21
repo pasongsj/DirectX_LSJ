@@ -2,16 +2,16 @@
 #include "TitleLevel.h"
 #include <GameEngineBase\GameEngineDebug.h>
 
-TitleLevel::TitleLevel()
+TitleLevel::TitleLevel() 
 {
 }
 
-TitleLevel::~TitleLevel()
+TitleLevel::~TitleLevel() 
 {
 }
 
 
-void TitleLevel::Start()
+void TitleLevel::Start() 
 {
 	// TimeEvent.AddEvent(5.0f, std::bind(&TitleLevel::TestMsg, this), true);
 

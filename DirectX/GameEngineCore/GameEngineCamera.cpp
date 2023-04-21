@@ -95,7 +95,7 @@ void GameEngineCamera::Update(float _DeltaTime)
 
 		if (true == GameEngineInput::IsPress("CamMoveLeft"))
 		{
-			GetTransform()->AddLocalPosition(GetTransform()->GetWorldLeftVector() * Speed * _DeltaTime);
+			GetTransform()->AddLocalPosition(GetTransform()->GetWorldLeftVector()* Speed * _DeltaTime);
 		}
 		if (true == GameEngineInput::IsPress("CamMoveRight"))
 		{
@@ -127,7 +127,6 @@ void GameEngineCamera::Update(float _DeltaTime)
 			RotMouseDir.y = Dir.x;
 
 			GetTransform()->AddWorldRotation(RotMouseDir);
-			//GetTransform()->AddLocalRotation(RotMouseDir);
 		}
 
 	}

@@ -1,11 +1,11 @@
 #include "PrecompileHeader.h"
 #include "GameEngineRenderTarget.h"
 
-GameEngineRenderTarget::GameEngineRenderTarget()
+GameEngineRenderTarget::GameEngineRenderTarget() 
 {
 }
 
-GameEngineRenderTarget::~GameEngineRenderTarget()
+GameEngineRenderTarget::~GameEngineRenderTarget() 
 {
 }
 
@@ -28,7 +28,7 @@ void GameEngineRenderTarget::Clear()
 	GameEngineDevice::GetContext()->ClearRenderTargetView(RTV, Color.Arr1D);
 }
 
-void GameEngineRenderTarget::Setting()
+void GameEngineRenderTarget::Setting() 
 {
 	ID3D11RenderTargetView* RTV = Texture->GetRTV();
 

@@ -3,12 +3,12 @@
 #include "GameEngineActor.h"
 #include "GameEngineCamera.h"
 
-GameEngineLevel::GameEngineLevel()
+GameEngineLevel::GameEngineLevel() 
 {
 	MainCamera = CreateActor<GameEngineCamera>();
 }
 
-GameEngineLevel::~GameEngineLevel()
+GameEngineLevel::~GameEngineLevel() 
 {
 }
 
@@ -20,7 +20,7 @@ void GameEngineLevel::Start()
 
 }
 
-void GameEngineLevel::Update(float _DeltaTime)
+void GameEngineLevel::Update(float _DeltaTime) 
 {
 	if (true == MainCamera->IsFreeCamera())
 	{
@@ -42,7 +42,7 @@ void GameEngineLevel::Update(float _DeltaTime)
 	}
 }
 
-void GameEngineLevel::Render(float _DeltaTime)
+void GameEngineLevel::Render(float _DeltaTime) 
 {
 	GetMainCamera()->Setting();
 

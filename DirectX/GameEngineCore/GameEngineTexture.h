@@ -2,12 +2,11 @@
 #include "GameEngineResource.h"
 #include <GameEngineCore/ThirdParty/DirectXTex/inc/DirectXTex.h>
 
-#pragma comment(lib, "DirectXTex.lib")
-
 // Ό³Έν :
 class GameEngineTexture : public GameEngineResource<GameEngineTexture>
 {
 	friend GameEngineDevice;
+	friend class GameEngineTextureSetter;
 
 public:
 	// constrcuter destructer
@@ -26,7 +25,7 @@ public:
 		return Load(_Path, NewPath.GetFileName());
 	}
 
-	static std::shared_ptr<GameEngineTexture> Load(const std::string_view& _Path, const std::string_view& _Name)
+	static std::shared_ptr<GameEngineTexture> Load(const std::string_view& _Path, const std::string_view& _Name) 
 	{
 		std::shared_ptr<GameEngineTexture> NewTexture = GameEngineResource::Create(_Name);
 		NewTexture->ResLoad(_Path);
@@ -46,16 +45,22 @@ public:
 		return NewTexture;
 	}
 
-	ID3D11RenderTargetView* GetRTV()
+	ID3D11RenderTargetView* GetRTV() 
 	{
-		return RenderTarget;
+		return RTV;
 	}
+
+
 
 protected:
 
 private:
 	ID3D11Texture2D* Texture2D = nullptr;
-	ID3D11RenderTargetView* RenderTarget = nullptr;
+	ID3D11RenderTargetView* RTV = nullptr;
+	ID3D11ShaderResourceView* SRV = nullptr;
+
+	DirectX::TexMetadata Data;
+	DirectX::ScratchImage Image;
 
 	void ResLoad(const std::string_view& _Path);
 
@@ -63,5 +68,7 @@ private:
 
 	void CreateRenderTargetView();
 
+	void VSSetting(UINT _Slot);
+	void PSSetting(UINT _Slot);
 };
 

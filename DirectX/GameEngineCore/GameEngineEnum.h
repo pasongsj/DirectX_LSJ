@@ -7,7 +7,6 @@ enum class ShaderType
 	Pixel,
 };
 
-
 enum class CameraType
 {
 	None,

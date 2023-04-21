@@ -6,7 +6,7 @@
 class GameEngineTimeEvent
 {
 public:
-	class TimeEvent
+	class TimeEvent 
 	{
 		friend GameEngineTimeEvent;
 

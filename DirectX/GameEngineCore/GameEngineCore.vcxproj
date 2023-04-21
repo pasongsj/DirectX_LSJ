@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{9033E3D0-984E-458F-8989-FFAF39B3E5AA}</ProjectGuid>
+    <ProjectGuid>{4fcb06a4-36bc-495f-8a16-1c25998007a2}</ProjectGuid>
     <RootNamespace>GameEngineCore</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -196,10 +196,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEngineIndexBuffer.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="GameEngineIndexBuffer.h" />
     <ClInclude Include="GameEngineInputLayOut.h">
       <SubType>
       </SubType>
@@ -224,10 +221,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEnginePixelShader.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="GameEnginePixelShader.h" />
     <ClInclude Include="GameEngineRasterizer.h">
       <SubType>
       </SubType>
@@ -245,6 +239,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GameEngineResource.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineSampler.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -280,10 +278,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="PrecompileHeader.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="PrecompileHeader.h" />
     <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h" />
   </ItemGroup>
   <ItemGroup>
@@ -320,10 +315,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GameEngineIndexBuffer.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="GameEngineIndexBuffer.cpp" />
     <ClCompile Include="GameEngineInputLayOut.cpp">
       <SubType>
       </SubType>
@@ -348,10 +340,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GameEnginePixelShader.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="GameEnginePixelShader.cpp" />
     <ClCompile Include="GameEngineRasterizer.cpp">
       <SubType>
       </SubType>
@@ -369,6 +358,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineResource.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineSampler.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -405,8 +398,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PrecompileHeader.cpp">
-      <SubType>
-      </SubType>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -414,20 +405,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">
-      <Project>{99fc0deb-3e9e-45ee-ab16-8c6c09544647}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GameEnginePlatform\GameEnginePlatform.vcxproj">
-      <Project>{3d3d8a4d-8303-4733-a2f9-afe6c757a795}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="ThirdParty\DirectXTex\lib\x64\DirectXTex.lib">
+    <None Include="ThirdParty\DirectXTex\lib\x64\Debug\DirectXTex.lib">
       <FileType>Document</FileType>
-    </CopyFileToFolders>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ThirdParty\DirectXTex\lib\x64\Release\DirectXTex.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

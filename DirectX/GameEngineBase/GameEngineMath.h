@@ -63,7 +63,7 @@ public:
 		return float4(cosf(_Rad), sinf(_Rad), 0.0f, 1.0f);
 	}
 
-	static float GetAngleVectorToVectorDeg(const float4& _Left, const float4& _Right)
+	static float GetAngleVectorToVectorDeg(const float4& _Left, const float4& _Right) 
 	{
 		return GetAngleVectorToVectorRad(_Left, _Right) * GameEngineMath::RadToDeg;
 	}
@@ -122,7 +122,7 @@ public:
 		};
 
 		float Arr1D[4];
-
+		
 
 		// 윈도우 지원 수학연산 가속(SIMD연산)을 사용하기 위한 다이렉트가 제공해주는 벡터
 		// 32비트에서는 simd연산을 사용할수 없다.
@@ -134,6 +134,7 @@ public:
 	float4()
 		: x(0.0f), y(0.0f), z(0.0f), w(1.0f)
 	{
+
 	}
 
 	float4(float _x, float _y)
@@ -174,17 +175,17 @@ public:
 		return static_cast<int>(x);
 	}
 
-	int iy() const
+	int iy() const 
 	{
 		return static_cast<int>(y);
 	}
 
-	int iz() const
+	int iz() const 
 	{
 		return static_cast<int>(z);
 	}
 
-	int iw() const
+	int iw() const 
 	{
 		return static_cast<int>(w);
 	}
@@ -271,7 +272,7 @@ public:
 		return static_cast<unsigned int>(w * 0.5f);
 	}
 
-	float GetAnagleDegZ()
+	float GetAnagleDegZ() 
 	{
 		return GetAnagleRadZ() * GameEngineMath::RadToDeg;
 	}
@@ -318,7 +319,7 @@ public:
 		AngleCheck.Normalize();
 		// functon(1) == 50; 1을 50으로 바꾸는 함수
 		// afuncton(50) == 1; 50이 1로 바꿔주는 함수라고도 할수 있지만 functon에 들어갔던 인자값을 알아내는 함수라고도 할수 있죠? <= 역함수
-
+		
 		// cosf(각도);
 
 		float Result = acosf(AngleCheck.x);
@@ -331,14 +332,14 @@ public:
 
 	}
 
-	POINT ToWindowPOINT()
+	POINT ToWindowPOINT() 
 	{
 		return POINT(ix(), iy());
 	}
 
 	float4 half() const
 	{
-		return { x * 0.5f,y * 0.5f,z * 0.5f,w };
+		return {x * 0.5f,y * 0.5f,z * 0.5f,w};
 	}
 
 	bool IsZero() const
@@ -349,12 +350,12 @@ public:
 	float Size() const
 	{
 		// 완벽
-		return sqrtf(x * x + y * y + z * z);
+		return sqrtf(x * x + y * y+ z * z);
 	}
 
 	// 2, 0
 	// 0, 2
-	void Normalize()
+	void Normalize() 
 	{
 		DirectVector = DirectX::XMVector3Normalize(*this);
 
@@ -402,7 +403,7 @@ public:
 
 	float4 operator *(const float _Value) const
 	{
-		return DirectX::XMVectorMultiply(*this, float4{ _Value , _Value , _Value , 1.0f });
+		return DirectX::XMVectorMultiply(*this, float4{ _Value , _Value , _Value , 1.0f});
 		//float4 Return;
 		//Return.x = x * _Value;
 		//Return.y = y * _Value;
@@ -470,10 +471,10 @@ public:
 
 	float4 operator -() const
 	{
-		return { -x, -y, -z, w };
+		return {-x, -y, -z, w};
 	}
 
-	float4& operator +=(const float4& _Other)
+	float4& operator +=(const float4& _Other) 
 	{
 		*this = *this + _Other;
 		return *this;
@@ -528,7 +529,7 @@ public:
 	float4 operator*(const class float4x4& _Other);
 	float4& operator*=(const class float4x4& _Other);
 
-	std::string ToString()
+	std::string ToString() 
 	{
 		char ArrReturn[256];
 
@@ -564,7 +565,7 @@ public:
 
 	float4 LeftTop() const
 	{
-		return float4{ Left(), Top() };
+		return float4{Left(), Top()};
 	}
 	float4 RightTop() const
 	{
@@ -622,7 +623,7 @@ public:
 
 	void Identity()
 	{
-
+		
 		DirectMatrix = DirectX::XMMatrixIdentity();
 
 		/*memset(Arr1D, 0, sizeof(float) * 16);
@@ -670,7 +671,6 @@ public:
 
 		DirectMatrix = DirectX::XMMatrixOrthographicLH(_ScreenWidth, _ScreenHeight, _NearZ, _FarZ);
 	}
-
 
 	//            화면의 너비
 	void ViewPort(float _Width, float _Height, float _Left, float _Right, float _ZMin = 0.0f, float _ZMax = 1.0f)
@@ -756,7 +756,7 @@ public:
 	}
 
 	// 전치 행렬이라고 부르는행려
-	void Transpose()
+	void Transpose() 
 	{
 		// 0   , 0, -1
 		// 100 , 1,  0
@@ -827,7 +827,7 @@ public:
 		//Arr2D[3][2] = _Value.z;
 	}
 
-	void RotationDegToXYZ(const float4& _Deg)
+	void RotationDegToXYZ(const float4& _Deg) 
 	{
 		float4 Rot = _Deg * GameEngineMath::DegToRad;
 
@@ -858,7 +858,7 @@ public:
 
 		// *this = RotX * RotY * RotZ;
 
-		float4 Rot = _Deg * GameEngineMath::DegToRad;
+		float4 Rot = _Deg* GameEngineMath::DegToRad;
 
 		// DirectX::XMQuaternionRotationMatrix()
 
@@ -918,7 +918,7 @@ public:
 		//Arr2D[1][1] = cosf(_Rad);
 	}
 
-
+	
 	float4x4 operator*(const float4x4& _Other)
 	{
 		//  0   0   0   0			   		  0   0   0   0	    0   0   0   0
@@ -946,7 +946,7 @@ public:
 		return Return;
 	}
 
-	float4x4& operator*=(const float4x4& _Other)
+	float4x4& operator*=(const float4x4& _Other) 
 	{
 		// *this = *this * _Other;
 
@@ -956,7 +956,7 @@ public:
 	}
 
 	// w 가 0인 곱하기
-	float4 TransformNormal(const float4& _Value)
+	float4 TransformNormal(const float4& _Value) 
 	{
 		return DirectX::XMVector3TransformNormal(_Value, *this);
 	}
@@ -981,7 +981,7 @@ public:
 	float4x4(DirectX::FXMMATRIX _DirectMatrix)
 		: DirectMatrix(_DirectMatrix)
 	{
-
+		
 	}
 
 	float4x4(float4 _x, float4 _y, float4 _z, float4 _w)

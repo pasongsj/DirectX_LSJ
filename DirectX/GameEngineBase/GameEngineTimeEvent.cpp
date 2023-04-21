@@ -1,11 +1,11 @@
 #include "PrecompileHeader.h"
 #include "GameEngineTimeEvent.h"
 
-GameEngineTimeEvent::GameEngineTimeEvent()
+GameEngineTimeEvent::GameEngineTimeEvent() 
 {
 }
 
-GameEngineTimeEvent::~GameEngineTimeEvent()
+GameEngineTimeEvent::~GameEngineTimeEvent() 
 {
 }
 

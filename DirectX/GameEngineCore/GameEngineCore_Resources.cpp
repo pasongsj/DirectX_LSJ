@@ -22,9 +22,24 @@
 
 void GameEngineCore::CoreResourcesInit()
 {
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("EngineResources");
+		NewDir.Move("EngineResources");
+
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+
+
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
+		}
+	}
+
+
 	// 버텍스 버퍼의 내용과 인풋 레이아웃의 내용이 더 중요하다.
 	GameEngineVertex::LayOut.AddInputLayOut("POSITION", DXGI_FORMAT_R32G32B32A32_FLOAT);
-	GameEngineVertex::LayOut.AddInputLayOut("COLOR", DXGI_FORMAT_R32G32B32A32_FLOAT);
+	GameEngineVertex::LayOut.AddInputLayOut("TEXCOORD", DXGI_FORMAT_R32G32B32A32_FLOAT);
 
 	//typedef struct D3D11_INPUT_ELEMENT_DESC
 	//{
@@ -45,15 +60,37 @@ void GameEngineCore::CoreResourcesInit()
 	//ID3D11InputLayout** ppInputLayout // 만들어져 나오는 포인터
 
 	{
+		D3D11_SAMPLER_DESC SamperData = {};
+
+		// 
+
+		SamperData.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+		SamperData.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+		SamperData.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+		// 텍스처가 멀리있을때 뭉갤꺼냐
+		// 안뭉갠다.
+		SamperData.MipLODBias = 0.0f;
+		SamperData.MaxAnisotropy = 1;
+		SamperData.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+		SamperData.MinLOD = -FLT_MAX;
+		SamperData.MaxLOD = FLT_MAX;
+
+		GameEngineSampler::Create("CLAMPSAMPLER", SamperData);
+	}
+
+	{
 		std::vector<GameEngineVertex> ArrVertex;
 		ArrVertex.resize(4);
-		// 앞면
-		ArrVertex[0] = { { -0.5f, 0.5f, 0.0f }, float4::Red };
-		ArrVertex[1] = { { 0.5f, 0.5f, 0.0f }, float4::Green };
-		ArrVertex[2] = { { 0.5f, -0.5f, 0.0f }, float4::Black };
-		ArrVertex[3] = { { -0.5f, -0.5f, 0.0f }, float4::White };
 
-		std::vector<UINT> ArrIndex = { 0, 1, 2, 0, 2, 3 };
+		// 0   1
+		// 3   2
+		// 앞면
+		ArrVertex[0] = { { -0.5f, 0.5f, 0.0f }, {0.0f, 0.0f} };
+		ArrVertex[1] = { { 0.5f, 0.5f, 0.0f }, {1.0f, 0.0f} };
+		ArrVertex[2] = { { 0.5f, -0.5f, 0.0f }, {1.0f, 1.0f} };
+		ArrVertex[3] = { { -0.5f, -0.5f, 0.0f }, {0.0f, 1.0f} };
+
+		std::vector<UINT> ArrIndex = {0, 1, 2, 0, 2, 3};
 
 		GameEngineVertexBuffer::Create("Rect", ArrVertex);
 		GameEngineIndexBuffer::Create("Rect", ArrIndex);
@@ -122,6 +159,7 @@ void GameEngineCore::CoreResourcesInit()
 		GameEngineIndexBuffer::Create(_Name, cubeIndex);
 
 	}
+
 	{
 
 		int n = 30; // number of triangles
@@ -135,11 +173,11 @@ void GameEngineCore::CoreResourcesInit()
 
 		float deltaTheta = 2 * GameEngineMath::PIE / n; // Change in theta for each vertex
 
-		for (int i = 0; i < n; i++) 
+		for (int i = 0; i < n; i++)
 		{
 			float theta = i * deltaTheta; // Theta is the angle for that triangle
 			int index = 3 * i;
-	
+
 			circleVertex[index + 0] = float4::Zero;
 			circleVertex[index + 2] = float4{ cos(theta), sin(theta), 0 };
 			circleVertex[index + 1] = float4(cos(theta + deltaTheta), sin(theta + deltaTheta), 0);
@@ -166,10 +204,14 @@ void GameEngineCore::CoreResourcesInit()
 		NewDir.Move("EngineResources");
 		NewDir.Move("Shader");
 
-		std::vector<GameEngineFile> Files = NewDir.GetAllFile({ ".hlsl", ".fx" });
+		std::vector<GameEngineFile> Files = NewDir.GetAllFile({ ".hlsl", ".fx"});
 
 		GameEngineVertexShader::Load(Files[0].GetFullPath(), "Texture_VS");
 		GameEnginePixelShader::Load(Files[0].GetFullPath(), "Texture_PS");
+
+		//for (size_t i = 0; i < Files.size(); i++)
+		//{
+		//}
 
 	}
 
@@ -221,12 +263,7 @@ void GameEngineCore::CoreResourcesInit()
 	{
 		{
 			std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTexture");
-			//for (int i = 0; i < 6; i++) {
-			//	std::string _BufferName = "Rect" + std::to_string(i);
-			//	Pipe->SetVertexBuffer(_BufferName);
-			//	Pipe->SetIndexBuffer(_BufferName);
 
-			//}
 			Pipe->SetVertexBuffer("Rect");
 			Pipe->SetIndexBuffer("Rect");
 			Pipe->SetVertexShader("TextureShader.hlsl");
@@ -234,26 +271,25 @@ void GameEngineCore::CoreResourcesInit()
 			Pipe->SetPixelShader("TextureShader.hlsl");
 			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
 		}
-		{
-			std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("3DTexture");
-			Pipe->SetVertexBuffer("Cube");
-			Pipe->SetIndexBuffer("Cube");
-			Pipe->SetVertexShader("TextureShader.hlsl");
-			Pipe->SetRasterizer("EngineBase");
-			Pipe->SetPixelShader("TextureShader.hlsl");
-			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
-		}		
-		{
-			std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTextureCircle");
-			Pipe->SetVertexBuffer("Circle");
-			Pipe->SetIndexBuffer("Circle");
-			Pipe->SetVertexShader("TextureShader.hlsl");
-			Pipe->SetRasterizer("EngineBase");
-			Pipe->SetPixelShader("TextureShader.hlsl");
-			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
-		}
 	}
-
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("3DTexture");
+		Pipe->SetVertexBuffer("Cube");
+		Pipe->SetIndexBuffer("Cube");
+		Pipe->SetVertexShader("TextureShader.hlsl");
+		Pipe->SetRasterizer("EngineBase");
+		Pipe->SetPixelShader("TextureShader.hlsl");
+		// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
+	}
+	{
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTextureCircle");
+		Pipe->SetVertexBuffer("Circle");
+		Pipe->SetIndexBuffer("Circle");
+		Pipe->SetVertexShader("TextureShader.hlsl");
+		Pipe->SetRasterizer("EngineBase");
+		Pipe->SetPixelShader("TextureShader.hlsl");
+		// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
+	}
 }
 
 void GameEngineCore::CoreResourcesEnd()
