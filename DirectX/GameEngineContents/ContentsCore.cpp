@@ -3,6 +3,7 @@
 #include <GameEngineCore\GameEngineCore.h>
 #include "PlayLevel.h"
 #include "TitleLevel.h"
+#include "TestLevel.h"
 
 ContentsCore::ContentsCore() 
 {
@@ -19,8 +20,9 @@ void ContentsCore::GameStart()
 	new int();
 
 	GameEngineCore::CreateLevel<TitleLevel>();
-	GameEngineCore::CreateLevel<PlayLevel>();
-	GameEngineCore::ChangeLevel("PlayLevel");
+	//GameEngineCore::CreateLevel<PlayLevel>();
+	GameEngineCore::CreateLevel<TestLevel>();
+	GameEngineCore::ChangeLevel("TestLevel");
 }
 
 void ContentsCore::GameEnd() 
