@@ -4,6 +4,7 @@
 #include <GameEnginePlatform\GameEngineWindow.h>
 #include <GameEnginePlatform\GameEngineSound.h>
 #include "GameEngineResource.h"
+#include "GameEngineShaderResHelper.h"
 
 #include "GameEngineVertex.h"
 
@@ -38,6 +39,7 @@ void GameEngineCore::CoreResourcesInit()
 
 
 	// 버텍스 버퍼의 내용과 인풋 레이아웃의 내용이 더 중요하다.
+	// 내 점은 이러한 구조를 가지고 있어 라는 의미
 	GameEngineVertex::LayOut.AddInputLayOut("POSITION", DXGI_FORMAT_R32G32B32A32_FLOAT);
 	GameEngineVertex::LayOut.AddInputLayOut("TEXCOORD", DXGI_FORMAT_R32G32B32A32_FLOAT);
 
@@ -76,6 +78,25 @@ void GameEngineCore::CoreResourcesInit()
 		SamperData.MaxLOD = FLT_MAX;
 
 		GameEngineSampler::Create("CLAMPSAMPLER", SamperData);
+	}
+
+	{
+		D3D11_SAMPLER_DESC SamperData = {};
+
+		// 
+
+		SamperData.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		SamperData.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		SamperData.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		// 텍스처가 멀리있을때 뭉갤꺼냐
+		// 안뭉갠다.
+		SamperData.MipLODBias = 0.0f;
+		SamperData.MaxAnisotropy = 1;
+		SamperData.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+		SamperData.MinLOD = -FLT_MAX;
+		SamperData.MaxLOD = FLT_MAX;
+
+		GameEngineSampler::Create("WRAPSAMPLER", SamperData);
 	}
 
 	{
@@ -206,7 +227,8 @@ void GameEngineCore::CoreResourcesInit()
 
 		std::vector<GameEngineFile> Files = NewDir.GetAllFile({ ".hlsl", ".fx"});
 
-		GameEngineVertexShader::Load(Files[0].GetFullPath(), "Texture_VS");
+		std::shared_ptr<GameEngineVertexShader> VertexShader = GameEngineVertexShader::Load(Files[0].GetFullPath(), "Texture_VS");
+		//GameEngineVertexShader::Load(Files[0].GetFullPath(), "Texture_VS");
 		GameEnginePixelShader::Load(Files[0].GetFullPath(), "Texture_PS");
 
 		//for (size_t i = 0; i < Files.size(); i++)
@@ -252,7 +274,7 @@ void GameEngineCore::CoreResourcesInit()
 		// FALSE 인 경우에만 적용됩니다 . 이 멤버에 대한 자세한 내용은 비고를 참조하세요.
 
 		// 와이어 프레임은 선으로 표현하는 겁니다. 
-		Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+		//Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
 		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
 		Desc.FrontCounterClockwise = FALSE;
 

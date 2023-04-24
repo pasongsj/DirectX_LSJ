@@ -60,7 +60,6 @@ void GameEngineRenderingPipeLine::VertexShader()
 // 점의 정보를 토대로 어떤 순서로 그릴지 정하고
 void GameEngineRenderingPipeLine::InputAssembler2() 
 {
-	GameEngineDevice::GetContext()->IASetPrimitiveTopology(TOPOLOGY);
 
 	if (nullptr == IndexBufferPtr)
 	{
@@ -69,6 +68,7 @@ void GameEngineRenderingPipeLine::InputAssembler2()
 	}
 
 	IndexBufferPtr->Setting();
+	GameEngineDevice::GetContext()->IASetPrimitiveTopology(TOPOLOGY);
 }
 
 // 여기서부터
@@ -201,7 +201,7 @@ void GameEngineRenderingPipeLine::SetRasterizer(const std::string_view& _Value)
 }
 
 // 매쉬 + 머티리얼
-void GameEngineRenderingPipeLine::Render()
+void GameEngineRenderingPipeLine::RenderingPipeLineSetting()
 {
 	// 랜더라고 하는 부분은 랜더링 파이프라인을 한바뀌 돌리는 것.
 	InputAssembler1();
@@ -216,7 +216,10 @@ void GameEngineRenderingPipeLine::Render()
 	OutputMerger();
 
 	// GameEngineDevice::GetContext()->VSSetConstantBuffers()
+}
 
+void GameEngineRenderingPipeLine::Render()
+{
 	UINT IndexCount = IndexBufferPtr->GetIndexCount();
 	GameEngineDevice::GetContext()->DrawIndexed(IndexCount, 0, 0);
 

@@ -35,6 +35,8 @@ void GameEngineRenderer::Render(float _Delta)
 	// GameEngineDevice::GetContext()->VSSetConstantBuffers();
 	// GameEngineDevice::GetContext()->PSSetConstantBuffers();
 
+	Pipe->RenderingPipeLineSetting();
+
 	// 텍스처 세팅 상수버퍼 세팅 이런것들이 전부다 처리 된다.
 	ShaderResHelper.Setting();
 
