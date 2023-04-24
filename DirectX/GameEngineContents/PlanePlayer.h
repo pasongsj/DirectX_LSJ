@@ -1,6 +1,16 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+enum class PlanePlayerState
+{
+	IDLE,
+	MOVE, // Move up, down
+	INTRO,
+	IDLE_DMGED,
+	MOVE_DMGED,
+};
+
+
 // Ό³Έν :
 class PlanePlayer : public GameEngineActor
 {
