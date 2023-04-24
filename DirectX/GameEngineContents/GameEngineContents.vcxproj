@@ -163,7 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="PlanePlayer.h">
+    <ClInclude Include="PlayerAirPlaneMode.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -194,7 +194,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PlanePlayer.cpp">
+    <ClCompile Include="PlayerAirPlaneMode.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -210,6 +210,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerAirPlaneModeFSM.cpp" />
     <ClCompile Include="PlayLevel.cpp">
       <SubType>
       </SubType>

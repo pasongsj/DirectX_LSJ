@@ -6,6 +6,7 @@
 #include "GameEngineVertexShader.h"
 #include "GameEngineRasterizer.h"
 #include "GameEnginePixelShader.h"
+#include "GameEngineBlend.h"
 #include "GameEngineInputLayOut.h"
 
 GameEngineRenderingPipeLine::GameEngineRenderingPipeLine() 
@@ -124,6 +125,16 @@ void GameEngineRenderingPipeLine::PixelShader()
 }
 void GameEngineRenderingPipeLine::OutputMerger() 
 {
+	if (nullptr == BlendPtr)
+	{
+		MsgAssert("블랜드가 존재하지 않아 아웃풋 머저 과정을 완료할수가 없습니다.");
+		return;
+	}
+
+
+	BlendPtr->Setting();
+
+
 	// GameEngineDevice::GetContext()->OMSetRenderTargets
 }
 
@@ -199,6 +210,19 @@ void GameEngineRenderingPipeLine::SetRasterizer(const std::string_view& _Value)
 		MsgAssert("존재하지 않는 레스터라이저를 사용하려고 했습니다.");
 	}
 }
+
+void GameEngineRenderingPipeLine::SetBlend(const std::string_view& _Value)
+{
+	std::string UpperName = GameEngineString::ToUpper(_Value);
+	BlendPtr = GameEngineBlend::Find(UpperName);
+
+	if (nullptr == BlendPtr)
+	{
+		MsgAssert("존재하지 않는 블랜드를 세팅하려고 했습니다.");
+		return;
+	}
+}
+
 
 // 매쉬 + 머티리얼
 void GameEngineRenderingPipeLine::RenderingPipeLineSetting()

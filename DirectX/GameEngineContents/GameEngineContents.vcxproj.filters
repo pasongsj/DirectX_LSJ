@@ -15,7 +15,7 @@
     <ClInclude Include="HildaBergLevel.h">
       <Filter>Levels</Filter>
     </ClInclude>
-    <ClInclude Include="PlanePlayer.h">
+    <ClInclude Include="PlayerAirPlaneMode.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="TestLevel.h">
@@ -37,11 +37,14 @@
     <ClCompile Include="HildaBergLevel.cpp">
       <Filter>Levels</Filter>
     </ClCompile>
-    <ClCompile Include="PlanePlayer.cpp">
+    <ClCompile Include="PlayerAirPlaneMode.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="TestLevel.cpp">
       <Filter>Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAirPlaneModeFSM.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

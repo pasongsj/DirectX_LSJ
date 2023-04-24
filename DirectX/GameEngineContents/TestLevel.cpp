@@ -1,6 +1,6 @@
 #include "PrecompileHeader.h"
 #include "TestLevel.h"
-#include "PlanePlayer.h"
+#include "PlayerAirPlaneMode.h"
 
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
@@ -41,7 +41,7 @@ void TestLevel::Start()
 
 
 
-	std::shared_ptr<PlanePlayer> NewPlayer = CreateActor<PlanePlayer>("AirPlanePlayer");
+	std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>("PlayerAirPlaneMode");
 
 
 }
