@@ -77,26 +77,36 @@ void PlayerAirPlaneMode::Start()
 
 void PlayerAirPlaneMode::Update(float _DeltaTime)
 {
+	CheckInput();
 	MoveUpdate(_DeltaTime);
+	UpdateState(_DeltaTime);
 }
 
 void PlayerAirPlaneMode::MoveUpdate(float _DeltaTime)
 {
+	GetTransform()->AddLocalPosition(MoveVec * MoveSpeed * _DeltaTime);
+	MoveVec = float4::Zero;
+}
+
+void PlayerAirPlaneMode::CheckInput()
+{
 	if (true == GameEngineInput::IsPress("PlayerMoveLeft"))
 	{
-		GetTransform()->AddLocalPosition(float4::Left * MoveSpeed * _DeltaTime);
+		MoveVec += float4::Left;
 	}
 	if (true == GameEngineInput::IsPress("PlayerMoveRight"))
 	{
-		GetTransform()->AddLocalPosition(float4::Right * MoveSpeed * _DeltaTime);
+		MoveVec += float4::Right;
 	}
 	if (true == GameEngineInput::IsPress("PlayerMoveUp"))
 	{
-		GetTransform()->AddLocalPosition(float4::Up * MoveSpeed * _DeltaTime);
+		MoveVec += float4::Up;
+		NextState = PlayerAirPlaneModeState::MOVE_UP;
 	}
 	if (true == GameEngineInput::IsPress("PlayerMoveDown"))
 	{
-		GetTransform()->AddLocalPosition(float4::Down * MoveSpeed * _DeltaTime);
+		MoveVec += float4::Down;
+		NextState = PlayerAirPlaneModeState::MOVE_DOWN;
 	}
 }
 
@@ -110,10 +120,19 @@ void PlayerAirPlaneMode::UpdateState(float _DeltaTime)
 	if (CurState != NextState)
 	{
 		// CurState에 대한 ending
+		EndFuncPtr[static_cast<int>(CurState)]();
+
 		// NextState에 대한 Start
+		StartFuncPtr[static_cast<int>(NextState)]();
+
+		// State변경
 		CurState = NextState;
 	}
-	
 
-	// CurState에 대한 Update
+	if (true == isStartAnimationDone)
+	{
+		// CurState에 대한 Update
+		UpdateFuncPtr[static_cast<int>(CurState)](_DeltaTime);
+	}
+
 }

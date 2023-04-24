@@ -36,6 +36,8 @@ protected:
 private:
 
 	float  MoveSpeed = 500.0f;
+	float4 MoveVec = float4::Zero;
+
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerRender = nullptr;
 
 	PlayerAirPlaneModeState CurState = PlayerAirPlaneModeState::INTRO;
@@ -44,6 +46,8 @@ private:
 	void MoveUpdate(float _DeltaTime);
 
 	void UpdateState(float _DeltaTime);
+
+	void CheckInput();
 
 
 	// fsm 에 대한 함수
@@ -77,6 +81,8 @@ private:
 	std::function<void()> StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MAX)];
 	std::function<void(float)> UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MAX)];
 	std::function<void()> EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MAX)];
+
+	bool isStartAnimationDone = true;
 
 };
 
