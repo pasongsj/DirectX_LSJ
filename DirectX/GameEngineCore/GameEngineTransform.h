@@ -7,17 +7,25 @@
 
 struct TransformData
 {
+	// 계산을 위한 편의용 스케일
+	float4 Scale;
+	float4 Rotation;
+	float4 Quaternion;
+	float4 Position;
+
 	float4 LocalScale;
 	float4 LocalRotation;
 	float4 LocalQuaternion;
 	float4 LocalPosition;
-	//float4 WorldScale;
-	//float4 WorldRotation;
-	//float4 WorldQuaternion;
-	//float4 WorldPosition;
-	float4x4 LocalScaleMatrix;
-	float4x4 LocalRotationMatrix;
-	float4x4 LocalPositionMatrix;
+
+	float4 WorldScale;
+	float4 WorldRotation;
+	float4 WorldQuaternion;
+	float4 WorldPosition;
+
+	float4x4 ScaleMatrix;
+	float4x4 RotationMatrix;
+	float4x4 PositionMatrix;
 	float4x4 LocalWorldMatrix;
 	float4x4 WorldMatrix;
 	float4x4 View;
@@ -29,10 +37,10 @@ struct TransformData
 public:
 	TransformData()
 	{
-		LocalScale = float4::One;
-		LocalRotation = float4::Null;
-		LocalQuaternion = float4::Null;
-		LocalPosition = float4::Zero;
+		Scale = float4::One;
+		Rotation = float4::Null;
+		Quaternion = float4::Null;
+		Position = float4::Zero;
 		//WorldScale = float4::One;
 		//WorldRotation = float4::Null;
 		//WorldQuaternion = float4::Null;
@@ -57,7 +65,7 @@ public:
 	void SetWorldScale(const float4& _Value)
 	{
 		AbsoluteScale = true;
-		TransData.LocalScale = _Value;
+		TransData.Scale = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -66,7 +74,7 @@ public:
 	void SetWorldRotation(const float4& _Value)
 	{
 		AbsoluteRotation = true;
-		TransData.LocalRotation = _Value;
+		TransData.Rotation = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -75,8 +83,7 @@ public:
 	void SetWorldPosition(const float4& _Value)
 	{
 		AbsolutePosition = true;
-		//LocalPosition = WorldPosition = _Value;
-		TransData.LocalPosition = _Value;
+		TransData.Position = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -86,16 +93,8 @@ public:
 	{
 
 		AbsoluteScale = false;
-		TransData.LocalScale = _Value;
+		TransData.Scale = _Value;
 
-		//if (nullptr == Parent)
-		//{
-		//	WorldScale = LocalScale;
-		//}
-		//else
-		//{
-		//	WorldScale = LocalScale * Parent->GetWorldMatrixRef();
-		//}
 
 		TransformUpdate();
 		CalChild();
@@ -104,17 +103,7 @@ public:
 	void SetLocalRotation(const float4& _Value)
 	{
 		AbsoluteRotation = false;
-		TransData.LocalRotation = _Value;
-
-		//if (nullptr == Parent)
-		//{
-		//	WorldRotation = LocalRotation;
-		//}
-		//else
-		//{
-		//	//  180         90, 0,           90, 0, 0
-		//	WorldRotation = LocalRotation + Parent->GetWorldRotation();
-		//}
+		TransData.Rotation = _Value;
 
 		TransformUpdate();
 		CalChild();
@@ -123,16 +112,8 @@ public:
 	void SetLocalPosition(const float4& _Value)
 	{
 		AbsolutePosition = false;
-		TransData.LocalPosition = _Value;
+		TransData.Position = _Value;
 
-		//if (nullptr == Parent)
-		//{
-		//	WorldPosition = LocalPosition;
-		//}
-		//else
-		//{
-		//	LocalPosition = LocalPosition * Parent->GetWorldMatrixRef();
-		//}
 
 		TransformUpdate();
 		CalChild();
@@ -140,32 +121,32 @@ public:
 
 	void AddLocalScale(const float4& _Value)
 	{
-		SetLocalScale(TransData.LocalScale + _Value);
+		SetLocalScale(TransData.Scale + _Value);
 	}
 
 	void AddLocalRotation(const float4& _Value)
 	{
-		SetLocalRotation(TransData.LocalRotation + _Value);
+		SetLocalRotation(TransData.Rotation + _Value);
 	}
 
 	void AddLocalPosition(const float4& _Value)
 	{
-		SetLocalPosition(TransData.LocalPosition + _Value);
+		SetLocalPosition(TransData.Position + _Value);
 	}
 
 	void AddWorldScale(const float4& _Value)
 	{
-		SetWorldScale(TransData.LocalScale + _Value);
+		SetWorldScale(TransData.Scale + _Value);
 	}
 
 	void AddWorldRotation(const float4& _Value)
 	{
-		SetWorldRotation(TransData.LocalRotation + _Value);
+		SetWorldRotation(TransData.Rotation + _Value);
 	}
 
 	void AddWorldPosition(const float4& _Value)
 	{
-		SetWorldPosition(TransData.LocalPosition + _Value);
+		SetWorldPosition(TransData.Position + _Value);
 	}
 
 	float4 GetWorldForwardVector()
@@ -198,20 +179,13 @@ public:
 		return -GetWorldRightVector();
 	}
 
-	float4 GetLocalPosition()
-	{
-		return TransData.LocalPosition;
-	}
+	float4 GetLocalPosition();
+	float4 GetLocalScale();
+	float4 GetLocalRotation();
+	float4 GetWorldPosition();
+	float4 GetWorldScale();
+	float4 GetWorldRotation();
 
-	float4 GetLocalScale()
-	{
-		return TransData.LocalScale;
-	}
-
-	float4 GetLocalRotation()
-	{
-		return TransData.LocalRotation;
-	}
 
 	float4 GetLocalForwardVector()
 	{
@@ -289,15 +263,7 @@ public:
 		TransData.WorldViewProjectionMatrix *= TransData.ViewPort;
 	}
 
-	void CalChild()
-	{
-		for (GameEngineTransform* ChildTrans : Child)
-		{
-			ChildTrans->SetLocalScale(ChildTrans->GetLocalScale());
-			ChildTrans->SetLocalRotation(ChildTrans->GetLocalRotation());
-			ChildTrans->SetLocalPosition(ChildTrans->GetLocalPosition());
-		}
-	}
+	void CalChild();
 
 	void SetParent(GameEngineTransform* _Parent);
 
@@ -321,29 +287,6 @@ private:
 	bool AbsoluteScale = false;
 	bool AbsoluteRotation = false;
 	bool AbsolutePosition = false;
-
-	//float4 LocalScale = float4::One;
-	//float4 LocalRotation = float4::Null;
-	//Quaternion LocalQuaternion = DirectX::XMQuaternionIdentity();
-	//float4 LocalPosition = float4::Zero;
-
-	////float4 WorldScale = float4::One;
-	////float4 WorldRotation = float4::Null;
-	////Quaternion WorldQuaternion = DirectX::XMQuaternionIdentity();
-	////float4 WorldPosition = float4::Zero;
-
-	//float4x4 LocalScaleMatrix;
-	//float4x4 LocalRotationMatrix;
-	//float4x4 LocalPositionMatrix;
-
-	//float4x4 LocalWorldMatrix;
-
-	//float4x4 WorldMatrix;
-	//float4x4 WorldViewProjectionMatrix;
-
-	//float4x4 View;
-	//float4x4 Projection;
-	//float4x4 ViewPort;
 
 	GameEngineTransform* Parent = nullptr;
 	std::list<GameEngineTransform*> Child;
