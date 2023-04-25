@@ -21,7 +21,8 @@ void GameEngineLevel::Start()
 
 }
 
-void GameEngineLevel::Update(float _DeltaTime) 
+
+void GameEngineLevel::ActorUpdate(float _DeltaTime)
 {
 	if (true == MainCamera->IsFreeCamera())
 	{
@@ -43,9 +44,9 @@ void GameEngineLevel::Update(float _DeltaTime)
 	}
 }
 
-void GameEngineLevel::Render(float _DeltaTime) 
+void GameEngineLevel::ActorRender(float _DeltaTime)
 {
-	//GetMainCamera()->Setting();
+	GetMainCamera()->Setting();
 
 	// 이건 나중에 만들어질 랜더러의 랜더가 다 끝나고 되는 랜더가 될겁니다.
 	for (std::pair<int, std::list<std::shared_ptr<GameEngineActor>>> OrderGroup : Actors)
@@ -60,6 +61,15 @@ void GameEngineLevel::Render(float _DeltaTime)
 			Actor->ComponentsRender(_DeltaTime);
 		}
 	}
+}
+
+void GameEngineLevel::Update(float _DeltaTime) 
+{
+}
+
+void GameEngineLevel::Render(float _DeltaTime) 
+{
+
 }
 
 void GameEngineLevel::ActorInit(std::shared_ptr<GameEngineActor> _Actor, int _Order, GameEngineLevel* _Parent)
