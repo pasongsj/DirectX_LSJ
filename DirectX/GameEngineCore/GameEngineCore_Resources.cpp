@@ -115,7 +115,7 @@ void GameEngineCore::CoreResourcesInit()
 		Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		Desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 		Desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-		Desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+		Desc.RenderTarget[0].DestBlend = D3D11_BLEND_SRC_ALPHA;
 
 		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_SRC_ALPHA;
@@ -319,26 +319,26 @@ void GameEngineCore::CoreResourcesInit()
 			Pipe->SetBlend("AlphaBlend");
 			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
 		}
-	}
-	{
-		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("3DTexture");
-		Pipe->SetVertexBuffer("Cube");
-		Pipe->SetIndexBuffer("Cube");
-		Pipe->SetVertexShader("TextureShader.hlsl");
-		Pipe->SetRasterizer("Engine2DBase");
-		Pipe->SetPixelShader("TextureShader.hlsl");
-		Pipe->SetBlend("AlphaBlend");
-		// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
-	}
-	{
-		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTextureCircle");
-		Pipe->SetVertexBuffer("Circle");
-		Pipe->SetIndexBuffer("Circle");
-		Pipe->SetVertexShader("TextureShader.hlsl");
-		Pipe->SetRasterizer("Engine2DBase");
-		Pipe->SetPixelShader("TextureShader.hlsl");
-		Pipe->SetBlend("AlphaBlend");
-		// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
+		{
+			std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("3DTexture");
+			Pipe->SetVertexBuffer("Cube");
+			Pipe->SetIndexBuffer("Cube");
+			Pipe->SetVertexShader("TextureShader.hlsl");
+			Pipe->SetRasterizer("Engine2DBase");
+			Pipe->SetPixelShader("TextureShader.hlsl");
+			Pipe->SetBlend("AlphaBlend");
+
+		}
+		{
+			std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("2DTextureCircle");
+			Pipe->SetVertexBuffer("Circle");
+			Pipe->SetIndexBuffer("Circle");
+			Pipe->SetVertexShader("TextureShader.hlsl");
+			Pipe->SetRasterizer("Engine2DBase");
+			Pipe->SetPixelShader("TextureShader.hlsl");
+			Pipe->SetBlend("AlphaBlend");
+			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
+		}
 	}
 }
 

@@ -28,5 +28,7 @@ private:
 	std::shared_ptr<class GameEngineRenderer> Render1;
 	std::shared_ptr<class GameEngineRenderer> Render2;
 
+	std::shared_ptr<class GameEngineSpriteRenderer> TestRender = nullptr;
+
 };
 
