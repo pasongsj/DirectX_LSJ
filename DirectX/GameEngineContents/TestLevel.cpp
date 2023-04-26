@@ -15,6 +15,14 @@ TestLevel::TestLevel()
 
 TestLevel::~TestLevel() 
 {
+	//for (int i = 0; i < Zeppling::AllZepplings.size(); i++)
+	//{
+	//	if (nullptr != Zeppling::AllZepplings[i])
+	//	{
+	//		Zeppling::AllZepplings[i]->Death();
+	//		Zeppling::AllZepplings[i] = nullptr;
+	//	}
+	//}
 }
 
 

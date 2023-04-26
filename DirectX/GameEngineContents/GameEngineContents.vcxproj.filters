@@ -25,7 +25,10 @@
       <Filter>Levels\Hilda</Filter>
     </ClInclude>
     <ClInclude Include="Zeppling.h">
-      <Filter>Levels\Hilda</Filter>
+      <Filter>Levels\Hilda\Zeppling</Filter>
+    </ClInclude>
+    <ClInclude Include="ZepplingBullet.h">
+      <Filter>Levels\Hilda\Zeppling</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -56,10 +59,13 @@
       <Filter>Levels\Hilda</Filter>
     </ClCompile>
     <ClCompile Include="Zeppling.cpp">
-      <Filter>Levels\Hilda</Filter>
+      <Filter>Levels\Hilda\Zeppling</Filter>
+    </ClCompile>
+    <ClCompile Include="ZepplingBullet.cpp">
+      <Filter>Levels\Hilda\Zeppling</Filter>
     </ClCompile>
     <ClCompile Include="ZepplingFSM.cpp">
-      <Filter>Levels\Hilda</Filter>
+      <Filter>Levels\Hilda\Zeppling</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +77,9 @@
     </Filter>
     <Filter Include="Levels\Hilda">
       <UniqueIdentifier>{976a9281-acf5-46a9-9e9d-4b8d15e686b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Levels\Hilda\Zeppling">
+      <UniqueIdentifier>{9d644093-d1b7-4645-8400-b6acdc118cff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

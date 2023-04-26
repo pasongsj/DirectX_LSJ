@@ -197,7 +197,8 @@ void GameEngineShaderResHelper::SetTexture(const std::string_view& _SettingName,
 
 	if (nullptr == FindTex)
 	{
-		MsgAssert("이런 이름의 텍스처는 로드한 적이 없습니다." + UpperName);
+		std::string ImgName = _ImageName.data();
+		MsgAssert("이런 이름의 텍스처는 로드한 적이 없습니다." + ImgName);
 		return;
 	}
 

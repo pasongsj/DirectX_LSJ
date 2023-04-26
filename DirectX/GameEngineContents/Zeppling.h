@@ -15,6 +15,8 @@ enum class ZepplingState
 class Zeppling : public GameEngineActor
 {
 public:
+
+	//static std::vector<std::shared_ptr<Zeppling>> AllZepplings;
 	// constrcuter destructer
 	Zeppling();
 	~Zeppling();
@@ -25,6 +27,8 @@ public:
 	Zeppling& operator=(const Zeppling& _Other) = delete;
 	Zeppling& operator=(Zeppling&& _Other) noexcept = delete;
 
+	void Reset();
+
 protected:
 
 	void Start() override;
@@ -33,6 +37,9 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Monster;
+
+	std::shared_ptr<class ZepplingBullet> Bullet;
+
 	ZepplingState CurState = ZepplingState::MOVE;
 	ZepplingState NextState = ZepplingState::MOVE;
 

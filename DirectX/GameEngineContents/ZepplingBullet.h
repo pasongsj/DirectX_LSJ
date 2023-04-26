@@ -1,0 +1,36 @@
+#pragma once
+#include <GameEngineCore/GameEngineActor.h>
+
+// Ό³Έν :
+class ZepplingBullet : public GameEngineActor
+{
+public:
+	// constrcuter destructer
+	ZepplingBullet();
+	~ZepplingBullet();
+
+	// delete Function
+	ZepplingBullet(const ZepplingBullet& _Other) = delete;
+	ZepplingBullet(ZepplingBullet&& _Other) noexcept = delete;
+	ZepplingBullet& operator=(const ZepplingBullet& _Other) = delete;
+	ZepplingBullet& operator=(ZepplingBullet&& _Other) noexcept = delete;
+
+	void SetBulletDir(const float4& _Dir)
+	{
+		Dir = _Dir;
+	}
+
+protected:
+	void Start() override;
+	void Update(float _DeltaTime) override;
+	void Render(float _DeltaTimes) override;
+
+
+private:
+	std::shared_ptr<class GameEngineSpriteRenderer> Bullet;
+	float BulletSpeed = 500.0f;
+	
+	float4 Dir = float4::Left;
+
+};
+

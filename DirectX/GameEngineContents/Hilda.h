@@ -1,6 +1,12 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+enum class HildaState
+{
+	INTRO,
+
+};
+
 // Ό³Έν :
 class Hilda : public GameEngineActor
 {

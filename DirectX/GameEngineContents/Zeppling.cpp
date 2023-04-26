@@ -2,6 +2,9 @@
 #include "Zeppling.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
+
+//std::vector<std::shared_ptr<Zeppling>> Zeppling::AllZepplings;
+
 Zeppling::Zeppling() 
 {
 }
@@ -14,14 +17,19 @@ Zeppling::~Zeppling()
 
 void Zeppling::Start()
 {
-	// 이미지 랜더러
-	Monster = CreateComponent<GameEngineSpriteRenderer>();
-	Monster->SetTexture("a_blimp_enemy_idle_0001.png");
-	
-	//위치,회전, 크기
-	Monster->GetTransform()->SetLocalScale(float4(156, 94)*0.8f);
+	// 위치
 	GetTransform()->SetLocalPosition(float4(500.0f, 0));
 
+	// 몬스터 이미지 랜더러
+	Monster = CreateComponent<GameEngineSpriteRenderer>();
+	Monster->SetTexture("a_blimp_enemy_idle_0001.png");
+	// 위치,회전, 크기
+	Monster->GetTransform()->SetLocalScale(float4(156, 94)*0.8f);
+	
+
+
+	//FSM
+	
 	//MOVE
 	StartFuncPtr[static_cast<int>(ZepplingState::MOVE)] = std::bind(&Zeppling::Move_Start, this);
 	UpdateFuncPtr[static_cast<int>(ZepplingState::MOVE)] = std::bind(&Zeppling::Move_Update, this, std::placeholders::_1);
@@ -42,6 +50,7 @@ void Zeppling::Start()
 	UpdateFuncPtr[static_cast<int>(ZepplingState::DEAD)] = std::bind(&Zeppling::Dead_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(ZepplingState::DEAD)] = std::bind(&Zeppling::Dead_End, this);
 
+	//AllZepplings.emplace_back(this);
 
 }
 
@@ -72,4 +81,16 @@ void Zeppling::UpdateState(float _DeltaTime)
 	}
 
 	UpdateFuncPtr[static_cast<int>(CurState)](_DeltaTime);
+}
+
+void Zeppling::Reset()
+{
+	// 변수 reset
+	CurState = ZepplingState::MOVE;
+	NextState = ZepplingState::MOVE;
+	MoveLen = 0.0f;
+
+	// 이미지랜더 reset
+
+	
 }
