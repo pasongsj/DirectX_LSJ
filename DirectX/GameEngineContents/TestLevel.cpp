@@ -1,9 +1,12 @@
 #include "PrecompileHeader.h"
 #include "TestLevel.h"
-#include "PlayerAirPlaneMode.h"
 
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
+
+#include "PlayerAirPlaneMode.h"
+#include "Hilda.h"
+#include "Zeppling.h"
 
 
 TestLevel::TestLevel() 
@@ -42,6 +45,8 @@ void TestLevel::Start()
 
 
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>("PlayerAirPlaneMode");
+	std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
+	std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>("Zeppling");
 
 
 }

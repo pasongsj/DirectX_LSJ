@@ -23,5 +23,6 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Boss;
+	float LiveTime = 0.0f;
 };
 
