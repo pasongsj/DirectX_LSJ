@@ -33,7 +33,7 @@ protected:
 private:
 	// Pipe와
 	// GameEngineShaderResHelper 가 합쳐져야 랜더링 이 되는 식이 됩니다.
-	std::shared_ptr<class GameEngineRenderingPipeLine > Pipe;
+	std::shared_ptr<class GameEngineRenderingPipeLine> Pipe;
 
 	GameEngineShaderResHelper ShaderResHelper;
 };

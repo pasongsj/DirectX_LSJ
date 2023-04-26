@@ -1,5 +1,7 @@
 #include "PrecompileHeader.h"
 #include "Hilda.h"
+
+#include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
 Hilda::Hilda() 
@@ -25,7 +27,16 @@ void Hilda::Update(float _DeltaTime)
 {
 	LiveTime += _DeltaTime;
 
-	Boss->GetTransform()->SetLocalPosition(float4(-sinf(LiveTime*5)*100.0f,sinf(LiveTime*2.5f)*200.0f)); // 힐다베르그  8자 움직임
+	Boss->GetTransform()->SetLocalPosition(float4(cosf(LiveTime * 2.5f) * 100.0f, CircleMove * (1-sinf(LiveTime * 2.5f)) * 100.0f)); // 힐다베르그  8자 움직임
+
+	float degree = (LiveTime * 2.5f) / GameEngineMath::PIE2 + GameEngineMath::PIE/4;
+
+	if (LastShare < degree)
+	{
+		LastShare = static_cast<int>(degree)+1;
+		CircleMove *= -1;
+	}
+
 
 }
 

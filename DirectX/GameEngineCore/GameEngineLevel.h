@@ -50,12 +50,16 @@ public:
 		return std::dynamic_pointer_cast<ActorType>(NewActor);
 	}
 
-	std::shared_ptr<class GameEngineCamera> GetMainCamera() 
+	std::shared_ptr<class GameEngineCamera> GetMainCamera()
 	{
 		return MainCamera;
 	}
 
 protected:
+	// 레벨이 바뀌어서 시작할때
+	virtual void LevelChangeStart();
+	virtual void LevelChangeEnd();
+
 	virtual void Start() = 0;
 	void Update(float _DeltaTime);
 	void Render(float _DeltaTime);
@@ -68,11 +72,8 @@ private:
 
 	void ActorInit(std::shared_ptr<GameEngineActor> _Actor, int _Order, GameEngineLevel* _Level);
 
-
 	void ActorUpdate(float _DeltaTime);
 	void ActorRender(float _DeltaTime);
 
-
 };
 
- 

@@ -19,16 +19,19 @@
       <Filter>Levels</Filter>
     </ClInclude>
     <ClInclude Include="HildaBergLevel.h">
-      <Filter>Levels\Hilda</Filter>
-    </ClInclude>
-    <ClInclude Include="Hilda.h">
-      <Filter>Levels\Hilda</Filter>
+      <Filter>Object\Hilda</Filter>
     </ClInclude>
     <ClInclude Include="Zeppling.h">
-      <Filter>Levels\Hilda\Zeppling</Filter>
+      <Filter>Object\Hilda\Zeppling</Filter>
     </ClInclude>
     <ClInclude Include="ZepplingBullet.h">
-      <Filter>Levels\Hilda\Zeppling</Filter>
+      <Filter>Object\Hilda\Zeppling</Filter>
+    </ClInclude>
+    <ClInclude Include="BossStageBackGround.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Hilda.h">
+      <Filter>Object\Hilda</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -53,19 +56,22 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="HildaBergLevel.cpp">
-      <Filter>Levels\Hilda</Filter>
+      <Filter>Object\Hilda</Filter>
     </ClCompile>
     <ClCompile Include="Hilda.cpp">
-      <Filter>Levels\Hilda</Filter>
+      <Filter>Object\Hilda</Filter>
     </ClCompile>
     <ClCompile Include="Zeppling.cpp">
-      <Filter>Levels\Hilda\Zeppling</Filter>
+      <Filter>Object\Hilda\Zeppling</Filter>
     </ClCompile>
     <ClCompile Include="ZepplingBullet.cpp">
-      <Filter>Levels\Hilda\Zeppling</Filter>
+      <Filter>Object\Hilda\Zeppling</Filter>
     </ClCompile>
     <ClCompile Include="ZepplingFSM.cpp">
-      <Filter>Levels\Hilda\Zeppling</Filter>
+      <Filter>Object\Hilda\Zeppling</Filter>
+    </ClCompile>
+    <ClCompile Include="BossStageBackGround.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,10 +81,10 @@
     <Filter Include="Object">
       <UniqueIdentifier>{df11f953-5c45-4952-85fb-a35bec5d2a60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Levels\Hilda">
+    <Filter Include="Object\Hilda">
       <UniqueIdentifier>{976a9281-acf5-46a9-9e9d-4b8d15e686b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Levels\Hilda\Zeppling">
+    <Filter Include="Object\Hilda\Zeppling">
       <UniqueIdentifier>{9d644093-d1b7-4645-8400-b6acdc118cff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

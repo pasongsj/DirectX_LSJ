@@ -32,7 +32,7 @@ void Zeppling::Shoot_Start()
 }
 void Zeppling::Shoot_Update(float _DeltaTime)
 {
-	if (nullptr == Bullet)
+	if (nullptr == Bullet || true == Bullet->IsDeath())
 	{
 		NextState = ZepplingState::BACK;
 	}

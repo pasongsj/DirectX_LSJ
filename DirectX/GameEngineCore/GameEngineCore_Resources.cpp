@@ -19,6 +19,7 @@
 #include "GameEngineRenderTarget.h"
 #include "GameEngineConstantBuffer.h"
 #include "GameEngineRenderingPipeLine.h"
+#include "GameEngineDepthState.h"
 
 
 void GameEngineCore::CoreResourcesInit()
@@ -122,6 +123,25 @@ void GameEngineCore::CoreResourcesInit()
 		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;
 
 		GameEngineBlend::Create("AlphaBlend", Desc);
+	}
+
+	{
+		D3D11_DEPTH_STENCIL_DESC Desc = { 0, };
+		//BOOL DepthEnable;
+		//D3D11_DEPTH_WRITE_MASK DepthWriteMask;
+		//D3D11_COMPARISON_FUNC DepthFunc;
+		//BOOL StencilEnable;
+		//UINT8 StencilReadMask;
+		//UINT8 StencilWriteMask;
+		//D3D11_DEPTH_STENCILOP_DESC FrontFace;
+		//D3D11_DEPTH_STENCILOP_DESC BackFace;
+
+		Desc.DepthEnable = true;
+		Desc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
+		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
+		Desc.StencilEnable = false;
+
+		GameEngineDepthState::Create("EngineDepth", Desc);
 	}
 
 	{
@@ -316,7 +336,8 @@ void GameEngineCore::CoreResourcesInit()
 			Pipe->SetVertexShader("TextureShader.hlsl");
 			Pipe->SetRasterizer("Engine2DBase");
 			Pipe->SetPixelShader("TextureShader.hlsl");
-			Pipe->SetBlend("AlphaBlend");
+			Pipe->SetBlendState("AlphaBlend");
+			Pipe->SetDepthState("EngineDepth");
 			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
 		}
 		{
@@ -326,7 +347,8 @@ void GameEngineCore::CoreResourcesInit()
 			Pipe->SetVertexShader("TextureShader.hlsl");
 			Pipe->SetRasterizer("Engine2DBase");
 			Pipe->SetPixelShader("TextureShader.hlsl");
-			Pipe->SetBlend("AlphaBlend");
+			Pipe->SetBlendState("AlphaBlend");
+			Pipe->SetDepthState("EngineDepth");
 
 		}
 		{
@@ -336,7 +358,8 @@ void GameEngineCore::CoreResourcesInit()
 			Pipe->SetVertexShader("TextureShader.hlsl");
 			Pipe->SetRasterizer("Engine2DBase");
 			Pipe->SetPixelShader("TextureShader.hlsl");
-			Pipe->SetBlend("AlphaBlend");
+			Pipe->SetBlendState("AlphaBlend");
+			Pipe->SetDepthState("EngineDepth");
 			// Pipe->SetFILL_MODE(D3D11_FILL_WIREFRAME);
 		}
 	}
@@ -355,4 +378,5 @@ void GameEngineCore::CoreResourcesEnd()
 	GameEngineRenderTarget::ResourcesClear();
 	GameEngineConstantBuffer::ResourcesClear();
 	GameEngineRenderingPipeLine::ResourcesClear();
+	GameEngineDepthState::ResourcesClear();
 }
