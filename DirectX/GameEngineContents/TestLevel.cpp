@@ -20,7 +20,7 @@ void TestLevel::Start()
 	//{
 	//	GameEngineDirectory NewDir;
 	//	NewDir.MoveParentToDirectory("ContentResources");
-	//	NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane");
+	//	NewDir.Move("ContentResources\\Texture");/*\\Cuphead_AirPlane");*/
 
 	//	//\ContentResources\Texture\Cuphead_AirPlane
 
@@ -35,8 +35,8 @@ void TestLevel::Start()
 	//}
 
 
-
-	GetMainCamera()->SetProjectionType(CameraType::Perspective);
+	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
+	//GetMainCamera()->SetProjectionType(CameraType::Perspective);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
 

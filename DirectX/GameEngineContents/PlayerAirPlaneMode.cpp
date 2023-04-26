@@ -18,12 +18,12 @@ PlayerAirPlaneMode::~PlayerAirPlaneMode()
 void PlayerAirPlaneMode::Start()
 {
 
-	if (false == GameEngineInput::IsKey("PlayerMoveLeft"))
+	if (false == GameEngineInput::IsKey("PlayerAirPlaneMoveLeft"))
 	{
-		GameEngineInput::CreateKey("PlayerMoveLeft", 'A');
-		GameEngineInput::CreateKey("PlayerMoveRight", 'D');
-		GameEngineInput::CreateKey("PlayerMoveUp", 'W');
-		GameEngineInput::CreateKey("PlayerMoveDown", 'S');
+		GameEngineInput::CreateKey("PlayerAirPlaneMoveLeft", 'A');
+		GameEngineInput::CreateKey("PlayerAirPlaneMoveRight", 'D');
+		GameEngineInput::CreateKey("PlayerAirPlaneMoveUp", 'W');
+		GameEngineInput::CreateKey("PlayerAirPlaneMoveDown", 'S');
 	}
 
 	PlayerRender = CreateComponent<GameEngineSpriteRenderer>();
@@ -94,20 +94,20 @@ void PlayerAirPlaneMode::MoveUpdate(float _DeltaTime)
 
 void PlayerAirPlaneMode::CheckInput()
 {
-	if (true == GameEngineInput::IsPress("PlayerMoveLeft"))
+	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveLeft"))
 	{
 		MoveVec += float4::Left;
 	}
-	if (true == GameEngineInput::IsPress("PlayerMoveRight"))
+	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveRight"))
 	{
 		MoveVec += float4::Right;
 	}
-	if (true == GameEngineInput::IsPress("PlayerMoveUp"))
+	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveUp"))
 	{
 		MoveVec += float4::Up;
 		NextState = PlayerAirPlaneModeState::MOVE_UP;
 	}
-	if (true == GameEngineInput::IsPress("PlayerMoveDown"))
+	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveDown"))
 	{
 		MoveVec += float4::Down;
 		NextState = PlayerAirPlaneModeState::MOVE_DOWN;

@@ -163,6 +163,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Hilda.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PlayerAirPlaneMode.h">
       <SubType>
       </SubType>
@@ -194,6 +198,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Hilda.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PlayerAirPlaneMode.cpp">
       <SubType>
       </SubType>
