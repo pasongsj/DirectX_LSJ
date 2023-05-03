@@ -31,6 +31,6 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Boss;
 	int CircleMove = 1;
 	int LastShare = -1;
-	float LiveTime = 0.0f;
+	float SpinSpeed = 100.0f;
 };
 

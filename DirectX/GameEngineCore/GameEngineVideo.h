@@ -60,7 +60,7 @@ private:
 	IMediaControl* Controller = nullptr;
 
 	//이벤트 처리용이라는 데 사실 잘 모르겠습니다
-	IMediaEventEx* Eventer = nullptr;
+	IMediaEventEx* Eventer = nullptr;  
 
 	//동영상 탐색할 때 쓰입니다?
 	IMediaSeeking* Seeker = nullptr;

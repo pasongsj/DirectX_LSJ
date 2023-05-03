@@ -28,7 +28,7 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Bullet;
-	float BulletSpeed = 500.0f;
+	float BulletSpeed = 300.0f;
 	
 	float4 Dir = float4::Left;
 

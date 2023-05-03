@@ -25,16 +25,23 @@ void Hilda::Start()
 
 void Hilda::Update(float _DeltaTime)
 {
-	LiveTime += _DeltaTime;
 
-	Boss->GetTransform()->SetLocalPosition(float4(cosf(LiveTime * 2.5f) * 100.0f, CircleMove * (1-sinf(LiveTime * 2.5f)) * 100.0f)); // 힐다베르그  8자 움직임
+	Boss->GetTransform()->SetLocalPosition(float4(cosf(GetLiveTime() * 2.5f) * SpinSpeed, CircleMove * (1-sinf(GetLiveTime() * 2.5f)) * SpinSpeed)); // 힐다베르그  8자 움직임
 
-	float degree = (LiveTime * 2.5f) / GameEngineMath::PIE2 + GameEngineMath::PIE/4;
+	float degree = (GetLiveTime() * 2.5f) / GameEngineMath::PIE2 + GameEngineMath::PIE/4;
 
 	if (LastShare < degree)
 	{
+		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
+		if (0 == (RandNum & 1))
+		{
+			CircleMove = 1;
+		}
+		else
+		{
+			CircleMove = -1;
+		}
 		LastShare = static_cast<int>(degree)+1;
-		CircleMove *= -1;
 	}
 
 

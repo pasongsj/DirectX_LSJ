@@ -33,6 +33,9 @@
     <ClInclude Include="Hilda.h">
       <Filter>Object\Hilda</Filter>
     </ClInclude>
+    <ClInclude Include="TestObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -71,6 +74,9 @@
       <Filter>Object\Hilda\Zeppling</Filter>
     </ClCompile>
     <ClCompile Include="BossStageBackGround.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>

@@ -18,13 +18,13 @@ Zeppling::~Zeppling()
 void Zeppling::Start()
 {
 	// 위치
-	GetTransform()->SetLocalPosition(float4(500.0f, 0));
+	GetTransform()->SetWorldPosition(float4(500.0f, 0));
 
 	// 몬스터 이미지 랜더러
 	Monster = CreateComponent<GameEngineSpriteRenderer>();
 	Monster->SetTexture("a_blimp_enemy_idle_0001.png");
 	// 위치,회전, 크기
-	Monster->GetTransform()->SetLocalScale(float4(156, 94)*0.8f);
+	Monster->GetTransform()->SetWorldScale(float4(156, 94)*0.8f);
 	
 
 
