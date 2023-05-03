@@ -18,9 +18,6 @@
     <ClInclude Include="TestLevel.h">
       <Filter>Levels</Filter>
     </ClInclude>
-    <ClInclude Include="HildaBergLevel.h">
-      <Filter>Object\Hilda</Filter>
-    </ClInclude>
     <ClInclude Include="Zeppling.h">
       <Filter>Object\Hilda\Zeppling</Filter>
     </ClInclude>
@@ -35,6 +32,15 @@
     </ClInclude>
     <ClInclude Include="TestObject.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Taurus.h">
+      <Filter>Object\Hilda</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaBergLevel.h">
+      <Filter>Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Sagittarius.h">
+      <Filter>Object\Hilda</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -58,9 +64,6 @@
     <ClCompile Include="PlayerAirPlaneModeFSM.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="HildaBergLevel.cpp">
-      <Filter>Object\Hilda</Filter>
-    </ClCompile>
     <ClCompile Include="Hilda.cpp">
       <Filter>Object\Hilda</Filter>
     </ClCompile>
@@ -78,6 +81,18 @@
     </ClCompile>
     <ClCompile Include="TestObject.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Taurus.cpp">
+      <Filter>Object\Hilda</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBergLevel.cpp">
+      <Filter>Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaFSM.cpp">
+      <Filter>Object\Hilda</Filter>
+    </ClCompile>
+    <ClCompile Include="Sagittarius.cpp">
+      <Filter>Object\Hilda</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,10 @@
 enum class HildaState
 {
 	INTRO,
+	SHOOT,
+	CHANGEPHASE,
+	TORNADO, // 특정 페이즈에만 적용됨
+	MAX,
 
 };
 
@@ -32,5 +36,37 @@ private:
 	int CircleMove = 1;
 	int LastShare = -1;
 	float SpinSpeed = 100.0f;
+
+	HildaState CurState = HildaState::INTRO;
+	HildaState NextState = HildaState::INTRO;
+
+
+	void UpdateState(float _DeltaTime);
+
+	//INTRO,
+	//	SHOOT,
+	//	CHANGEPHASE,
+	//	TORNADO,
+
+	void Intro_Start();
+	void Intro_Update(float _DeltaTime);
+	void Intro_End();
+
+	void Shoot_Start();
+	void Shoot_Update(float _DeltaTime);
+	void Shoot_End();
+
+	void ChangePhase_Start();
+	void ChangePhase_Update(float _DeltaTime);
+	void ChangePhase_End();
+
+	void Tornado_Start();
+	void Tornado_Update(float _DeltaTime);
+	void Tornado_End();
+
+
+	std::function<void()> StartFuncPtr[static_cast<int>(HildaState::MAX)];
+	std::function<void(float)> UpdateFuncPtr[static_cast<int>(HildaState::MAX)];
+	std::function<void()> EndFuncPtr[static_cast<int>(HildaState::MAX)];
 };
 

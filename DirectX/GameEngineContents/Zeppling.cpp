@@ -22,9 +22,10 @@ void Zeppling::Start()
 
 	// 몬스터 이미지 랜더러
 	Monster = CreateComponent<GameEngineSpriteRenderer>();
-	Monster->SetTexture("a_blimp_enemy_idle_0001.png");
+	//Monster->SetTexture("a_blimp_enemy_idle_0001.png");
+	Monster->SetScaleToTexture("a_blimp_enemy_idle_0001.png");
 	// 위치,회전, 크기
-	Monster->GetTransform()->SetWorldScale(float4(156, 94)*0.8f);
+	//Monster->GetTransform()->SetWorldScale(float4(156, 94)*0.8f);
 	
 
 

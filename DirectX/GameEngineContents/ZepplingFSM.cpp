@@ -29,6 +29,7 @@ void Zeppling::Shoot_Start()
 {
 	Bullet = GetLevel()->CreateActor<ZepplingBullet>();
 	Bullet->GetTransform()->SetWorldPosition(Monster->GetTransform()->GetWorldPosition());
+	Monster->SetScaleToTexture("a_blimp_enemy_attack_0007.png");
 }
 void Zeppling::Shoot_Update(float _DeltaTime)
 {
@@ -57,7 +58,9 @@ void Zeppling::Dead_End()
 
 void Zeppling::Back_Start()
 {
-	Monster->GetTransform()->SetLocalScale(float4(-156, 94) * 0.8f);
+	Monster->SetScaleToTexture("a_blimp_enemy_idle_0001.png");
+	Monster->SetFlipX();
+	//Monster->GetTransform()->SetLocalScale(float4(-156, 94) * 0.8f);
 
 }
 void Zeppling::Back_Update(float _DeltaTime)

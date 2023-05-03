@@ -10,6 +10,7 @@
 #include "PlayerAirPlaneMode.h"
 #include "Hilda.h"
 #include "Zeppling.h"
+#include "Taurus.h"
 
 HildaBergLevel::HildaBergLevel() 
 {
@@ -52,7 +53,8 @@ void HildaBergLevel::Start()
 
 
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>("PlayerAirPlaneMode");
-	std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
+	//std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
+	std::shared_ptr<Taurus> NextBoss = CreateActor<Taurus>("Taurus");
 	std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>("Zeppling");
 
 }
