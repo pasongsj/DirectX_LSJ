@@ -95,7 +95,7 @@ void GameEngineCamera::Update(float _DeltaTime)
 
 		if (true == GameEngineInput::IsPress("CamMoveLeft"))
 		{
-			GetTransform()->AddLocalPosition(GetTransform()->GetWorldLeftVector()* Speed * _DeltaTime);
+			GetTransform()->AddLocalPosition(GetTransform()->GetWorldLeftVector() * Speed * _DeltaTime);
 		}
 		if (true == GameEngineInput::IsPress("CamMoveRight"))
 		{
@@ -131,6 +131,18 @@ void GameEngineCamera::Update(float _DeltaTime)
 
 	}
 
+}
+
+
+void GameEngineCamera::Setting()
+{
+	// 랜더타겟 1개1개마다 뷰포트를 세팅해줄수 있다.
+	GameEngineDevice::GetContext()->RSSetViewports(1, &ViewPortData);
+}
+
+void GameEngineCamera::Render(float _DeltaTime)
+{
+
 
 	// 뷰행렬을 만들기 위해서는 이 2개의 행렬이 필요하다.
 	float4 EyeDir = GetTransform()->GetLocalForwardVector();
@@ -157,11 +169,4 @@ void GameEngineCamera::Update(float _DeltaTime)
 	}
 
 	ViewPort.ViewPort(GameEngineWindow::GetScreenSize().x, GameEngineWindow::GetScreenSize().y, 0.0f, 0.0f);
-}
-
-
-void GameEngineCamera::Setting()
-{
-	// 랜더타겟 1개1개마다 뷰포트를 세팅해줄수 있다.
-	GameEngineDevice::GetContext()->RSSetViewports(1, &ViewPortData);
 }

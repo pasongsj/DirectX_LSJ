@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "ContentsCore.h"
-#include <GameEngineCore\GameEngineCore.h>
+#include <GameEngineCore/GameEngineCore.h>
+#include <GameEngineCore/GameEngineCoreWindow.h>
 #include "PlayLevel.h"
 #include "TitleLevel.h"
 #include "TestLevel.h"
@@ -28,6 +29,10 @@ void ContentsCore::GameStart()
 	new int();
 
 	ContentsResourcesCreate();
+
+	GameEngineGUI::GUIWindowCreate<GameEngineCoreWindow>("CoreWindow");
+
+
 
 	GameEngineCore::CreateLevel<TitleLevel>();
 	GameEngineCore::CreateLevel<PlayLevel>();
