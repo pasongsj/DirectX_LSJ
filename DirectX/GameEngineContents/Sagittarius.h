@@ -1,7 +1,17 @@
 #pragma once
+#include <GameEngineCore/GameEngineActor.h>
+
+
+enum class SagittariusState
+{
+	IDLE,
+	SHOOT,
+	MAX,
+
+};
 
 // Ό³Έν :
-class Sagittarius
+class Sagittarius : public GameEngineActor
 {
 public:
 	// constrcuter destructer
@@ -15,8 +25,38 @@ public:
 	Sagittarius& operator=(Sagittarius&& _Other) noexcept = delete;
 
 protected:
+	void Start() override;
+	void Update(float _DeltaTime) override;
+	void Render(float _DeltaTime) override;
 
 private:
 
+	std::shared_ptr<class GameEngineSpriteRenderer> Upper;
+	std::shared_ptr<class GameEngineSpriteRenderer> Lower;
+
+	int CircleMove = 1;
+	int LastShare = -1;
+	float SpinSpeed = 100.0f;
+
+	SagittariusState CurState = SagittariusState::IDLE;
+	SagittariusState NextState = SagittariusState::IDLE;
+
+
+	void UpdateState(float _DeltaTime);
+
+	//	IDLE,
+	//	STING,
+	void Idle_Start();
+	void Idle_Update(float _DeltaTime);
+	void Idle_End();
+
+	void Shoot_Start();
+	void Shoot_Update(float _DeltaTime);
+	void Shoot_End();
+
+
+	std::function<void()> StartFuncPtr[static_cast<int>(SagittariusState::MAX)];
+	std::function<void(float)> UpdateFuncPtr[static_cast<int>(SagittariusState::MAX)];
+	std::function<void()> EndFuncPtr[static_cast<int>(SagittariusState::MAX)];
 };
 
