@@ -46,13 +46,16 @@ protected:
 private:
 	void Start() override;
 
+	int TaxtureIndex = 0;
 	class FrameAnimation
 	{
 	public:
 		//std::shared_ptr <GameEngineSpriteRenderer> Parent = nullptr;
-		std::vector<std::shared_ptr<GameEngineTexture>> Texture;
-		std::vector<int> FrameIndex;
-		std::vector<float> FrameTime;
+
+		std::vector<std::string> TextureName;
+		//std::vector<std::shared_ptr<GameEngineTexture>> Texture;
+		//std::vector<int> TextureIndex;
+		std::vector<float> TextureTime;
 		int CurrentIndex = 0;
 		float CurrentTime = 0.0f;
 		bool Loop = true;

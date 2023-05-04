@@ -10,24 +10,24 @@ void GameEngineSpriteRenderer::FrameAnimation::Render(float _DeltaTime)
 	{
 		++CurrentIndex;
 
-		if (FrameIndex.size() <= CurrentIndex)
+		if (TextureName.size() <= CurrentIndex)
 		{
 			if (true == Loop)
 			{
 				CurrentIndex = 0;
 			}
 			else {
-				CurrentIndex = static_cast<int>(FrameIndex.size()) - 1;
+				CurrentIndex = static_cast<int>(TextureName.size()) - 1;
 			}
 		}
 
-		CurrentTime += FrameTime[CurrentIndex];
+		CurrentTime += TextureTime[CurrentIndex];
 	}
 }
 
 bool GameEngineSpriteRenderer::FrameAnimation::IsEnd()
 {
-	int Value = (static_cast<int>(FrameIndex.size()) - 1);
+	int Value = (static_cast<int>(TextureName.size()) - 1);
 	return CurrentIndex == Value;
 }
 
@@ -57,18 +57,11 @@ void GameEngineSpriteRenderer::Render(float _Delta)
 {
 	if (nullptr != CurrentAnimation)
 	{
-		//CurrentAnimation->Render(_Delta);
-		//int Frame = CurrentAnimation->FrameIndex[CurrentAnimation->CurrentIndex];
-		//GameEngineTexture& Image = CurrentAnimation->Texture[Frame];
-
-		//for (; NameStartIter != NameEndIter; ++NameStartIter)
-		//{
-		//	GameEngineTextureSetter& Setter = NameStartIter->second;
-		//	Setter.Res = FindTex;
-
-		//	// (NameStartIter->second).Res = FindTex;
-		//}
+		CurrentAnimation->Render(_Delta);
+		TaxtureIndex = CurrentAnimation->CurrentIndex;
+		SetScaleToTexture(CurrentAnimation->TextureName[TaxtureIndex]);
 	}
+
 	GameEngineRenderer::Render(_Delta);
 }
 
@@ -133,29 +126,30 @@ void GameEngineSpriteRenderer::CreateAnimation(const FrameAnimationParameter& _P
 
 	FrameAnimation& NewAnimation = Animation[UpperAnimationName];
 
-	std::string UpperTextureName = GameEngineString::ToUpper(_Paramter.AnimationName);
+	std::string UpperTextureName = GameEngineString::ToUpper(_Paramter.TextureName);
 	for (int frame = _Paramter.Start; frame <= _Paramter.End; ++frame)
 	{
-		std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(UpperTextureName + std::to_string(frame));
+		std::string EachTextureName = UpperTextureName + std::to_string(frame) + ".PNG";
+		std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(EachTextureName);
 		if (nullptr == FindTex)
 		{
 			Animation.erase(UpperAnimationName);
 			MsgAssert("존재하지 않는 이미지 입니다.");
 			return;
 		}
-		NewAnimation.Texture.push_back(FindTex);
+		NewAnimation.TextureName.push_back(EachTextureName);
 	}
 	
 	// 각 프레임별 시간을 계산한다.
 	if (0 != _Paramter.FrameTime.size())
 	{
-		NewAnimation.FrameTime = _Paramter.FrameTime;
+		NewAnimation.TextureTime = _Paramter.FrameTime;
 	}
 	else
 	{
-		for (int i = 0; i < NewAnimation.FrameIndex.size(); ++i)
+		for (int i = 0; i < NewAnimation.TextureName.size(); ++i)
 		{
-			NewAnimation.FrameTime.push_back(_Paramter.InterTime);
+			NewAnimation.TextureTime.push_back(_Paramter.InterTime);
 		}
 	}
 
@@ -180,6 +174,7 @@ void GameEngineSpriteRenderer::ChangeAnimation(const std::string_view& _Animatio
 
 	CurrentAnimation->CurrentIndex = 0;
 	// 0.1
-	CurrentAnimation->CurrentTime = CurrentAnimation->FrameTime[CurrentAnimation->CurrentIndex];
+	CurrentAnimation->CurrentTime = 0.0f;
 }
+
 

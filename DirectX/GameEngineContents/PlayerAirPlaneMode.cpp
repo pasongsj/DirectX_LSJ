@@ -27,8 +27,25 @@ void PlayerAirPlaneMode::Start()
 	}
 
 	PlayerRender = CreateComponent<GameEngineSpriteRenderer>();
-	PlayerRender->SetTexture("cuphead_plane_idle_straight_0001.png");
-	PlayerRender->GetTransform()->SetLocalScale({ 100, 100 , 100 });
+	PlayerRender->SetScaleToTexture("cuphead_plane_idle_straight_0001.png");
+	PlayerRender->CreateAnimation({ .AnimationName = "IdleAnimaiton",  .TextureName = "cuphead_plane_idle_straight_000", .Start = 1, .End = 4, .Loop = true }); // 5개줄 애니메이션
+
+	PlayerRender->ChangeAnimation("IdleAnimaiton");
+
+	class FrameAnimationParameter
+	{
+	public:
+		std::string_view AnimationName = "";
+		std::string_view TextureName = "";
+
+		int Start = 0;
+		int End = 0;
+		int CurrentIndex = 0;
+		float InterTime = 0.1f;
+		bool Loop = true;
+		std::vector<int> FrameIndex = std::vector<int>();
+		std::vector<float> FrameTime = std::vector<float>();
+	};
 
 
 	/*Player = CreateComponent<GameEngineRenderer>();
@@ -73,10 +90,6 @@ void PlayerAirPlaneMode::Start()
 	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::SUPER_SKILL)] = std::bind(&PlayerAirPlaneMode::SuperSkill_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::SUPER_SKILL)]	= std::bind(&PlayerAirPlaneMode::SuperSkill_End, this);
 }
-
-
-
-
 
 
 void PlayerAirPlaneMode::Update(float _DeltaTime)
