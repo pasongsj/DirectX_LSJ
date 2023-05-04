@@ -1,7 +1,6 @@
 #include "PrecompileHeader.h"
 #include "Hilda.h"
 
-#include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
 Hilda::Hilda() 
@@ -29,6 +28,11 @@ void Hilda::Start()
 	UpdateFuncPtr[static_cast<int>(HildaState::INTRO)] = std::bind(&Hilda::Intro_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(HildaState::INTRO)] = std::bind(&Hilda::Intro_End, this);
 
+	//IDLE
+	StartFuncPtr[static_cast<int>(HildaState::IDLE)] = std::bind(&Hilda::Idle_Start, this);
+	UpdateFuncPtr[static_cast<int>(HildaState::IDLE)] = std::bind(&Hilda::Idle_Update, this, std::placeholders::_1);
+	EndFuncPtr[static_cast<int>(HildaState::IDLE)] = std::bind(&Hilda::Idle_End, this);
+
 	//SHOOT
 	StartFuncPtr[static_cast<int>(HildaState::SHOOT)] = std::bind(&Hilda::Shoot_Start, this);
 	UpdateFuncPtr[static_cast<int>(HildaState::SHOOT)] = std::bind(&Hilda::Shoot_Update, this, std::placeholders::_1);
@@ -50,23 +54,6 @@ void Hilda::Start()
 void Hilda::Update(float _DeltaTime)
 {
 
-	Boss->GetTransform()->SetLocalPosition(float4(cosf(GetLiveTime() * 2.5f) * SpinSpeed, CircleMove * (1-sinf(GetLiveTime() * 2.5f)) * SpinSpeed)); // 힐다베르그  8자 움직임
-
-	float degree = (GetLiveTime() * 2.5f) / GameEngineMath::PIE2 + GameEngineMath::PIE/4;
-
-	if (LastShare < degree)
-	{
-		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
-		if (0 == (RandNum & 1))
-		{
-			CircleMove = 1;
-		}
-		else
-		{
-			CircleMove = -1;
-		}
-		LastShare = static_cast<int>(degree)+1;
-	}
 
 	UpdateState(_DeltaTime);
 

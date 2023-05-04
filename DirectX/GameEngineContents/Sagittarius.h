@@ -37,6 +37,7 @@ private:
 	int CircleMove = 1;
 	int LastShare = -1;
 	float SpinSpeed = 100.0f;
+	float IdleMoveTime = 0.0f;
 
 	SagittariusState CurState = SagittariusState::IDLE;
 	SagittariusState NextState = SagittariusState::IDLE;

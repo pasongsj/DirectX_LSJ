@@ -4,6 +4,7 @@
 enum class HildaState
 {
 	INTRO,
+	IDLE,
 	SHOOT,
 	CHANGEPHASE,
 	TORNADO, // 특정 페이즈에만 적용됨
@@ -36,9 +37,10 @@ private:
 	int CircleMove = 1;
 	int LastShare = -1;
 	float SpinSpeed = 100.0f;
+	float IdleMoveTime = 0.0f;
 
-	HildaState CurState = HildaState::INTRO;
-	HildaState NextState = HildaState::INTRO;
+	HildaState CurState = HildaState::IDLE;
+	HildaState NextState = HildaState::IDLE;
 
 
 	void UpdateState(float _DeltaTime);
@@ -51,6 +53,10 @@ private:
 	void Intro_Start();
 	void Intro_Update(float _DeltaTime);
 	void Intro_End();
+
+	void Idle_Start();
+	void Idle_Update(float _DeltaTime);
+	void Idle_End();
 
 	void Shoot_Start();
 	void Shoot_Update(float _DeltaTime);

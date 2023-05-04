@@ -37,7 +37,8 @@ private:
 	int LastShare = -1;
 	float SpinSpeed = 100.0f;
 
-	float StingTime = 5.0f;
+	float StingInterval = 5.0f;
+	float IdleMoveTime = 0.0f;
 
 	TaurusState CurState = TaurusState::IDLE;
 	TaurusState NextState = TaurusState::IDLE;

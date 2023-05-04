@@ -17,7 +17,7 @@ void Taurus::Start()
 	//Boss->SetTexture("blimp_idle_0001.png");														
 	Boss->SetScaleToTexture("taurus_idle_0001.png");
 
-	GetTransform()->SetLocalPosition(float4(300.0f, 0));											
+	//GetTransform()->SetLocalPosition(float4(300.0f, 0));											
 																			
 																							
 	//FSM																							
@@ -34,24 +34,6 @@ void Taurus::Start()
 
 void Taurus::Update(float _DeltaTime)
 {
-
-	Boss->GetTransform()->SetLocalPosition(float4(cosf(GetLiveTime() * 2.5f) * SpinSpeed, CircleMove * (1 - sinf(GetLiveTime() * 2.5f)) * SpinSpeed)); // 힐다베르그  8자 움직임
-
-	float degree = (GetLiveTime() * 2.5f) / GameEngineMath::PIE2 + GameEngineMath::PIE / 4;
-
-	if (LastShare < degree)
-	{
-		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
-		if (0 == (RandNum & 1))
-		{
-			CircleMove = 1;
-		}
-		else
-		{
-			CircleMove = -1;
-		}
-		LastShare = static_cast<int>(degree) + 1;
-	}
 
 	UpdateState(_DeltaTime);
 
@@ -89,9 +71,29 @@ void Taurus::Idle_Start()
 }
 void Taurus::Idle_Update(float _DeltaTime)
 {
-	if (StingTime < GetLiveTime())
+	if (StingInterval < GetLiveTime())
 	{
 		NextState = TaurusState::STING;
+	}
+
+	IdleMoveTime += _DeltaTime;
+
+	GetTransform()->SetLocalPosition(float4(cosf(IdleMoveTime * 2.5f) * SpinSpeed, CircleMove * (1 - sinf(IdleMoveTime * 2.5f)) * SpinSpeed) + float4(300.0f, 0)); // 힐다베르그  8자 움직임
+
+	float degree = (IdleMoveTime * 2.5f) / GameEngineMath::PIE2 + GameEngineMath::PIE / 4;
+
+	if (LastShare < degree)
+	{
+		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
+		if (0 == (RandNum & 1))
+		{
+			CircleMove = 1;
+		}
+		else
+		{
+			CircleMove = -1;
+		}
+		LastShare = static_cast<int>(degree) + 1;
 	}
 }
 void Taurus::Idle_End()
@@ -102,7 +104,7 @@ void Taurus::Idle_End()
 void Taurus::String_Start()
 {
 	ResetLiveTime();
-	StingTime = GameEngineRandom::MainRandom.RandomFloat(3.0f, 8.0f);
+	StingInterval = GameEngineRandom::MainRandom.RandomFloat(3.0f, 8.0f);
 	Boss->SetScaleToTexture("taurus_attack_0012.png");
 }
 void Taurus::String_Update(float _DeltaTime)

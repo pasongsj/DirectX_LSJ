@@ -15,7 +15,7 @@ Sagittarius::~Sagittarius()
 void Sagittarius::Start()
 {						
 
-	GetTransform()->SetLocalPosition(float4(300.0f, 0));
+	//GetTransform()->SetLocalPosition(float4(300.0f, 0));
 
 
 	Upper = CreateComponent<GameEngineSpriteRenderer>();
@@ -56,23 +56,6 @@ void Sagittarius::Start()
 
 void Sagittarius::Update(float _DeltaTime)
 {
-	GetTransform()->SetLocalPosition(float4(300.0f, 0) + float4(cosf(GetLiveTime() * 2.5f) * SpinSpeed, CircleMove * (1 - sinf(GetLiveTime() * 2.5f)) * SpinSpeed)); // 힐다베르그  8자 움직임
-
-	float degree = (GetLiveTime() * 2.5f) / GameEngineMath::PIE2 + GameEngineMath::PIE / 4;
-
-	if (LastShare < degree)
-	{
-		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
-		if (0 == (RandNum & 1))
-		{
-			CircleMove = 1;
-		}
-		else
-		{
-			CircleMove = -1;
-		}
-		LastShare = static_cast<int>(degree) + 1;
-	}
 
 	UpdateState(_DeltaTime);
 }
@@ -96,7 +79,25 @@ void Sagittarius::Idle_Start()
 
 void Sagittarius::Idle_Update(float _DeltaTime)
 {
+	IdleMoveTime += _DeltaTime;
 
+	GetTransform()->SetLocalPosition(float4(cosf(IdleMoveTime * 2.5f) * SpinSpeed, CircleMove * (1 - sinf(IdleMoveTime * 2.5f)) * SpinSpeed) + float4(300.0f, 0)); // 힐다베르그  8자 움직임
+
+	float degree = (IdleMoveTime * 2.5f) / GameEngineMath::PIE2 + GameEngineMath::PIE / 4;
+
+	if (LastShare < degree)
+	{
+		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
+		if (0 == (RandNum & 1))
+		{
+			CircleMove = 1;
+		}
+		else
+		{
+			CircleMove = -1;
+		}
+		LastShare = static_cast<int>(degree) + 1;
+	}
 }
 
 void Sagittarius::Idle_End()

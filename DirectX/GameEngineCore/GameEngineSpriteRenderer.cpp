@@ -2,6 +2,40 @@
 #include "GameEngineSpriteRenderer.h"
 #include "GameEngineTexture.h"
 
+void GameEngineSpriteRenderer::FrameAnimation::Render(float _DeltaTime)
+{
+	CurrentTime -= _DeltaTime;
+
+	if (CurrentTime <= 0.0f)
+	{
+		++CurrentIndex;
+
+		if (FrameIndex.size() <= CurrentIndex)
+		{
+			if (true == Loop)
+			{
+				CurrentIndex = 0;
+			}
+			else {
+				CurrentIndex = static_cast<int>(FrameIndex.size()) - 1;
+			}
+		}
+
+		CurrentTime += FrameTime[CurrentIndex];
+	}
+}
+
+bool GameEngineSpriteRenderer::FrameAnimation::IsEnd()
+{
+	int Value = (static_cast<int>(FrameIndex.size()) - 1);
+	return CurrentIndex == Value;
+}
+
+
+
+
+
+
 GameEngineSpriteRenderer::GameEngineSpriteRenderer()
 {
 }
@@ -16,6 +50,26 @@ void GameEngineSpriteRenderer::Start()
 	GameEngineRenderer::Start();
 
 	SetPipeLine("2DTexture");
+}
+
+
+void GameEngineSpriteRenderer::Render(float _Delta)
+{
+	if (nullptr != CurrentAnimation)
+	{
+		//CurrentAnimation->Render(_Delta);
+		//int Frame = CurrentAnimation->FrameIndex[CurrentAnimation->CurrentIndex];
+		//GameEngineTexture& Image = CurrentAnimation->Texture[Frame];
+
+		//for (; NameStartIter != NameEndIter; ++NameStartIter)
+		//{
+		//	GameEngineTextureSetter& Setter = NameStartIter->second;
+		//	Setter.Res = FindTex;
+
+		//	// (NameStartIter->second).Res = FindTex;
+		//}
+	}
+	GameEngineRenderer::Render(_Delta);
 }
 
 void GameEngineSpriteRenderer::SetTexture(const std::string_view& _Name)
@@ -51,3 +105,81 @@ void GameEngineSpriteRenderer::SetFlipY()
 	LocalScale.y = -LocalScale.y;
 	GetTransform()->SetLocalScale(LocalScale);
 }
+
+
+//class FrameAnimationParameter
+//{
+//public:
+//	std::string_view AnimationName = "";
+//	std::string_view TextureName = "";
+//
+//	int Start = 0;
+//	int End = 0;
+//	int CurrentIndex = 0;
+//	float InterTime = 0.1f;
+//	bool Loop = true;
+//	std::vector<int> FrameIndex = std::vector<int>();
+//	std::vector<float> FrameTime = std::vector<float>();
+//};
+
+void GameEngineSpriteRenderer::CreateAnimation(const FrameAnimationParameter& _Paramter)
+{
+	// 존재하는 애니메이션인지 체크
+	std::string UpperAnimationName = GameEngineString::ToUpper(_Paramter.AnimationName);
+	if (Animation.end() != Animation.find(UpperAnimationName) || 0 == UpperAnimationName.size())
+	{
+		MsgAssert("이미 존재하거나 입력하지 않은 이름의 애니메이션 입니다." + UpperAnimationName);
+	}
+
+	FrameAnimation& NewAnimation = Animation[UpperAnimationName];
+
+	std::string UpperTextureName = GameEngineString::ToUpper(_Paramter.AnimationName);
+	for (int frame = _Paramter.Start; frame <= _Paramter.End; ++frame)
+	{
+		std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(UpperTextureName + std::to_string(frame));
+		if (nullptr == FindTex)
+		{
+			Animation.erase(UpperAnimationName);
+			MsgAssert("존재하지 않는 이미지 입니다.");
+			return;
+		}
+		NewAnimation.Texture.push_back(FindTex);
+	}
+	
+	// 각 프레임별 시간을 계산한다.
+	if (0 != _Paramter.FrameTime.size())
+	{
+		NewAnimation.FrameTime = _Paramter.FrameTime;
+	}
+	else
+	{
+		for (int i = 0; i < NewAnimation.FrameIndex.size(); ++i)
+		{
+			NewAnimation.FrameTime.push_back(_Paramter.InterTime);
+		}
+	}
+
+	NewAnimation.Loop = _Paramter.Loop;
+}
+
+void GameEngineSpriteRenderer::ChangeAnimation(const std::string_view& _AnimationName)
+{
+	std::string UpperName = GameEngineString::ToUpper(_AnimationName);
+
+	if (Animation.end() == Animation.find(UpperName))
+	{
+		MsgAssert("존재하지 않는 애니메이션으로 바꾸려고 했습니다." + UpperName);
+	}
+
+	if (CurrentAnimation == &Animation[UpperName])
+	{
+		return;
+	}
+
+	CurrentAnimation = &Animation[UpperName];
+
+	CurrentAnimation->CurrentIndex = 0;
+	// 0.1
+	CurrentAnimation->CurrentTime = CurrentAnimation->FrameTime[CurrentAnimation->CurrentIndex];
+}
+

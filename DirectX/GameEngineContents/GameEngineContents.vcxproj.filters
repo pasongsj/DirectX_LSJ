@@ -42,6 +42,9 @@
     <ClInclude Include="Sagittarius.h">
       <Filter>Object\Hilda</Filter>
     </ClInclude>
+    <ClInclude Include="Gemini.h">
+      <Filter>Object\Hilda</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -92,6 +95,9 @@
       <Filter>Object\Hilda</Filter>
     </ClCompile>
     <ClCompile Include="Sagittarius.cpp">
+      <Filter>Object\Hilda</Filter>
+    </ClCompile>
+    <ClCompile Include="Gemini.cpp">
       <Filter>Object\Hilda</Filter>
     </ClCompile>
   </ItemGroup>
