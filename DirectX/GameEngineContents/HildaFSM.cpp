@@ -10,6 +10,10 @@ void Hilda::Intro_Start()
 }
 void Hilda::Intro_Update(float _DeltaTime)
 {
+	if (true == Boss->IsAnimationEnd())
+	{
+		NextState = HildaState::IDLE;
+	}
 }
 void Hilda::Intro_End()
 {
@@ -18,6 +22,7 @@ void Hilda::Intro_End()
 
 void Hilda::Idle_Start()
 {
+	Boss->ChangeAnimation("Idle");
 
 }
 
@@ -51,9 +56,14 @@ void Hilda::Idle_End()
 
 void Hilda::Shoot_Start()
 {
+	Boss->ChangeAnimation("shoot");
 }
 void Hilda::Shoot_Update(float _DeltaTime)
 {
+	if (true == Boss->IsAnimationEnd())
+	{
+		NextState = HildaState::IDLE;
+	}
 }
 void Hilda::Shoot_End()
 {
@@ -61,9 +71,30 @@ void Hilda::Shoot_End()
 
 void Hilda::ChangePhase_Start()
 {
+
+	DashTurn = true;
+;
+	WaitingTime = 3.0f;
+	Boss->ChangeAnimation("Dash");
 }
 void Hilda::ChangePhase_Update(float _DeltaTime)
 {
+	if (true == DashTurn && true == Boss->IsAnimationEnd())
+	{
+		WaitingTime -= _DeltaTime;
+	}
+	if (WaitingTime < 0.0f)
+	{
+		DashTurn = false;
+
+		Boss->ChangeAnimation("Summon");
+	}
+	if (false == DashTurn && true == Boss->IsAnimationEnd())
+	{
+		NextState = HildaState::IDLE;
+	}
+
+
 }
 void Hilda::ChangePhase_End()
 {

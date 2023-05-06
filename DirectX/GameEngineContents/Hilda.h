@@ -34,13 +34,19 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Boss;
+
+	// idle
 	int CircleMove = 1;
 	int LastShare = -1;
 	float SpinSpeed = 100.0f;
 	float IdleMoveTime = 0.0f;
+	
+	//changephase
+	bool DashTurn = true;
+	float WaitingTime = 0.0f;
 
-	HildaState CurState = HildaState::IDLE;
-	HildaState NextState = HildaState::IDLE;
+	HildaState CurState = HildaState::INTRO;
+	HildaState NextState = HildaState::INTRO;
 
 
 	void UpdateState(float _DeltaTime);

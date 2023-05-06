@@ -54,11 +54,11 @@ void HildaBergLevel::Start()
 
 
 
-	//std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
+	std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
 	//std::shared_ptr<Taurus> NextBoss = CreateActor<Taurus>("Taurus");
 	//std::shared_ptr<Sagittarius> NextBoss = CreateActor<Sagittarius>("Sagittarius");
-	std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");
-	std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>("Zeppling");
+	//std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");
+	//std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>("Zeppling");
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>("PlayerAirPlaneMode");
 
 }

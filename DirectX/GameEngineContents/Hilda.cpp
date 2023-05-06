@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "Hilda.h"
+#include <GameEnginePlatform/GameEngineInput.h>
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
@@ -14,9 +15,15 @@ Hilda::~Hilda()
 void Hilda::Start()																
 {
 	// 랜더러 설정																
-	Boss = CreateComponent<GameEngineSpriteRenderer>();							
+	Boss = CreateComponent<GameEngineSpriteRenderer>();		
+	Boss->CreateAnimation({ .AnimationName = "Intro",  .TextureName = "blimp_intro_00", .Start = 1, .End = 43,.InterTime = 0.05f, .Loop = false });
+	Boss->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "blimp_idle_00", .Start = 1, .End = 21,.InterTime = 0.05f, .Loop = true });
+	Boss->CreateAnimation({ .AnimationName = "shoot",  .TextureName = "blimp_shoot_00", .Start = 1, .End = 19,.InterTime = 0.05f, .Loop = false });
+	Boss->CreateAnimation({ .AnimationName = "Dash",  .TextureName = "blimp_dash_00", .Start = 1, .End = 24,.InterTime = 0.05f, .Loop = false });
+	Boss->CreateAnimation({ .AnimationName = "Summon",  .TextureName = "blimp_summon_00", .Start = 1, .End = 21,.InterTime = 0.05f, .Loop = false });
+	Boss->ChangeAnimation("Intro");
 	//Boss->SetTexture("blimp_idle_0001.png");									
-	Boss->SetScaleToTexture("blimp_idle_0001.png");
+	//Boss->SetScaleToTexture("blimp_idle_0001.png");
 																				
 	GetTransform()->SetLocalPosition(float4(300.0f,0));							
 																				
@@ -49,6 +56,13 @@ void Hilda::Start()
 	EndFuncPtr[static_cast<int>(HildaState::TORNADO)] = std::bind(&Hilda::Tornado_End, this);
 	
 
+
+	// TestCode
+	if (false == GameEngineInput::IsKey("Test"))
+	{
+		GameEngineInput::CreateKey("Test", VK_SPACE);
+	}
+
 }
 
 void Hilda::Update(float _DeltaTime)
@@ -56,6 +70,10 @@ void Hilda::Update(float _DeltaTime)
 
 
 	UpdateState(_DeltaTime);
+	if (true == GameEngineInput::IsPress("Test"))
+	{
+		NextState = HildaState::CHANGEPHASE;
+	}
 
 
 }

@@ -24,30 +24,21 @@ void PlayerAirPlaneMode::Start()
 		GameEngineInput::CreateKey("PlayerAirPlaneMoveRight", 'D');
 		GameEngineInput::CreateKey("PlayerAirPlaneMoveUp", 'W');
 		GameEngineInput::CreateKey("PlayerAirPlaneMoveDown", 'S');
+		GameEngineInput::CreateKey("PlayerAirPlaneParry", VK_SPACE);
+		GameEngineInput::CreateKey("PlayerAirPlaneSuperSkill", 'X');
 	}
 
 	PlayerRender = CreateComponent<GameEngineSpriteRenderer>();
 	PlayerRender->SetScaleToTexture("cuphead_plane_idle_straight_0001.png");
-	PlayerRender->CreateAnimation({ .AnimationName = "IdleAnimaiton",  .TextureName = "cuphead_plane_idle_straight_000", .Start = 1, .End = 4, .Loop = true }); // 5개줄 애니메이션
+	PlayerRender->CreateAnimation({ .AnimationName = "Intro",  .TextureName = "cuphead_plane_intro_00", .Start = 1, .End = 41,.InterTime = 0.05f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "cuphead_plane_idle_straight_000", .Start = 1, .End = 4, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "MoveUp",  .TextureName = "cuphead_plane_idle_up_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "MoveDown",  .TextureName = "cuphead_plane_idle_down_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Parry",  .TextureName = "cuphead_plane_parry_00", .Start = 1, .End = 20,.InterTime = 0.03f, .Loop = false });
 
-	PlayerRender->ChangeAnimation("IdleAnimaiton");
+	PlayerRender->ChangeAnimation("Intro");
 
-	class FrameAnimationParameter
-	{
-	public:
-		std::string_view AnimationName = "";
-		std::string_view TextureName = "";
-
-		int Start = 0;
-		int End = 0;
-		int CurrentIndex = 0;
-		float InterTime = 0.1f;
-		bool Loop = true;
-		std::vector<int> FrameIndex = std::vector<int>();
-		std::vector<float> FrameTime = std::vector<float>();
-	};
-
-
+	GetTransform()->SetLocalPosition(float4( - 300, 0, 0));
 	/*Player = CreateComponent<GameEngineRenderer>();
 	Player->SetPipeLine("2DTexture");
 	Player->GetShaderResHelper().SetTexture("DiffuseTex", "cuphead_plane_idle_straight_0001.png");
@@ -94,9 +85,17 @@ void PlayerAirPlaneMode::Start()
 
 void PlayerAirPlaneMode::Update(float _DeltaTime)
 {
-	CheckInput();
-	MoveUpdate(_DeltaTime);
+	//CheckInput();
 	UpdateState(_DeltaTime);
+	MoveUpdate(_DeltaTime);
+	if (true == GameEngineInput::IsPress("PlayerAirPlaneParry"))
+	{
+		NextState = PlayerAirPlaneModeState::PARRY;
+	}
+	//else if (true == GameEngineInput::IsPress("PlayerAirPlaneSuperSkill"))
+	//{
+	//	NextState = PlayerAirPlaneModeState::SUPER_SKILL;
+	//}
 }
 
 void PlayerAirPlaneMode::MoveUpdate(float _DeltaTime)
@@ -107,23 +106,32 @@ void PlayerAirPlaneMode::MoveUpdate(float _DeltaTime)
 
 void PlayerAirPlaneMode::CheckInput()
 {
+	bool isPressKey = false;
 	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveLeft"))
 	{
 		MoveVec += float4::Left;
+		isPressKey = true;
 	}
 	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveRight"))
 	{
 		MoveVec += float4::Right;
+		isPressKey = true;
 	}
 	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveUp"))
 	{
 		MoveVec += float4::Up;
 		NextState = PlayerAirPlaneModeState::MOVE_UP;
+		isPressKey = true;
 	}
 	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveDown"))
 	{
 		MoveVec += float4::Down;
 		NextState = PlayerAirPlaneModeState::MOVE_DOWN;
+		isPressKey = true;
+	}
+	if(false == isPressKey)
+	{
+		NextState = PlayerAirPlaneModeState::IDLE;
 	}
 }
 

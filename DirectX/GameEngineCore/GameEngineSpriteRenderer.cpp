@@ -127,9 +127,16 @@ void GameEngineSpriteRenderer::CreateAnimation(const FrameAnimationParameter& _P
 	FrameAnimation& NewAnimation = Animation[UpperAnimationName];
 
 	std::string UpperTextureName = GameEngineString::ToUpper(_Paramter.TextureName);
+
+	size_t MaxLen = std::to_string(_Paramter.End).size();
 	for (int frame = _Paramter.Start; frame <= _Paramter.End; ++frame)
 	{
-		std::string EachTextureName = UpperTextureName + std::to_string(frame) + ".PNG";
+		std::string EachTextureName = UpperTextureName;
+		for (size_t Zcnt = 0; Zcnt < (MaxLen)-std::to_string(frame).size(); Zcnt++)
+		{
+			EachTextureName += '0';
+		}
+		EachTextureName += (std::to_string(frame) + ".PNG");
 		std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(EachTextureName);
 		if (nullptr == FindTex)
 		{
@@ -177,4 +184,7 @@ void GameEngineSpriteRenderer::ChangeAnimation(const std::string_view& _Animatio
 	CurrentAnimation->CurrentTime = 0.0f;
 }
 
-
+bool GameEngineSpriteRenderer::IsAnimationEnd()
+{
+	return CurrentAnimation->IsEnd();
+}

@@ -101,8 +101,8 @@ void Gemini::Idle_Update(float _DeltaTime)
 	BossB->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -100 * sinf(SpinTime)));
 
 	// 랜더 순서를 변경하기 위해 setorder
-	BossA->SetOrder(static_cast<int>(-100*sinf(SpinTime)));
-	BossB->SetOrder(static_cast<int>(100 * sinf(SpinTime)));
+	//BossA->SetOrder(static_cast<int>(100*sinf(SpinTime)));
+	//BossB->SetOrder(static_cast<int>(-100 * sinf(SpinTime)));
 }
 
 void Gemini::Idle_End()
