@@ -9,7 +9,6 @@ enum class PlayerAirPlaneModeState
 	MOVE_UP,
 	MOVE_DOWN,
 	PARRY,
-	SUPER_SKILL,
 	MAX,
 };
 
@@ -39,15 +38,27 @@ private:
 	float4 MoveVec = float4::Zero;
 
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerRender = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> Spark = nullptr;
 
 	PlayerAirPlaneModeState CurState = PlayerAirPlaneModeState::INTRO;
 	PlayerAirPlaneModeState NextState = PlayerAirPlaneModeState::INTRO;
+
+	bool isShmUpMode = false;
+
+
+	// bullet
+	float ShootInterVal = 1.0f;
+	float BulletYPos = 20.0f;
 
 	void MoveUpdate(float _DeltaTime);
 
 	void UpdateState(float _DeltaTime);
 
 	void CheckInput();
+
+	void ChangePlayerAnimation(const std::string_view& _State);
+
+	void CheckShoot(float _DeltaTime);
 
 
 	// fsm 에 대한 함수
@@ -72,10 +83,6 @@ private:
 	void Parry_Start	();
 	void Parry_Update	(float _DeltaTime);
 	void Parry_End		();
-
-	void SuperSkill_Start	();
-	void SuperSkill_Update	(float _DeltaTime);
-	void SuperSkill_End		();
 
 
 	std::function<void()> StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MAX)];

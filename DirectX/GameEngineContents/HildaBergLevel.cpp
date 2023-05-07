@@ -7,6 +7,9 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
 
+
+
+#include "HildaBergBack.h"
 #include "PlayerAirPlaneMode.h"
 #include "Hilda.h"
 #include "Zeppling.h"
@@ -53,7 +56,7 @@ void HildaBergLevel::Start()
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
 
-
+	std::shared_ptr<HildaBergBack> BackGround = CreateActor<HildaBergBack>("HildaBergBack");
 	std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
 	//std::shared_ptr<Taurus> NextBoss = CreateActor<Taurus>("Taurus");
 	//std::shared_ptr<Sagittarius> NextBoss = CreateActor<Sagittarius>("Sagittarius");
