@@ -51,7 +51,7 @@ void HildaBergBack::Update(float _DeltaTime)
 	int CamX = (GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition()).ix();
 
 	// MainBG와 SubBG를 교체해주는 작업
-	if ((SubBG->GetTransform()->GetLocalPosition().ix() - BGRange / 2) < CamX && CamX < (SubBG->GetTransform()->GetLocalPosition().ix() + BGRange / 2)) {
+	if ((SubBG->GetTransform()->GetWorldPosition().ix() - BGRange / 2) < CamX && CamX < (SubBG->GetTransform()->GetWorldPosition().ix() + BGRange / 2)) {
 
 		std::shared_ptr<class GameEngineSpriteRenderer> tempBG = MainBG;
 		MainBG = SubBG;
@@ -59,7 +59,7 @@ void HildaBergBack::Update(float _DeltaTime)
 	}
 
 	// MainHill과 SubHill을 교체해주는 작업
-	if ((SubHill->GetTransform()->GetLocalPosition().ix() - HillRange / 2) < CamX && CamX < (SubHill->GetTransform()->GetLocalPosition().ix() + HillRange / 2)) {
+	if ((SubHill->GetTransform()->GetWorldPosition().ix() - HillRange / 2) < CamX && CamX < (SubHill->GetTransform()->GetWorldPosition().ix() + HillRange / 2)) {
 
 		std::shared_ptr<class GameEngineSpriteRenderer> tempHill = MainHill;
 		MainHill = SubHill;
@@ -68,7 +68,7 @@ void HildaBergBack::Update(float _DeltaTime)
 
 
 
-	float4 NextBGPos = MainBG->GetTransform()->GetLocalPosition();
+	float4 NextBGPos = MainBG->GetTransform()->GetWorldPosition();
 	if (CamX - NextBGPos.ix() > BGLimit)
 	{
 		NextBGPos.x += BGRange;
@@ -78,12 +78,12 @@ void HildaBergBack::Update(float _DeltaTime)
 	}
 
 	if (NextBGPos != SubBG->GetTransform()->GetLocalPosition()) {
-		SubBG->GetTransform()->SetLocalPosition(NextBGPos);
+		SubBG->GetTransform()->SetLocalPosition(NextBGPos-GetTransform()->GetLocalPosition());
 	}
 
 
 
-	float4 NextHillPos = MainHill->GetTransform()->GetLocalPosition();
+	float4 NextHillPos = MainHill->GetTransform()->GetWorldPosition();
 	if (CamX - NextHillPos.ix() > HillLimit)
 	{
 		NextHillPos.x += HillRange;
@@ -93,6 +93,6 @@ void HildaBergBack::Update(float _DeltaTime)
 	}
 
 	if (NextHillPos != SubHill->GetTransform()->GetLocalPosition()) {
-		SubHill->GetTransform()->SetLocalPosition(NextHillPos);
+		SubHill->GetTransform()->SetLocalPosition(NextHillPos - GetTransform()->GetLocalPosition());
 	}
 }

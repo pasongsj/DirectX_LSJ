@@ -8,6 +8,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
 #include "PeaShooter.h"
+#include "BoomEffect.h"
 
 PlayerAirPlaneMode::PlayerAirPlaneMode() 
 {
@@ -38,7 +39,7 @@ void PlayerAirPlaneMode::Start()
 	// idle mode
 	PlayerRender->CreateAnimation({ .AnimationName = "Intro",  .TextureName = "cuphead_plane_intro_00", .Start = 1, .End = 41,.InterTime = 0.05f, .Loop = false });
 
-	PlayerRender->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "cuphead_plane_idle_straight_000", .Start = 1, .End = 4, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "cuphead_plane_idle_straight_000", .Start = 1, .End = 4,.InterTime = 0.05f,.Loop = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "MoveUp",  .TextureName = "cuphead_plane_idle_up_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "MoveUpTrans",  .TextureName = "cuphead_plane_trans_up_00", .Start = 1, .End = 11,.InterTime = 0.01f, .Loop = false });
 
@@ -113,8 +114,10 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 		isShmUpMode = !isShmUpMode;
 		NextState = PlayerAirPlaneModeState::INTRO;
 	}
-	if (true == GameEngineInput::IsDown("PlayerShmupSkill")) // 'V'
+	if (true == isShmUpMode && true == GameEngineInput::IsDown("PlayerShmupSkill")) // 'V'
 	{
+		std::shared_ptr<GameEngineActor> Effect = GetLevel()->CreateActor<BoomEffect>();
+		Effect->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
 		isShmUpMode = false;
 		ChangePlayerAnimation("Idle");
 		NextState = PlayerAirPlaneModeState::IDLE;

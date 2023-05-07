@@ -56,7 +56,7 @@ void HildaBergLevel::Start()
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
 
-	std::shared_ptr<HildaBergBack> BackGround = CreateActor<HildaBergBack>("HildaBergBack");
+	BackGround = CreateActor<HildaBergBack>("HildaBergBack");
 	std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
 	//std::shared_ptr<Taurus> NextBoss = CreateActor<Taurus>("Taurus");
 	//std::shared_ptr<Sagittarius> NextBoss = CreateActor<Sagittarius>("Sagittarius");
@@ -64,4 +64,9 @@ void HildaBergLevel::Start()
 	//std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>("Zeppling");
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>("PlayerAirPlaneMode");
 
+}
+
+void HildaBergLevel::Update(float _DeltaTime)
+{
+	BackGround->GetTransform()->AddLocalPosition(float4(-50 * _DeltaTime, 0));
 }

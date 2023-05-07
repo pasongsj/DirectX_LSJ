@@ -51,6 +51,9 @@
     <ClInclude Include="PeaShooter.h">
       <Filter>Object\Player</Filter>
     </ClInclude>
+    <ClInclude Include="BoomEffect.h">
+      <Filter>Object\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -110,6 +113,9 @@
       <Filter>Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="PeaShooter.cpp">
+      <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomEffect.cpp">
       <Filter>Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
