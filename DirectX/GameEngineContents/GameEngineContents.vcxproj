@@ -183,6 +183,18 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="HildaBergBossController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HildaTornado.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Moon.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PeaShooter.h">
       <SubType>
       </SubType>
@@ -258,7 +270,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="HildaBergBossController.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="HildaFSM.cpp" />
+    <ClCompile Include="HildaTornado.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Moon.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PeaShooter.cpp">
       <SubType>
       </SubType>

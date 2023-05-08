@@ -19,8 +19,10 @@ void Hilda::Start()
 	Boss->CreateAnimation({ .AnimationName = "Intro",  .TextureName = "blimp_intro_00", .Start = 1, .End = 43,.InterTime = 0.05f, .Loop = false });
 	Boss->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "blimp_idle_00", .Start = 1, .End = 21,.InterTime = 0.05f, .Loop = true });
 	Boss->CreateAnimation({ .AnimationName = "shoot",  .TextureName = "blimp_shoot_00", .Start = 1, .End = 19,.InterTime = 0.05f, .Loop = false });
-	Boss->CreateAnimation({ .AnimationName = "Dash",  .TextureName = "blimp_dash_00", .Start = 1, .End = 24,.InterTime = 0.05f, .Loop = false });
+	Boss->CreateAnimation({ .AnimationName = "Dash",  .TextureName = "blimp_dash_00", .Start = 1, .End = 18,.InterTime = 0.05f, .Loop = false });
+	Boss->CreateAnimation({ .AnimationName = "DashBack",  .TextureName = "blimp_dash_00", .Start = 19, .End = 24,.InterTime = 0.05f, .Loop = false });
 	Boss->CreateAnimation({ .AnimationName = "Summon",  .TextureName = "blimp_summon_00", .Start = 1, .End = 21,.InterTime = 0.05f, .Loop = false });
+	Boss->CreateAnimation({ .AnimationName = "Tornato",  .TextureName = "blimp_tornado_00", .Start = 1, .End = 38,.InterTime = 0.05f, .Loop = false });
 	Boss->ChangeAnimation("Intro");
 	//Boss->SetTexture("blimp_idle_0001.png");									
 	//Boss->SetScaleToTexture("blimp_idle_0001.png");
@@ -72,7 +74,7 @@ void Hilda::Update(float _DeltaTime)
 	UpdateState(_DeltaTime);
 	if (true == GameEngineInput::IsPress("Test"))
 	{
-		NextState = HildaState::CHANGEPHASE;
+		NextState = HildaState::TORNADO;
 	}
 
 

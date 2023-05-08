@@ -59,8 +59,8 @@ void PlayerAirPlaneMode::Start()
 	PlayerRender->CreateAnimation({ .AnimationName = "ShmUpMoveDownTrans",  .TextureName = "ch_shmup_super_trans_down_00", .Start = 1, .End = 10,.InterTime = 0.01f, .Loop = false });
 
 
-	//PlayerRender->ChangeAnimation("Intro");
-	PlayerRender->ChangeAnimation("Idle");
+	PlayerRender->ChangeAnimation("Intro");
+	//PlayerRender->ChangeAnimation("Idle");
 
 	Spark = CreateComponent<GameEngineSpriteRenderer>();
 	Spark->CreateAnimation({ .AnimationName = "Spark", .TextureName = "plane_shoot_spark_000", .Start = 1, .End = 4, .InterTime = 0.05f, .Loop = true });

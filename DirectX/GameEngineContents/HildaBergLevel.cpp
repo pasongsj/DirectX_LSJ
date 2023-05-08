@@ -16,6 +16,7 @@
 #include "Taurus.h"
 #include "Sagittarius.h"
 #include "Gemini.h"
+#include "Moon.h"
 
 HildaBergLevel::HildaBergLevel() 
 {
@@ -57,7 +58,8 @@ void HildaBergLevel::Start()
 
 
 	BackGround = CreateActor<HildaBergBack>("HildaBergBack");
-	std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
+	//std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
+	std::shared_ptr<Moon> NewBoss = CreateActor<Moon>("Moon");
 	//std::shared_ptr<Taurus> NextBoss = CreateActor<Taurus>("Taurus");
 	//std::shared_ptr<Sagittarius> NextBoss = CreateActor<Sagittarius>("Sagittarius");
 	//std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");

@@ -42,8 +42,11 @@ private:
 	float IdleMoveTime = 0.0f;
 	
 	//changephase
-	bool DashTurn = true;
+	bool isDashBackTurn = false;
+	bool isBackTurn = false;
 	float WaitingTime = 0.0f;
+	float4 CurPos = float4::Zero;
+	float4 DestPos = float4::Zero;
 
 	HildaState CurState = HildaState::INTRO;
 	HildaState NextState = HildaState::INTRO;

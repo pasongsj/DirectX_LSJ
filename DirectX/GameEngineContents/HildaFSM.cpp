@@ -2,7 +2,11 @@
 #include "Hilda.h"
 
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+
+#include "HildaTornado.h"
+
 
 
 void Hilda::Intro_Start()
@@ -71,27 +75,46 @@ void Hilda::Shoot_End()
 
 void Hilda::ChangePhase_Start()
 {
+	//bool isDashBackTurn = false;
+	//bool isBackTurn = false;
+	isDashBackTurn = false;
+	isBackTurn = false;
 
-	DashTurn = true;
-;
-	WaitingTime = 3.0f;
+	WaitingTime = 0.0f;
 	Boss->ChangeAnimation("Dash");
 }
 void Hilda::ChangePhase_Update(float _DeltaTime)
 {
-	if (true == DashTurn && true == Boss->IsAnimationEnd())
-	{
-		WaitingTime -= _DeltaTime;
-	}
-	if (WaitingTime < 0.0f)
-	{
-		DashTurn = false;
 
-		Boss->ChangeAnimation("Summon");
-	}
-	if (false == DashTurn && true == Boss->IsAnimationEnd())
+	if (false == isDashBackTurn && false == isBackTurn && true == Boss->IsAnimationEnd())
 	{
-		NextState = HildaState::IDLE;
+		Boss->ChangeAnimation("DashBack");
+		isDashBackTurn = true;
+		CurPos = GetTransform()->GetLocalPosition();
+		DestPos = CurPos - float4(GameEngineWindow::GetScreenSize().x, 0);
+	}
+
+	else if (true == isDashBackTurn && false == isBackTurn)
+	{
+		WaitingTime += _DeltaTime;
+
+		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(CurPos, DestPos, WaitingTime));
+		if (WaitingTime >1.0f)
+		{
+			Boss->ChangeAnimation("Summon");
+			isBackTurn = true;
+			WaitingTime = 0.0f;
+		}
+	}
+	else if(true == isDashBackTurn && true == isBackTurn)
+	{
+		WaitingTime += _DeltaTime;
+		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(DestPos, CurPos, WaitingTime));
+		if (true == Boss->IsAnimationEnd())
+		{
+			NextState = HildaState::IDLE;
+		}
+
 	}
 
 
@@ -102,9 +125,15 @@ void Hilda::ChangePhase_End()
 
 void Hilda::Tornado_Start()
 {
+	Boss->ChangeAnimation("Tornato");
+	GetLevel()->CreateActor<HildaTornado>();
 }
 void Hilda::Tornado_Update(float _DeltaTime)
 {
+	if (true == Boss->IsAnimationEnd())
+	{
+		NextState = HildaState::IDLE;
+	}
 }
 void Hilda::Tornado_End()
 {

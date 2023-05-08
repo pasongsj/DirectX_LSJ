@@ -13,7 +13,7 @@ Taurus::~Taurus()
 
 void Taurus::Start()
 {
-	Boss = CreateComponent<GameEngineSpriteRenderer>();												
+	Boss = CreateComponent<GameEngineSpriteRenderer>();
 	//Boss->SetTexture("blimp_idle_0001.png");														
 	Boss->SetScaleToTexture("taurus_idle_0001.png");
 

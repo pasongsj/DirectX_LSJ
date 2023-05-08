@@ -21,23 +21,11 @@
     <ClInclude Include="BossStageBackGround.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Hilda.h">
-      <Filter>Object\Hilda</Filter>
-    </ClInclude>
     <ClInclude Include="TestObject.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="Taurus.h">
-      <Filter>Object\Hilda</Filter>
-    </ClInclude>
     <ClInclude Include="HildaBergLevel.h">
       <Filter>Levels</Filter>
-    </ClInclude>
-    <ClInclude Include="Sagittarius.h">
-      <Filter>Object\Hilda</Filter>
-    </ClInclude>
-    <ClInclude Include="Gemini.h">
-      <Filter>Object\Hilda</Filter>
     </ClInclude>
     <ClInclude Include="HildaBergBack.h">
       <Filter>Object\Hilda</Filter>
@@ -54,6 +42,27 @@
     <ClInclude Include="BoomEffect.h">
       <Filter>Object\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Gemini.h">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Hilda.h">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Sagittarius.h">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Taurus.h">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaBergBossController.h">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaTornado.h">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Moon.h">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -66,9 +75,6 @@
     <ClCompile Include="PrecompileHeader.cpp" />
     <ClCompile Include="TestLevel.cpp">
       <Filter>Levels</Filter>
-    </ClCompile>
-    <ClCompile Include="Hilda.cpp">
-      <Filter>Object\Hilda</Filter>
     </ClCompile>
     <ClCompile Include="Zeppling.cpp">
       <Filter>Object\Hilda\Zeppling</Filter>
@@ -85,20 +91,8 @@
     <ClCompile Include="TestObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Taurus.cpp">
-      <Filter>Object\Hilda</Filter>
-    </ClCompile>
     <ClCompile Include="HildaBergLevel.cpp">
       <Filter>Levels</Filter>
-    </ClCompile>
-    <ClCompile Include="HildaFSM.cpp">
-      <Filter>Object\Hilda</Filter>
-    </ClCompile>
-    <ClCompile Include="Sagittarius.cpp">
-      <Filter>Object\Hilda</Filter>
-    </ClCompile>
-    <ClCompile Include="Gemini.cpp">
-      <Filter>Object\Hilda</Filter>
     </ClCompile>
     <ClCompile Include="HildaBergBack.cpp">
       <Filter>Object\Hilda</Filter>
@@ -118,6 +112,30 @@
     <ClCompile Include="BoomEffect.cpp">
       <Filter>Object\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Gemini.cpp">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Hilda.cpp">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaFSM.cpp">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Sagittarius.cpp">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Taurus.cpp">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBergBossController.cpp">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaTornado.cpp">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Moon.cpp">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -134,6 +152,9 @@
     </Filter>
     <Filter Include="Object\Player">
       <UniqueIdentifier>{e7adc67c-0283-495a-aaa9-0ae686da5684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Hilda\Boss">
+      <UniqueIdentifier>{50503fed-aa62-4064-a8b7-3e49b6630a41}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
