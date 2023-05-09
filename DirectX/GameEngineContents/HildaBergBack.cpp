@@ -56,6 +56,7 @@ void HildaBergBack::Update(float _DeltaTime)
 		std::shared_ptr<class GameEngineSpriteRenderer> tempBG = MainBG;
 		MainBG = SubBG;
 		SubBG = tempBG;
+		tempBG = nullptr;
 	}
 
 	// MainHill과 SubHill을 교체해주는 작업
@@ -64,6 +65,7 @@ void HildaBergBack::Update(float _DeltaTime)
 		std::shared_ptr<class GameEngineSpriteRenderer> tempHill = MainHill;
 		MainHill = SubHill;
 		SubHill = tempHill;
+		tempHill = nullptr;
 	}
 
 
