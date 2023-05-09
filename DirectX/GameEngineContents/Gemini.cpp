@@ -17,12 +17,15 @@ void Gemini::Start()
 {
 	BossA = CreateComponent<GameEngineSpriteRenderer>();
 	BossA->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "gemini_idle_00", .Start = 1, .End = 32,.InterTime = 0.05f, .Loop = true });
+	BossA->CreateAnimation({ .AnimationName = "Attack",  .TextureName = "gemini_a_attack_00", .Start = 1, .End = 17, .InterTime = 0.05f, .Loop = false });
 	BossA->ChangeAnimation("Idle", 15);
 	//BossA->SetScaleToTexture("gemini_idle_0016.png");
 	BossA->GetTransform()->SetLocalPosition(float4(-100, 0));
 
 	BossB = CreateComponent<GameEngineSpriteRenderer>();
 	BossB->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "gemini_idle_00", .Start = 1, .End = 32,.InterTime = 0.05f, .Loop = true });
+	BossB->CreateAnimation({ .AnimationName = "Attack",  .TextureName = "gemini_b_attack_00", .Start = 1, .End = 17, .InterTime = 0.05f, .Loop = false });
+
 	BossB->ChangeAnimation("Idle");
 	//BossB->SetScaleToTexture("gemini_idle_0001.png");
 	BossB->GetTransform()->SetLocalPosition(float4(100, 0));
@@ -40,7 +43,7 @@ void Gemini::Start()
 	UpdateFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_End, this);
 
-	GetLevel()->CreateActor<GeminiOrb>();
+	Orb = GetLevel()->CreateActor<GeminiOrb>();
 }
 
 void Gemini::Update(float _DeltaTime)
@@ -76,7 +79,8 @@ void Gemini::UpdateState(float _DeltaTime)
 
 void Gemini::Idle_Start()
 {
-
+	BossA->ChangeAnimation("Idle", 15);
+	BossB->ChangeAnimation("Idle");
 }
 
 void Gemini::Idle_Update(float _DeltaTime)
@@ -111,6 +115,11 @@ void Gemini::Idle_Update(float _DeltaTime)
 	// 랜더 순서를 변경하기 위해 setorder
 	//BossA->SetOrder(static_cast<int>(10*sinf(SpinTime)));
 	//BossB->SetOrder(static_cast<int>(-10 * sinf(SpinTime)));
+
+	if (false == isAttack && GetLiveTime() > 6.4f)
+	{
+		NextState = GeminiState::ATTACK;
+	}
 }
 
 void Gemini::Idle_End()
@@ -121,12 +130,18 @@ void Gemini::Idle_End()
 
 void Gemini::Attack_Start()
 {
-
+	BossA->ChangeAnimation("Attack");
+	BossB->ChangeAnimation("Attack");
+	isAttack = true;
+	Orb->Attack();
 }
 
 void Gemini::Attack_Update(float _DeltaTime)
 {
-
+	if (true == BossA->IsAnimationEnd())
+	{
+		NextState = GeminiState::IDLE;
+	}
 }
 
 void Gemini::Attack_End()

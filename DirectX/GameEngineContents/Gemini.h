@@ -36,6 +36,7 @@ private:
 	int LastShare = -1;
 	float SpinSpeed = 100.0f;
 	float IdleMoveTime = 0.0f;
+	bool isAttack = false;
 
 	GeminiState CurState = GeminiState::IDLE;
 	GeminiState NextState = GeminiState::IDLE;
@@ -54,5 +55,6 @@ private:
 	std::function<void(float)> UpdateFuncPtr[static_cast<int>(GeminiState::MAX)];
 	std::function<void()> EndFuncPtr[static_cast<int>(GeminiState::MAX)];
 	
+	std::shared_ptr< class GeminiOrb> Orb = nullptr;
 };
 
