@@ -38,7 +38,7 @@ public:
 	TransformData()
 	{
 		Scale = float4::One;
-		Rotation = float4::Null;
+		Rotation = float4::Zero;
 		Quaternion = float4::Null;
 		Position = float4::Zero;
 		//WorldScale = float4::One;
@@ -65,6 +65,18 @@ public:
 	GameEngineTransform(GameEngineTransform&& _Other) noexcept = delete;
 	GameEngineTransform& operator=(const GameEngineTransform& _Other) = delete;
 	GameEngineTransform& operator=(GameEngineTransform&& _Other) noexcept = delete;
+
+	void SetLocalPositiveScaleX()
+	{
+		TransData.Scale.x = abs(TransData.Scale.x);
+		SetLocalScale(TransData.Scale);
+	}
+
+	void SetLocalNegativeScaleX()
+	{
+		TransData.Scale.x = -abs(TransData.Scale.x);
+		SetLocalScale(TransData.Scale);
+	}
 
 	void SetWorldScale(const float4& _Value)
 	{

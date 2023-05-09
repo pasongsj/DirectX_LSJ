@@ -76,6 +76,13 @@ void GameEngineTransform::LocalDecompose()
 {
 	TransData.LocalWorldMatrix.Decompose(TransData.LocalScale, TransData.LocalQuaternion, TransData.LocalPosition);
 	TransData.LocalRotation = TransData.LocalQuaternion.QuaternionToEulerDeg();
+	//if (TransData.LocalScale.x != TransData.LocalWorldMatrix.Arr1D[0])
+	//{
+	//	TransData.LocalScale = -TransData.LocalScale;
+	//	TransData.LocalRotation.z += 180;
+	//}
+	//TransData.LocalScale = TransData.Scale;
+	//TransData.Rotation;
 
 }
 void GameEngineTransform::WorldDecompose()
