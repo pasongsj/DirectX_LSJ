@@ -15,8 +15,10 @@ Moon::~Moon()
 void Moon::Start()
 {
 	Boss = CreateComponent<GameEngineSpriteRenderer>();
-	Boss->SetScaleToTexture("blimp_moon_idle_0001.png");
-	GetTransform()->SetLocalPosition(float4(0, -20));
+	Boss->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "blimp_moon_idle_00", .Start = 1, .End = 16,.InterTime = 0.05f, .Loop = true });
+	Boss->ChangeAnimation("Idle");
+	//Boss->SetScaleToTexture("blimp_moon_idle_0001.png");
+	GetTransform()->SetLocalPosition(float4(300, -20));
 
 
 

@@ -63,6 +63,12 @@
     <ClInclude Include="Moon.h">
       <Filter>Object\Hilda\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="HildaHA.h">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="GeminiOrb.h">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -134,6 +140,12 @@
       <Filter>Object\Hilda\Boss</Filter>
     </ClCompile>
     <ClCompile Include="Moon.cpp">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaHA.cpp">
+      <Filter>Object\Hilda\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="GeminiOrb.cpp">
       <Filter>Object\Hilda\Boss</Filter>
     </ClCompile>
   </ItemGroup>

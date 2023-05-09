@@ -15,13 +15,13 @@ HildaBergBack::~HildaBergBack()
 void HildaBergBack::Start()
 {
 	MainBG = CreateComponent<GameEngineSpriteRenderer>();
-	MainBG->SetOrder(-100);
+	//MainBG->SetOrder(-100);
 	MainBG->SetScaleToTexture("blimp_sky.png");
 
 	BGRange = MainBG->GetTransform()->GetLocalScale().ix();
 
 	SubBG = CreateComponent<GameEngineSpriteRenderer>();
-	SubBG->SetOrder(-100);
+	//SubBG->SetOrder(-100);
 	SubBG->SetScaleToTexture("blimp_sky.png");
 	SubBG->GetTransform()->SetLocalPosition(MainBG->GetTransform()->GetLocalPosition() + float4(static_cast<float>(BGRange),0));
 
@@ -30,14 +30,14 @@ void HildaBergBack::Start()
 
 
 	MainHill= CreateComponent<GameEngineSpriteRenderer>();
-	MainHill->SetOrder(-99);
+	//MainHill->SetOrder(-99);
 	MainHill->SetScaleToTexture("blimp_dark_hills.png");
 	MainHill->GetTransform()->SetLocalPosition( float4(0,134 - GameEngineWindow::GetScreenSize().hy()));
 
 	HillRange = MainHill->GetTransform()->GetLocalScale().ix();
 
 	SubHill	= CreateComponent<GameEngineSpriteRenderer>();
-	SubHill->SetOrder(-99);
+	//SubHill->SetOrder(-99);
 	SubHill->SetScaleToTexture("blimp_dark_hills.png");
 	SubHill->GetTransform()->SetLocalPosition(MainHill->GetTransform()->GetLocalPosition() + float4(static_cast<float>(HillRange), 0));
 

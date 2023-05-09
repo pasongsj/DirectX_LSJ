@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
 #include "HildaTornado.h"
+#include "HildaHA.h"
 
 
 
@@ -61,9 +62,12 @@ void Hilda::Idle_End()
 void Hilda::Shoot_Start()
 {
 	Boss->ChangeAnimation("shoot");
+	std::shared_ptr<GameEngineActor> Ha = GetLevel()->CreateActor<HildaHA>();
+	Ha->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
 }
 void Hilda::Shoot_Update(float _DeltaTime)
 {
+
 	if (true == Boss->IsAnimationEnd())
 	{
 		NextState = HildaState::IDLE;

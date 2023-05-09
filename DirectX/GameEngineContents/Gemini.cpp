@@ -2,6 +2,8 @@
 #include "Gemini.h"
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include "GeminiOrb.h"
+#include <GameEngineCore/GameEngineLevel.h>
 
 Gemini::Gemini() 
 {
@@ -14,11 +16,15 @@ Gemini::~Gemini()
 void Gemini::Start()
 {
 	BossA = CreateComponent<GameEngineSpriteRenderer>();
-	BossA->SetScaleToTexture("gemini_idle_0016.png");
+	BossA->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "gemini_idle_00", .Start = 1, .End = 32,.InterTime = 0.05f, .Loop = true });
+	BossA->ChangeAnimation("Idle", 15);
+	//BossA->SetScaleToTexture("gemini_idle_0016.png");
 	BossA->GetTransform()->SetLocalPosition(float4(-100, 0));
 
 	BossB = CreateComponent<GameEngineSpriteRenderer>();
-	BossB->SetScaleToTexture("gemini_idle_0001.png");
+	BossB->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "gemini_idle_00", .Start = 1, .End = 32,.InterTime = 0.05f, .Loop = true });
+	BossB->ChangeAnimation("Idle");
+	//BossB->SetScaleToTexture("gemini_idle_0001.png");
 	BossB->GetTransform()->SetLocalPosition(float4(100, 0));
 
 
@@ -30,9 +36,11 @@ void Gemini::Start()
 	EndFuncPtr[static_cast<int>(GeminiState::IDLE)] = std::bind(&Gemini::Idle_End, this);
 
 	//SHOOT
-	StartFuncPtr[static_cast<int>(GeminiState::SHOOT)] = std::bind(&Gemini::Shoot_Start, this);
-	UpdateFuncPtr[static_cast<int>(GeminiState::SHOOT)] = std::bind(&Gemini::Shoot_Update, this, std::placeholders::_1);
-	EndFuncPtr[static_cast<int>(GeminiState::SHOOT)] = std::bind(&Gemini::Shoot_End, this);
+	StartFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_Start, this);
+	UpdateFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_Update, this, std::placeholders::_1);
+	EndFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_End, this);
+
+	GetLevel()->CreateActor<GeminiOrb>();
 }
 
 void Gemini::Update(float _DeltaTime)
@@ -97,12 +105,12 @@ void Gemini::Idle_Update(float _DeltaTime)
 	//x=acosθy=bsinθ
 
 	float SpinTime = -GetLiveTime() * 4;
-	BossA->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), 100 * sinf(SpinTime)));
-	BossB->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -100 * sinf(SpinTime)));
+	BossA->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), -6 + 5 * sinf(SpinTime)));
+	BossB->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -6 - 5 * sinf(SpinTime)));
 
 	// 랜더 순서를 변경하기 위해 setorder
-	//BossA->SetOrder(static_cast<int>(100*sinf(SpinTime)));
-	//BossB->SetOrder(static_cast<int>(-100 * sinf(SpinTime)));
+	//BossA->SetOrder(static_cast<int>(10*sinf(SpinTime)));
+	//BossB->SetOrder(static_cast<int>(-10 * sinf(SpinTime)));
 }
 
 void Gemini::Idle_End()
@@ -111,17 +119,17 @@ void Gemini::Idle_End()
 }
 
 
-void Gemini::Shoot_Start()
+void Gemini::Attack_Start()
 {
 
 }
 
-void Gemini::Shoot_Update(float _DeltaTime)
+void Gemini::Attack_Update(float _DeltaTime)
 {
 
 }
 
-void Gemini::Shoot_End()
+void Gemini::Attack_End()
 {
 
 }

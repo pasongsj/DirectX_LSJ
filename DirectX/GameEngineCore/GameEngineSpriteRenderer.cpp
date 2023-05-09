@@ -141,7 +141,7 @@ void GameEngineSpriteRenderer::CreateAnimation(const FrameAnimationParameter& _P
 		if (nullptr == FindTex)
 		{
 			Animation.erase(UpperAnimationName);
-			MsgAssert("존재하지 않는 이미지 입니다.");
+			MsgAssert("존재하지 않는 이미지 입니다." + EachTextureName);
 			return;
 		}
 		NewAnimation.TextureName.push_back(EachTextureName);
@@ -180,6 +180,27 @@ void GameEngineSpriteRenderer::ChangeAnimation(const std::string_view& _Animatio
 	CurrentAnimation = &Animation[UpperName];
 
 	CurrentAnimation->CurrentIndex = 0;
+	// 0.1
+	CurrentAnimation->CurrentTime = 0.0f;
+}
+
+void GameEngineSpriteRenderer::ChangeAnimation(const std::string_view& _AnimationName, int _Index)
+{
+	std::string UpperName = GameEngineString::ToUpper(_AnimationName);
+
+	if (Animation.end() == Animation.find(UpperName))
+	{
+		MsgAssert("존재하지 않는 애니메이션으로 바꾸려고 했습니다." + UpperName);
+	}
+
+	if (CurrentAnimation == &Animation[UpperName])
+	{
+		return;
+	}
+
+	CurrentAnimation = &Animation[UpperName];
+
+	CurrentAnimation->CurrentIndex = _Index;
 	// 0.1
 	CurrentAnimation->CurrentTime = 0.0f;
 }

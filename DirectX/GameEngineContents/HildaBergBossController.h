@@ -22,7 +22,7 @@ protected:
 private:
 
 	std::shared_ptr<GameEngineActor> Boss = nullptr;
-	int Phase = 1;
+	int Phase = 0;
 
 };
 

@@ -5,7 +5,7 @@
 enum class SagittariusState
 {
 	IDLE,
-	SHOOT,
+	ATTACK,
 	MAX,
 
 };
@@ -36,8 +36,10 @@ private:
 
 	int CircleMove = 1;
 	int LastShare = -1;
+
 	float SpinSpeed = 100.0f;
 	float IdleMoveTime = 0.0f;
+	float AttackInterval = 5.0f;
 
 	SagittariusState CurState = SagittariusState::IDLE;
 	SagittariusState NextState = SagittariusState::IDLE;
@@ -51,9 +53,9 @@ private:
 	void Idle_Update(float _DeltaTime);
 	void Idle_End();
 
-	void Shoot_Start();
-	void Shoot_Update(float _DeltaTime);
-	void Shoot_End();
+	void Attack_Start();
+	void Attack_Update(float _DeltaTime);
+	void Attack_End();
 
 
 	std::function<void()> StartFuncPtr[static_cast<int>(SagittariusState::MAX)];

@@ -14,8 +14,13 @@ Taurus::~Taurus()
 void Taurus::Start()
 {
 	Boss = CreateComponent<GameEngineSpriteRenderer>();
+	Boss->CreateAnimation({ .AnimationName = "Idle", .TextureName = "taurus_idle_00", .Start = 1,.End = 16, .InterTime = 0.05f, .Loop = true });
+	Boss->CreateAnimation({ .AnimationName = "ChargeAttack", .TextureName = "taurus_attack_00", .Start = 1,.End = 10, .InterTime = 0.05f, .Loop = false });
+	Boss->CreateAnimation({ .AnimationName = "Attack", .TextureName = "taurus_attack_00", .Start = 11,.End = 21, .InterTime = 0.05f, .Loop = false });
+	
+	Boss->ChangeAnimation("Idle");
 	//Boss->SetTexture("blimp_idle_0001.png");														
-	Boss->SetScaleToTexture("taurus_idle_0001.png");
+	//Boss->SetScaleToTexture("taurus_idle_0001.png");
 
 	//GetTransform()->SetLocalPosition(float4(300.0f, 0));											
 																			
@@ -27,9 +32,9 @@ void Taurus::Start()
 	EndFuncPtr[static_cast<int>(TaurusState::IDLE)] = std::bind(&Taurus::Idle_End, this);
 
 	//SHOOT
-	StartFuncPtr[static_cast<int>(TaurusState::STING)] = std::bind(&Taurus::String_Start, this);
-	UpdateFuncPtr[static_cast<int>(TaurusState::STING)] = std::bind(&Taurus::String_Update, this, std::placeholders::_1);
-	EndFuncPtr[static_cast<int>(TaurusState::STING)] = std::bind(&Taurus::String_End, this);
+	StartFuncPtr[static_cast<int>(TaurusState::ATTACK)] = std::bind(&Taurus::Attack_Start, this);
+	UpdateFuncPtr[static_cast<int>(TaurusState::ATTACK)] = std::bind(&Taurus::Attack_Update, this, std::placeholders::_1);
+	EndFuncPtr[static_cast<int>(TaurusState::ATTACK)] = std::bind(&Taurus::Attack_End, this);
 }
 
 void Taurus::Update(float _DeltaTime)
@@ -67,13 +72,14 @@ void Taurus::UpdateState(float _DeltaTime)
 void Taurus::Idle_Start()
 {
 	ResetLiveTime();
-	Boss->SetScaleToTexture("taurus_idle_0001.png");
+	Boss->ChangeAnimation("Idle");
+	//Boss->SetScaleToTexture("taurus_idle_0001.png");
 }
 void Taurus::Idle_Update(float _DeltaTime)
 {
-	if (StingInterval < GetLiveTime())
+	if (AttackInterval < GetLiveTime())
 	{
-		NextState = TaurusState::STING;
+		NextState = TaurusState::ATTACK;
 	}
 
 	IdleMoveTime += _DeltaTime;
@@ -101,21 +107,37 @@ void Taurus::Idle_End()
 
 }
 
-void Taurus::String_Start()
+void Taurus::Attack_Start()
 {
 	ResetLiveTime();
-	StingInterval = GameEngineRandom::MainRandom.RandomFloat(3.0f, 8.0f);
-	Boss->SetScaleToTexture("taurus_attack_0012.png");
+	AttackInterval = GameEngineRandom::MainRandom.RandomFloat(5.0f, 8.0f);
+	Boss->ChangeAnimation("ChargeAttack");
+	//Boss->SetScaleToTexture("taurus_attack_0012.png");
+
+	CurPos = GetTransform()->GetLocalPosition();
+	DestPos = CurPos + float4(-500, 0);
+	isCharge = true;
 }
-void Taurus::String_Update(float _DeltaTime)
+void Taurus::Attack_Update(float _DeltaTime)
 {
-	if (GetLiveTime() > 1.0f)
+	if (true == isCharge && true == Boss->IsAnimationEnd())
 	{
-		NextState = TaurusState::IDLE;
+		isCharge = false;
+		Boss->ChangeAnimation("Attack");
+	}
+	else if(false == isCharge)
+	{
+		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(CurPos, DestPos, GetLiveTime()*2));
+		if (true == Boss->IsAnimationEnd())
+			//if (GetLiveTime() > 1.0f)
+		{
+			NextState = TaurusState::IDLE;
+
+		}
 
 	}
 }
-void Taurus::String_End()
+void Taurus::Attack_End()
 {
-
+	GetTransform()->SetLocalPosition(CurPos);
 }

@@ -4,7 +4,7 @@
 enum class GeminiState 
 {
 	IDLE,
-	SHOOT,
+	ATTACK,
 	MAX,
 };
 
@@ -46,9 +46,9 @@ private:
 	void Idle_Update(float _DeltaTime);
 	void Idle_End();
 
-	void Shoot_Start();
-	void Shoot_Update(float _DeltaTime);
-	void Shoot_End();
+	void Attack_Start();
+	void Attack_Update(float _DeltaTime);
+	void Attack_End();
 
 	std::function<void()> StartFuncPtr[static_cast<int>(GeminiState::MAX)];
 	std::function<void(float)> UpdateFuncPtr[static_cast<int>(GeminiState::MAX)];

@@ -60,9 +60,10 @@ void Hilda::Start()
 
 
 	// TestCode
-	if (false == GameEngineInput::IsKey("Test"))
+	if (false == GameEngineInput::IsKey("TestT"))
 	{
-		GameEngineInput::CreateKey("Test", VK_SPACE);
+		GameEngineInput::CreateKey("TestT", 'T');
+		GameEngineInput::CreateKey("TestH", 'H');
 	}
 
 }
@@ -72,10 +73,15 @@ void Hilda::Update(float _DeltaTime)
 
 
 	UpdateState(_DeltaTime);
-	if (true == GameEngineInput::IsPress("Test"))
+	if (true == GameEngineInput::IsPress("TestT"))
 	{
 		NextState = HildaState::TORNADO;
 	}
+	if (true == GameEngineInput::IsPress("TestH"))
+	{
+		NextState = HildaState::SHOOT;
+	}
+	
 
 
 }

@@ -39,7 +39,10 @@ public:
 
 	bool IsAnimationEnd();
 	void CreateAnimation(const FrameAnimationParameter& _Paramter);
+
+	void ChangeAnimation(const std::string_view& _AnimationName, int _Index);
 	void ChangeAnimation(const std::string_view& _AnimationName);
+
 
 protected:
 

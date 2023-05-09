@@ -4,7 +4,7 @@
 enum class TaurusState
 {
 	IDLE,
-	STING,
+	ATTACK,
 	MAX,
 
 };
@@ -35,13 +35,18 @@ private:
 
 	int CircleMove = 1;
 	int LastShare = -1;
-	float SpinSpeed = 100.0f;
 
-	float StingInterval = 5.0f;
+	float SpinSpeed = 100.0f;
 	float IdleMoveTime = 0.0f;
+	float AttackInterval = 5.0f;
 
 	TaurusState CurState = TaurusState::IDLE;
 	TaurusState NextState = TaurusState::IDLE;
+
+	// attack
+	bool isCharge = true;
+	float4 CurPos = float4::Zero;
+	float4 DestPos = float4::Zero;
 	
 	void UpdateState(float _DeltaTime);
 
@@ -51,9 +56,9 @@ private:
 	void Idle_Update(float _DeltaTime);
 	void Idle_End();
 
-	void String_Start();
-	void String_Update(float _DeltaTime);
-	void String_End();
+	void Attack_Start();
+	void Attack_Update(float _DeltaTime);
+	void Attack_End();
 
 
 	std::function<void()> StartFuncPtr[static_cast<int>(TaurusState::MAX)];

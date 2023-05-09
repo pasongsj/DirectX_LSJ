@@ -129,16 +129,16 @@ void GameEngineLevel::ActorRelease()
 
 		for (; ActorStart != ActorEnd; )
 		{
-			std::shared_ptr<GameEngineActor> RelaseActor = (*ActorStart);
+			std::shared_ptr<GameEngineActor> ReleaseActor = (*ActorStart);
 
-			if (nullptr != RelaseActor && false == RelaseActor->IsDeath())
+			if (nullptr != ReleaseActor && false == ReleaseActor->IsDeath())
 			{
-				RelaseActor->ComponentsRelease();
 				++ActorStart;
 				continue;
 			}
 
-			RelaseActor->Release();
+			ReleaseActor->ComponentsRelease();
+			ReleaseActor->Release();
 			ActorStart = ActorList.erase(ActorStart);
 		}
 	}
