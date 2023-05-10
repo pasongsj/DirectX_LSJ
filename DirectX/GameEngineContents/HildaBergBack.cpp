@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineResource.h>
 
 HildaBergBack::HildaBergBack() 
 {
@@ -12,16 +13,31 @@ HildaBergBack::~HildaBergBack()
 {
 }
 
+void HildaBergBack::MakeSprite()
+{
+
+	GameEngineDirectory NewDir;
+	NewDir.MoveParentToDirectory("ContentResources");
+	NewDir.Move("ContentResources");
+	NewDir.Move("Texture");
+	NewDir.Move("stage1\\Boss\\Hilda\\Level");
+	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+	for (size_t i = 0; i < File.size(); i++)
+	{
+		GameEngineTexture::Load(File[i].GetFullPath());
+	}
+}
+
 void HildaBergBack::Start()
 {
+	MakeSprite();
+
 	MainBG = CreateComponent<GameEngineSpriteRenderer>();
-	//MainBG->SetOrder(-100);
 	MainBG->SetScaleToTexture("blimp_sky.png");
 
 	BGRange = MainBG->GetTransform()->GetLocalScale().ix();
 
 	SubBG = CreateComponent<GameEngineSpriteRenderer>();
-	//SubBG->SetOrder(-100);
 	SubBG->SetScaleToTexture("blimp_sky.png");
 	SubBG->GetTransform()->SetLocalPosition(MainBG->GetTransform()->GetLocalPosition() + float4(static_cast<float>(BGRange),0));
 
@@ -30,14 +46,12 @@ void HildaBergBack::Start()
 
 
 	MainHill= CreateComponent<GameEngineSpriteRenderer>();
-	//MainHill->SetOrder(-99);
 	MainHill->SetScaleToTexture("blimp_dark_hills.png");
 	MainHill->GetTransform()->SetLocalPosition( float4(0,134 - GameEngineWindow::GetScreenSize().hy()));
 
 	HillRange = MainHill->GetTransform()->GetLocalScale().ix();
 
 	SubHill	= CreateComponent<GameEngineSpriteRenderer>();
-	//SubHill->SetOrder(-99);
 	SubHill->SetScaleToTexture("blimp_dark_hills.png");
 	SubHill->GetTransform()->SetLocalPosition(MainHill->GetTransform()->GetLocalPosition() + float4(static_cast<float>(HillRange), 0));
 
@@ -70,31 +84,36 @@ void HildaBergBack::Update(float _DeltaTime)
 
 
 
-	float4 NextBGPos = MainBG->GetTransform()->GetWorldPosition();
-	if (CamX - NextBGPos.ix() > BGLimit)
+	float4 WorldBGPos = MainBG->GetTransform()->GetWorldPosition();
+
+	float4 NextBGPos = MainBG->GetTransform()->GetLocalPosition();
+
+	if (CamX - WorldBGPos.ix() > BGLimit)
 	{
 		NextBGPos.x += BGRange;
 	}
-	else if (CamX - NextBGPos.ix() < -BGLimit) {
+	else if (CamX - WorldBGPos.ix() < -BGLimit) {
 		NextBGPos.x -= BGRange;
 	}
 
 	if (NextBGPos != SubBG->GetTransform()->GetLocalPosition()) {
-		SubBG->GetTransform()->SetLocalPosition(NextBGPos-GetTransform()->GetLocalPosition());
+		SubBG->GetTransform()->SetLocalPosition(NextBGPos);
 	}
 
 
 
-	float4 NextHillPos = MainHill->GetTransform()->GetWorldPosition();
-	if (CamX - NextHillPos.ix() > HillLimit)
+	float4 WorldHillPos = MainHill->GetTransform()->GetWorldPosition();
+
+	float4 NextHillPos = MainHill->GetTransform()->GetLocalPosition();
+	if (CamX - WorldHillPos.ix() > HillLimit)
 	{
 		NextHillPos.x += HillRange;
 	}
-	else if (CamX - NextHillPos.ix() < -HillLimit) {
+	else if (CamX - WorldHillPos.ix() < -HillLimit) {
 		NextHillPos.x -= HillRange;
 	}
 
 	if (NextHillPos != SubHill->GetTransform()->GetLocalPosition()) {
-		SubHill->GetTransform()->SetLocalPosition(NextHillPos - GetTransform()->GetLocalPosition());
+		SubHill->GetTransform()->SetLocalPosition(NextHillPos);
 	}
 }

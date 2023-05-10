@@ -9,16 +9,37 @@ BoomEffect::BoomEffect()
 BoomEffect::~BoomEffect() 
 {
 }
+void BoomEffect::MakeSprite()
+{
+	if (nullptr == GameEngineSprite::Find("shmup_super_boom"))
+	{
+
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
+		NewDir.Move("Texture");
+		NewDir.Move("Cuphead_AirPlane\\effect");
+
+
+
+		// Origin
+		// idle
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Boom").GetFullPath(), "shmup_super_boom");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Explode").GetFullPath(), "shmup_super_explode");
+
+	}
+}
 
 void BoomEffect::Start()
 {
+	MakeSprite();
 	Explode = CreateComponent<GameEngineSpriteRenderer>();
-	Explode->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "shmup_super_explode_00", .Start = 1, .End = 27,.InterTime = 0.02f, .Loop = false });
+	Explode->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "shmup_super_boom",.FrameInter = 0.02f, .Loop = false , .ScaleToImage = true });
 	Explode->ChangeAnimation("Idle");
 
-
 	Boom = CreateComponent<GameEngineSpriteRenderer>();
-	Boom->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "shmup_super_boom_00", .Start = 1, .End = 11,.InterTime = 0.06f, .Loop = false });
+	Boom->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "shmup_super_explode", .FrameInter = 0.06f, .Loop = false , .ScaleToImage = true });
 	Boom->ChangeAnimation("Idle");
 }
 

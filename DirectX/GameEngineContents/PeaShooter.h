@@ -33,5 +33,7 @@ private:
 
 	float ShootSpeed = 1000.0f;
 
+	void MakeSprite();
+
 };
 

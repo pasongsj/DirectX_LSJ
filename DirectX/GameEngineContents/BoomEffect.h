@@ -25,5 +25,6 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Explode;
 	std::shared_ptr<class GameEngineSpriteRenderer> Boom;
 
+	void MakeSprite();
 };
 

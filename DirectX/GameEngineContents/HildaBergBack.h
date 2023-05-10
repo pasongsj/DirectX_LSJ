@@ -35,6 +35,6 @@ private:
 	int HillLimit = 0;
 
 
-
+	void MakeSprite();
 };
 

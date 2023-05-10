@@ -1,40 +1,55 @@
 #include "PrecompileHeader.h"
 #include "GameEngineSpriteRenderer.h"
-#include "GameEngineTexture.h"
+#include "GameEngineSprite.h"
 
-void GameEngineSpriteRenderer::FrameAnimation::Render(float _DeltaTime)
+std::shared_ptr<GameEngineTexture> AnimationInfo::CurFrameTexture()
 {
-	CurrentTime -= _DeltaTime;
+	const SpriteInfo& Info = Sprite->GetSpriteInfo(CurFrame);
+	return Info.Texture;
+}
 
-	if (CurrentTime <= 0.0f)
+bool AnimationInfo::IsEnd()
+{
+	return IsEndValue;
+}
+
+void AnimationInfo::Reset()
+{
+	CurFrame = StartFrame;
+	CurTime = 0.0f;
+	IsEndValue = false;
+}
+
+void AnimationInfo::Update(float _DeltaTime)
+{
+	IsEndValue = false;
+	CurTime -= _DeltaTime;
+
+	if (0.0f >= CurTime)
 	{
-		++CurrentIndex;
+		++CurFrame;
+		CurTime = Inter;
 
-		if (TextureName.size() <= CurrentIndex)
+		// 0 ~ 9
+
+		// 9
+		if (CurFrame > EndFrame)
 		{
+			IsEndValue = true;
+
 			if (true == Loop)
 			{
-				CurrentIndex = 0;
+				CurFrame = StartFrame;
 			}
-			else {
-				CurrentIndex = static_cast<int>(TextureName.size()) - 1;
+			else
+			{
+				--CurFrame;
 			}
 		}
-
-		CurrentTime += TextureTime[CurrentIndex];
 	}
 }
 
-bool GameEngineSpriteRenderer::FrameAnimation::IsEnd()
-{
-	int Value = (static_cast<int>(TextureName.size()) - 1);
-	return CurrentIndex == Value;
-}
-
-
-
-
-
+// SpriteRenderer
 
 GameEngineSpriteRenderer::GameEngineSpriteRenderer()
 {
@@ -52,36 +67,9 @@ void GameEngineSpriteRenderer::Start()
 	SetPipeLine("2DTexture");
 }
 
-
-void GameEngineSpriteRenderer::Render(float _Delta)
-{
-	if (nullptr != CurrentAnimation)
-	{
-		CurrentAnimation->Render(_Delta);
-		TaxtureIndex = CurrentAnimation->CurrentIndex;
-		SetScaleToTexture(CurrentAnimation->TextureName[TaxtureIndex]);
-	}
-
-	GameEngineRenderer::Render(_Delta);
-}
-
 void GameEngineSpriteRenderer::SetTexture(const std::string_view& _Name)
 {
 	GetShaderResHelper().SetTexture("DiffuseTex", _Name);
-}
-
-void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name)
-{
-	GetShaderResHelper().SetTexture("DiffuseTex", _Name);
-	std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(_Name);
-	if (nullptr == FindTex)
-	{
-		MsgAssert(std::string(_Name.data()) + "이미지를 로드한 적이 없습니다.");
-		return;
-	}
-
-	float4 Scale = float4(static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()),1);
-	GetTransform()->SetLocalScale(Scale);
 }
 
 void GameEngineSpriteRenderer::SetFlipX()
@@ -93,119 +81,135 @@ void GameEngineSpriteRenderer::SetFlipX()
 
 void GameEngineSpriteRenderer::SetFlipY()
 {
-
 	float4 LocalScale = GetTransform()->GetLocalScale();
 	LocalScale.y = -LocalScale.y;
 	GetTransform()->SetLocalScale(LocalScale);
 }
 
-
-//class FrameAnimationParameter
-//{
-//public:
-//	std::string_view AnimationName = "";
-//	std::string_view TextureName = "";
-//
-//	int Start = 0;
-//	int End = 0;
-//	int CurrentIndex = 0;
-//	float InterTime = 0.1f;
-//	bool Loop = true;
-//	std::vector<int> FrameIndex = std::vector<int>();
-//	std::vector<float> FrameTime = std::vector<float>();
-//};
-
-void GameEngineSpriteRenderer::CreateAnimation(const FrameAnimationParameter& _Paramter)
+void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name)
 {
-	// 존재하는 애니메이션인지 체크
-	std::string UpperAnimationName = GameEngineString::ToUpper(_Paramter.AnimationName);
-	if (Animation.end() != Animation.find(UpperAnimationName) || 0 == UpperAnimationName.size())
+	GetShaderResHelper().SetTexture("DiffuseTex", _Name);
+	std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(_Name);
+
+	if (nullptr == FindTex)
 	{
-		MsgAssert("이미 존재하거나 입력하지 않은 이름의 애니메이션 입니다." + UpperAnimationName);
+		MsgAssert("존재하지 않는 이미지 입니다.");
+		return;
 	}
 
-	FrameAnimation& NewAnimation = Animation[UpperAnimationName];
+	float4 Scale = float4(static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()), 1);
+	GetTransform()->SetLocalScale(Scale);
+}
 
-	std::string UpperTextureName = GameEngineString::ToUpper(_Paramter.TextureName);
+std::shared_ptr<AnimationInfo> GameEngineSpriteRenderer::FindAnimation(const std::string_view& _Name)
+{
+	std::map<std::string, std::shared_ptr<AnimationInfo>>::iterator FindIter = Animations.find(_Name.data());
 
-	size_t MaxLen = std::to_string(_Paramter.End).size();
-	for (int frame = _Paramter.Start; frame <= _Paramter.End; ++frame)
+	if (FindIter == Animations.end())
 	{
-		std::string EachTextureName = UpperTextureName;
-		for (size_t Zcnt = 0; Zcnt < (MaxLen)-std::to_string(frame).size(); Zcnt++)
-		{
-			EachTextureName += '0';
-		}
-		EachTextureName += (std::to_string(frame) + ".PNG");
-		std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(EachTextureName);
-		if (nullptr == FindTex)
-		{
-			Animation.erase(UpperAnimationName);
-			MsgAssert("존재하지 않는 이미지 입니다." + EachTextureName);
-			return;
-		}
-		NewAnimation.TextureName.push_back(EachTextureName);
+		return nullptr;
 	}
-	
-	// 각 프레임별 시간을 계산한다.
-	if (0 != _Paramter.FrameTime.size())
+
+	return FindIter->second;
+}
+
+std::shared_ptr<AnimationInfo> GameEngineSpriteRenderer::CreateAnimation(const std::string_view& _Name,
+	const std::string_view& _SpriteName,
+	float _FrameInter /*= 0.1f*/,
+	int _Start /*= -1*/,
+	int _End /*= -1*/,
+	bool _Loop /*= true*/,
+	bool _ScaleToImage)
+{
+	if (nullptr != FindAnimation(_Name))
 	{
-		NewAnimation.TextureTime = _Paramter.FrameTime;
+		MsgAssert("이미 존재하는 이름의 애니메이션을 또 만들려고 했습니다." + std::string(_Name));
+		return nullptr;
+	}
+
+	std::shared_ptr<GameEngineSprite> Sprite = GameEngineSprite::Find(_SpriteName);
+
+	if (nullptr == Sprite)
+	{
+		MsgAssert("존재하지 않는 스프라이트로 애니메이션을 만들려고 했습니다." + std::string(_SpriteName));
+		return nullptr;
+	}
+
+	std::shared_ptr<AnimationInfo> NewAnimation = std::make_shared<AnimationInfo>();
+	Animations[_Name.data()] = NewAnimation;
+
+	if (-1 != _Start)
+	{
+		if (_Start < 0)
+		{
+			MsgAssert("스프라이트 범위를 초과하는 인덱스로 애니메이션을 마들려고 했습니다." + std::string(_Name));
+			return nullptr;
+		}
+
+		NewAnimation->StartFrame = _Start;
 	}
 	else
 	{
-		for (int i = 0; i < NewAnimation.TextureName.size(); ++i)
+		NewAnimation->StartFrame = 0;
+	}
+
+	if (-1 != _End)
+	{
+		if (_End >= Sprite->GetSpriteCount())
 		{
-			NewAnimation.TextureTime.push_back(_Paramter.InterTime);
+			MsgAssert("스프라이트 범위를 초과하는 인덱스로 애니메이션을 마들려고 했습니다." + std::string(_Name));
+			return nullptr;
 		}
+
+		NewAnimation->EndFrame = _End;
+	}
+	else
+	{
+		NewAnimation->EndFrame = Sprite->GetSpriteCount() - 1;
 	}
 
-	NewAnimation.Loop = _Paramter.Loop;
+	NewAnimation->Sprite = Sprite;
+	NewAnimation->Parent = this;
+	NewAnimation->Loop = _Loop;
+	NewAnimation->Inter = _FrameInter;
+	NewAnimation->ScaleToImage = _ScaleToImage;
+
+	return NewAnimation;
 }
 
-void GameEngineSpriteRenderer::ChangeAnimation(const std::string_view& _AnimationName)
+
+void GameEngineSpriteRenderer::ChangeAnimation(const std::string_view& _Name, size_t _Frame, bool _Force)
 {
-	std::string UpperName = GameEngineString::ToUpper(_AnimationName);
+	std::shared_ptr<AnimationInfo> Find = FindAnimation(_Name);
 
-	if (Animation.end() == Animation.find(UpperName))
-	{
-		MsgAssert("존재하지 않는 애니메이션으로 바꾸려고 했습니다." + UpperName);
-	}
-
-	if (CurrentAnimation == &Animation[UpperName])
+	if (CurAnimation == Find && false == _Force)
 	{
 		return;
 	}
 
-	CurrentAnimation = &Animation[UpperName];
+	CurAnimation = FindAnimation(_Name);
+	CurAnimation->Reset();
 
-	CurrentAnimation->CurrentIndex = 0;
-	// 0.1
-	CurrentAnimation->CurrentTime = 0.0f;
-}
-
-void GameEngineSpriteRenderer::ChangeAnimation(const std::string_view& _AnimationName, int _Index)
-{
-	std::string UpperName = GameEngineString::ToUpper(_AnimationName);
-
-	if (Animation.end() == Animation.find(UpperName))
+	if (_Frame != -1)
 	{
-		MsgAssert("존재하지 않는 애니메이션으로 바꾸려고 했습니다." + UpperName);
+		CurAnimation->CurFrame = _Frame;
 	}
 
-	if (CurrentAnimation == &Animation[UpperName])
-	{
-		return;
-	}
-
-	CurrentAnimation = &Animation[UpperName];
-
-	CurrentAnimation->CurrentIndex = _Index;
-	// 0.1
-	CurrentAnimation->CurrentTime = 0.0f;
 }
 
-bool GameEngineSpriteRenderer::IsAnimationEnd()
+void GameEngineSpriteRenderer::Render(float _Delta)
 {
-	return CurrentAnimation->IsEnd();
+	if (nullptr != CurAnimation)
+	{
+		CurAnimation->Update(_Delta);
+		GetShaderResHelper().SetTexture("DiffuseTex", CurAnimation->CurFrameTexture());
+		if (true == CurAnimation->ScaleToImage)
+		{
+			float4 Scale = float4(static_cast<float>(CurAnimation->CurFrameTexture()->GetWidth()), static_cast<float>(CurAnimation->CurFrameTexture()->GetHeight()), 1);
+			GetTransform()->SetLocalScale(Scale);
+		}
+
+	}
+
+	GameEngineRenderer::Render(_Delta);
 }

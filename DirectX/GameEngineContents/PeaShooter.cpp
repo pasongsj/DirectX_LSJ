@@ -11,12 +11,34 @@ PeaShooter::~PeaShooter()
 {
 }
 
+void PeaShooter::MakeSprite()
+{
+	if (nullptr == GameEngineSprite::Find("Cuphead_AirPlane_Bullet"))
+	{
+
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
+		NewDir.Move("Texture");
+		NewDir.Move("Cuphead_AirPlane\\bullet");
+
+
+
+		// Origin
+		// idle
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("peashot").GetFullPath(), "Cuphead_AirPlane_Bullet");
+	}
+}
+
 void PeaShooter::Start()
 {
+
+	MakeSprite();
+
 	Bullet = CreateComponent<GameEngineSpriteRenderer>();
-	Bullet->CreateAnimation({ .AnimationName = "Origin",  .TextureName = "schmup_peashot_bullet_A_000", .Start = 1, .End = 3,.InterTime = 0.1f, .Loop = true });
-	//Bullet->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "schmup_peashot_bullet_A_000", .Start = 1, .End = 3,.InterTime = 0.1f, .Loop = true });
-	//Bullet->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "schmup_peashot_bullet_A_000", .Start = 1, .End = 3,.InterTime = 0.1f, .Loop = true });
+	Bullet->CreateAnimation({ .AnimationName = "Origin",  .SpriteName = "Cuphead_AirPlane_Bullet", .FrameInter = 0.1f, .Loop = true, .ScaleToImage = true });
+
 	Bullet->ChangeAnimation("Origin");
 }
 

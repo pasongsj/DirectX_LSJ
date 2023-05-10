@@ -33,9 +33,9 @@ void GameEngineTransform::TransformUpdate()
 		WorldCalculation();
 	}
 
-	WorldDecompose();
+	/*WorldDecompose();
 
-	LocalDecompose();
+	LocalDecompose();*/
 	// ParentWorldMatrix.Decompose(PScale, PRoatation, PPosition);
 
 }
@@ -75,6 +75,10 @@ void GameEngineTransform::WorldCalculation()
 	MatPos.Pos(PPosition);
 
 	TransData.WorldMatrix = TransData.LocalWorldMatrix * (MatScale * MatRot * MatPos);
+
+	WorldDecompose();
+
+	LocalDecompose();
 }
 
 void GameEngineTransform::LocalDecompose()

@@ -63,6 +63,8 @@ private:
 
 	void ChangeMode(const std::string_view& _Mode);
 
+	void MakeSprite();
+
 
 	// fsm 에 대한 함수
 
@@ -93,6 +95,7 @@ private:
 	std::function<void()> EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MAX)];
 
 	bool isStartAnimationDone = true;
+
 
 };
 

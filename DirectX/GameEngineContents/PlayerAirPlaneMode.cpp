@@ -18,6 +18,85 @@ PlayerAirPlaneMode::~PlayerAirPlaneMode()
 {
 }
 
+void PlayerAirPlaneMode::MakeSprite()
+{
+	if (nullptr == GameEngineSprite::Find("Cuphead_AirPlane_Origin_Idle"))
+	{
+
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
+		NewDir.Move("Texture");
+		NewDir.Move("Cuphead_AirPlane\\Idle");
+
+
+
+		// Origin
+		// idle
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Cuphead_AirPlane_Origin_Idle");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("up").GetFullPath(), "Cuphead_AirPlane_Origin_Idleup");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("down").GetFullPath(), "Cuphead_AirPlane_Origin_Idledown");
+
+		// intro
+		NewDir.Move("..\\Intros");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Regular").GetFullPath(), "Cuphead_AirPlane_Origin_intro");
+
+		// trans
+		NewDir.Move("..\\Transicion");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("transup").GetFullPath(), "Cuphead_AirPlane_Origin_transup");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("transdown").GetFullPath(), "Cuphead_AirPlane_Origin_transdown");
+
+		// Super
+		// idle
+		NewDir.Move("..\\Super\\Idle");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Cuphead_AirPlane_Super_Idle");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("up").GetFullPath(), "Cuphead_AirPlane_Super_Idleup");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("down").GetFullPath(), "Cuphead_AirPlane_Super_Idledown");
+
+		// intro
+		NewDir.MoveParent();
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("intro").GetFullPath(), "Cuphead_AirPlane_Super_intro");
+
+		// trans
+		NewDir.Move("trans");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("up").GetFullPath(), "Cuphead_AirPlane_Super_transup");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("down").GetFullPath(), "Cuphead_AirPlane_Super_transdown");
+
+		// Shrink
+		// idle
+		NewDir.Move("..\\..\\Shrink\\idle");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Cuphead_AirPlane_Shrink_Idle");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("up").GetFullPath(), "Cuphead_AirPlane_Shrink_Idleup");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("down").GetFullPath(), "Cuphead_AirPlane_Shrink_Idledown");
+
+		// intro
+		NewDir.MoveParent();
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("morph").GetFullPath(), "Cuphead_AirPlane_Shrink_intro");
+
+		// trans
+		NewDir.Move("trans");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("up").GetFullPath(), "Cuphead_AirPlane_Shrink_transup");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("down").GetFullPath(), "Cuphead_AirPlane_Shrink_transdown");
+
+
+		//parry
+		NewDir.Move("..\\..\\");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Parry").GetFullPath(), "Cuphead_AirPlane_Parry");
+	}
+
+	if (nullptr == GameEngineSprite::Find("Cuphead_AirPlane_Spark"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
+		NewDir.Move("Texture");
+		NewDir.Move("Cuphead_AirPlane\\effect");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Spark").GetFullPath(), "Cuphead_AirPlane_Spark");
+	}
+}
+
 void PlayerAirPlaneMode::Start()
 {
 
@@ -36,46 +115,49 @@ void PlayerAirPlaneMode::Start()
 		GameEngineInput::CreateKey("PlayerShrinkMode", VK_NUMPAD3);
 	}
 
+	MakeSprite();
+
+
 	PlayerRender = CreateComponent<GameEngineSpriteRenderer>();
-	// PlayerRender->SetScaleToTexture("cuphead_plane_idle_straight_0001.png");
+	//----------
 	// 
 	// idle mode
-	PlayerRender->CreateAnimation({ .AnimationName = "OriginIntro",  .TextureName = "cuphead_plane_intro_00", .Start = 1, .End = 41,.InterTime = 0.05f, .Loop = false });
-											
-	PlayerRender->CreateAnimation({ .AnimationName = "OriginIdle",  .TextureName = "cuphead_plane_idle_straight_000", .Start = 1, .End = 4,.InterTime = 0.05f,.Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveUp",  .TextureName = "cuphead_plane_idle_up_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveUpTrans",  .TextureName = "cuphead_plane_trans_up_00", .Start = 1, .End = 11,.InterTime = 0.01f, .Loop = false });
-											
-	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveDown",  .TextureName = "cuphead_plane_idle_down_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveDownTrans",  .TextureName = "cuphead_plane_trans_down_00", .Start = 1, .End = 11,.InterTime = 0.01f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginIntro", .SpriteName = "Cuphead_AirPlane_Origin_intro", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
+									
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginIdle",  .SpriteName = "Cuphead_AirPlane_Origin_Idle", .FrameInter = 0.05f,.Loop = true , .ScaleToImage = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveUp",  .SpriteName = "Cuphead_AirPlane_Origin_Idleup", .FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveUpTrans",  .SpriteName = "Cuphead_AirPlane_Origin_transup", .FrameInter = 0.01f, .Loop = false , .ScaleToImage = true });
+	//									
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveDown",  .SpriteName = "Cuphead_AirPlane_Origin_Idledown", .FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveDownTrans",  .SpriteName = "Cuphead_AirPlane_Origin_transdown", .FrameInter = 0.01f, .Loop = false, .ScaleToImage = true });
 
 	// parry
-	PlayerRender->CreateAnimation({ .AnimationName = "Parry",  .TextureName = "cuphead_plane_parry_00", .Start = 1, .End = 20,.InterTime = 0.03f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "Parry",  .SpriteName = "Cuphead_AirPlane_Parry",.FrameInter = 0.03f, .Loop = false });
 
 	// shmup mode
-	PlayerRender->CreateAnimation({ .AnimationName = "SuperIntro",  .TextureName = "ch_shmup_super_intro_00", .Start = 1, .End = 14,.InterTime = 0.1f, .Loop = false });
-	PlayerRender->CreateAnimation({ .AnimationName = "SuperIdle",  .TextureName = "ch_shmup_super_idle_straight_000", .Start = 1, .End = 4, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveUp",  .TextureName = "ch_shmup_super_idle_up_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveUpTrans",  .TextureName = "ch_shmup_super_trans_up_00", .Start = 1, .End = 12,.InterTime = 0.01f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperIntro",  .SpriteName = "Cuphead_AirPlane_Super_intro", .FrameInter = 0.1f, .Loop = false , .ScaleToImage = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperIdle",  .SpriteName = "Cuphead_AirPlane_Super_Idle", .Loop = true, .ScaleToImage = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveUp",  .SpriteName = "Cuphead_AirPlane_Super_Idleup",.FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveUpTrans",  .SpriteName = "Cuphead_AirPlane_Super_transup",.FrameInter = 0.01f, .Loop = false, .ScaleToImage = true });
 												
-	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveDown",  .TextureName = "ch_shmup_super_idle_down_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveDownTrans",  .TextureName = "ch_shmup_super_trans_down_00", .Start = 1, .End = 10,.InterTime = 0.01f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveDown",  .SpriteName = "Cuphead_AirPlane_Super_Idledown",.FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveDownTrans",  .SpriteName = "Cuphead_AirPlane_Super_transdown",.FrameInter = 0.01f, .Loop = false, .ScaleToImage = true });
 
 	// shrink mode
-	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkIntro",  .TextureName = "cuphead_schmup_shrink_morph_000", .Start = 1, .End = 6,.InterTime = 0.1f, .Loop = false });
-	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkIdle",  .TextureName = "cuphead_schmup_shrink_idle_straight_000", .Start = 1, .End = 4, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveUp",  .TextureName = "cuphead_schmup_shrink_idle_up_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveUpTrans",  .TextureName = "cuphead_schmup_shrink_trans_up_00", .Start = 1, .End = 11,.InterTime = 0.01f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkIntro",  .SpriteName = "Cuphead_AirPlane_Shrink_intro",.FrameInter = 0.1f, .Loop = false, .ScaleToImage = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkIdle",  .SpriteName = "Cuphead_AirPlane_Shrink_Idle",  .Loop = true, .ScaleToImage = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveUp",  .SpriteName = "Cuphead_AirPlane_Shrink_Idleup",.FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveUpTrans",  .SpriteName = "Cuphead_AirPlane_Shrink_transup",.FrameInter = 0.01f, .Loop = false, .ScaleToImage = true });
 												
-	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDown",  .TextureName = "cuphead_schmup_shrink_idle_down_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDownTrans",  .TextureName = "cuphead_schmup_shrink_trans_down_00", .Start = 1, .End = 11,.InterTime = 0.01f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDown",  .SpriteName = "Cuphead_AirPlane_Shrink_Idledown", .FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDownTrans",  .SpriteName = "Cuphead_AirPlane_Shrink_transdown", .FrameInter = 0.01f, .Loop = false, .ScaleToImage = true });
 
 
 	PlayerRender->ChangeAnimation("OriginIntro");
 	//PlayerRender->ChangeAnimation("Idle");
 
 	Spark = CreateComponent<GameEngineSpriteRenderer>();
-	Spark->CreateAnimation({ .AnimationName = "Spark", .TextureName = "plane_shoot_spark_000", .Start = 1, .End = 4, .InterTime = 0.05f, .Loop = true });
+	Spark->CreateAnimation({ .AnimationName = "Spark", .SpriteName = "Cuphead_AirPlane_Spark", .FrameInter = 0.05f, .Loop = true,.ScaleToImage = true });
 	Spark->ChangeAnimation("Spark");
 
 	GetTransform()->SetLocalPosition(float4( - 300, 0, 0));

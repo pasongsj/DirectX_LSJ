@@ -54,6 +54,8 @@ private:
 
 	void UpdateState(float _DeltaTime);
 
+	void MakeSprite();
+
 	//INTRO,
 	//	SHOOT,
 	//	CHANGEPHASE,
