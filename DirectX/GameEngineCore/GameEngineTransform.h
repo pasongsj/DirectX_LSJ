@@ -220,20 +220,20 @@ public:
 
 
 
-	//float4 GetWorldPosition()
-	//{
-	//	return WorldPosition;
-	//}
+	float4 GetAbsoluteScale()
+	{
+		return TransData.Scale;
+	}
 
-	//float4 GetWorldScale()
-	//{
-	//	return WorldScale;
-	//}
+	float4 GetAbsolutePosition()
+	{
+		return TransData.Position;
+	}
 
-	//float4 GetWorldRotation()
-	//{
-	//	return WorldRotation;
-	//}
+	float4 GetAbsoluteRotation()
+	{
+		return TransData.Rotation;
+	}
 
 
 	float4x4 GetLocalWorldMatrix()

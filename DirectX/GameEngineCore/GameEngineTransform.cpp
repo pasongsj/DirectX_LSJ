@@ -140,17 +140,17 @@ void GameEngineTransform::CalChild()
 	{
 		if (false == ChildTrans->AbsoluteScale)
 		{
-			ChildTrans->SetLocalScale(ChildTrans->GetLocalScale());
+			ChildTrans->SetLocalScale(ChildTrans->GetAbsoluteScale());
 		}
 
 		if (false == ChildTrans->AbsoluteRotation)
 		{
-			ChildTrans->SetLocalRotation(ChildTrans->GetLocalRotation());
+			ChildTrans->SetLocalRotation(ChildTrans->GetAbsoluteRotation());
 		}
 
 		if (false == ChildTrans->AbsolutePosition)
 		{
-			ChildTrans->SetLocalPosition(ChildTrans->GetLocalPosition());
+			ChildTrans->SetLocalPosition(ChildTrans->GetAbsolutePosition());
 		}
 	}
 }
