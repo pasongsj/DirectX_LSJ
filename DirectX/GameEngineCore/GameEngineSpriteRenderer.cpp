@@ -76,7 +76,7 @@ void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name)
 	std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(_Name);
 	if (nullptr == FindTex)
 	{
-		MsgAssert("ㅅ 입니다.");
+		MsgAssert(std::string(_Name.data()) + "이미지를 로드한 적이 없습니다.");
 		return;
 	}
 

@@ -28,14 +28,6 @@ HildaBergLevel::HildaBergLevel()
 HildaBergLevel::~HildaBergLevel() 
 {
 
-	//for (int i = 0; i < Zeppling::AllZepplings.size(); i++)
-	//{
-	//	if (nullptr != Zeppling::AllZepplings[i])
-	//	{
-	//		Zeppling::AllZepplings[i]->Death();
-	//		Zeppling::AllZepplings[i] = nullptr;
-	//	}
-	//}
 }
 
 void HildaBergLevel::Start()
@@ -61,12 +53,12 @@ void HildaBergLevel::Start()
 
 
 	BackGround = CreateActor<HildaBergBack>("HildaBergBack");
-	//std::shared_ptr<HildaBergBossController> NewBoss = CreateActor<HildaBergBossController>("HildaBergBossController");
+	std::shared_ptr<HildaBergBossController> NewBoss = CreateActor<HildaBergBossController>("HildaBergBossController");
 	//std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
 	//std::shared_ptr<Moon> NewBoss = CreateActor<Moon>("Moon");
 	//std::shared_ptr<Taurus> NextBoss = CreateActor<Taurus>("Taurus");
 	//std::shared_ptr<Sagittarius> NextBoss = CreateActor<Sagittarius>("Sagittarius");
-	std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");
+	/*std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");*/
 	//std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>("Zeppling");
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>("PlayerAirPlaneMode");
 
@@ -80,7 +72,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 
 void HildaBergLevel::LevelChangeStart()
 {
-
+	//std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");
 }
 
 void HildaBergLevel::LevelChangeEnd()

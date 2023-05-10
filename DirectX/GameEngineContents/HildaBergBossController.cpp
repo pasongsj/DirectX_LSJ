@@ -59,7 +59,7 @@ void HildaBergBossController::Update(float _DeltaTime)
 			}
 			else
 			{
-				Boss = GetLevel()->CreateActor<Gemini>();
+				//Boss = GetLevel()->CreateActor<Gemini>(); // 현재 문제가 있음
 			}
 			break;
 		}

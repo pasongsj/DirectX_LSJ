@@ -18,9 +18,6 @@
     <ClInclude Include="ZepplingBullet.h">
       <Filter>Object\Hilda\Zeppling</Filter>
     </ClInclude>
-    <ClInclude Include="BossStageBackGround.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="TestObject.h">
       <Filter>Object</Filter>
     </ClInclude>
@@ -41,9 +38,6 @@
     </ClInclude>
     <ClInclude Include="BoomEffect.h">
       <Filter>Object\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Gemini.h">
-      <Filter>Object\Hilda\Boss</Filter>
     </ClInclude>
     <ClInclude Include="Hilda.h">
       <Filter>Object\Hilda\Boss</Filter>
@@ -66,8 +60,20 @@
     <ClInclude Include="HildaHA.h">
       <Filter>Object\Hilda\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="Gemini.h">
+      <Filter>Object\Hilda\Boss\Gemini</Filter>
+    </ClInclude>
+    <ClInclude Include="GeminiObject.h">
+      <Filter>Object\Hilda\Boss\Gemini</Filter>
+    </ClInclude>
     <ClInclude Include="GeminiOrb.h">
-      <Filter>Object\Hilda\Boss</Filter>
+      <Filter>Object\Hilda\Boss\Gemini</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroStoryLevel.h">
+      <Filter>Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryObject.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -90,9 +96,6 @@
     </ClCompile>
     <ClCompile Include="ZepplingFSM.cpp">
       <Filter>Object\Hilda\Zeppling</Filter>
-    </ClCompile>
-    <ClCompile Include="BossStageBackGround.cpp">
-      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="TestObject.cpp">
       <Filter>Object</Filter>
@@ -118,9 +121,6 @@
     <ClCompile Include="BoomEffect.cpp">
       <Filter>Object\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Gemini.cpp">
-      <Filter>Object\Hilda\Boss</Filter>
-    </ClCompile>
     <ClCompile Include="Hilda.cpp">
       <Filter>Object\Hilda\Boss</Filter>
     </ClCompile>
@@ -145,8 +145,20 @@
     <ClCompile Include="HildaHA.cpp">
       <Filter>Object\Hilda\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="Gemini.cpp">
+      <Filter>Object\Hilda\Boss\Gemini</Filter>
+    </ClCompile>
+    <ClCompile Include="GeminiObject.cpp">
+      <Filter>Object\Hilda\Boss\Gemini</Filter>
+    </ClCompile>
     <ClCompile Include="GeminiOrb.cpp">
-      <Filter>Object\Hilda\Boss</Filter>
+      <Filter>Object\Hilda\Boss\Gemini</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroStoryLevel.cpp">
+      <Filter>Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +179,9 @@
     </Filter>
     <Filter Include="Object\Hilda\Boss">
       <UniqueIdentifier>{50503fed-aa62-4064-a8b7-3e49b6630a41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Hilda\Boss\Gemini">
+      <UniqueIdentifier>{ae8d24fa-934a-4998-82a5-a062d86fc038}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

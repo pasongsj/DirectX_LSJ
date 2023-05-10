@@ -43,7 +43,8 @@ private:
 	PlayerAirPlaneModeState CurState = PlayerAirPlaneModeState::INTRO;
 	PlayerAirPlaneModeState NextState = PlayerAirPlaneModeState::INTRO;
 
-	bool isShmUpMode = false;
+
+	std::string CurMode = "Origin";
 
 
 	// bullet
@@ -59,6 +60,8 @@ private:
 	void ChangePlayerAnimation(const std::string_view& _State);
 
 	void CheckShoot(float _DeltaTime);
+
+	void ChangeMode(const std::string_view& _Mode);
 
 
 	// fsm 에 대한 함수

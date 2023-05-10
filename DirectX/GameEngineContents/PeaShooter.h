@@ -15,11 +15,19 @@ public:
 	PeaShooter& operator=(const PeaShooter& _Other) = delete;
 	PeaShooter& operator=(PeaShooter&& _Other) noexcept = delete;
 
+	void SetMode(const std::string_view& _Mode)
+	{
+		Mode = _Mode.data();
+	}
+
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
+
+	std::string Mode = "Origin";
 
 	std::shared_ptr <class GameEngineSpriteRenderer > Bullet;
 

@@ -29,8 +29,10 @@ protected:
 	void Render(float _DletaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> BossA;
-	std::shared_ptr<class GameEngineSpriteRenderer> BossB;
+	//std::shared_ptr<class GameEngineSpriteRenderer> BossA;
+	//std::shared_ptr<class GameEngineSpriteRenderer> BossB;
+	std::shared_ptr<class GeminiObject> BossA = nullptr;
+	std::shared_ptr<class GeminiObject> BossB = nullptr;
 
 	int CircleMove = 1;
 	int LastShare = -1;

@@ -31,35 +31,47 @@ void PlayerAirPlaneMode::Start()
 		GameEngineInput::CreateKey("PlayerShmupSkill", 'V');
 		GameEngineInput::CreateKey("PlayerAttack", 'X');
 		GameEngineInput::CreateKey("PlayerShmUpModeSwitch", VK_SPACE);
+		GameEngineInput::CreateKey("PlayerOriginMode", VK_NUMPAD1);
+		GameEngineInput::CreateKey("PlayerShmUpMode", VK_NUMPAD2);
+		GameEngineInput::CreateKey("PlayerShrinkMode", VK_NUMPAD3);
 	}
 
 	PlayerRender = CreateComponent<GameEngineSpriteRenderer>();
 	// PlayerRender->SetScaleToTexture("cuphead_plane_idle_straight_0001.png");
 	// 
 	// idle mode
-	PlayerRender->CreateAnimation({ .AnimationName = "Intro",  .TextureName = "cuphead_plane_intro_00", .Start = 1, .End = 41,.InterTime = 0.05f, .Loop = false });
-
-	PlayerRender->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "cuphead_plane_idle_straight_000", .Start = 1, .End = 4,.InterTime = 0.05f,.Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "MoveUp",  .TextureName = "cuphead_plane_idle_up_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "MoveUpTrans",  .TextureName = "cuphead_plane_trans_up_00", .Start = 1, .End = 11,.InterTime = 0.01f, .Loop = false });
-
-	PlayerRender->CreateAnimation({ .AnimationName = "MoveDown",  .TextureName = "cuphead_plane_idle_down_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "MoveDownTrans",  .TextureName = "cuphead_plane_trans_down_00", .Start = 1, .End = 11,.InterTime = 0.01f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginIntro",  .TextureName = "cuphead_plane_intro_00", .Start = 1, .End = 41,.InterTime = 0.05f, .Loop = false });
+											
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginIdle",  .TextureName = "cuphead_plane_idle_straight_000", .Start = 1, .End = 4,.InterTime = 0.05f,.Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveUp",  .TextureName = "cuphead_plane_idle_up_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveUpTrans",  .TextureName = "cuphead_plane_trans_up_00", .Start = 1, .End = 11,.InterTime = 0.01f, .Loop = false });
+											
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveDown",  .TextureName = "cuphead_plane_idle_down_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveDownTrans",  .TextureName = "cuphead_plane_trans_down_00", .Start = 1, .End = 11,.InterTime = 0.01f, .Loop = false });
 
 	// parry
 	PlayerRender->CreateAnimation({ .AnimationName = "Parry",  .TextureName = "cuphead_plane_parry_00", .Start = 1, .End = 20,.InterTime = 0.03f, .Loop = false });
 
 	// shmup mode
-	PlayerRender->CreateAnimation({ .AnimationName = "ShmUpIntro",  .TextureName = "ch_shmup_super_intro_00", .Start = 1, .End = 14,.InterTime = 0.1f, .Loop = false });
-	PlayerRender->CreateAnimation({ .AnimationName = "ShmUpIdle",  .TextureName = "ch_shmup_super_idle_straight_000", .Start = 1, .End = 4, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "ShmUpMoveUp",  .TextureName = "ch_shmup_super_idle_up_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "ShmUpMoveUpTrans",  .TextureName = "ch_shmup_super_trans_up_00", .Start = 1, .End = 12,.InterTime = 0.01f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperIntro",  .TextureName = "ch_shmup_super_intro_00", .Start = 1, .End = 14,.InterTime = 0.1f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperIdle",  .TextureName = "ch_shmup_super_idle_straight_000", .Start = 1, .End = 4, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveUp",  .TextureName = "ch_shmup_super_idle_up_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveUpTrans",  .TextureName = "ch_shmup_super_trans_up_00", .Start = 1, .End = 12,.InterTime = 0.01f, .Loop = false });
+												
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveDown",  .TextureName = "ch_shmup_super_idle_down_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveDownTrans",  .TextureName = "ch_shmup_super_trans_down_00", .Start = 1, .End = 10,.InterTime = 0.01f, .Loop = false });
 
-	PlayerRender->CreateAnimation({ .AnimationName = "ShmUpMoveDown",  .TextureName = "ch_shmup_super_idle_down_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "ShmUpMoveDownTrans",  .TextureName = "ch_shmup_super_trans_down_00", .Start = 1, .End = 10,.InterTime = 0.01f, .Loop = false });
+	// shrink mode
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkIntro",  .TextureName = "cuphead_schmup_shrink_morph_000", .Start = 1, .End = 6,.InterTime = 0.1f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkIdle",  .TextureName = "cuphead_schmup_shrink_idle_straight_000", .Start = 1, .End = 4, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveUp",  .TextureName = "cuphead_schmup_shrink_idle_up_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveUpTrans",  .TextureName = "cuphead_schmup_shrink_trans_up_00", .Start = 1, .End = 11,.InterTime = 0.01f, .Loop = false });
+												
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDown",  .TextureName = "cuphead_schmup_shrink_idle_down_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDownTrans",  .TextureName = "cuphead_schmup_shrink_trans_down_00", .Start = 1, .End = 11,.InterTime = 0.01f, .Loop = false });
 
 
-	PlayerRender->ChangeAnimation("Intro");
+	PlayerRender->ChangeAnimation("OriginIntro");
 	//PlayerRender->ChangeAnimation("Idle");
 
 	Spark = CreateComponent<GameEngineSpriteRenderer>();
@@ -111,17 +123,35 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 	// 임시 체크용
 	if (true == GameEngineInput::IsDown("PlayerShmUpModeSwitch")) // VK_SPACE
 	{
-		isShmUpMode = !isShmUpMode;
+		ChangeMode("Super");
+
 		NextState = PlayerAirPlaneModeState::INTRO;
 	}
-	if (true == isShmUpMode && true == GameEngineInput::IsDown("PlayerShmupSkill")) // 'V'
+	if ("Super" == CurMode && true == GameEngineInput::IsDown("PlayerShmupSkill")) // 'V'
 	{
-		std::shared_ptr<GameEngineActor> Effect = GetLevel()->CreateActor<BoomEffect>();
-		Effect->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
-		isShmUpMode = false;
-		ChangePlayerAnimation("Idle");
+		ChangeMode("Origin");
 		NextState = PlayerAirPlaneModeState::IDLE;
 	}
+
+	if (true == GameEngineInput::IsDown("PlayerOriginMode"))
+	{
+		ChangeMode("Origin");
+		NextState = PlayerAirPlaneModeState::INTRO;
+	}
+	if (true == GameEngineInput::IsDown("PlayerShmUpMode"))
+	{
+		ChangeMode("Super");
+		NextState = PlayerAirPlaneModeState::INTRO;
+	}
+	if (true == GameEngineInput::IsDown("PlayerShrinkMode"))
+	{
+		ChangeMode("Shrink");
+		NextState = PlayerAirPlaneModeState::INTRO;
+	}
+
+
+
+
 
 	// shoot
 	ShootInterVal -= _DeltaTime;
@@ -144,7 +174,7 @@ void PlayerAirPlaneMode::MoveUpdate(float _DeltaTime)
 void PlayerAirPlaneMode::CheckInput()
 {
 	bool isPressKey = false;
-	if (true == GameEngineInput::IsPress("PlayerAirPlaneParry"))
+	if (true == GameEngineInput::IsPress("PlayerAirPlaneParry") && CurMode == "Origin")
 	{
 		NextState = PlayerAirPlaneModeState::PARRY;
 		isPressKey = true;
@@ -206,14 +236,7 @@ void PlayerAirPlaneMode::UpdateState(float _DeltaTime)
 
 void PlayerAirPlaneMode::ChangePlayerAnimation(const std::string_view& _Name)
 {
-	if (true == isShmUpMode)
-	{
-		PlayerRender->ChangeAnimation("ShmUp" + std::string(_Name));
-	}
-	else
-	{
-		PlayerRender->ChangeAnimation(_Name);
-	}
+	PlayerRender->ChangeAnimation(CurMode + std::string(_Name));
 }
 
 void PlayerAirPlaneMode::CheckShoot(float _DeltaTime)
@@ -233,4 +256,16 @@ void PlayerAirPlaneMode::CheckShoot(float _DeltaTime)
 	{
 		Spark->Off();
 	}
+}
+
+void PlayerAirPlaneMode::ChangeMode(const std::string_view& _Mode)
+{
+	if (CurMode == "Super"  && _Mode.data() != "Super")
+	{
+		std::shared_ptr<GameEngineActor> Effect = GetLevel()->CreateActor<BoomEffect>();
+		Effect->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+		CurMode = _Mode.data();
+		ChangePlayerAnimation("Idle");
+	}
+	CurMode = _Mode.data();
 }
