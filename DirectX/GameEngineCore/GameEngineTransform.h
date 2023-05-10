@@ -38,7 +38,7 @@ public:
 	TransformData()
 	{
 		Scale = float4::One;
-		Rotation = float4::Zero;
+		Rotation = float4::Null;
 		Quaternion = float4::Null;
 		Position = float4::Zero;
 		//WorldScale = float4::One;
@@ -218,24 +218,6 @@ public:
 		return TransData.LocalWorldMatrix.ArrVector[0].NormalizeReturn();
 	}
 
-
-
-	float4 GetAbsoluteScale()
-	{
-		return TransData.Scale;
-	}
-
-	float4 GetAbsolutePosition()
-	{
-		return TransData.Position;
-	}
-
-	float4 GetAbsoluteRotation()
-	{
-		return TransData.Rotation;
-	}
-
-
 	float4x4 GetLocalWorldMatrix()
 	{
 		return TransData.LocalWorldMatrix;
@@ -305,6 +287,8 @@ private:
 	void WorldDecompose();
 	void LocalDecompose();
 
+	void WorldCalculation();
+
 	void AbsoluteReset();
 
 	void TransformUpdate();
@@ -320,13 +304,13 @@ private:
 
 
 private:
-	void AllAccTime(float _DeltaTime);
+	//void AllAccTime(float _DeltaTime);
 
-	void AllUpdate(float _DeltaTime);
+	//void AllUpdate(float _DeltaTime);
 
-	void AllRender(float _DeltaTime);
+	//void AllRender(float _DeltaTime);
 
-	void AllRelease();
+	//void AllRelease();
 
 	void ChildRelease();
 

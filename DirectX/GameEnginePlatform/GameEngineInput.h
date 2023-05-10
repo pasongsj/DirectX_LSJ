@@ -10,7 +10,7 @@ class GameEngineInput
 	friend GameEngineWindow;
 
 private:
-	class GameEngineKey 
+	class GameEngineKey
 	{
 		friend GameEngineInput;
 
@@ -22,7 +22,15 @@ private:
 		float PressTime; // 몇초간 눌렀다.
 		int Key = -1;
 
-		bool KeyCheck() 
+		void Reset()
+		{
+			Down = false; // 누른 한순간
+			Press = false; // 계속 누르고 있다.
+			Up = false; // 땐 한순간
+			Free = true; // 안눌리고 있다.
+		}
+
+		bool KeyCheck()
 		{
 			return 0 != GetAsyncKeyState(Key);
 		}
@@ -52,12 +60,12 @@ public:
 
 	static void MouseCursorOff();
 
-	static bool IsAnyKey() 
+	static bool IsAnyKey()
 	{
 		return IsAnyKeyValue;
 	}
 
-	static float4 GetMousePosition() 
+	static float4 GetMousePosition()
 	{
 		return MousePos;
 	}
@@ -82,10 +90,21 @@ private:
 	//      PlayerJump       A
 	static std::map<std::string, GameEngineKey> Keys;
 	static bool IsAnyKeyValue;
+	static bool IsFocus;
 
 	static float4 MousePos;
 	static float4 PrevMousePos;
 	static float4 MouseDirection;
+
+	static void IsFocusOn()
+	{
+		IsFocus = true;
+	}
+
+	static void IsFocusOff()
+	{
+		IsFocus = false;
+	}
 
 	static void IsAnyKeyOn()
 	{

@@ -121,6 +121,7 @@ public:
 			float w;
 		};
 
+
 		float Arr1D[4];
 
 
@@ -129,6 +130,16 @@ public:
 		DirectX::XMFLOAT3 DirectFloat3;
 		DirectX::XMFLOAT4 DirectFloat4;
 		DirectX::XMVECTOR DirectVector;
+
+
+		struct
+		{
+			float PosX;
+			float PosY;
+			float SizeX;
+			float SizeY;
+		};
+
 	};
 
 	float4()
@@ -538,12 +549,7 @@ public:
 		return std::string(ArrReturn);
 	}
 
-	float4 MoveTmp(const float4& _Point, const float4& _CurPos)
-	{
-		
-	}
 };
-
 
 class CollisionData
 {
