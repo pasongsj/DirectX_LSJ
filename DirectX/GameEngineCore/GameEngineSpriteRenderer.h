@@ -27,7 +27,7 @@ public:
 	float CurTime = 0.0f;
 	float Inter = 0.1f;
 	bool Loop = true;
-	bool ScaleToImage = false;
+	bool ScaleToTexture = false;
 	bool FlipX = false;
 
 	bool IsEnd();
@@ -43,7 +43,7 @@ public:
 	int Start = -1;
 	int End = -1;
 	bool Loop = true;
-	bool ScaleToImage = false;
+	bool ScaleToTexture = false;
 	bool FlipX = false;
 
 };
@@ -78,7 +78,7 @@ public:
 		int _Start = -1,
 		int _End = -1,
 		bool _Loop = true,
-		bool _ScaleToImage = false,
+		bool _ScaleToTexture = false,
 		bool _FlipX = false);
 
 	std::shared_ptr<AnimationInfo> CreateAnimation(const AnimationParameter& _Paramter)
@@ -89,7 +89,7 @@ public:
 			_Paramter.Start,
 			_Paramter.End,
 			_Paramter.Loop,
-			_Paramter.ScaleToImage,
+			_Paramter.ScaleToTexture,
 			_Paramter.FlipX);
 	}
 

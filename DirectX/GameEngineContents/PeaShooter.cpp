@@ -37,7 +37,7 @@ void PeaShooter::Start()
 	MakeSprite();
 
 	Bullet = CreateComponent<GameEngineSpriteRenderer>();
-	Bullet->CreateAnimation({ .AnimationName = "Origin",  .SpriteName = "Cuphead_AirPlane_Bullet", .FrameInter = 0.1f, .Loop = true, .ScaleToImage = true });
+	Bullet->CreateAnimation({ .AnimationName = "Origin",  .SpriteName = "Cuphead_AirPlane_Bullet", .FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
 
 	Bullet->ChangeAnimation("Origin");
 }

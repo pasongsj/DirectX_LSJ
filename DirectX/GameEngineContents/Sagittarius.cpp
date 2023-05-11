@@ -41,15 +41,15 @@ void Sagittarius::Start()
 
 
 	Upper = CreateComponent<GameEngineSpriteRenderer>();
-	Upper->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Upper_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
-	Upper->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Sagittarius_Upper_Attack",.FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
+	Upper->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Upper_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	Upper->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Sagittarius_Upper_Attack",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 
 	Upper->ChangeAnimation("Idle");
 	//Upper->SetScaleToTexture("sagg_idle_0001.png");
 	Upper->GetTransform()->SetLocalPosition(float4(0, 100));
 
 	Lower = CreateComponent<GameEngineSpriteRenderer>();
-	Lower->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Lower_Idle",  .FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
+	Lower->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Lower_Idle",  .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	//Lower->SetScaleToTexture("sagg_cloud_top_0003.png");
 	Lower->ChangeAnimation("Idle");
 	Lower->GetTransform()->SetLocalPosition(float4(160, -50));

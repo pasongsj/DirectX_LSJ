@@ -33,10 +33,10 @@ void GeminiObject::Start()
 {
 	MakeSprite();
 	BossObject = CreateComponent<GameEngineSpriteRenderer>();
-	BossObject->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
-	BossObject->CreateAnimation({ .AnimationName = "AttackA",  .SpriteName = "Gemini_AttackA",  .FrameInter = 0.05f, .Loop = false, .ScaleToImage = true });
-	//BossB->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "gemini_idle_00", .FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
-	BossObject->CreateAnimation({ .AnimationName = "AttackB",  .SpriteName = "Gemini_AttackB",  .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
+	BossObject->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	BossObject->CreateAnimation({ .AnimationName = "AttackA",  .SpriteName = "Gemini_AttackA",  .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//BossB->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "gemini_idle_00", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	BossObject->CreateAnimation({ .AnimationName = "AttackB",  .SpriteName = "Gemini_AttackB",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 }
 
 void GeminiObject::Update(float _DeltaTime)

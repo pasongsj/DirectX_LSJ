@@ -46,16 +46,16 @@ void Hilda::Start()
 	MakeSprite();
 	// 랜더러 설정				
 
-	//PlayerRender->CreateAnimation({ .AnimationName = "OriginIntro", .SpriteName = "Cuphead_AirPlane_Origin_intro", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
+	//PlayerRender->CreateAnimation({ .AnimationName = "OriginIntro", .SpriteName = "Cuphead_AirPlane_Origin_intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 
 	Boss = CreateComponent<GameEngineSpriteRenderer>();		
-	Boss->CreateAnimation({ .AnimationName = "Intro",  .SpriteName = "Hilda_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
-	Boss->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Hilda_Idle",.FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
-	Boss->CreateAnimation({ .AnimationName = "shoot",  .SpriteName = "Hilda_Shoot",.FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
-	Boss->CreateAnimation({ .AnimationName = "Dash",  .SpriteName = "Hilda_Dash", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
-	Boss->CreateAnimation({ .AnimationName = "DashBack",  .SpriteName = "Hilda_DashBack", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
-	Boss->CreateAnimation({ .AnimationName = "Summon",  .SpriteName = "Hilda_Summon", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
-	Boss->CreateAnimation({ .AnimationName = "Tornato",  .SpriteName = "Hilda_Tornado",.FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
+	Boss->CreateAnimation({ .AnimationName = "Intro",  .SpriteName = "Hilda_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Boss->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Hilda_Idle",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	Boss->CreateAnimation({ .AnimationName = "shoot",  .SpriteName = "Hilda_Shoot",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Boss->CreateAnimation({ .AnimationName = "Dash",  .SpriteName = "Hilda_Dash", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Boss->CreateAnimation({ .AnimationName = "DashBack",  .SpriteName = "Hilda_DashBack", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Boss->CreateAnimation({ .AnimationName = "Summon",  .SpriteName = "Hilda_Summon", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Boss->CreateAnimation({ .AnimationName = "Tornato",  .SpriteName = "Hilda_Tornado",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Boss->ChangeAnimation("Intro");
 	//Boss->SetTexture("blimp_idle_0001.png");									
 	//Boss->SetScaleToTexture("blimp_idle_0001.png");

@@ -36,9 +36,9 @@ void Taurus::Start()
 {
 	MakeSprite();
 	Boss = CreateComponent<GameEngineSpriteRenderer>();
-	Boss->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Taurus_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
-	Boss->CreateAnimation({ .AnimationName = "ChargeAttack", .SpriteName = "Taurus_Charge", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
-	Boss->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Taurus_Attack",  .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
+	Boss->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Taurus_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	Boss->CreateAnimation({ .AnimationName = "ChargeAttack", .SpriteName = "Taurus_Charge", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Boss->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Taurus_Attack",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	
 	Boss->ChangeAnimation("Idle");
 

@@ -35,9 +35,9 @@ void Moon::Start()
 {
 	MakeSprite();
 	Boss = CreateComponent<GameEngineSpriteRenderer>();
-	Boss->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Moon_Idle", .FrameInter = 0.05f, .Loop = true ,.ScaleToImage = true});
-	Boss->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Moon_Attack", .FrameInter = 0.05f, .Loop = true ,.ScaleToImage = true});
-	Boss->CreateAnimation({ .AnimationName = "Death",  .SpriteName = "Moon_Death", .FrameInter = 0.05f, .Loop = true ,.ScaleToImage = true});
+	Boss->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Moon_Idle", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true});
+	Boss->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Moon_Attack", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true});
+	Boss->CreateAnimation({ .AnimationName = "Death",  .SpriteName = "Moon_Death", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true});
 	Boss->ChangeAnimation("Idle");
 	//Boss->SetScaleToTexture("blimp_moon_idle_0001.png");
 	GetTransform()->SetLocalPosition(float4(300, -20));

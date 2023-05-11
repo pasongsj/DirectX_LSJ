@@ -40,16 +40,16 @@ void StoryObject::Start()
 {
 	MakeSprite();
 	BackGround = CreateComponent<GameEngineSpriteRenderer>();
-	BackGround->CreateAnimation({ .AnimationName = "1",  .SpriteName = "story1", .FrameInter = 0.05f, .Loop = false ,.ScaleToImage  = true });
-	BackGround->CreateAnimation({ .AnimationName = "2",  .SpriteName = "story2", .FrameInter = 0.05f, .Loop = false ,.ScaleToImage  = true });
-	BackGround->CreateAnimation({ .AnimationName = "3",  .SpriteName = "story3", .FrameInter = 0.05f, .Loop = false ,.ScaleToImage  = true });
-	BackGround->CreateAnimation({ .AnimationName = "4",  .SpriteName = "story4", .FrameInter = 0.05f, .Loop = false ,.ScaleToImage  = true });
-	BackGround->CreateAnimation({ .AnimationName = "5",  .SpriteName = "story5", .FrameInter = 0.05f, .Loop = false ,.ScaleToImage  = true });
-	BackGround->CreateAnimation({ .AnimationName = "6",  .SpriteName = "story6", .FrameInter = 0.05f, .Loop = false ,.ScaleToImage  = true });
-	BackGround->CreateAnimation({ .AnimationName = "7",  .SpriteName = "story7", .FrameInter = 0.05f, .Loop = false ,.ScaleToImage  = true });
-	BackGround->CreateAnimation({ .AnimationName = "8",  .SpriteName = "story8", .FrameInter = 0.05f, .Loop = false ,.ScaleToImage  = true });
-	BackGround->CreateAnimation({ .AnimationName = "9",  .SpriteName = "story9", .FrameInter = 0.05f, .Loop = false ,.ScaleToImage  = true });
-	BackGround->CreateAnimation({ .AnimationName = "10",  .SpriteName = "story10", .FrameInter = 0.05f, .Loop = false ,.ScaleToImage = true });
+	BackGround->CreateAnimation({ .AnimationName = "1",  .SpriteName = "story1", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
+	BackGround->CreateAnimation({ .AnimationName = "2",  .SpriteName = "story2", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
+	BackGround->CreateAnimation({ .AnimationName = "3",  .SpriteName = "story3", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
+	BackGround->CreateAnimation({ .AnimationName = "4",  .SpriteName = "story4", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
+	BackGround->CreateAnimation({ .AnimationName = "5",  .SpriteName = "story5", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
+	BackGround->CreateAnimation({ .AnimationName = "6",  .SpriteName = "story6", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
+	BackGround->CreateAnimation({ .AnimationName = "7",  .SpriteName = "story7", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
+	BackGround->CreateAnimation({ .AnimationName = "8",  .SpriteName = "story8", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
+	BackGround->CreateAnimation({ .AnimationName = "9",  .SpriteName = "story9", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
+	BackGround->CreateAnimation({ .AnimationName = "10",  .SpriteName = "story10", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
 	BackGround->ChangeAnimation("1");
 
 	if (false == GameEngineInput::IsKey("SpaceBar"))

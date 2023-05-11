@@ -43,18 +43,18 @@ void GeminiOrb::Start()
 	MakeSprite();
 
 	Orb = CreateComponent<GameEngineSpriteRenderer>();
-	Orb->CreateAnimation({ .AnimationName = "IdleIntro",  .SpriteName = "Orb_Idle_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
-	Orb->CreateAnimation({ .AnimationName = "IdleLoop",  .SpriteName = "Orb_Idle_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
-	Orb->CreateAnimation({ .AnimationName = "IdleLeave",  .SpriteName = "Orb_Idle_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
+	Orb->CreateAnimation({ .AnimationName = "IdleIntro",  .SpriteName = "Orb_Idle_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Orb->CreateAnimation({ .AnimationName = "IdleLoop",  .SpriteName = "Orb_Idle_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	Orb->CreateAnimation({ .AnimationName = "IdleLeave",  .SpriteName = "Orb_Idle_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 
 
-	Orb->CreateAnimation({ .AnimationName = "AttackIntro",  .SpriteName = "Orb_Attack_Intro",.FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
-	Orb->CreateAnimation({ .AnimationName = "AttackLoop",  .SpriteName = "Orb_Attack_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
-	Orb->CreateAnimation({ .AnimationName = "AttackLeave",  .SpriteName = "Orb_Attack_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
+	Orb->CreateAnimation({ .AnimationName = "AttackIntro",  .SpriteName = "Orb_Attack_Intro",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Orb->CreateAnimation({ .AnimationName = "AttackLoop",  .SpriteName = "Orb_Attack_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	Orb->CreateAnimation({ .AnimationName = "AttackLeave",  .SpriteName = "Orb_Attack_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Orb->ChangeAnimation("IdleIntro");
 
 	OrbAttackEffect = CreateComponent<GameEngineSpriteRenderer>();
-	OrbAttackEffect->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Orb_Attack_Scatter",.FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
+	OrbAttackEffect->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Orb_Attack_Scatter",.FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	OrbAttackEffect->ChangeAnimation("Attack");
 	OrbAttackEffect->Off();
 
