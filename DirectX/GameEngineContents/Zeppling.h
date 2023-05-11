@@ -6,6 +6,7 @@ enum class ZepplingState
 {
 	MOVE,
 	SHOOT,
+	TURN,
 	BACK,
 	DEAD,
 	MAX,
@@ -46,9 +47,14 @@ private:
 	float MoveSpeed = 200.0f;
 	float MoveLen = 0.0f;
 
+	std::string Mode = "Green_";
+
+
 
 
 	void UpdateState(float _DeltaTime);
+
+	void MakeSprite();
 
 
 
@@ -59,6 +65,10 @@ private:
 	void Shoot_Start();
 	void Shoot_Update(float _DeltaTime);
 	void Shoot_End();
+
+	void Turn_Start();
+	void Turn_Update(float _DeltaTime);
+	void Turn_End();
 
 	void Dead_Start();
 	void Dead_Update(float _DeltaTime);

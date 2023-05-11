@@ -22,7 +22,7 @@ protected:
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> TornatoRender;
 	bool isIntro = true;
-
+	void MakeSprite();
 
 };
 

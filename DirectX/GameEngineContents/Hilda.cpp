@@ -23,14 +23,6 @@ void Hilda::MakeSprite()
 		NewDir.Move("Texture");
 		NewDir.Move("stage1\\Boss\\Hilda\\HildaBerg\\Normal");
 
-		//"Intro",
-		//	"Idle", .
-		//	"shoot",
-		//	"Dash", .
-		//	"DashBack"
-		//	"Summon",
-		//	"Tornato",
-
 		
 		// intro
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Intro\\Hilda").GetFullPath(), "Hilda_Intro");

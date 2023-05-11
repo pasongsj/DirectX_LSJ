@@ -28,6 +28,7 @@ public:
 	float Inter = 0.1f;
 	bool Loop = true;
 	bool ScaleToImage = false;
+	bool FlipX = false;
 
 	bool IsEnd();
 };
@@ -43,6 +44,7 @@ public:
 	int End = -1;
 	bool Loop = true;
 	bool ScaleToImage = false;
+	bool FlipX = false;
 
 };
 
@@ -76,7 +78,8 @@ public:
 		int _Start = -1,
 		int _End = -1,
 		bool _Loop = true,
-		bool _ScaleToImage = false);
+		bool _ScaleToImage = false,
+		bool _FlipX = false);
 
 	std::shared_ptr<AnimationInfo> CreateAnimation(const AnimationParameter& _Paramter)
 	{
@@ -86,7 +89,8 @@ public:
 			_Paramter.Start,
 			_Paramter.End,
 			_Paramter.Loop,
-			_Paramter.ScaleToImage);
+			_Paramter.ScaleToImage,
+			_Paramter.FlipX);
 	}
 
 	void ChangeAnimation(const std::string_view& _Name, bool _Force, size_t _Frame = -1)

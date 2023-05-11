@@ -8,12 +8,12 @@
 
 void Zeppling::Move_Start()
 {
-
+	Monster->ChangeAnimation(Mode + "Idle");
 }
 void Zeppling::Move_Update(float _DeltaTime)
 {
 	float4 MoveVec = float4::Left * MoveSpeed * _DeltaTime;
-	Monster->GetTransform()->AddLocalPosition(MoveVec);
+	GetTransform()->AddLocalPosition(MoveVec);
 	MoveLen += MoveVec.Size();
 	if (MoveLen > 500.0f)
 	{
@@ -27,21 +27,44 @@ void Zeppling::Move_End()
 
 void Zeppling::Shoot_Start()
 {
-	Bullet = GetLevel()->CreateActor<ZepplingBullet>();
-	Bullet->GetTransform()->SetWorldPosition(Monster->GetTransform()->GetWorldPosition());
-	Monster->SetScaleToTexture("a_blimp_enemy_attack_0007.png");
+	//Bullet = GetLevel()->CreateActor<ZepplingBullet>();
+	//Bullet->GetTransform()->SetWorldPosition(Monster->GetTransform()->GetWorldPosition());
+
+
+	Monster->ChangeAnimation(Mode + "Attack");
 }
 void Zeppling::Shoot_Update(float _DeltaTime)
 {
-	if (nullptr == Bullet || true == Bullet->IsDeath())
+	if (true == Monster->IsAnimationEnd())
 	{
-		NextState = ZepplingState::BACK;
+		NextState = ZepplingState::TURN;
 	}
 }
 void Zeppling::Shoot_End()
 {
 
 }
+
+
+void Zeppling::Turn_Start()
+{
+	Monster->ChangeAnimation(Mode + "Turn");
+}
+
+void Zeppling::Turn_Update(float _DeltaTime)
+{
+	if (true == Monster->IsAnimationEnd())
+	{
+		NextState = ZepplingState::BACK;
+	}
+}
+
+void Zeppling::Turn_End()
+{
+
+}
+
+
 
 void Zeppling::Dead_Start()
 {
@@ -58,15 +81,15 @@ void Zeppling::Dead_End()
 
 void Zeppling::Back_Start()
 {
-	Monster->SetScaleToTexture("a_blimp_enemy_idle_0001.png");
-	Monster->SetFlipX();
-	//Monster->GetTransform()->SetLocalScale(float4(-156, 94) * 0.8f);
+	Monster->ChangeAnimation(Mode + "Back");
+	MoveLen = 0;
+
 
 }
 void Zeppling::Back_Update(float _DeltaTime)
 {
 	float4 MoveVec = float4::Right * MoveSpeed * _DeltaTime;
-	Monster->GetTransform()->AddLocalPosition(MoveVec);
+	GetTransform()->AddLocalPosition(MoveVec);
 	MoveLen += MoveVec.Size();
 
 	// 수정필요 : 윈도우 크기 적용 필요

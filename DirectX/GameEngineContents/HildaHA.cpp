@@ -14,10 +14,29 @@ HildaHA::~HildaHA()
 {
 }
 
+void HildaHA::MakeSprite()
+{
+	if (nullptr == GameEngineSprite::Find("Hilda_Ha"))
+	{
+
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
+		NewDir.Move("Texture");
+		NewDir.Move("stage1\\Boss\\Hilda\\HildaBerg\\Normal");
+
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Laugh\\Ha").GetFullPath(), "Hilda_Ha");
+
+	}
+}
+
 void HildaHA::Start()
 {
+	MakeSprite();
 	HaRender = CreateComponent<GameEngineSpriteRenderer>();
-	HaRender->CreateAnimation({.AnimationName = "Ha", .TextureName = "blimp_ha_00", .Start = 1, .End = 13, .InterTime = 0.05f, .Loop = false});
+	HaRender->CreateAnimation({.AnimationName = "Ha", .SpriteName = "Hilda_Ha",  .FrameInter = 0.05f, .Loop = false, .ScaleToImage = true });
+	
 	HaRender->ChangeAnimation("Ha");
 }
 

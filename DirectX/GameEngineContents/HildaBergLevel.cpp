@@ -12,7 +12,7 @@
 #include "HildaBergBack.h"
 #include "PlayerAirPlaneMode.h"
 #include "Hilda.h"
-//#include "Zeppling.h"
+#include "Zeppling.h"
 //#include "Taurus.h"
 //#include "Sagittarius.h"
 //#include "Gemini.h"
@@ -59,7 +59,7 @@ void HildaBergLevel::Start()
 	////std::shared_ptr<Taurus> NextBoss = CreateActor<Taurus>("Taurus");
 	////std::shared_ptr<Sagittarius> NextBoss = CreateActor<Sagittarius>("Sagittarius");
 	///*std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");*/
-	////std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>("Zeppling");
+	std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>("Zeppling");
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>("PlayerAirPlaneMode");
 
 }

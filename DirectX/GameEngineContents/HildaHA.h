@@ -21,6 +21,6 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> HaRender;
-
+	void MakeSprite();
 };
 

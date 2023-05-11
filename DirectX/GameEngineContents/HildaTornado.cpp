@@ -10,11 +10,31 @@ HildaTornado::~HildaTornado()
 {
 }
 
+void HildaTornado::MakeSprite()
+{
+	if (nullptr == GameEngineSprite::Find("Hilda_Tornado_Intro"))
+	{
+
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
+		NewDir.Move("Texture");
+		NewDir.Move("stage1\\Boss\\Hilda\\HildaBerg\\Normal");
+
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Tornado\\Tornado\\Attack").GetFullPath(), "Hilda_Tornado_Attack");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Tornado\\Tornado\\Intro").GetFullPath(), "Hilda_Tornado_Intro");
+
+	}
+}
+
+
 void HildaTornado::Start()
 {
+	MakeSprite();
 	TornatoRender = CreateComponent<GameEngineSpriteRenderer>();
-	TornatoRender->CreateAnimation({ .AnimationName = "Intro",  .TextureName = "tornado_intro_00", .Start = 1, .End = 12,.InterTime = 0.05f, .Loop = true });
-	TornatoRender->CreateAnimation({ .AnimationName = "attack",  .TextureName = "tornado_attack_00", .Start = 1, .End = 16,.InterTime = 0.05f, .Loop = false });
+	TornatoRender->CreateAnimation({ .AnimationName = "Intro",  .SpriteName = "Hilda_Tornado_Intro", .FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
+	TornatoRender->CreateAnimation({ .AnimationName = "attack",  .SpriteName = "Hilda_Tornado_Attack",.FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
 	TornatoRender->ChangeAnimation("Intro");
 }
 

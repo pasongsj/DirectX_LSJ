@@ -62,8 +62,8 @@ void Hilda::Idle_End()
 void Hilda::Shoot_Start()
 {
 	Boss->ChangeAnimation("shoot");
-	//std::shared_ptr<GameEngineActor> Ha = GetLevel()->CreateActor<HildaHA>();
-	//Ha->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+	std::shared_ptr<GameEngineActor> Ha = GetLevel()->CreateActor<HildaHA>();
+	Ha->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
 }
 void Hilda::Shoot_Update(float _DeltaTime)
 {
@@ -130,7 +130,7 @@ void Hilda::ChangePhase_End()
 void Hilda::Tornado_Start()
 {
 	Boss->ChangeAnimation("Tornato");
-	//GetLevel()->CreateActor<HildaTornado>();
+	GetLevel()->CreateActor<HildaTornado>();
 }
 void Hilda::Tornado_Update(float _DeltaTime)
 {
