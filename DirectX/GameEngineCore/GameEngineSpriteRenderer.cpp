@@ -228,6 +228,7 @@ void GameEngineSpriteRenderer::Render(float _Delta)
 
 			Scale.x *= Info.CutData.SizeX;
 			Scale.y *= Info.CutData.SizeY;
+			Scale.z = 1;
 
 			Scale *= ScaleRatio;
 

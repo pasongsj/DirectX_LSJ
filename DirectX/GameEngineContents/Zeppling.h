@@ -28,7 +28,7 @@ public:
 	Zeppling& operator=(const Zeppling& _Other) = delete;
 	Zeppling& operator=(Zeppling&& _Other) noexcept = delete;
 
-	void Reset();
+	//void Reset();
 
 protected:
 

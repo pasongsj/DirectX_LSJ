@@ -58,7 +58,7 @@ void Zeppling::Start()
 {
 	MakeSprite();
 	// 위치
-	GetTransform()->SetWorldPosition(float4(500.0f, 0));
+	//GetTransform()->SetWorldPosition(float4(500.0f, 0));
 
 	// 몬스터 이미지 랜더러
 	Monster = CreateComponent<GameEngineSpriteRenderer>();
@@ -93,7 +93,7 @@ void Zeppling::Start()
 	//Monster->SetTexture("a_blimp_enemy_idle_0001.png");
 	//Monster->SetScaleToTexture("a_blimp_enemy_idle_0001.png");
 	// 위치,회전, 크기
-	float4 Pos = float4(GameEngineWindow::GetScreenSize().hx(), 0);
+	float4 Pos = float4(GameEngineWindow::GetScreenSize().hx(), 0,-10);
 	GetTransform()->SetLocalPosition(Pos);
 	
 
@@ -157,15 +157,15 @@ void Zeppling::UpdateState(float _DeltaTime)
 
 	UpdateFuncPtr[static_cast<int>(CurState)](_DeltaTime);
 }
-
-void Zeppling::Reset()
-{
-	// 변수 reset
-	CurState = ZepplingState::MOVE;
-	NextState = ZepplingState::MOVE;
-	MoveLen = 0.0f;
-
-	// 이미지랜더 reset
-
-	
-}
+//
+//void Zeppling::Reset()
+//{
+//	// 변수 reset
+//	CurState = ZepplingState::MOVE;
+//	NextState = ZepplingState::MOVE;
+//	MoveLen = 0.0f;
+//
+//	// 이미지랜더 reset
+//
+//	
+//}

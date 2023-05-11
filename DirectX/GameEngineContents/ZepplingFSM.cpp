@@ -12,6 +12,7 @@ void Zeppling::Move_Start()
 }
 void Zeppling::Move_Update(float _DeltaTime)
 {
+
 	float4 MoveVec = float4::Left * MoveSpeed * _DeltaTime;
 	GetTransform()->AddLocalPosition(MoveVec);
 	MoveLen += MoveVec.Size();
@@ -22,7 +23,7 @@ void Zeppling::Move_Update(float _DeltaTime)
 }
 void Zeppling::Move_End()
 {
-
+	MoveLen = 0;
 }
 
 void Zeppling::Shoot_Start()
@@ -53,8 +54,11 @@ void Zeppling::Turn_Start()
 
 void Zeppling::Turn_Update(float _DeltaTime)
 {
+
 	if (true == Monster->IsAnimationEnd())
 	{
+		TransformData Tmp = Monster->GetTransform()->GetTransDataRef();
+
 		NextState = ZepplingState::BACK;
 	}
 }
@@ -81,7 +85,13 @@ void Zeppling::Dead_End()
 
 void Zeppling::Back_Start()
 {
-	Monster->ChangeAnimation(Mode + "Back");
+	Monster->ChangeAnimation(Mode + "Idle");
+	TransformData Tmp = GetTransform()->GetTransDataRef();
+
+	GetTransform()->SetLocalNegativeScaleX();
+
+	TransformData Tmp2 = GetTransform()->GetTransDataRef();
+
 	MoveLen = 0;
 
 
@@ -89,9 +99,16 @@ void Zeppling::Back_Start()
 void Zeppling::Back_Update(float _DeltaTime)
 {
 	float4 MoveVec = float4::Right * MoveSpeed * _DeltaTime;
-	GetTransform()->AddLocalPosition(MoveVec);
-	MoveLen += MoveVec.Size();
+	TransformData Tmp = GetTransform()->GetTransDataRef();
 
+	GetTransform()->AddLocalPosition(MoveVec);
+
+	TransformData Tmp2 = GetTransform()->GetTransDataRef();
+
+
+	float4 tmpScale = Monster->GetTransform()->GetWorldScale();
+	float4x4 tmpMatrix = Monster->GetTransform()->GetWorldMatrix();
+	MoveLen += MoveVec.Size();
 	// 수정필요 : 윈도우 크기 적용 필요
 	if (MoveLen > 500.0f)
 	{

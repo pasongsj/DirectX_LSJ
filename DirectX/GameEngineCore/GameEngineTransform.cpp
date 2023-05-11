@@ -76,6 +76,8 @@ void GameEngineTransform::WorldCalculation()
 	MatPos.Pos(PPosition);
 
 	TransData.WorldMatrix = TransData.LocalWorldMatrix * (MatScale * MatRot * MatPos);
+
+	WorldDecompose();
 }
 
 void GameEngineTransform::LocalDecompose()

@@ -304,13 +304,6 @@ private:
 
 
 private:
-	//void AllAccTime(float _DeltaTime);
-
-	//void AllUpdate(float _DeltaTime);
-
-	//void AllRender(float _DeltaTime);
-
-	//void AllRelease();
 
 	void ChildRelease();
 
