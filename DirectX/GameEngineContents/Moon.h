@@ -34,7 +34,7 @@ private:
 	MoonState CurState = MoonState::IDLE;
 	MoonState NextState = MoonState::IDLE;
 
-
+	void MakeSprite();
 
 	void UpdateState(float _DeltaTime);
 

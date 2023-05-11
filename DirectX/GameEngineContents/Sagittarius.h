@@ -44,6 +44,7 @@ private:
 	SagittariusState CurState = SagittariusState::IDLE;
 	SagittariusState NextState = SagittariusState::IDLE;
 
+	void MakeSprite();
 
 	void UpdateState(float _DeltaTime);
 

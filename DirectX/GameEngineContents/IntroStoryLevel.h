@@ -25,5 +25,7 @@ protected:
 
 private:
 
+	std::shared_ptr<class StoryObject> Story = nullptr;
+
 };
 

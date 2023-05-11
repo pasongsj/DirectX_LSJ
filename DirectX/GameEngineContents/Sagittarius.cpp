@@ -12,22 +12,44 @@ Sagittarius::~Sagittarius()
 {
 }
 
+void Sagittarius::MakeSprite()
+{
+	if (nullptr == GameEngineSprite::Find("Sagittarius_Lower_Idle"))
+	{
+
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
+		NewDir.Move("Texture");
+		NewDir.Move("stage1\\Boss\\Hilda\\Sagittarius\\Sagittarius");
+
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Lower\\Idle").GetFullPath(), "Sagittarius_Lower_Idle");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Upper\\Idle").GetFullPath(), "Sagittarius_Upper_Idle");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Upper\\Attack").GetFullPath(), "Sagittarius_Upper_Attack");
+
+	}
+}
+
+
+
+
 void Sagittarius::Start()
 {						
-
+	MakeSprite();
 	//GetTransform()->SetLocalPosition(float4(300.0f, 0));
 
 
 	Upper = CreateComponent<GameEngineSpriteRenderer>();
-	Upper->CreateAnimation({ .AnimationName = "Idle", .TextureName = "sagg_idle_00", .Start = 1, .End = 12, .InterTime = 0.05f, .Loop = true });
-	Upper->CreateAnimation({ .AnimationName = "Attack", .TextureName = "sagg_attack_00", .Start = 1, .End = 18, .InterTime = 0.05f, .Loop = false });
+	Upper->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Upper_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
+	Upper->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Sagittarius_Upper_Attack",.FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
 
 	Upper->ChangeAnimation("Idle");
 	//Upper->SetScaleToTexture("sagg_idle_0001.png");
 	Upper->GetTransform()->SetLocalPosition(float4(0, 100));
 
 	Lower = CreateComponent<GameEngineSpriteRenderer>();
-	Lower->CreateAnimation({ .AnimationName = "Idle", .TextureName = "sagg_cloud_top_00", .Start = 1, .End = 12, .InterTime = 0.05f, .Loop = true });
+	Lower->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Lower_Idle",  .FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
 	//Lower->SetScaleToTexture("sagg_cloud_top_0003.png");
 	Lower->ChangeAnimation("Idle");
 	Lower->GetTransform()->SetLocalPosition(float4(160, -50));

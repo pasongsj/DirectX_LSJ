@@ -11,11 +11,33 @@ Moon::~Moon()
 {
 }
 
+void Moon::MakeSprite()
+{
+
+	if (nullptr == GameEngineSprite::Find("Moon_Idle"))
+	{
+
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
+		NewDir.Move("Texture");
+		NewDir.Move("stage1\\Boss\\Hilda\\Moon");
+
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Moon_Idle");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Moon").GetFullPath(), "Moon_Attack");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Death").GetFullPath(), "Moon_Death");
+
+	}
+}
 
 void Moon::Start()
 {
+	MakeSprite();
 	Boss = CreateComponent<GameEngineSpriteRenderer>();
-	Boss->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "blimp_moon_idle_00", .Start = 1, .End = 16,.InterTime = 0.05f, .Loop = true });
+	Boss->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Moon_Idle", .FrameInter = 0.05f, .Loop = true ,.ScaleToImage = true});
+	Boss->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Moon_Attack", .FrameInter = 0.05f, .Loop = true ,.ScaleToImage = true});
+	Boss->CreateAnimation({ .AnimationName = "Death",  .SpriteName = "Moon_Death", .FrameInter = 0.05f, .Loop = true ,.ScaleToImage = true});
 	Boss->ChangeAnimation("Idle");
 	//Boss->SetScaleToTexture("blimp_moon_idle_0001.png");
 	GetTransform()->SetLocalPosition(float4(300, -20));
@@ -34,7 +56,7 @@ void Moon::Start()
 	UpdateFuncPtr[static_cast<int>(MoonState::ATTACK)] = std::bind(&Moon::Attack_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(MoonState::ATTACK)] = std::bind(&Moon::Attack_End, this);
 
-	//SHOOT
+	//DEATH
 	StartFuncPtr[static_cast<int>(MoonState::DEATH)] = std::bind(&Moon::Death_Start, this);
 	UpdateFuncPtr[static_cast<int>(MoonState::DEATH)] = std::bind(&Moon::Death_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(MoonState::DEATH)] = std::bind(&Moon::Death_End, this);

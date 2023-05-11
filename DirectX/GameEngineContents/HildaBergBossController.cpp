@@ -74,6 +74,7 @@ void HildaBergBossController::Update(float _DeltaTime)
 			break;
 		}
 		default:
+			Death();
 			break;
 		}
 	}

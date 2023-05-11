@@ -50,6 +50,8 @@ private:
 	
 	void UpdateState(float _DeltaTime);
 
+	void MakeSprite();
+
 	//	IDLE,
 	//	STING,
 	void Idle_Start();

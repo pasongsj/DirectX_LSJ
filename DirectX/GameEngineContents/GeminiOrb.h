@@ -27,6 +27,10 @@ public:
 		isAttack = true;
 	}
 
+	bool IsAttack() {
+		return isAttack;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -40,8 +44,11 @@ private:
 
 	bool isLoop = false;
 	bool isAttack = false;
+	bool isLeaveAnimation = false;
 	
 	float StateChangeInterval = 2.0f;
+
+	void MakeSprite();
 
 	void UpdateState(float _DeltaTime);
 

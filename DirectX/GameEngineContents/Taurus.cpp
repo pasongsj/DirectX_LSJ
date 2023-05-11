@@ -11,16 +11,36 @@ Taurus::~Taurus()
 {
 }
 
+void Taurus::MakeSprite()
+{
+	if (nullptr == GameEngineSprite::Find("Taurus_Idle"))
+	{
+
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
+		NewDir.Move("Texture");
+		NewDir.Move("stage1\\Boss\\Hilda\\Taurus");
+
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Taurus_Idle");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Charge").GetFullPath(), "Taurus_Charge");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Attack").GetFullPath(), "Taurus_Attack");
+
+	}
+}
+
+
+
 void Taurus::Start()
 {
+	MakeSprite();
 	Boss = CreateComponent<GameEngineSpriteRenderer>();
-	Boss->CreateAnimation({ .AnimationName = "Idle", .TextureName = "taurus_idle_00", .Start = 1,.End = 16, .InterTime = 0.05f, .Loop = true });
-	Boss->CreateAnimation({ .AnimationName = "ChargeAttack", .TextureName = "taurus_attack_00", .Start = 1,.End = 10, .InterTime = 0.05f, .Loop = false });
-	Boss->CreateAnimation({ .AnimationName = "Attack", .TextureName = "taurus_attack_00", .Start = 11,.End = 21, .InterTime = 0.05f, .Loop = false });
+	Boss->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Taurus_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
+	Boss->CreateAnimation({ .AnimationName = "ChargeAttack", .SpriteName = "Taurus_Charge", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
+	Boss->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Taurus_Attack",  .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
 	
 	Boss->ChangeAnimation("Idle");
-	//Boss->SetTexture("blimp_idle_0001.png");														
-	//Boss->SetScaleToTexture("taurus_idle_0001.png");
 
 	//GetTransform()->SetLocalPosition(float4(300.0f, 0));											
 																			
@@ -115,7 +135,7 @@ void Taurus::Attack_Start()
 	//Boss->SetScaleToTexture("taurus_attack_0012.png");
 
 	CurPos = GetTransform()->GetLocalPosition();
-	DestPos = CurPos + float4(-500, 0);
+	DestPos = CurPos + float4(-200, 0);
 	isCharge = true;
 }
 void Taurus::Attack_Update(float _DeltaTime)

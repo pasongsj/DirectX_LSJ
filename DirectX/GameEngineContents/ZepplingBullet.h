@@ -32,5 +32,7 @@ private:
 	
 	float4 Dir = float4::Left;
 
+	void MakeSprite();
+
 };
 

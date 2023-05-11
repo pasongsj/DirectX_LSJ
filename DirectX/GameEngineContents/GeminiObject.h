@@ -16,7 +16,7 @@ public:
 	GeminiObject& operator=(GeminiObject&& _Other) noexcept = delete;
 
 
-	void ChangeGeminiAnimation(const std::string_view& _Str,int _index);
+	void ChangeGeminiAnimation(const std::string_view& _Str, size_t _index);
 	void ChangeGeminiAnimation(const std::string_view& _Str);
 
 	bool isGeminiAnimationEnd();
@@ -26,7 +26,8 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> BossObject = nullptr;
 
+	std::shared_ptr<class GameEngineSpriteRenderer> BossObject = nullptr;
+	void MakeSprite();
 };
 

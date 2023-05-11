@@ -91,9 +91,10 @@ void Zeppling::Start()
 
 	Monster->ChangeAnimation(Mode + "Idle");
 	//Monster->SetTexture("a_blimp_enemy_idle_0001.png");
-	Monster->SetScaleToTexture("a_blimp_enemy_idle_0001.png");
+	//Monster->SetScaleToTexture("a_blimp_enemy_idle_0001.png");
 	// 위치,회전, 크기
-	//Monster->GetTransform()->SetWorldScale(float4(156, 94)*0.8f);
+	float4 Pos = float4(GameEngineWindow::GetScreenSize().hx(), 0);
+	GetTransform()->SetLocalPosition(Pos);
 	
 
 

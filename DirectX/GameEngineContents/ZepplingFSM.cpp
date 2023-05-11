@@ -15,7 +15,7 @@ void Zeppling::Move_Update(float _DeltaTime)
 	float4 MoveVec = float4::Left * MoveSpeed * _DeltaTime;
 	GetTransform()->AddLocalPosition(MoveVec);
 	MoveLen += MoveVec.Size();
-	if (MoveLen > 500.0f)
+	if (MoveLen > 300.0f)
 	{
 		NextState = ZepplingState::SHOOT;
 	}
@@ -27,8 +27,8 @@ void Zeppling::Move_End()
 
 void Zeppling::Shoot_Start()
 {
-	//Bullet = GetLevel()->CreateActor<ZepplingBullet>();
-	//Bullet->GetTransform()->SetWorldPosition(Monster->GetTransform()->GetWorldPosition());
+	Bullet = GetLevel()->CreateActor<ZepplingBullet>();
+	Bullet->GetTransform()->SetWorldPosition(Monster->GetTransform()->GetWorldPosition());
 
 
 	Monster->ChangeAnimation(Mode + "Attack");
@@ -93,7 +93,7 @@ void Zeppling::Back_Update(float _DeltaTime)
 	MoveLen += MoveVec.Size();
 
 	// 수정필요 : 윈도우 크기 적용 필요
-	if (MoveLen > 400.0f)
+	if (MoveLen > 500.0f)
 	{
 		Death();
 	}

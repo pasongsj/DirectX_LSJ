@@ -11,25 +11,54 @@ GeminiOrb::~GeminiOrb()
 {
 }
 
+void GeminiOrb::MakeSprite()
+{
+	if (nullptr == GameEngineSprite::Find("Orb_Idle_Intro"))
+	{
+
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
+		NewDir.Move("Texture");
+		NewDir.Move("stage1\\Boss\\Hilda\\Gemini\\Orb");
+
+		// idle
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle\\Intro").GetFullPath(), "Orb_Idle_Intro");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle\\Loop").GetFullPath(), "Orb_Idle_Loop");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle\\Leave").GetFullPath(), "Orb_Idle_Leave");
+
+		// attack
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Intro").GetFullPath(), "Orb_Attack_Intro");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Loop").GetFullPath(), "Orb_Attack_Loop");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Leave").GetFullPath(), "Orb_Attack_Leave");
+
+		// scatter
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\FX\\Large").GetFullPath(), "Orb_Attack_Scatter");
+
+	}
+}
+
 void GeminiOrb::Start()
 {
+	MakeSprite();
+
 	Orb = CreateComponent<GameEngineSpriteRenderer>();
-	Orb->CreateAnimation({ .AnimationName = "IdleIntro",  .TextureName = "orb_intro_000", .Start = 1, .End = 8,.InterTime = 0.05f, .Loop = false });
-	Orb->CreateAnimation({ .AnimationName = "IdleLoop",  .TextureName = "orb_loop_00", .Start = 1, .End = 16,.InterTime = 0.05f, .Loop = true });
-	Orb->CreateAnimation({ .AnimationName = "IdleLeave",  .TextureName = "orb_leave_00", .Start = 1, .End = 15,.InterTime = 0.05f, .Loop = false });
+	Orb->CreateAnimation({ .AnimationName = "IdleIntro",  .SpriteName = "Orb_Idle_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
+	Orb->CreateAnimation({ .AnimationName = "IdleLoop",  .SpriteName = "Orb_Idle_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
+	Orb->CreateAnimation({ .AnimationName = "IdleLeave",  .SpriteName = "Orb_Idle_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
 
 
-	Orb->CreateAnimation({ .AnimationName = "AttackIntro",  .TextureName = "orb_attack_intro_000", .Start = 1, .End = 7,.InterTime = 0.05f, .Loop = false });
-	Orb->CreateAnimation({ .AnimationName = "AttackLoop",  .TextureName = "orb_attack_loop_000", .Start = 1, .End = 4,.InterTime = 0.05f, .Loop = true });
-	Orb->CreateAnimation({ .AnimationName = "AttackLeave",  .TextureName = "orb_attack_leave_000", .Start = 1, .End = 7,.InterTime = 0.05f, .Loop = false });
+	Orb->CreateAnimation({ .AnimationName = "AttackIntro",  .SpriteName = "Orb_Attack_Intro",.FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
+	Orb->CreateAnimation({ .AnimationName = "AttackLoop",  .SpriteName = "Orb_Attack_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToImage = true });
+	Orb->CreateAnimation({ .AnimationName = "AttackLeave",  .SpriteName = "Orb_Attack_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
 	Orb->ChangeAnimation("IdleIntro");
 
 	OrbAttackEffect = CreateComponent<GameEngineSpriteRenderer>();
-	OrbAttackEffect->CreateAnimation({ .AnimationName = "Attack",  .TextureName = "orb_large_fx_000", .Start = 1, .End = 8,.InterTime = 0.05f, .Loop = true });
+	OrbAttackEffect->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Orb_Attack_Scatter",.FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
 	OrbAttackEffect->ChangeAnimation("Attack");
 	OrbAttackEffect->Off();
 
-	GetTransform()->SetLocalPosition(float4(300.0f, 0));
+	//GetTransform()->SetLocalPosition(float4(300.0f, 0));
 
 	//FSM																							
 	//INTRO
@@ -76,6 +105,8 @@ void GeminiOrb::UpdateState(float _DeltaTime)
 
 void GeminiOrb::Idle_Start()
 {
+	isLoop = false;
+	isLeaveAnimation = false;
 	Orb->ChangeAnimation("IdleIntro");
 }
 void GeminiOrb::Idle_Update(float _DeltaTime)
@@ -85,22 +116,28 @@ void GeminiOrb::Idle_Update(float _DeltaTime)
 		isLoop = true;
 		Orb->ChangeAnimation("IdleLoop");
 	}
-	if (true == isAttack)
+	if (true == isAttack && false == isLeaveAnimation)
+	{
+		Orb->ChangeAnimation("IdleLeave");
+		isLeaveAnimation = true;
+	}
+	if (true == isLeaveAnimation && true == Orb->IsAnimationEnd())
 	{
 		NextState = OrbState::ATTACK;
+
 	}
 }
 void GeminiOrb::Idle_End()
 {
-	Orb->ChangeAnimation("IdleLeave");
-	isLoop = false;
+	Orb->Off();
 }
 
 void GeminiOrb::Attack_Start()
 {
-	GetTransform()->SetLocalPosition(float4(-500, 0));
+	Orb->On();
+	isLoop = false;
+	GetTransform()->SetLocalPosition(float4(-300, 0));
 	Orb->ChangeAnimation("AttackIntro");
-	OrbAttackEffect->On();
 }
 void GeminiOrb::Attack_Update(float _DeltaTime)
 {
@@ -108,6 +145,7 @@ void GeminiOrb::Attack_Update(float _DeltaTime)
 	{
 		isLoop = true;
 		Orb->ChangeAnimation("AttackLoop");
+		OrbAttackEffect->On();
 	}
 
 }

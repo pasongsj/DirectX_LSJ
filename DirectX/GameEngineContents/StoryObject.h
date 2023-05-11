@@ -15,6 +15,11 @@ public:
 	StoryObject& operator=(const StoryObject& _Other) = delete;
 	StoryObject& operator=(StoryObject&& _Other) noexcept = delete;
 
+	bool isEnd()
+	{
+		return isEndStory;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -24,6 +29,13 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BackGround = nullptr;
 	int Page = 1;
 	float WaitingTime = 5.0f;
+
+	bool isEndStory = false;
+
+	void MakeSprite();
+
+	void NextPage();
+
 
 };
 

@@ -10,13 +10,33 @@ GeminiObject::~GeminiObject()
 {
 }
 
+void GeminiObject::MakeSprite()
+{
+	if (nullptr == GameEngineSprite::Find("Gemini_Idle"))
+	{
+
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources");
+		NewDir.Move("Texture");
+		NewDir.Move("stage1\\Boss\\Hilda\\Gemini");
+
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Gemini_Idle");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack (A)").GetFullPath(), "Gemini_AttackA");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack (B)").GetFullPath(), "Gemini_AttackB");
+
+	}
+}
+
 void GeminiObject::Start()
 {
+	MakeSprite();
 	BossObject = CreateComponent<GameEngineSpriteRenderer>();
-	BossObject->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "gemini_idle_00", .Start = 1, .End = 32,.InterTime = 0.05f, .Loop = true });
-	BossObject->CreateAnimation({ .AnimationName = "AttackA",  .TextureName = "gemini_a_attack_00", .Start = 1, .End = 17, .InterTime = 0.05f, .Loop = false });
-	//BossB->CreateAnimation({ .AnimationName = "Idle",  .TextureName = "gemini_idle_00", .Start = 1, .End = 32,.InterTime = 0.05f, .Loop = true });
-	BossObject->CreateAnimation({ .AnimationName = "AttackB",  .TextureName = "gemini_b_attack_00", .Start = 1, .End = 17, .InterTime = 0.05f, .Loop = false });
+	BossObject->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
+	BossObject->CreateAnimation({ .AnimationName = "AttackA",  .SpriteName = "Gemini_AttackA",  .FrameInter = 0.05f, .Loop = false, .ScaleToImage = true });
+	//BossB->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "gemini_idle_00", .FrameInter = 0.05f, .Loop = true, .ScaleToImage = true });
+	BossObject->CreateAnimation({ .AnimationName = "AttackB",  .SpriteName = "Gemini_AttackB",  .FrameInter = 0.05f, .Loop = false , .ScaleToImage = true });
 }
 
 void GeminiObject::Update(float _DeltaTime)
@@ -24,9 +44,9 @@ void GeminiObject::Update(float _DeltaTime)
 
 }
 
-void GeminiObject::ChangeGeminiAnimation(const std::string_view& _Str, int _index)
+void GeminiObject::ChangeGeminiAnimation(const std::string_view& _Str, size_t _index)
 {
-	BossObject->ChangeAnimation(_Str,_index);
+	BossObject->ChangeAnimation(_Str,_index,false);
 }
 void GeminiObject::ChangeGeminiAnimation(const std::string_view& _Str)
 {

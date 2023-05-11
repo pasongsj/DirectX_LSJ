@@ -18,13 +18,13 @@ Gemini::~Gemini()
 void Gemini::Start()
 {
 	BossA = GetLevel()->CreateActor<GeminiObject>("BossA");
-	BossA->GetTransform()->SetLocalPosition(float4(-100, 0));
-	BossA->ChangeGeminiAnimation("Idle", 15);
+	BossA->GetTransform()->SetLocalPosition(float4(100, 0));
+	BossA->ChangeGeminiAnimation("Idle");
 
 
 	BossB = GetLevel()->CreateActor<GeminiObject>("BossB");
-	BossB->GetTransform()->SetLocalPosition(float4(100, 0));
-	BossB->ChangeGeminiAnimation("Idle");
+	BossB->GetTransform()->SetLocalPosition(float4(-100, 0));
+	BossB->ChangeGeminiAnimation("Idle", 15);
 
 
 
@@ -76,8 +76,8 @@ void Gemini::UpdateState(float _DeltaTime)
 
 void Gemini::Idle_Start()
 {
-	BossA->ChangeGeminiAnimation("Idle", 15);
-	BossB->ChangeGeminiAnimation("Idle");
+	BossA->ChangeGeminiAnimation("Idle");
+	BossB->ChangeGeminiAnimation("Idle",15);
 }
 
 void Gemini::Idle_Update(float _DeltaTime)
@@ -108,18 +108,22 @@ void Gemini::Idle_Update(float _DeltaTime)
 	//x=acosθy=bsinθ
 
 	float SpinTime = -GetLiveTime() * 4;
-	BossA->GetTransform()->SetLocalPosition(MoveVec + float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), -6 + 5 * sinf(SpinTime)));
-	BossB->GetTransform()->SetLocalPosition(MoveVec + float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -6 - 5 * sinf(SpinTime)));
+	BossA->GetTransform()->SetLocalPosition(MoveVec + float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -6 - 5 * sinf(SpinTime)));
+	BossB->GetTransform()->SetLocalPosition(MoveVec + float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), -6 + 5 * sinf(SpinTime)));
+	if (false == Orb->IsAttack())
+	{
+		Orb->GetTransform()->SetLocalPosition(MoveVec);
+	}
 
 	if (-6 + 5 * sinf(SpinTime) > -6 - 5 * sinf(SpinTime))
 	{
-		BossA->SetOrder(-1);
-		BossB->SetOrder(1);
+		BossB->SetOrder(-1);
+		BossA->SetOrder(1);
 	}
 	else
 	{
-		BossA->SetOrder(1);
-		BossB->SetOrder(-1);
+		BossB->SetOrder(1);
+		BossA->SetOrder(-1);
 
 	}
 	// 랜더 순서를 변경하기 위해 setorder

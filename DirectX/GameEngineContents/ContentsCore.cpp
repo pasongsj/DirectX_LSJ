@@ -1,11 +1,11 @@
 #include "PrecompileHeader.h"
 #include "ContentsCore.h"
-#include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineCoreWindow.h>
 #include "PlayLevel.h"
 #include "TitleLevel.h"
 #include "TestLevel.h"
 #include "HildaBergLevel.h"
+#include "IntroStoryLevel.h"
 
 ContentsCore::ContentsCore() 
 {
@@ -38,6 +38,7 @@ void ContentsCore::GameStart()
 	GameEngineCore::CreateLevel<PlayLevel>();
 	//GameEngineCore::CreateLevel<TestLevel>();
 	GameEngineCore::CreateLevel<HildaBergLevel>();
+	GameEngineCore::CreateLevel<IntroStoryLevel>();
 	GameEngineCore::ChangeLevel("HildaBergLevel");
 }
 
