@@ -39,7 +39,7 @@ void ContentsCore::GameStart()
 	//GameEngineCore::CreateLevel<TestLevel>();
 	GameEngineCore::CreateLevel<HildaBergLevel>();
 	GameEngineCore::CreateLevel<IntroStoryLevel>();
-	GameEngineCore::ChangeLevel("HildaBergLevel");
+	GameEngineCore::ChangeLevel("IntroStoryLevel");
 }
 
 void ContentsCore::GameEnd() 

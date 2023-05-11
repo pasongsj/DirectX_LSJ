@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "IntroStoryLevel.h"
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineCore.h>
 
 #include "StoryObject.h"
 IntroStoryLevel::IntroStoryLevel() 
@@ -20,7 +21,7 @@ void IntroStoryLevel::Update(float _DeltaTime)
 {
 	if (true == Story->isEnd()) 
 	{
-		// LevelChange
+		GameEngineCore::ChangeLevel("HildaBergLevel");
 	}
 }
 	

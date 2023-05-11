@@ -329,7 +329,8 @@ void PlayerAirPlaneMode::CheckShoot(float _DeltaTime)
 		if (0.0f > ShootInterVal)
 		{
 			std::shared_ptr<PeaShooter> bullet = GetLevel()->CreateActor<PeaShooter>();
-			bullet->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(100, BulletYPos));
+			float4 _Pos = GetTransform()->GetWorldPosition() + float4(100, BulletYPos);
+			bullet->GetTransform()->SetWorldPosition(_Pos);
 			BulletYPos *= -1;
 			ShootInterVal = 0.1f;
 		}
