@@ -22,16 +22,16 @@ void StoryObject::MakeSprite()
 		NewDir.Move("story\\before");
 
 	
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Page 01-02").GetFullPath(), "story1");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Page 02-03").GetFullPath(), "story2");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Page 03-04").GetFullPath(), "story3");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Page 04-05").GetFullPath(), "story4");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Page 05-06").GetFullPath(), "story5");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Page 06-07").GetFullPath(), "story6");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Page 07-08").GetFullPath(), "story7");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Page 08-09").GetFullPath(), "story8");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Page 09-10").GetFullPath(), "story9");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Page 10-11").GetFullPath(), "story10");
+		GameEngineSprite::LoadFolder("story1" , NewDir.GetPlusFileName("Page 01-02").GetFullPath());
+		GameEngineSprite::LoadFolder("story2" , NewDir.GetPlusFileName("Page 02-03").GetFullPath());
+		GameEngineSprite::LoadFolder("story3" , NewDir.GetPlusFileName("Page 03-04").GetFullPath());
+		GameEngineSprite::LoadFolder("story4" , NewDir.GetPlusFileName("Page 04-05").GetFullPath());
+		GameEngineSprite::LoadFolder("story5" , NewDir.GetPlusFileName("Page 05-06").GetFullPath());
+		GameEngineSprite::LoadFolder("story6" , NewDir.GetPlusFileName("Page 06-07").GetFullPath());
+		GameEngineSprite::LoadFolder("story7" , NewDir.GetPlusFileName("Page 07-08").GetFullPath());
+		GameEngineSprite::LoadFolder("story8" , NewDir.GetPlusFileName("Page 08-09").GetFullPath());
+		GameEngineSprite::LoadFolder("story9" , NewDir.GetPlusFileName("Page 09-10").GetFullPath());
+		GameEngineSprite::LoadFolder("story10" , NewDir.GetPlusFileName("Page 10-11").GetFullPath());
 		
 
 	}

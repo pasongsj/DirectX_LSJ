@@ -27,7 +27,7 @@ void PeaShooter::MakeSprite()
 		// Origin
 		// idle
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("peashot").GetFullPath(), "Cuphead_AirPlane_Bullet");
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Bullet", NewDir.GetPlusFileName("peashot").GetFullPath());
 	}
 }
 

@@ -27,62 +27,61 @@ void PlayerAirPlaneMode::MakeSprite()
 		NewDir.MoveParentToDirectory("ContentResources");
 		NewDir.Move("ContentResources");
 		NewDir.Move("Texture");
-		NewDir.Move("Cuphead_AirPlane\\Idle");
+		NewDir.Move("Cuphead_AirPlane");
 
 
 
 		// Origin
 		// idle
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Cuphead_AirPlane_Origin_Idle");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("up").GetFullPath(), "Cuphead_AirPlane_Origin_Idleup");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("down").GetFullPath(), "Cuphead_AirPlane_Origin_Idledown");
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Origin_Idle", NewDir.GetPlusFileName("Idle\\Idle").GetFullPath());
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Origin_Idleup", NewDir.GetPlusFileName("Idle\\up").GetFullPath());
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Origin_Idledown", NewDir.GetPlusFileName("Idle\\down").GetFullPath());
 
 		// intro
-		NewDir.Move("..\\Intros");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Regular").GetFullPath(), "Cuphead_AirPlane_Origin_intro");
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Origin_intro", NewDir.GetPlusFileName("Intros\\Regular").GetFullPath() );
 
 		// trans
-		NewDir.Move("..\\Transicion");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("transup").GetFullPath(), "Cuphead_AirPlane_Origin_transup");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("transdown").GetFullPath(), "Cuphead_AirPlane_Origin_transdown");
+		//NewDir.Move("..\\Transicion");
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Origin_transup",NewDir.GetPlusFileName("Transicion\\transup").GetFullPath());
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Origin_transdown", NewDir.GetPlusFileName("Transicion\\transdown").GetFullPath());
 
 		// Super
 		// idle
-		NewDir.Move("..\\Super\\Idle");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Cuphead_AirPlane_Super_Idle");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("up").GetFullPath(), "Cuphead_AirPlane_Super_Idleup");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("down").GetFullPath(), "Cuphead_AirPlane_Super_Idledown");
+		//NewDir.Move("..\\Super\\Idle");
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Super_Idle", NewDir.GetPlusFileName("Super\\Idle\\Idle").GetFullPath());
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Super_Idleup", NewDir.GetPlusFileName("Super\\Idle\\up").GetFullPath());
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Super_Idledown",NewDir.GetPlusFileName("Super\\Idle\\down").GetFullPath());
 
 		// intro
-		NewDir.MoveParent();
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("intro").GetFullPath(), "Cuphead_AirPlane_Super_intro");
+		//NewDir.MoveParent();
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Super_intro", NewDir.GetPlusFileName("Super\\intro").GetFullPath());
 
 		// trans
-		NewDir.Move("trans");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("up").GetFullPath(), "Cuphead_AirPlane_Super_transup");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("down").GetFullPath(), "Cuphead_AirPlane_Super_transdown");
+		//NewDir.Move("trans");
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Super_transup", NewDir.GetPlusFileName("Super\\trans\\up").GetFullPath());
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Super_transdown", NewDir.GetPlusFileName("Super\\trans\\down").GetFullPath());
 
 		// Shrink
 		// idle
-		NewDir.Move("..\\..\\Shrink\\idle");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Cuphead_AirPlane_Shrink_Idle");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("up").GetFullPath(), "Cuphead_AirPlane_Shrink_Idleup");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("down").GetFullPath(), "Cuphead_AirPlane_Shrink_Idledown");
+		//NewDir.Move("..\\..\\Shrink\\idle");
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Shrink_Idle", NewDir.GetPlusFileName("Shrink\\idle\\Idle").GetFullPath());
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Shrink_Idleup", NewDir.GetPlusFileName("Shrink\\idle\\up").GetFullPath());
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Shrink_Idledown", NewDir.GetPlusFileName("Shrink\\idle\\down").GetFullPath());
 
 		// intro
-		NewDir.MoveParent();
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("morph").GetFullPath(), "Cuphead_AirPlane_Shrink_intro");
+		//NewDir.MoveParent();
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Shrink_intro", NewDir.GetPlusFileName("Shrink\\morph").GetFullPath());
 
 		// trans
-		NewDir.Move("trans");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("up").GetFullPath(), "Cuphead_AirPlane_Shrink_transup");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("down").GetFullPath(), "Cuphead_AirPlane_Shrink_transdown");
+		//NewDir.Move("trans");
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Shrink_transup", NewDir.GetPlusFileName("Shrink\\trans\\up").GetFullPath());
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Shrink_transdown", NewDir.GetPlusFileName("Shrink\\trans\\down").GetFullPath());
 
 
 		//parry
-		NewDir.Move("..\\..\\");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Parry").GetFullPath(), "Cuphead_AirPlane_Parry");
+		//NewDir.Move("..\\..\\");
+		GameEngineSprite::LoadFolder( "Cuphead_AirPlane_Parry", NewDir.GetPlusFileName("Parry").GetFullPath());
 	}
 
 	if (nullptr == GameEngineSprite::Find("Cuphead_AirPlane_Spark"))
@@ -93,7 +92,7 @@ void PlayerAirPlaneMode::MakeSprite()
 		NewDir.Move("Texture");
 		NewDir.Move("Cuphead_AirPlane\\effect");
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Spark").GetFullPath(), "Cuphead_AirPlane_Spark");
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Spark", NewDir.GetPlusFileName("Spark").GetFullPath());
 	}
 }
 
@@ -132,7 +131,7 @@ void PlayerAirPlaneMode::Start()
 	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveDownTrans",  .SpriteName = "Cuphead_AirPlane_Origin_transdown", .FrameInter = 0.01f, .Loop = false, .ScaleToTexture = true });
 
 	// parry
-	PlayerRender->CreateAnimation({ .AnimationName = "Parry",  .SpriteName = "Cuphead_AirPlane_Parry",.FrameInter = 0.03f, .Loop = false });
+	PlayerRender->CreateAnimation({ .AnimationName = "Parry",  .SpriteName = "Cuphead_AirPlane_Parry",.FrameInter = 0.03f, .Loop = false, .ScaleToTexture = true });
 
 	// shmup mode
 	PlayerRender->CreateAnimation({ .AnimationName = "SuperIntro",  .SpriteName = "Cuphead_AirPlane_Super_intro", .FrameInter = 0.1f, .Loop = false , .ScaleToTexture = true });

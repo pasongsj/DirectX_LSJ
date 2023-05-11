@@ -23,9 +23,9 @@ void Taurus::MakeSprite()
 		NewDir.Move("stage1\\Boss\\Hilda\\Taurus");
 
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Taurus_Idle");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Charge").GetFullPath(), "Taurus_Charge");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Attack").GetFullPath(), "Taurus_Attack");
+		GameEngineSprite::LoadFolder("Taurus_Idle", NewDir.GetPlusFileName("Idle").GetFullPath());
+		GameEngineSprite::LoadFolder("Taurus_Charge", NewDir.GetPlusFileName("Attack\\Charge").GetFullPath());
+		GameEngineSprite::LoadFolder("Taurus_Attack", NewDir.GetPlusFileName("Attack\\Attack").GetFullPath());
 
 	}
 }

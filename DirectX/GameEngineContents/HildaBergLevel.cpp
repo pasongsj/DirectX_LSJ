@@ -32,20 +32,6 @@ HildaBergLevel::~HildaBergLevel()
 
 void HildaBergLevel::Start()
 {
-	////{
-	////	GameEngineDirectory NewDir;
-	////	NewDir.MoveParentToDirectory("ContentResources");
-	////	NewDir.Move("ContentResources");
-
-	////	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-
-
-	////	for (size_t i = 0; i < File.size(); i++)
-	////	{
-	////		GameEngineTexture::Load(File[i].GetFullPath());
-	////	}
-
-	////}
 
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	//GetMainCamera()->SetProjectionType(CameraType::Perspective);
@@ -55,10 +41,10 @@ void HildaBergLevel::Start()
 	BackGround = CreateActor<HildaBergBack>("HildaBergBack");
 	//std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
 	//std::shared_ptr<Taurus> NextBoss = CreateActor<Taurus>("Taurus");
-	//std::shared_ptr<Sagittarius> NextBoss = CreateActor<Sagittarius>("Sagittarius");
+	std::shared_ptr<Sagittarius> NextBoss = CreateActor<Sagittarius>("Sagittarius");
 	//std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");
 	//std::shared_ptr<Moon> NewBoss = CreateActor<Moon>("Moon");
-	std::shared_ptr<HildaBergBossController> NewBoss = CreateActor<HildaBergBossController>("HildaBergBossController");
+	//std::shared_ptr<HildaBergBossController> NewBoss = CreateActor<HildaBergBossController>("HildaBergBossController");
 	std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>("Zeppling");
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>("PlayerAirPlaneMode");
 
@@ -66,6 +52,10 @@ void HildaBergLevel::Start()
 
 void HildaBergLevel::Update(float _DeltaTime)
 {
+	if (nullptr == BackGround)
+	{
+		MsgAssert("배경 엑터가 설정되지 않았습니다");
+	}
 	BackGround->GetTransform()->AddLocalPosition(float4(-50 * _DeltaTime, 0));
 }
 

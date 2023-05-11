@@ -24,9 +24,9 @@ void Sagittarius::MakeSprite()
 		NewDir.Move("stage1\\Boss\\Hilda\\Sagittarius\\Sagittarius");
 
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Lower\\Idle").GetFullPath(), "Sagittarius_Lower_Idle");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Upper\\Idle").GetFullPath(), "Sagittarius_Upper_Idle");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Upper\\Attack").GetFullPath(), "Sagittarius_Upper_Attack");
+		GameEngineSprite::LoadFolder( "Sagittarius_Lower_Idle", NewDir.GetPlusFileName("Lower\\Idle").GetFullPath());
+		GameEngineSprite::LoadFolder("Sagittarius_Upper_Idle", NewDir.GetPlusFileName("Upper\\Idle").GetFullPath());
+		GameEngineSprite::LoadFolder("Sagittarius_Upper_Attack", NewDir.GetPlusFileName("Upper\\Attack").GetFullPath());
 
 	}
 }
@@ -52,7 +52,7 @@ void Sagittarius::Start()
 	Lower->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Lower_Idle",  .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	//Lower->SetScaleToTexture("sagg_cloud_top_0003.png");
 	Lower->ChangeAnimation("Idle");
-	Lower->GetTransform()->SetLocalPosition(float4(160, -50));
+	Lower->GetTransform()->SetLocalPosition(float4(160, -55));
 
 
 
@@ -107,6 +107,7 @@ void Sagittarius::UpdateState(float _DeltaTime)
 void Sagittarius::Idle_Start()
 {
 	ResetLiveTime();
+	Upper->GetTransform()->SetLocalPosition(float4(0, 100));
 	Upper->ChangeAnimation("Idle");
 	Lower->ChangeAnimation("Idle");
 }
@@ -145,6 +146,7 @@ void Sagittarius::Idle_End()
 
 void Sagittarius::Attack_Start()
 {
+	Upper->GetTransform()->SetLocalPosition(float4(15, 110));
 	Upper->ChangeAnimation("Attack");
 	AttackInterval = GameEngineRandom::MainRandom.RandomFloat(5.0f, 8.0f);
 }

@@ -25,29 +25,29 @@ void Zeppling::MakeSprite()
 		NewDir.Move("stage1\\Boss\\Hilda\\BlimpEnemy");
 
 		// idle
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Purple\\Idle").GetFullPath(), "PurPle_Idle");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Green\\Idle").GetFullPath(), "Green_Idle");
+		GameEngineSprite::LoadFolder("PurPle_Idle", NewDir.GetPlusFileName("Purple\\Idle").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Idle", NewDir.GetPlusFileName("Green\\Idle").GetFullPath());
 		// attack
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Purple\\Attack").GetFullPath(), "Purple_Attack");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Green\\Attack").GetFullPath(), "Green_Attack");
+		GameEngineSprite::LoadFolder("Purple_Attack", NewDir.GetPlusFileName("Purple\\Attack").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Attack", NewDir.GetPlusFileName("Green\\Attack").GetFullPath());
 		// turn
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Purple\\Turn").GetFullPath(), "Purple_Turn");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Green\\Turn").GetFullPath(), "Green_Turn");
+		GameEngineSprite::LoadFolder("Purple_Turn", NewDir.GetPlusFileName("Purple\\Turn").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Turn", NewDir.GetPlusFileName("Green\\Turn").GetFullPath());
 
 		// death
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Green\\Pieces\\A").GetFullPath(), "Green_Deah_A");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Green\\Pieces\\B").GetFullPath(), "Green_Deah_B");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Green\\Pieces\\C").GetFullPath(), "Green_Deah_C");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Green\\Pieces\\D").GetFullPath(), "Green_Deah_D");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Green\\Pieces\\E").GetFullPath(), "Green_Deah_E");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Green\\Pieces\\F").GetFullPath(), "Green_Deah_F");
+		GameEngineSprite::LoadFolder("Green_Deah_A", NewDir.GetPlusFileName("Green\\Pieces\\A").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Deah_B", NewDir.GetPlusFileName("Green\\Pieces\\B").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Deah_C", NewDir.GetPlusFileName("Green\\Pieces\\C").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Deah_D", NewDir.GetPlusFileName("Green\\Pieces\\D").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Deah_E", NewDir.GetPlusFileName("Green\\Pieces\\E").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Deah_F", NewDir.GetPlusFileName("Green\\Pieces\\F").GetFullPath());
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Purple\\Pieces\\A").GetFullPath(), "Purple_Deah_A");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Purple\\Pieces\\B").GetFullPath(), "Purple_Deah_B");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Purple\\Pieces\\C").GetFullPath(), "Purple_Deah_C");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Purple\\Pieces\\D").GetFullPath(), "Purple_Deah_D");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Purple\\Pieces\\E").GetFullPath(), "Purple_Deah_E");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Purple\\Pieces\\F").GetFullPath(), "Purple_Deah_F");
+		GameEngineSprite::LoadFolder("Purple_Deah_A", NewDir.GetPlusFileName("Purple\\Pieces\\A").GetFullPath());
+		GameEngineSprite::LoadFolder("Purple_Deah_B", NewDir.GetPlusFileName("Purple\\Pieces\\B").GetFullPath());
+		GameEngineSprite::LoadFolder("Purple_Deah_C", NewDir.GetPlusFileName("Purple\\Pieces\\C").GetFullPath());
+		GameEngineSprite::LoadFolder("Purple_Deah_D", NewDir.GetPlusFileName("Purple\\Pieces\\D").GetFullPath());
+		GameEngineSprite::LoadFolder("Purple_Deah_E", NewDir.GetPlusFileName("Purple\\Pieces\\E").GetFullPath());
+		GameEngineSprite::LoadFolder("Purple_Deah_F", NewDir.GetPlusFileName("Purple\\Pieces\\F").GetFullPath());
 
 	}
 }
@@ -64,9 +64,9 @@ void Zeppling::Start()
 	Monster = CreateComponent<GameEngineSpriteRenderer>();
 
 	Monster->CreateAnimation({ .AnimationName = "PurPle_Idle",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "PurPle_Back",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true ,.FlipX = true});
+	Monster->CreateAnimation({ .AnimationName = "PurPle_Back",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true/* ,.FlipX = true*/});
 	Monster->CreateAnimation({ .AnimationName = "Green_Idle",  .SpriteName = "Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Green_Back",  .SpriteName = "Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true ,.FlipX = true });
+	Monster->CreateAnimation({ .AnimationName = "Green_Back",  .SpriteName = "Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true /*,.FlipX = true */});
 
 	Monster->CreateAnimation({ .AnimationName = "Purple_Attack",  .SpriteName = "Purple_Attack", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	Monster->CreateAnimation({ .AnimationName = "Green_Attack",  .SpriteName = "Green_Attack", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });

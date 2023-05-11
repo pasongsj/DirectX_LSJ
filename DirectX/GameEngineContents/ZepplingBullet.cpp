@@ -24,11 +24,11 @@ void ZepplingBullet::MakeSprite()
 		NewDir.Move("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet");
 
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("A\\Bullet").GetFullPath(), "BlimpEnemy_BulletA");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("B\\Bullet").GetFullPath(), "BlimpEnemy_BulletB");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("C\\Bullet").GetFullPath(), "BlimpEnemy_BulletC");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Pink\\A").GetFullPath(), "BlimpEnemy_BulletPinkA");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Pink\\B").GetFullPath(), "BlimpEnemy_BulletPinkB");
+		GameEngineSprite::LoadFolder("BlimpEnemy_BulletA", NewDir.GetPlusFileName("A\\Bullet").GetFullPath());
+		GameEngineSprite::LoadFolder("BlimpEnemy_BulletB", NewDir.GetPlusFileName("B\\Bullet").GetFullPath());
+		GameEngineSprite::LoadFolder("BlimpEnemy_BulletC", NewDir.GetPlusFileName("C\\Bullet").GetFullPath());
+		GameEngineSprite::LoadFolder("BlimpEnemy_BulletPinkA", NewDir.GetPlusFileName("Pink\\A").GetFullPath());
+		GameEngineSprite::LoadFolder("BlimpEnemy_BulletPinkB", NewDir.GetPlusFileName("Pink\\B").GetFullPath());
 
 	}
 }

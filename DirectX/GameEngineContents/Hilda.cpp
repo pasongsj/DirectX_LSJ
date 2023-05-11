@@ -25,19 +25,20 @@ void Hilda::MakeSprite()
 
 		
 		// intro
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Intro\\Hilda").GetFullPath(), "Hilda_Intro");
+		GameEngineSprite::LoadFolder("Hilda_Intro",NewDir.GetPlusFileName("Intro\\Hilda").GetFullPath());
 		// idle
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Hilda_Idle");
+		GameEngineSprite::LoadFolder("Hilda_Idle", NewDir.GetPlusFileName("Idle").GetFullPath());
 		// shoot
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Laugh\\Hilda").GetFullPath(), "Hilda_Shoot");
+		GameEngineSprite::LoadFolder("Hilda_Shoot", NewDir.GetPlusFileName("Laugh\\Hilda").GetFullPath());
 		// Dash
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("ChangePhase\\Dash\\Dash").GetFullPath(), "Hilda_Dash");
+		GameEngineSprite::LoadFolder("Hilda_Dash", NewDir.GetPlusFileName("ChangePhase\\Dash\\Dash").GetFullPath());
 		// DashBack
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("ChangePhase\\Dash\\DashBack").GetFullPath(), "Hilda_DashBack");
+		GameEngineSprite::LoadFolder("Hilda_DashBack", NewDir.GetPlusFileName("ChangePhase\\Dash\\DashBack").GetFullPath());
 		// Summon
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("ChangePhase\\Summon").GetFullPath(), "Hilda_Summon");
+		GameEngineSprite::LoadFolder("Hilda_Summon", NewDir.GetPlusFileName("ChangePhase\\Summon").GetFullPath());
 		// Tornato
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Tornado\\Hilda").GetFullPath(), "Hilda_Tornado");
+		GameEngineSprite::LoadFolder("Hilda_Tornado", NewDir.GetPlusFileName("Tornado\\Hilda").GetFullPath());
+
 	}
 }
 																				

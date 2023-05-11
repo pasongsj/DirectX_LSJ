@@ -26,7 +26,7 @@ void HildaHA::MakeSprite()
 		NewDir.Move("stage1\\Boss\\Hilda\\HildaBerg\\Normal");
 
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Laugh\\Ha").GetFullPath(), "Hilda_Ha");
+		GameEngineSprite::LoadFolder("Hilda_Ha", NewDir.GetPlusFileName("Laugh\\Ha").GetFullPath());
 
 	}
 }

@@ -25,8 +25,8 @@ void BoomEffect::MakeSprite()
 		// Origin
 		// idle
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Boom").GetFullPath(), "shmup_super_boom");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Explode").GetFullPath(), "shmup_super_explode");
+		GameEngineSprite::LoadFolder("shmup_super_boom", NewDir.GetPlusFileName("Boom").GetFullPath());
+		GameEngineSprite::LoadFolder("shmup_super_explode", NewDir.GetPlusFileName("Explode").GetFullPath());
 
 	}
 }

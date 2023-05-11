@@ -24,9 +24,9 @@ void Moon::MakeSprite()
 		NewDir.Move("stage1\\Boss\\Hilda\\Moon");
 
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Moon_Idle");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Moon").GetFullPath(), "Moon_Attack");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Death").GetFullPath(), "Moon_Death");
+		GameEngineSprite::LoadFolder("Moon_Idle", NewDir.GetPlusFileName("Idle").GetFullPath());
+		GameEngineSprite::LoadFolder("Moon_Attack", NewDir.GetPlusFileName("Attack\\Moon").GetFullPath());
+		GameEngineSprite::LoadFolder("Moon_Death", NewDir.GetPlusFileName("Death").GetFullPath());
 
 	}
 }

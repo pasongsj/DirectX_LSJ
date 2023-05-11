@@ -22,8 +22,8 @@ void HildaTornado::MakeSprite()
 		NewDir.Move("stage1\\Boss\\Hilda\\HildaBerg\\Normal");
 
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Tornado\\Tornado\\Attack").GetFullPath(), "Hilda_Tornado_Attack");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Tornado\\Tornado\\Intro").GetFullPath(), "Hilda_Tornado_Intro");
+		GameEngineSprite::LoadFolder("Hilda_Tornado_Attack", NewDir.GetPlusFileName("Tornado\\Tornado\\Attack").GetFullPath());
+		GameEngineSprite::LoadFolder("Hilda_Tornado_Intro", NewDir.GetPlusFileName("Tornado\\Tornado\\Intro").GetFullPath());
 
 	}
 }

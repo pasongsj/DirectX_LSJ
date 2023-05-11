@@ -17,14 +17,9 @@ public:
 	GameEngineComponent& operator=(const GameEngineComponent& _Other) = delete;
 	GameEngineComponent& operator=(GameEngineComponent&& _Other) noexcept = delete;
 
-	class GameEngineActor* GetActor() 
+	class GameEngineActor* GetActor()
 	{
 		return Actor;
-	}
-
-	class GameEngineLevel* GetLevel()
-	{
-		return Actor->GetLevel();
 	}
 
 protected:
