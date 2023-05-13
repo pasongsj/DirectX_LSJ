@@ -53,8 +53,9 @@ void BoomEffect::Update(float _DeltaTime)
 	{
 		Boom->Off();
 	}
-	if (false == Explode->IsUpdate() && false == Boom->IsUpdate())
+	if ((false == Explode->IsUpdate() && false == Boom->IsUpdate()) || GetLiveTime() > 3.0f)
 	{
 		Death();
 	}
+
 }

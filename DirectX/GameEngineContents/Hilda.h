@@ -33,7 +33,7 @@ protected:
 	void Render(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> Boss;
+	std::shared_ptr<class GameEngineSpriteRenderer> Boss = nullptr;
 
 	// idle
 	int CircleMove = 1;

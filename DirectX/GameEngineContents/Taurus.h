@@ -31,7 +31,7 @@ protected:
 
 private:
 
-	std::shared_ptr<class GameEngineSpriteRenderer> Boss;
+	std::shared_ptr<class GameEngineSpriteRenderer> Boss = nullptr;
 
 	int CircleMove = 1;
 	int LastShare = -1;

@@ -69,7 +69,7 @@ void GameEngineCore::EngineUpdate()
 
 	float TimeDeltaTime = GameEngineTime::GlobalTime.TimeCheck();
 
-	// 별로 좋은건 아닙니다.
+ 
 	if (TimeDeltaTime > 1 / 30.0f)
 	{
 		TimeDeltaTime = 1 / 30.0f;

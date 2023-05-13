@@ -75,6 +75,10 @@
     <ClInclude Include="StoryObject.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="CupheadContents.h" />
+    <ClInclude Include="GeminiOrbScatter.h">
+      <Filter>Object\Hilda\Boss\Gemini</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -159,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="StoryObject.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GeminiOrbScatter.cpp">
+      <Filter>Object\Hilda\Boss\Gemini</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

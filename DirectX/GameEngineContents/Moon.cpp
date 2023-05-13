@@ -39,7 +39,7 @@ void Moon::Start()
 	Boss->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Moon_Attack", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true});
 	Boss->CreateAnimation({ .AnimationName = "Death",  .SpriteName = "Moon_Death", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true});
 	Boss->ChangeAnimation("Idle");
-	//Boss->SetScaleToTexture("blimp_moon_idle_0001.png");
+
 	GetTransform()->SetLocalPosition(float4(300, -20));
 
 
@@ -65,7 +65,11 @@ void Moon::Start()
 
 void Moon::Update(float _DeltaTime)
 {
-
+	if (nullptr == Boss)
+	{
+		MsgAssert("Moon 랜더러가 생성되지 않았습니다.")
+	}
+	UpdateState(_DeltaTime);
 }
 
 
@@ -93,7 +97,7 @@ void Moon::UpdateState(float _DeltaTime)
 
 void Moon::Idle_Start()
 {
-
+	Boss->ChangeAnimation("Idle");
 }
 void Moon::Idle_Update(float _DeltaTime)
 {
@@ -103,9 +107,10 @@ void Moon::Idle_End()
 {
 
 }
+
 void Moon::Attack_Start()
 {
-
+	Boss->ChangeAnimation("Attack");
 }
 void Moon::Attack_Update(float _DeltaTime)
 {
@@ -113,8 +118,10 @@ void Moon::Attack_Update(float _DeltaTime)
 void Moon::Attack_End()
 {
 }
+
 void Moon::Death_Start()
 {
+	Boss->ChangeAnimation("Death");
 }
 void Moon::Death_Update(float _DeltaTime)
 {

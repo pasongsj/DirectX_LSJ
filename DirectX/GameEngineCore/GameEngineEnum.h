@@ -13,13 +13,3 @@ enum class CameraType
 	Perspective,
 	Orthogonal,
 };
-
-enum class CupHeadRendererOrder
-{
-	BackGround,
-	Monster,
-	Boss,
-	Player,
-	UI,
-	MAX,
-};

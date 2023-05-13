@@ -42,6 +42,13 @@ void HildaHA::Start()
 
 void HildaHA::Update(float _DeltaTime)
 {
+
+	if (nullptr == HaRender)
+	{
+		MsgAssert("Ha 랜더러가 제대로 생성되지 않았습니다.");
+		return;
+	}
+
 	GetTransform()->AddLocalPosition(float4(-800 * _DeltaTime, 0));
 
 

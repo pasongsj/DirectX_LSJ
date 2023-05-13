@@ -57,41 +57,41 @@ void Zeppling::MakeSprite()
 void Zeppling::Start()
 {
 	MakeSprite();
-	Monster = CreateComponent<GameEngineSpriteRenderer>();
+	Enemy = CreateComponent<GameEngineSpriteRenderer>();
 	float4x4 tmpmatrix1 = GetTransform()->GetWorldMatrix();
-	float4x4 Monstertmpmatrix0 = Monster->GetTransform()->GetLocalWorldMatrix();
-	float4x4 Monstertmpmatrix1 = Monster->GetTransform()->GetWorldMatrix();
+	float4x4 Enemytmpmatrix0 = Enemy->GetTransform()->GetLocalWorldMatrix();
+	float4x4 Enemytmpmatrix1 = Enemy->GetTransform()->GetWorldMatrix();
 
 
 	// 몬스터 이미지 랜더러
 
-	Monster->CreateAnimation({ .AnimationName = "PurPle_Idle",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "PurPle_Back",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true/* ,.FlipX = true*/});
-	Monster->CreateAnimation({ .AnimationName = "Green_Idle",  .SpriteName = "Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Green_Back",  .SpriteName = "Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true /*,.FlipX = true */});
+	Enemy->CreateAnimation({ .AnimationName = "PurPle_Idle",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "PurPle_Back",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true/* ,.FlipX = true*/});
+	Enemy->CreateAnimation({ .AnimationName = "Green_Idle",  .SpriteName = "Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Back",  .SpriteName = "Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true /*,.FlipX = true */});
 
-	Monster->CreateAnimation({ .AnimationName = "Purple_Attack",  .SpriteName = "Purple_Attack", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Green_Attack",  .SpriteName = "Green_Attack", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Attack",  .SpriteName = "Purple_Attack", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Attack",  .SpriteName = "Green_Attack", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 
-	Monster->CreateAnimation({ .AnimationName = "Purple_Turn",  .SpriteName = "Purple_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Green_Turn",  .SpriteName = "Green_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Turn",  .SpriteName = "Purple_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Turn",  .SpriteName = "Green_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 
-	Monster->CreateAnimation({ .AnimationName = "Green_Deah_A",  .SpriteName = "Green_Deah_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Green_Deah_B",  .SpriteName = "Green_Deah_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Green_Deah_C",  .SpriteName = "Green_Deah_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Green_Deah_D",  .SpriteName = "Green_Deah_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Green_Deah_E",  .SpriteName = "Green_Deah_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Green_Deah_F",  .SpriteName = "Green_Deah_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_A",  .SpriteName = "Green_Deah_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_B",  .SpriteName = "Green_Deah_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_C",  .SpriteName = "Green_Deah_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_D",  .SpriteName = "Green_Deah_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_E",  .SpriteName = "Green_Deah_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_F",  .SpriteName = "Green_Deah_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 
-	Monster->CreateAnimation({ .AnimationName = "Purple_Deah_A",  .SpriteName = "Purple_Deah_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Purple_Deah_B",  .SpriteName = "Purple_Deah_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Purple_Deah_C",  .SpriteName = "Purple_Deah_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Purple_Deah_D",  .SpriteName = "Purple_Deah_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Purple_Deah_E",  .SpriteName = "Purple_Deah_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Monster->CreateAnimation({ .AnimationName = "Purple_Deah_F",  .SpriteName = "Purple_Deah_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_A",  .SpriteName = "Purple_Deah_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_B",  .SpriteName = "Purple_Deah_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_C",  .SpriteName = "Purple_Deah_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_D",  .SpriteName = "Purple_Deah_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_E",  .SpriteName = "Purple_Deah_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_F",  .SpriteName = "Purple_Deah_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 
 
-	Monster->ChangeAnimation(Mode + "Idle");
+	Enemy->ChangeAnimation(Mode + "Idle");
 	// 위치,회전, 크기
 	float4 Pos = float4(GameEngineWindow::GetScreenSize().hx(), 0, 0);
 	GetTransform()->SetLocalPosition(Pos);

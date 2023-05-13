@@ -46,6 +46,11 @@ void Gemini::Start()
 
 void Gemini::Update(float _DeltaTime)
 {
+	if (nullptr == BossA || nullptr == BossB || nullptr == Orb)
+	{
+		MsgAssert("Gemini 랜더러가 제대로 생성되지 않았습니다.");
+		return;
+	}
 	UpdateState(_DeltaTime);
 }
 

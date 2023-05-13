@@ -29,7 +29,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> Boss;
+	std::shared_ptr<class GameEngineSpriteRenderer> Boss = nullptr;
 
 	MoonState CurState = MoonState::IDLE;
 	MoonState NextState = MoonState::IDLE;

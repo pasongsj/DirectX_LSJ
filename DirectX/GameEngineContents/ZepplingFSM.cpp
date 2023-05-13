@@ -8,7 +8,7 @@
 
 void Zeppling::Move_Start()
 {
-	Monster->ChangeAnimation(Mode + "Idle");
+	Enemy->ChangeAnimation(Mode + "Idle");
 }
 void Zeppling::Move_Update(float _DeltaTime)
 {
@@ -28,15 +28,15 @@ void Zeppling::Move_End()
 
 void Zeppling::Shoot_Start()
 {
-	Bullet = GetLevel()->CreateActor<ZepplingBullet>();
-	Bullet->GetTransform()->SetWorldPosition(Monster->GetTransform()->GetWorldPosition());
+	std::shared_ptr<ZepplingBullet> Bullet = GetLevel()->CreateActor<ZepplingBullet>();
+	Bullet->GetTransform()->SetWorldPosition(Enemy->GetTransform()->GetWorldPosition());
 
 
-	Monster->ChangeAnimation(Mode + "Attack");
+	Enemy->ChangeAnimation(Mode + "Attack");
 }
 void Zeppling::Shoot_Update(float _DeltaTime)
 {
-	if (true == Monster->IsAnimationEnd())
+	if (true == Enemy->IsAnimationEnd())
 	{
 		NextState = ZepplingState::TURN;
 	}
@@ -49,15 +49,15 @@ void Zeppling::Shoot_End()
 
 void Zeppling::Turn_Start()
 {
-	Monster->ChangeAnimation(Mode + "Turn");
+	Enemy->ChangeAnimation(Mode + "Turn");
 }
 
 void Zeppling::Turn_Update(float _DeltaTime)
 {
 
-	if (true == Monster->IsAnimationEnd())
+	if (true == Enemy->IsAnimationEnd())
 	{
-		TransformData Tmp = Monster->GetTransform()->GetTransDataRef();
+		TransformData Tmp = Enemy->GetTransform()->GetTransDataRef();
 
 		NextState = ZepplingState::BACK;
 	}
@@ -85,15 +85,15 @@ void Zeppling::Dead_End()
 
 void Zeppling::Back_Start()
 {
-	Monster->ChangeAnimation(Mode + "Idle");
+	Enemy->ChangeAnimation(Mode + "Idle");
 	TransformData Tmp = GetTransform()->GetTransDataRef();
 
-	TransformData MonsterTmp0 = Monster->GetTransform()->GetTransDataRef();
+	TransformData EnemyTmp0 = Enemy->GetTransform()->GetTransDataRef();
 	GetTransform()->SetLocalNegativeScaleX();
 
 	TransformData Tmp2 = GetTransform()->GetTransDataRef();
 
-	TransformData MonsterTmp1 = Monster->GetTransform()->GetTransDataRef();
+	TransformData EnemyTmp1 = Enemy->GetTransform()->GetTransDataRef();
 
 	MoveLen = 0;
 

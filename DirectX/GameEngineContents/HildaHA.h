@@ -20,7 +20,7 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> HaRender;
+	std::shared_ptr<class GameEngineSpriteRenderer> HaRender = nullptr;
 	void MakeSprite();
 };
 

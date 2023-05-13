@@ -58,8 +58,7 @@ void Hilda::Start()
 	Boss->CreateAnimation({ .AnimationName = "Summon",  .SpriteName = "Hilda_Summon", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Boss->CreateAnimation({ .AnimationName = "Tornato",  .SpriteName = "Hilda_Tornado",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Boss->ChangeAnimation("Intro");
-	//Boss->SetTexture("blimp_idle_0001.png");									
-	//Boss->SetScaleToTexture("blimp_idle_0001.png");
+
 																				
 	GetTransform()->SetLocalPosition(float4(300.0f,0));							
 																				
@@ -104,9 +103,16 @@ void Hilda::Start()
 
 void Hilda::Update(float _DeltaTime)
 {
-
+	if (nullptr == Boss)
+	{
+		MsgAssert("Hilda 랜더러가 제대로 생성되지 않았습니다.");
+		return;
+	}
 
 	UpdateState(_DeltaTime);
+
+
+	// 임시 테스트용
 	if (true == GameEngineInput::IsPress("TestT"))
 	{
 		NextState = HildaState::TORNADO;

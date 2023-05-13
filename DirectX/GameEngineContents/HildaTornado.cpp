@@ -40,6 +40,12 @@ void HildaTornado::Start()
 
 void HildaTornado::Update(float _DeltaTime)
 {
+
+	if (nullptr == TornatoRender)
+	{
+		MsgAssert("토네이도 랜더러가 제대로 생성되지 않았습니다");
+		return;
+	}
 	if (true == isIntro && GetLiveTime() > 1.6f)
 	{
 		isIntro = false;

@@ -62,6 +62,14 @@ void HildaBergBack::Start()
 
 void HildaBergBack::Update(float _DeltaTime)
 {
+
+	GetTransform()->AddLocalPosition(float4(-50 * _DeltaTime, 0));
+
+	if (nullptr == GetLevel()->GetMainCamera())
+	{
+		MsgAssert("카메라를 가져오지 못했습니다");
+		return;
+	}
 	int CamX = (GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition()).ix();
 
 	// MainBG와 SubBG를 교체해주는 작업

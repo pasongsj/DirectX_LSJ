@@ -20,7 +20,7 @@ protected:
 	void Update(float _DeltaTime);
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> TornatoRender;
+	std::shared_ptr<class GameEngineSpriteRenderer> TornatoRender = nullptr;
 	bool isIntro = true;
 	void MakeSprite();
 

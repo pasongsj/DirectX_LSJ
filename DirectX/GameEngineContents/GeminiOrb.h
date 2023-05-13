@@ -46,7 +46,8 @@ private:
 	bool isAttack = false;
 	bool isLeaveAnimation = false;
 	
-	float StateChangeInterval = 2.0f;
+	float StateChangeInterval = 1.0f;
+	float ScatterInterval = 0.12f;
 
 	void MakeSprite();
 

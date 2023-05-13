@@ -31,8 +31,8 @@ protected:
 
 private:
 
-	std::shared_ptr<class GameEngineSpriteRenderer> Upper;
-	std::shared_ptr<class GameEngineSpriteRenderer> Lower;
+	std::shared_ptr<class GameEngineSpriteRenderer> Upper = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> Lower = nullptr;
 
 	int CircleMove = 1;
 	int LastShare = -1;

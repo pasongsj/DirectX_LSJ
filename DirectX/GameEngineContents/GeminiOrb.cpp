@@ -2,12 +2,15 @@
 #include "GeminiOrb.h"
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineLevel.h>
 
-GeminiOrb::GeminiOrb() 
+#include "GeminiOrbScatter.h"
+
+GeminiOrb::GeminiOrb()
 {
 }
 
-GeminiOrb::~GeminiOrb() 
+GeminiOrb::~GeminiOrb()
 {
 }
 
@@ -23,17 +26,17 @@ void GeminiOrb::MakeSprite()
 		NewDir.Move("stage1\\Boss\\Hilda\\Gemini\\Orb");
 
 		// idle
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle\\Intro").GetFullPath(), "Orb_Idle_Intro");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle\\Loop").GetFullPath(), "Orb_Idle_Loop");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle\\Leave").GetFullPath(), "Orb_Idle_Leave");
+		GameEngineSprite::LoadFolder("Orb_Idle_Intro", NewDir.GetPlusFileName("Idle\\Intro").GetFullPath());
+		GameEngineSprite::LoadFolder("Orb_Idle_Loop", NewDir.GetPlusFileName("Idle\\Loop").GetFullPath());
+		GameEngineSprite::LoadFolder("Orb_Idle_Leave", NewDir.GetPlusFileName("Idle\\Leave").GetFullPath());
 
-		// attack
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Intro").GetFullPath(), "Orb_Attack_Intro");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Loop").GetFullPath(), "Orb_Attack_Loop");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\Leave").GetFullPath(), "Orb_Attack_Leave");
+		// attack																											
+		GameEngineSprite::LoadFolder("Orb_Attack_Intro", NewDir.GetPlusFileName("Attack\\Intro").GetFullPath());
+		GameEngineSprite::LoadFolder("Orb_Attack_Loop", NewDir.GetPlusFileName("Attack\\Loop").GetFullPath());
+		GameEngineSprite::LoadFolder("Orb_Attack_Leave", NewDir.GetPlusFileName("Attack\\Leave").GetFullPath());
 
-		// scatter
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack\\FX\\Large").GetFullPath(), "Orb_Attack_Scatter");
+		// scatter																										 
+		GameEngineSprite::LoadFolder("Orb_Attack_Scatter", NewDir.GetPlusFileName("Attack\\FX\\Large").GetFullPath());
 
 	}
 }
@@ -49,16 +52,15 @@ void GeminiOrb::Start()
 
 
 	Orb->CreateAnimation({ .AnimationName = "AttackIntro",  .SpriteName = "Orb_Attack_Intro",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	Orb->CreateAnimation({ .AnimationName = "AttackLoop",  .SpriteName = "Orb_Attack_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	Orb->CreateAnimation({ .AnimationName = "AttackLoop",  .SpriteName = "Orb_Attack_Loop",.FrameInter = 0.03f, .Loop = true , .ScaleToTexture = true });
 	Orb->CreateAnimation({ .AnimationName = "AttackLeave",  .SpriteName = "Orb_Attack_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Orb->ChangeAnimation("IdleIntro");
 
 	OrbAttackEffect = CreateComponent<GameEngineSpriteRenderer>();
-	OrbAttackEffect->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Orb_Attack_Scatter",.FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	OrbAttackEffect->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Orb_Attack_Scatter",.FrameInter = 0.03f, .Loop = true, .ScaleToTexture = true });
 	OrbAttackEffect->ChangeAnimation("Attack");
 	OrbAttackEffect->Off();
 
-	//GetTransform()->SetLocalPosition(float4(300.0f, 0));
 
 	//FSM																							
 	//INTRO
@@ -74,6 +76,11 @@ void GeminiOrb::Start()
 
 void GeminiOrb::Update(float _DeltaTime)
 {
+	if (nullptr == Orb || nullptr == OrbAttackEffect)
+	{
+		MsgAssert("Gemini Orb 랜더러가 제대로 생성되지 않았습니다.");
+		return;
+	}
 	UpdateState(_DeltaTime);
 }
 
@@ -138,16 +145,33 @@ void GeminiOrb::Attack_Start()
 	isLoop = false;
 	GetTransform()->SetLocalPosition(float4(-300, 0));
 	Orb->ChangeAnimation("AttackIntro");
+	ResetLiveTime();
 }
 void GeminiOrb::Attack_Update(float _DeltaTime)
 {
+	ScatterInterval -= _DeltaTime;
 	if (false == isLoop && true == Orb->IsAnimationEnd())
 	{
 		isLoop = true;
 		Orb->ChangeAnimation("AttackLoop");
 		OrbAttackEffect->On();
 	}
+	if (ScatterInterval < 0 /*&& GetLiveTime() < 6.5f*/)
+	{
+		std::shared_ptr<GeminiOrbScatter> Scatter = GetLevel()->CreateActor<GeminiOrbScatter>();
 
+		float Theta = -GetLiveTime() * 1.5f + 45;
+		float4 Dir = float4(cosf(Theta), sinf(Theta));
+		Scatter->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + Dir * 200);
+		Scatter->GetTransform()->AddLocalRotation(float4(0, 0, (Theta)*GameEngineMath::RadToDeg));
+		Scatter->SetDir(Dir);
+		ScatterInterval = 0.12f;
+	}
+	if (GetLiveTime() > 8.0f)
+	{
+		// 임시
+		//Death();
+	}
 }
 void GeminiOrb::Attack_End()
 {

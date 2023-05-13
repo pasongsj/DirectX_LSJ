@@ -23,14 +23,14 @@ protected:
 
 private:
 
-	std::shared_ptr<class GameEngineSpriteRenderer> MainBG;
-	std::shared_ptr<class GameEngineSpriteRenderer> SubBG;
+	std::shared_ptr<class GameEngineSpriteRenderer> MainBG = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> SubBG = nullptr;
 	int BGRange = 0;
 	int BGLimit = 0;
 
 
-	std::shared_ptr<class GameEngineSpriteRenderer> MainHill;
-	std::shared_ptr<class GameEngineSpriteRenderer> SubHill;
+	std::shared_ptr<class GameEngineSpriteRenderer> MainHill = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> SubHill = nullptr;
 	int HillRange = 0;
 	int HillLimit = 0;
 

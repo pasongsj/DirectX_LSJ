@@ -37,9 +37,7 @@ protected:
 	void Render(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> Monster;
-
-	std::shared_ptr<class ZepplingBullet> Bullet;
+	std::shared_ptr<class GameEngineSpriteRenderer> Enemy = nullptr;
 
 	ZepplingState CurState = ZepplingState::MOVE;
 	ZepplingState NextState = ZepplingState::MOVE;

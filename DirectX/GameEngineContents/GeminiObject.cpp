@@ -22,9 +22,9 @@ void GeminiObject::MakeSprite()
 		NewDir.Move("stage1\\Boss\\Hilda\\Gemini");
 
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Idle").GetFullPath(), "Gemini_Idle");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack (A)").GetFullPath(), "Gemini_AttackA");
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Attack (B)").GetFullPath(), "Gemini_AttackB");
+		GameEngineSprite::LoadFolder("Gemini_Idle", NewDir.GetPlusFileName("Idle").GetFullPath());
+		GameEngineSprite::LoadFolder("Gemini_AttackA", NewDir.GetPlusFileName("Attack (A)").GetFullPath());
+		GameEngineSprite::LoadFolder("Gemini_AttackB", NewDir.GetPlusFileName("Attack (B)").GetFullPath());
 
 	}
 }
@@ -41,7 +41,6 @@ void GeminiObject::Start()
 
 void GeminiObject::Update(float _DeltaTime)
 {
-
 }
 
 void GeminiObject::ChangeGeminiAnimation(const std::string_view& _Str, size_t _index)
