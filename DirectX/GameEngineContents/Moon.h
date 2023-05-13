@@ -3,6 +3,7 @@
 
 enum class MoonState
 {
+	INTRO,
 	IDLE,
 	ATTACK,
 	DEATH,
@@ -31,12 +32,31 @@ protected:
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Boss = nullptr;
 
-	MoonState CurState = MoonState::IDLE;
-	MoonState NextState = MoonState::IDLE;
+	MoonState CurState = MoonState::INTRO;
+	MoonState NextState = MoonState::INTRO;
+
+	float4 StartPos = float4::Zero;
+	float4 DestPos = float4::Zero;
+
+	// intro
+	int IntroAnimationIndex = 0;
+	float IntroAnimationTimer = 0.0f;
+
+	// idle 3√  attack 14√ 
+	float IntervalTimer = 3.0f;
+
+	// attack
+	bool isAttackIntroDone = false;
+	bool isAttackDone = false;
+	
 
 	void MakeSprite();
 
 	void UpdateState(float _DeltaTime);
+
+	void Intro_Start();
+	void Intro_Update(float _DeltaTime);
+	void Intro_End();
 
 	void Idle_Start();
 	void Idle_Update(float _DeltaTime);
