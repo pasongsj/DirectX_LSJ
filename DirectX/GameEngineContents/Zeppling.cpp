@@ -57,11 +57,13 @@ void Zeppling::MakeSprite()
 void Zeppling::Start()
 {
 	MakeSprite();
-	// 위치
-	//GetTransform()->SetWorldPosition(float4(500.0f, 0));
+	Monster = CreateComponent<GameEngineSpriteRenderer>();
+	float4x4 tmpmatrix1 = GetTransform()->GetWorldMatrix();
+	float4x4 Monstertmpmatrix0 = Monster->GetTransform()->GetLocalWorldMatrix();
+	float4x4 Monstertmpmatrix1 = Monster->GetTransform()->GetWorldMatrix();
+
 
 	// 몬스터 이미지 랜더러
-	Monster = CreateComponent<GameEngineSpriteRenderer>();
 
 	Monster->CreateAnimation({ .AnimationName = "PurPle_Idle",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	Monster->CreateAnimation({ .AnimationName = "PurPle_Back",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true/* ,.FlipX = true*/});
@@ -90,12 +92,9 @@ void Zeppling::Start()
 
 
 	Monster->ChangeAnimation(Mode + "Idle");
-	//Monster->SetTexture("a_blimp_enemy_idle_0001.png");
-	//Monster->SetScaleToTexture("a_blimp_enemy_idle_0001.png");
 	// 위치,회전, 크기
-	float4 Pos = float4(GameEngineWindow::GetScreenSize().hx(), 0,-10);
+	float4 Pos = float4(GameEngineWindow::GetScreenSize().hx(), 0, 0);
 	GetTransform()->SetLocalPosition(Pos);
-	
 
 
 	//FSM
