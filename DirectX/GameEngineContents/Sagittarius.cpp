@@ -42,7 +42,7 @@ void Sagittarius::Start()
 
 	Upper = CreateComponent<GameEngineSpriteRenderer>();
 	Upper->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Upper_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	Upper->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Sagittarius_Upper_Attack",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Upper->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Sagittarius_Upper_Attack",.FrameInter = 0.07f, .Loop = false , .ScaleToTexture = true });
 
 	Upper->ChangeAnimation("Idle");
 	//Upper->SetScaleToTexture("sagg_idle_0001.png");
@@ -142,17 +142,17 @@ void Sagittarius::Idle_Update(float _DeltaTime)
 void Sagittarius::Idle_End()
 {
 }
-
-
 void Sagittarius::Attack_Start()
 {
-	Upper->GetTransform()->SetLocalPosition(float4(15, 110));
+	Upper->GetTransform()->SetLocalPosition(float4(15, 120));
 	Upper->ChangeAnimation("Attack");
 	AttackInterval = GameEngineRandom::MainRandom.RandomFloat(5.0f, 8.0f);
 }
 
 void Sagittarius::Attack_Update(float _DeltaTime)
 {
+	//float4 LocalPos = float4(-200 + Upper->GetTransform()->GetLocalScale().hx(), 278 - Upper->GetTransform()->GetLocalScale().hy());
+	//Upper->GetTransform()->SetLocalPosition(LocalPos);
 	if (true == Upper->IsAnimationEnd())
 	{
 		NextState = SagittariusState::IDLE;

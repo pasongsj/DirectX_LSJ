@@ -76,11 +76,14 @@
     <ClInclude Include="Taurus.h">
       <Filter>Object\Hilda\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="Sagittarius.h">
-      <Filter>Object\Hilda\Boss</Filter>
-    </ClInclude>
     <ClInclude Include="HIldaMoonUFO.h">
       <Filter>Object\Hilda\Boss\Moon</Filter>
+    </ClInclude>
+    <ClInclude Include="Sagittarius.h">
+      <Filter>Object\Hilda\Boss\Sagittarius</Filter>
+    </ClInclude>
+    <ClInclude Include="SagittariusArrow.h">
+      <Filter>Object\Hilda\Boss\Sagittarius</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -164,14 +167,17 @@
     <ClCompile Include="Moon.cpp">
       <Filter>Object\Hilda\Boss\Moon</Filter>
     </ClCompile>
-    <ClCompile Include="Sagittarius.cpp">
-      <Filter>Object\Hilda\Boss</Filter>
-    </ClCompile>
     <ClCompile Include="Taurus.cpp">
       <Filter>Object\Hilda\Boss</Filter>
     </ClCompile>
     <ClCompile Include="HIldaMoonUFO.cpp">
       <Filter>Object\Hilda\Boss\Moon</Filter>
+    </ClCompile>
+    <ClCompile Include="Sagittarius.cpp">
+      <Filter>Object\Hilda\Boss\Sagittarius</Filter>
+    </ClCompile>
+    <ClCompile Include="SagittariusArrow.cpp">
+      <Filter>Object\Hilda\Boss\Sagittarius</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +204,9 @@
     </Filter>
     <Filter Include="Object\Hilda\Boss\Moon">
       <UniqueIdentifier>{f957530c-b2ba-4945-9ca7-a56397d718a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Hilda\Boss\Sagittarius">
+      <UniqueIdentifier>{ecd41479-fdd4-4133-a550-fde0922c2d51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

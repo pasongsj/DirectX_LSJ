@@ -22,8 +22,14 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> UFORender = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> UFOBeamRender = nullptr;
+
 	float UFOSpeed = 300.0f;
+	float4 Point[4] = {};
+	int index = 0;
 
 	void MakeSprite();
+
+	void UFOMove(float _DeltaTime);
 };
 

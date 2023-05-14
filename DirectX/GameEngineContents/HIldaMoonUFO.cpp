@@ -35,6 +35,12 @@ void HIldaMoonUFO::Start()
 	UFORender->CreateAnimation({.AnimationName = "Red", .SpriteName = "Hilda_UFO_Red", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true});
 	UFORender->CreateAnimation({.AnimationName = "Bronze", .SpriteName = "Hilda_UFO_Bronze", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true});
 
+	UFOBeamRender = CreateComponent<GameEngineSpriteRenderer>();
+	UFOBeamRender->CreateAnimation({ .AnimationName = "Beam", .SpriteName = "Hilda_UFO_Beam", .FrameInter = 0.07f, .Loop = false, .ScaleToTexture = true });
+	UFOBeamRender->ChangeAnimation("Beam");
+	UFOBeamRender->Off();
+
+
 	if (0 == (GameEngineRandom::MainRandom.RandomInt(0, 4) == 4))
 	{
 		UFORender->ChangeAnimation("Red");
@@ -43,10 +49,61 @@ void HIldaMoonUFO::Start()
 	{
 		UFORender->ChangeAnimation("Bronze");
 	}
-	
+	Point[0] = float4(GameEngineWindow::GetScreenSize().hx(), 50);
+	Point[1] = float4(GameEngineWindow::GetScreenSize().hx()/2, 50);
+	Point[2] = float4(0, GameEngineWindow::GetScreenSize().hy() - 50);
+	Point[3] = float4(-GameEngineWindow::GetScreenSize().hx(), GameEngineWindow::GetScreenSize().hy() - 50);
+
 }
 
 void HIldaMoonUFO::Update(float _DeltaTime)
 {
-	GetTransform()->AddLocalPosition(float4::Left * UFOSpeed * _DeltaTime);
+
+	switch (index)
+	{
+	case 0:
+	{
+		GetTransform()->SetLocalPosition(Point[0]);
+		++index;
+		break;
+	}
+	case 1:
+	case 2:
+	{
+		UFOMove(_DeltaTime);
+		break;
+	}
+	case 3:
+	{
+		UFOMove(_DeltaTime);
+		UFOBeamRender->GetTransform()->SetLocalPosition(float4(0,-UFOBeamRender->GetTransform()->GetLocalScale().hy()));
+		break;
+	}
+	case 4:
+	{
+		Death();
+	}
+	default:
+		Death();
+		break;
+	}
+
+}
+
+void HIldaMoonUFO::UFOMove(float _DeltaTime)
+{
+	float4 Dir = Point[index] - GetTransform()->GetLocalPosition();
+	Dir.z = 0;
+	if (Dir.Size() < 5)
+	{
+		++index;
+		if (3 == index)
+		{
+			UFOBeamRender->On();
+		}
+		return;
+	}
+	Dir.Normalize();
+	GetTransform()->AddLocalPosition(Dir * UFOSpeed * _DeltaTime);
+	return;
 }
