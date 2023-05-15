@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "Zeppling.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
 
 //std::vector<std::shared_ptr<Zeppling>> Zeppling::AllZepplings;
@@ -35,19 +36,19 @@ void Zeppling::MakeSprite()
 		GameEngineSprite::LoadFolder("Green_Turn", NewDir.GetPlusFileName("Green\\Turn").GetFullPath());
 
 		// death
-		GameEngineSprite::LoadFolder("Green_Deah_A", NewDir.GetPlusFileName("Green\\Pieces\\A").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Deah_B", NewDir.GetPlusFileName("Green\\Pieces\\B").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Deah_C", NewDir.GetPlusFileName("Green\\Pieces\\C").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Deah_D", NewDir.GetPlusFileName("Green\\Pieces\\D").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Deah_E", NewDir.GetPlusFileName("Green\\Pieces\\E").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Deah_F", NewDir.GetPlusFileName("Green\\Pieces\\F").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Death_A", NewDir.GetPlusFileName("Green\\Pieces\\A").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Death_B", NewDir.GetPlusFileName("Green\\Pieces\\B").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Death_C", NewDir.GetPlusFileName("Green\\Pieces\\C").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Death_D", NewDir.GetPlusFileName("Green\\Pieces\\D").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Death_E", NewDir.GetPlusFileName("Green\\Pieces\\E").GetFullPath());
+		GameEngineSprite::LoadFolder("Green_Death_F", NewDir.GetPlusFileName("Green\\Pieces\\F").GetFullPath());
 
-		GameEngineSprite::LoadFolder("Purple_Deah_A", NewDir.GetPlusFileName("Purple\\Pieces\\A").GetFullPath());
-		GameEngineSprite::LoadFolder("Purple_Deah_B", NewDir.GetPlusFileName("Purple\\Pieces\\B").GetFullPath());
-		GameEngineSprite::LoadFolder("Purple_Deah_C", NewDir.GetPlusFileName("Purple\\Pieces\\C").GetFullPath());
-		GameEngineSprite::LoadFolder("Purple_Deah_D", NewDir.GetPlusFileName("Purple\\Pieces\\D").GetFullPath());
-		GameEngineSprite::LoadFolder("Purple_Deah_E", NewDir.GetPlusFileName("Purple\\Pieces\\E").GetFullPath());
-		GameEngineSprite::LoadFolder("Purple_Deah_F", NewDir.GetPlusFileName("Purple\\Pieces\\F").GetFullPath());
+		GameEngineSprite::LoadFolder("Purple_Death_A", NewDir.GetPlusFileName("Purple\\Pieces\\A").GetFullPath());
+		GameEngineSprite::LoadFolder("Purple_Death_B", NewDir.GetPlusFileName("Purple\\Pieces\\B").GetFullPath());
+		GameEngineSprite::LoadFolder("Purple_Death_C", NewDir.GetPlusFileName("Purple\\Pieces\\C").GetFullPath());
+		GameEngineSprite::LoadFolder("Purple_Death_D", NewDir.GetPlusFileName("Purple\\Pieces\\D").GetFullPath());
+		GameEngineSprite::LoadFolder("Purple_Death_E", NewDir.GetPlusFileName("Purple\\Pieces\\E").GetFullPath());
+		GameEngineSprite::LoadFolder("Purple_Death_F", NewDir.GetPlusFileName("Purple\\Pieces\\F").GetFullPath());
 
 	}
 }
@@ -65,8 +66,8 @@ void Zeppling::Start()
 
 	// 몬스터 이미지 랜더러
 
-	Enemy->CreateAnimation({ .AnimationName = "PurPle_Idle",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "PurPle_Back",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true/* ,.FlipX = true*/});
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Idle",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Back",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true/* ,.FlipX = true*/});
 	Enemy->CreateAnimation({ .AnimationName = "Green_Idle",  .SpriteName = "Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	Enemy->CreateAnimation({ .AnimationName = "Green_Back",  .SpriteName = "Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true /*,.FlipX = true */});
 
@@ -76,24 +77,26 @@ void Zeppling::Start()
 	Enemy->CreateAnimation({ .AnimationName = "Purple_Turn",  .SpriteName = "Purple_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	Enemy->CreateAnimation({ .AnimationName = "Green_Turn",  .SpriteName = "Green_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 
-	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_A",  .SpriteName = "Green_Deah_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_B",  .SpriteName = "Green_Deah_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_C",  .SpriteName = "Green_Deah_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_D",  .SpriteName = "Green_Deah_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_E",  .SpriteName = "Green_Deah_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Deah_F",  .SpriteName = "Green_Deah_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Death_A",  .SpriteName = "Green_Death_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Death_B",  .SpriteName = "Green_Death_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Death_C",  .SpriteName = "Green_Death_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Death_D",  .SpriteName = "Green_Death_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Death_E",  .SpriteName = "Green_Death_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Green_Death_F",  .SpriteName = "Green_Death_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_A",  .SpriteName = "Purple_Deah_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_B",  .SpriteName = "Purple_Deah_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_C",  .SpriteName = "Purple_Deah_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_D",  .SpriteName = "Purple_Deah_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_E",  .SpriteName = "Purple_Deah_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Deah_F",  .SpriteName = "Purple_Deah_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_A",  .SpriteName = "Purple_Death_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_B",  .SpriteName = "Purple_Death_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_C",  .SpriteName = "Purple_Death_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_D",  .SpriteName = "Purple_Death_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_E",  .SpriteName = "Purple_Death_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_F",  .SpriteName = "Purple_Death_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 
 
 	Enemy->ChangeAnimation(Mode + "Idle");
 	// 위치,회전, 크기
-	float4 Pos = float4(GameEngineWindow::GetScreenSize().hx(), 0, 0);
+
+	ScreenSize = GameEngineWindow::GetScreenSize();
+	float4 Pos = float4(ScreenSize.hx(), GameEngineRandom::MainRandom.RandomFloat(-ScreenSize.hy() / 2, ScreenSize.hy() - 50));
 	GetTransform()->SetLocalPosition(Pos);
 
 
@@ -156,15 +159,3 @@ void Zeppling::UpdateState(float _DeltaTime)
 
 	UpdateFuncPtr[static_cast<int>(CurState)](_DeltaTime);
 }
-//
-//void Zeppling::Reset()
-//{
-//	// 변수 reset
-//	CurState = ZepplingState::MOVE;
-//	NextState = ZepplingState::MOVE;
-//	MoveLen = 0.0f;
-//
-//	// 이미지랜더 reset
-//
-//	
-//}

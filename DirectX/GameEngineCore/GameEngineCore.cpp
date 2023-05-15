@@ -80,6 +80,7 @@ void GameEngineCore::EngineUpdate()
 
 	MainLevel->TimeEvent.Update(TimeDeltaTime);
 	MainLevel->Update(TimeDeltaTime);
+	MainLevel->AccLiveTime(TimeDeltaTime);
 	MainLevel->ActorUpdate(TimeDeltaTime);
 
 	GameEngineVideo::VideoState State = GameEngineVideo::GetCurState();

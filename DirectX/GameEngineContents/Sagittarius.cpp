@@ -3,6 +3,9 @@
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineCore/GameEngineLevel.h>
+
+#include "SagittariusArrow.h"
 
 Sagittarius::Sagittarius() 
 {
@@ -147,12 +150,18 @@ void Sagittarius::Attack_Start()
 	Upper->GetTransform()->SetLocalPosition(float4(15, 120));
 	Upper->ChangeAnimation("Attack");
 	AttackInterval = GameEngineRandom::MainRandom.RandomFloat(5.0f, 8.0f);
+	isShoot = false;
+	ResetLiveTime();
 }
 
 void Sagittarius::Attack_Update(float _DeltaTime)
 {
-	//float4 LocalPos = float4(-200 + Upper->GetTransform()->GetLocalScale().hx(), 278 - Upper->GetTransform()->GetLocalScale().hy());
-	//Upper->GetTransform()->SetLocalPosition(LocalPos);
+	if (false == isShoot && GetLiveTime() > 0.5f)
+	{
+		isShoot = true;
+		std::shared_ptr<SagittariusArrow> Arrow = GetLevel()->CreateActor<SagittariusArrow>();
+		Arrow->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0,30));
+	}
 	if (true == Upper->IsAnimationEnd())
 	{
 		NextState = SagittariusState::IDLE;

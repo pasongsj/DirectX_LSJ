@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "ZepplingBullet.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
 
 ZepplingBullet::ZepplingBullet() 
@@ -84,3 +85,11 @@ void ZepplingBullet::Render(float _DeltaTimes)
 {
 }
 
+void ZepplingBullet::SetPurpleBullet()
+{
+	int RandomNumber = GameEngineRandom::MainRandom.RandomInt(0, 4);
+	if (3 < RandomNumber)
+	{
+		Bullet->ChangeAnimation("BulletPinkA");
+	}
+}

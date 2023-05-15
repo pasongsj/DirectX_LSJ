@@ -34,6 +34,8 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Upper = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> Lower = nullptr;
 
+	bool isShoot = false;
+
 	int CircleMove = 1;
 	int LastShare = -1;
 

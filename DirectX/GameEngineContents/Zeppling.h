@@ -2,6 +2,13 @@
 #include <functional>
 #include <GameEngineCore/GameEngineActor.h>
 
+enum class ZepplingMode
+{
+	PURPLE,
+	GREEN,
+	MAX,
+};
+
 enum class ZepplingState
 {
 	MOVE,
@@ -28,7 +35,6 @@ public:
 	Zeppling& operator=(const Zeppling& _Other) = delete;
 	Zeppling& operator=(Zeppling&& _Other) noexcept = delete;
 
-	//void Reset();
 
 protected:
 
@@ -42,12 +48,13 @@ private:
 	ZepplingState CurState = ZepplingState::MOVE;
 	ZepplingState NextState = ZepplingState::MOVE;
 
-	float MoveSpeed = 200.0f;
+	float MoveSpeed = 500.0f;
 	float MoveLen = 0.0f;
 
-	std::string Mode = "Green_";
+	std::string Mode = "Purple_";
 
-
+	float4 ScreenSize = float4::Zero;
+	
 
 
 	void UpdateState(float _DeltaTime);

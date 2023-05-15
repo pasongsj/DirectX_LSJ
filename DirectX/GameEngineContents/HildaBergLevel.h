@@ -24,5 +24,7 @@ protected:
 
 private:
 
+	float NextSponeTime = 0.0f;
+
 };
 

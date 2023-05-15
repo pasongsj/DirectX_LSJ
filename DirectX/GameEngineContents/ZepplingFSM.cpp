@@ -13,10 +13,8 @@ void Zeppling::Move_Start()
 void Zeppling::Move_Update(float _DeltaTime)
 {
 
-	float4 MoveVec = float4::Left * MoveSpeed * _DeltaTime;
-	GetTransform()->AddLocalPosition(MoveVec);
-	MoveLen += MoveVec.Size();
-	if (MoveLen > 300.0f)
+	GetTransform()->AddLocalPosition(float4::Left * MoveSpeed * _DeltaTime);
+	if (GetTransform()->GetWorldPosition().x < 0.0f)
 	{
 		NextState = ZepplingState::SHOOT;
 	}
@@ -28,16 +26,21 @@ void Zeppling::Move_End()
 
 void Zeppling::Shoot_Start()
 {
-	std::shared_ptr<ZepplingBullet> Bullet = GetLevel()->CreateActor<ZepplingBullet>();
-	Bullet->GetTransform()->SetWorldPosition(Enemy->GetTransform()->GetWorldPosition());
-
-
 	Enemy->ChangeAnimation(Mode + "Attack");
 }
 void Zeppling::Shoot_Update(float _DeltaTime)
 {
 	if (true == Enemy->IsAnimationEnd())
 	{
+		std::shared_ptr<ZepplingBullet> Bullet = GetLevel()->CreateActor<ZepplingBullet>();
+		Bullet->GetTransform()->SetWorldPosition(Enemy->GetTransform()->GetWorldPosition() - float4(Enemy->GetTransform()->GetLocalScale().hx(),0));
+
+		//float4 BulletDir =  플레이어 위치 - Zeppling의 위치
+		//Bullet->SetBulletDir(BulletDir);
+		if ("Purple_" == Mode)
+		{
+			Bullet->SetPurpleBullet();
+		}
 		NextState = ZepplingState::TURN;
 	}
 }
@@ -86,27 +89,13 @@ void Zeppling::Dead_End()
 void Zeppling::Back_Start()
 {
 	Enemy->ChangeAnimation(Mode + "Idle");
-	TransformData Tmp = GetTransform()->GetTransDataRef();
-
-	TransformData EnemyTmp0 = Enemy->GetTransform()->GetTransDataRef();
 	GetTransform()->SetLocalNegativeScaleX();
-
-	TransformData Tmp2 = GetTransform()->GetTransDataRef();
-
-	TransformData EnemyTmp1 = Enemy->GetTransform()->GetTransDataRef();
-
-	MoveLen = 0;
-
-
 }
 void Zeppling::Back_Update(float _DeltaTime)
 {
-	float4 MoveVec = float4::Right * MoveSpeed * _DeltaTime;
-	GetTransform()->AddLocalPosition(MoveVec);
+	GetTransform()->AddLocalPosition(float4::Right * MoveSpeed * _DeltaTime);
 
-	MoveLen += MoveVec.Size();
-	// 수정필요 : 윈도우 크기 적용 필요
-	if (MoveLen > 500.0f)
+	if (GetTransform()->GetWorldPosition().x > ScreenSize.hx())
 	{
 		Death();
 	}
