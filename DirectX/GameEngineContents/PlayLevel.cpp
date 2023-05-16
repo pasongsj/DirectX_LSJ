@@ -99,7 +99,7 @@ void PlayLevel::Start()
 		Object2->GetTransform()->SetParent(Object1->GetTransform());*/
 	}
 
-	CreateActor< PlayerAirPlaneMode>();
+	//CreateActor< PlayerAirPlaneMode>();
 	//{
 	//	std::shared_ptr<TestObject> Object = CreateActor<TestObject>(-20);
 	//	Object->GetTransform()->SetLocalScale({ 1000, 1000, 1000 });

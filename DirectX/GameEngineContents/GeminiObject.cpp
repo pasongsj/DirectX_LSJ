@@ -39,6 +39,10 @@ void GeminiObject::Start()
 
 void GeminiObject::Update(float _DeltaTime)
 {
+	if (nullptr != GeminiController && true == GeminiController->IsDeath())
+	{
+		Death();
+	}
 }
 
 void GeminiObject::ChangeGeminiAnimation(const std::string_view& _Str, size_t _index)

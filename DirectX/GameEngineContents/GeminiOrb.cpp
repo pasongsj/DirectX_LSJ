@@ -79,6 +79,11 @@ void GeminiOrb::Update(float _DeltaTime)
 		MsgAssert("Gemini Orb 랜더러가 제대로 생성되지 않았습니다.");
 		return;
 	}
+
+	if (nullptr != GeminiController && true == GeminiController->IsDeath())
+	{
+		Death();
+	}
 	UpdateState(_DeltaTime);
 }
 

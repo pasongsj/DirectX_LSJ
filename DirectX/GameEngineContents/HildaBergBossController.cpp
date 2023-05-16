@@ -52,7 +52,8 @@ void HildaBergBossController::Update(float _DeltaTime)
 		}
 		case 4:
 		{
-			int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
+			Boss = GetLevel()->CreateActor<Gemini>();
+			/*int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
 			if (1 == (RandomNum & 1))
 			{
 				Boss = GetLevel()->CreateActor<Sagittarius>();
@@ -60,7 +61,7 @@ void HildaBergBossController::Update(float _DeltaTime)
 			else
 			{
 				Boss = GetLevel()->CreateActor<Gemini>(); 
-			}
+			}*/
 			break;
 		}
 		case 5:

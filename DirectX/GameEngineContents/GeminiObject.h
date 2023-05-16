@@ -21,6 +21,11 @@ public:
 
 	bool isGeminiAnimationEnd();
 
+	void SetGeminiController(std::shared_ptr<GameEngineActor> _Ptr)
+	{
+		GeminiController = _Ptr;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -28,6 +33,8 @@ protected:
 private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> BossObject = nullptr;
+
+	std::shared_ptr<GameEngineActor> GeminiController = nullptr;
 	void MakeSprite();
 };
 

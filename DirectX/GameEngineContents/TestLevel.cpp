@@ -52,9 +52,9 @@ void TestLevel::Start()
 
 
 
-	std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>("PlayerAirPlaneMode");
-	std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
-	std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>("Zeppling");
+	//std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>("PlayerAirPlaneMode");
+	//std::shared_ptr<Hilda> NewBoss = CreateActor<Hilda>("Hilda");
+	//std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>("Zeppling");
 
 
 }

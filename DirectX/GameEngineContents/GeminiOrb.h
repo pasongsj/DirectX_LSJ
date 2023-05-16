@@ -31,6 +31,11 @@ public:
 		return isAttack;
 	}
 
+	void SetGeminiController(std::shared_ptr<GameEngineActor> _Ptr)
+	{
+		GeminiController = _Ptr;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -38,6 +43,8 @@ protected:
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Orb = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> OrbAttackEffect = nullptr;
+
+	std::shared_ptr<GameEngineActor> GeminiController = nullptr;
 
 	OrbState CurState = OrbState::IDLE;
 	OrbState NextState = OrbState::IDLE;

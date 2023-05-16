@@ -118,6 +118,15 @@ void LoadingLevel::LoadHildaSprite()
 			GameEngineSprite::LoadFolder("Sagittarius_Lower_Idle", NewDir.GetPlusFileName("Sagittarius\\Lower\\Idle").GetFullPath());
 			GameEngineSprite::LoadFolder("Sagittarius_Upper_Idle", NewDir.GetPlusFileName("Sagittarius\\Upper\\Idle").GetFullPath());
 			GameEngineSprite::LoadFolder("Sagittarius_Upper_Attack", NewDir.GetPlusFileName("Sagittarius\\Upper\\Attack").GetFullPath());
+			return;
+		}
+		if (nullptr == GameEngineSprite::Find("Sagittarius_Arrow"))
+		{
+
+			GameEngineDirectory NewDir;
+			NewDir.MoveParentToDirectory("ContentResources");
+			NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Sagittarius");
+
 			GameEngineSprite::LoadFolder("Sagittarius_Arrow", NewDir.GetPlusFileName("Arrow\\Arrow").GetFullPath());
 			GameEngineSprite::LoadFolder("Sagittarius_AppearFX", NewDir.GetPlusFileName("Arrow\\AppearFX").GetFullPath());
 			GameEngineSprite::LoadFolder("Sagittarius_Constellation", NewDir.GetPlusFileName("Constellation").GetFullPath());
@@ -305,7 +314,7 @@ void LoadingLevel::LoadHildaSprite()
 			GameEngineSprite::LoadFolder("Cuphead_AirPlane_Super_Idledown", NewDir.GetPlusFileName("Super\\Idle\\down").GetFullPath());
 			return;
 		}
-		if (nullptr == GameEngineSprite::Find("Cuphead_AirPlane_Origin_intro"))
+		if (nullptr == GameEngineSprite::Find("Cuphead_AirPlane_Super_intro"))
 		{
 			GameEngineDirectory NewDir;
 			NewDir.MoveParentToDirectory("ContentResources");
@@ -341,7 +350,7 @@ void LoadingLevel::LoadHildaSprite()
 			GameEngineSprite::LoadFolder("Cuphead_AirPlane_Shrink_Idledown", NewDir.GetPlusFileName("Shrink\\idle\\down").GetFullPath());
 			return;
 		}
-		if (nullptr == GameEngineSprite::Find("Cuphead_AirPlane_Origin_intro"))
+		if (nullptr == GameEngineSprite::Find("Cuphead_AirPlane_Shrink_intro"))
 		{
 			GameEngineDirectory NewDir;
 			NewDir.MoveParentToDirectory("ContentResources");

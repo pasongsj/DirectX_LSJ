@@ -20,13 +20,18 @@ void Gemini::Start()
 	BossA = GetLevel()->CreateActor<GeminiObject>("BossA");
 	BossA->GetTransform()->SetLocalPosition(float4(100, 0));
 	BossA->ChangeGeminiAnimation("Idle");
+	BossA->SetGeminiController(DynamicThis<GameEngineActor>());
 
+	//BossA->GetTransform()->SetParent(GetTransform());
 
 	BossB = GetLevel()->CreateActor<GeminiObject>("BossB");
 	BossB->GetTransform()->SetLocalPosition(float4(-100, 0));
 	BossB->ChangeGeminiAnimation("Idle", 15);
+	BossB->SetGeminiController(DynamicThis<GameEngineActor>());
 
+	//BossB->GetTransform()->SetParent(GetTransform());
 
+	
 
 
 	//FSM
@@ -42,6 +47,8 @@ void Gemini::Start()
 	EndFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_End, this);
 
 	Orb = GetLevel()->CreateActor<GeminiOrb>(2);
+	Orb->SetGeminiController(DynamicThis<GameEngineActor>());
+	//Orb->GetTransform()->SetParent(GetTransform());
 }
 
 void Gemini::Update(float _DeltaTime)
