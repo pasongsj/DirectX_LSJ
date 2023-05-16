@@ -23,7 +23,7 @@ public:
 		return Order;
 	}
 
-	void SetOrder(int _Order)
+	virtual void SetOrder(int _Order)
 	{
 		Order = _Order;
 	}
@@ -56,6 +56,11 @@ public:
 	void DebugOn()
 	{
 		DebugValue = true;
+	}
+
+	void DebugOff()
+	{
+		DebugValue = false;
 	}
 
 	bool IsDebug()

@@ -4,8 +4,6 @@
 #include <GameEngineBase/GameEngineMath.h>
 #include "GameEngineObjectBase.h"
 
-
-
 enum class ColType
 {
 	// Ä¸½¶
@@ -205,6 +203,7 @@ public:
 		SetWorldPosition(TransData.Position + _Value);
 	}
 
+
 	float4 GetWorldForwardVector()
 	{
 		return TransData.WorldMatrix.ArrVector[2].NormalizeReturn();
@@ -305,7 +304,7 @@ public:
 
 	void CalChild();
 
-	void SetParent(GameEngineTransform* _Parent);
+	void SetParent(GameEngineTransform* _Parent, bool _IsParentWorld = true);
 
 	GameEngineTransform* GetParent()
 	{
@@ -344,8 +343,14 @@ private:
 	GameEngineTransform* Parent = nullptr;
 	std::list<GameEngineTransform*> Child;
 
-
 private:
+	void AllAccTime(float _DeltaTime);
+
+	void AllUpdate(float _DeltaTime);
+
+	void AllRender(float _DeltaTime);
+
+	void AllRelease();
 
 	void ChildRelease();
 
@@ -357,6 +362,7 @@ private:
 	}
 
 	GameEngineObject* Master = nullptr;
+
 
 public:
 	bool Collision(const CollisionParameter& Data);
@@ -391,6 +397,5 @@ private:
 	static bool OBB2DToSpehre2D(GameEngineTransform* _Left, GameEngineTransform* _Right);
 	static bool OBB2DToAABB2D(GameEngineTransform* _Left, GameEngineTransform* _Right);
 	static bool OBB2DToOBB2D(GameEngineTransform* _Left, GameEngineTransform* _Right);
-
 };
 

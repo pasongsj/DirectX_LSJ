@@ -225,7 +225,6 @@ void GameEngineTransform::WorldCalculation()
 
 	if (true == AbsoluteScale)
 	{
-		// 부모쪽 행렬의 스케일을 1
 		PScale = float4::One;
 	}
 	if (true == AbsoluteRotation)
@@ -251,7 +250,6 @@ void GameEngineTransform::WorldCalculation()
 	MatPos.Pos(PPosition);
 
 	TransData.WorldMatrix = TransData.LocalWorldMatrix * (MatScale * MatRot * MatPos);
-
 }
 
 void GameEngineTransform::LocalDecompose()
@@ -268,10 +266,9 @@ void GameEngineTransform::WorldDecompose()
 	ColData.OBB.Center = TransData.WorldPosition.DirectFloat3;
 	ColData.OBB.Extents = (TransData.WorldScale * 0.5f).DirectFloat3;
 	ColData.OBB.Orientation = TransData.WorldQuaternion.DirectFloat4;
-
 }
 
-void GameEngineTransform::SetParent(GameEngineTransform* _Parent)
+void GameEngineTransform::SetParent(GameEngineTransform* _Parent, bool _IsParentWorld /*= true*/)
 {
 	if (IsDebug())
 	{
@@ -314,7 +311,10 @@ void GameEngineTransform::SetParent(GameEngineTransform* _Parent)
 
 	if (nullptr != Parent)
 	{
-		TransData.LocalWorldMatrix = TransData.WorldMatrix * Parent->TransData.WorldMatrix.InverseReturn();
+		if (true == _IsParentWorld)
+		{
+			TransData.LocalWorldMatrix = TransData.WorldMatrix * Parent->TransData.WorldMatrix.InverseReturn();
+		}
 
 		LocalDecompose();
 
@@ -425,7 +425,6 @@ float4 GameEngineTransform::GetWorldQuaternion()
 	return TransData.WorldQuaternion;
 }
 
-
 void GameEngineTransform::AbsoluteReset()
 {
 	AbsoluteScale = false;
@@ -438,6 +437,87 @@ void GameEngineTransform::SetMaster(GameEngineObject* _Master)
 	Master = _Master;
 }
 
+void GameEngineTransform::AllAccTime(float _DeltaTime)
+{
+	if (nullptr == Master)
+	{
+		return;
+	}
+
+	if (false == Master->IsUpdate())
+	{
+		return;
+	}
+
+	Master->AccLiveTime(_DeltaTime);
+
+	for (GameEngineTransform* Trans : Child)
+	{
+		Trans->AllAccTime(_DeltaTime);
+	}
+}
+
+void GameEngineTransform::AllUpdate(float _DeltaTime)
+{
+
+	if (nullptr == Master)
+	{
+		return;
+	}
+
+	if (false == Master->IsUpdate())
+	{
+		return;
+	}
+
+	Master->Update(_DeltaTime);
+
+	for (GameEngineTransform* Trans : Child)
+	{
+		Trans->AllUpdate(_DeltaTime);
+	}
+}
+
+
+void GameEngineTransform::AllRender(float _DeltaTime)
+{
+	if (nullptr == Master)
+	{
+		return;
+	}
+
+	if (false == Master->IsUpdate())
+	{
+		return;
+	}
+
+	Master->Render(_DeltaTime);
+
+	for (GameEngineTransform* Trans : Child)
+	{
+		Trans->AllRender(_DeltaTime);
+	}
+}
+
+void GameEngineTransform::AllRelease()
+{
+	if (nullptr == Master)
+	{
+		return;
+	}
+
+	if (false == Master->IsUpdate())
+	{
+		return;
+	}
+
+	Master->Release();
+
+	for (GameEngineTransform* Trans : Child)
+	{
+		Trans->AllRelease();
+	}
+}
 
 void GameEngineTransform::ChildRelease()
 {
@@ -450,7 +530,7 @@ void GameEngineTransform::ChildRelease()
 
 		if (nullptr == Trans->Master)
 		{
-			MsgAssert("몬가 잘못됨.");
+			MsgAssert("몬가 잘못됨 도라에몽을 부르자.");
 		}
 
 		if (false == Trans->Master->IsDeath())
