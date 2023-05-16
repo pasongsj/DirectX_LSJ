@@ -3,6 +3,8 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include "Constellation.h"
 
 Hilda::Hilda() 
 {
@@ -56,7 +58,11 @@ void Hilda::Start()
 	Boss->CreateAnimation({ .AnimationName = "Summon",  .SpriteName = "Hilda_Summon", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Boss->CreateAnimation({ .AnimationName = "Tornato",  .SpriteName = "Hilda_Tornado",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Boss->ChangeAnimation("Intro");
-
+	
+	Boss->SetAnimationUpdateEvent("DashBack", 3, [this]
+		{
+			GetLevel()->CreateActor<Constellation>();
+		});
 																				
 	GetTransform()->SetLocalPosition(float4(300.0f,0));							
 																				
@@ -95,6 +101,7 @@ void Hilda::Start()
 	{
 		GameEngineInput::CreateKey("TestT", 'T');
 		GameEngineInput::CreateKey("TestH", 'H');
+		GameEngineInput::CreateKey("TestG", 'G');
 	}
 
 }
@@ -118,6 +125,10 @@ void Hilda::Update(float _DeltaTime)
 	if (true == GameEngineInput::IsPress("TestH"))
 	{
 		NextState = HildaState::SHOOT;
+	}
+	if (true == GameEngineInput::IsPress("TestG"))
+	{
+		NextState = HildaState::CHANGEPHASE;
 	}
 	
 

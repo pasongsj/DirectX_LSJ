@@ -2,6 +2,7 @@
 #include "HIldaMoonUFO.h"
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 
 HIldaMoonUFO::HIldaMoonUFO() 
@@ -52,6 +53,9 @@ void HIldaMoonUFO::Start()
 	Point[2] = float4(0, GameEngineWindow::GetScreenSize().hy() - 50);
 	Point[3] = float4(-GameEngineWindow::GetScreenSize().hx(), GameEngineWindow::GetScreenSize().hy() - 50);
 
+
+	UFOBeamCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	UFOBeamCollision->Off();
 }
 
 void HIldaMoonUFO::Update(float _DeltaTime)
@@ -75,6 +79,8 @@ void HIldaMoonUFO::Update(float _DeltaTime)
 	{
 		UFOMove(_DeltaTime);
 		UFOBeamRender->GetTransform()->SetLocalPosition(float4(0,-UFOBeamRender->GetTransform()->GetLocalScale().hy()));
+		UFOBeamCollision->GetTransform()->SetLocalPosition(UFOBeamRender->GetTransform()->GetLocalPosition());
+		UFOBeamCollision->GetTransform()->SetLocalScale(UFOBeamRender->GetTransform()->GetLocalScale());
 		break;
 	}
 	case 4:
@@ -98,6 +104,7 @@ void HIldaMoonUFO::UFOMove(float _DeltaTime)
 		if (3 == index)
 		{
 			UFOBeamRender->On();
+			UFOBeamCollision->On();
 		}
 		return;
 	}

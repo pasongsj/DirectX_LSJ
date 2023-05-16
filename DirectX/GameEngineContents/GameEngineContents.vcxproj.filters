@@ -91,6 +91,9 @@
     <ClInclude Include="Taurus.h">
       <Filter>Object\HildaBerg\Boss\Taurus</Filter>
     </ClInclude>
+    <ClInclude Include="Constellation.h">
+      <Filter>Object\HildaBerg\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -190,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="Taurus.cpp">
       <Filter>Object\HildaBerg\Boss\Taurus</Filter>
+    </ClCompile>
+    <ClCompile Include="Constellation.cpp">
+      <Filter>Object\HildaBerg\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

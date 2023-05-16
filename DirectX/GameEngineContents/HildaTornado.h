@@ -21,6 +21,7 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> TornatoRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> TornatoCollision = nullptr;
 	bool isIntro = true;
 	void MakeSprite();
 

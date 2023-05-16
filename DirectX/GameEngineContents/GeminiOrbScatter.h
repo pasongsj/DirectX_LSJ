@@ -30,6 +30,7 @@ private:
 	float ShootSpeed = 1000.0f;
 
 	std::shared_ptr<class GameEngineSpriteRenderer> ScatterRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> ScatterCollsion = nullptr;
 
 	void MakeSprite();
 

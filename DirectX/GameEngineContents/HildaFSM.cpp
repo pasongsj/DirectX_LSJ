@@ -9,7 +9,6 @@
 #include "HildaHA.h"
 
 
-
 void Hilda::Intro_Start()
 {
 }
@@ -106,6 +105,10 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 		if (WaitingTime >1.0f)
 		{
 			Boss->ChangeAnimation("Summon");
+			//Boss->SetAnimationUpdateEvent("DashBack", 3, [this]
+			//	{
+			//		GetLevel()->CreateActor<Constellation>();
+			//	});
 			isBackTurn = true;
 			WaitingTime = 0.0f;
 		}

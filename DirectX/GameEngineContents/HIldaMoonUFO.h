@@ -23,6 +23,7 @@ protected:
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> UFORender = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> UFOBeamRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> UFOBeamCollision = nullptr;
 
 	float UFOSpeed = 300.0f;
 	float4 Point[4] = {};

@@ -2,9 +2,9 @@
 #include "HildaHA.h"
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
-#include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 HildaHA::HildaHA() 
 {
@@ -36,23 +36,25 @@ void HildaHA::Start()
 	HaRender->CreateAnimation({.AnimationName = "Ha", .SpriteName = "Hilda_Ha",  .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	
 	HaRender->ChangeAnimation("Ha");
+
+	HaColiision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 }
 
 void HildaHA::Update(float _DeltaTime)
 {
-
-	if (nullptr == HaRender)
+	if (nullptr == HaRender || nullptr == HaColiision)
 	{
-		MsgAssert("Ha 랜더러가 제대로 생성되지 않았습니다.");
+		MsgAssert("Ha 랜더러 또는 콜리전이 제대로 생성되지 않았습니다.");
 		return;
 	}
+
+	HaColiision->GetTransform()->SetLocalScale(HaRender->GetTransform()->GetLocalScale());
 
 	GetTransform()->AddLocalPosition(float4(-800 * _DeltaTime, 0));
 
 
-	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
 	float4 ScreenSize = GameEngineWindow::GetScreenSize();
-	if (GetTransform()->GetWorldPosition().x < CamPos.x - ScreenSize.hx())
+	if (GetTransform()->GetWorldPosition().x < -ScreenSize.hx())
 	{
 		Death();
 	}

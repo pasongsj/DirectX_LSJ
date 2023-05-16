@@ -21,6 +21,7 @@ protected:
 		 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> ArrowRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> ArrowCollision = nullptr;
 
 	float ArrowSpeed = 800;
 	void MakeSprite();

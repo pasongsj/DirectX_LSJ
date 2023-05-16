@@ -120,7 +120,7 @@ void GameEngineLevel::ActorRelease()
 			{
 				std::shared_ptr<GameEngineCollision> RelaseObject = (*ObjectStart);
 
-				if (nullptr != RelaseObject && false == RelaseObject->IsDeath())
+				if (nullptr != RelaseObject && false == RelaseObject->IsDeath() && false == RelaseObject->GetActor()->IsDeath())
 				{
 					RelaseObject->AllRelease();
 					++ObjectStart;

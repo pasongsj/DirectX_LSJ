@@ -21,6 +21,7 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> HaRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> HaColiision = nullptr;
 	void MakeSprite();
 };
 

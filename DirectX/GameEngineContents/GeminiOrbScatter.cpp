@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "GeminiOrbScatter.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 GeminiOrbScatter::GeminiOrbScatter() 
 {
@@ -31,6 +32,8 @@ void GeminiOrbScatter::Start()
 	ScatterRender = CreateComponent<GameEngineSpriteRenderer>();
 	ScatterRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Orb_Bullet", .FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	ScatterRender->ChangeAnimation("Idle");
+
+	ScatterCollsion = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 }
 
 void GeminiOrbScatter::Update(float _DeltaTime)
