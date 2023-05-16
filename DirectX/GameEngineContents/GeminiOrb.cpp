@@ -21,9 +21,7 @@ void GeminiOrb::MakeSprite()
 
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("stage1\\Boss\\Hilda\\Gemini\\Orb");
+		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Gemini\\Orb");
 
 		// idle
 		GameEngineSprite::LoadFolder("Orb_Idle_Intro", NewDir.GetPlusFileName("Idle\\Intro").GetFullPath());

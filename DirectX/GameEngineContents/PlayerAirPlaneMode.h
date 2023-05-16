@@ -40,6 +40,9 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerRender = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> Spark = nullptr;
 
+	std::shared_ptr<class GameEngineCollision> PlayerCollsion = nullptr;
+
+
 	PlayerAirPlaneModeState CurState = PlayerAirPlaneModeState::INTRO;
 	PlayerAirPlaneModeState NextState = PlayerAirPlaneModeState::INTRO;
 

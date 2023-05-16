@@ -2,6 +2,7 @@
 #include "ZepplingBullet.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 
 ZepplingBullet::ZepplingBullet() 
@@ -20,9 +21,7 @@ void ZepplingBullet::MakeSprite()
 
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet");
+		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet");
 
 
 		GameEngineSprite::LoadFolder("BlimpEnemy_BulletA", NewDir.GetPlusFileName("A\\Bullet").GetFullPath());
@@ -51,11 +50,15 @@ void ZepplingBullet::Start()
 	// 위치,회전, 크기
 	//Bullet->GetTransform()->SetLocalScale(float4(46, 33) * 0.8f);
 	//Bullet->Off();
+
+	BulletCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 }
 
 
 void ZepplingBullet::Update(float _DeltaTime)
 {
+	BulletCollision->GetTransform()->SetLocalScale(Bullet->GetTransform()->GetLocalScale());
+
 	//if ()// 화면밖으로 나갔다던가, 플레이어를 때렸다던가
 	//{
 	//	return;
@@ -73,7 +76,7 @@ void ZepplingBullet::Update(float _DeltaTime)
 	GetTransform()->AddLocalPosition(MoveVec);
 
 	// 수정필요 : 현재 윈도우의 위치를 가져와야 함
-	if (GetTransform()->GetWorldPosition().x < -400.0f)
+	if (GetTransform()->GetWorldPosition().x < -GameEngineWindow::GetScreenSize().hx())
 	{
 		Death();
 	}

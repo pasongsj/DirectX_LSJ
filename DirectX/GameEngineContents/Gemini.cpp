@@ -41,7 +41,7 @@ void Gemini::Start()
 	UpdateFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_End, this);
 
-	Orb = GetLevel()->CreateActor<GeminiOrb>();
+	Orb = GetLevel()->CreateActor<GeminiOrb>(2);
 }
 
 void Gemini::Update(float _DeltaTime)
@@ -113,27 +113,27 @@ void Gemini::Idle_Update(float _DeltaTime)
 	//x=acosθy=bsinθ
 
 	float SpinTime = -GetLiveTime() * 4;
-	BossA->GetTransform()->SetLocalPosition(MoveVec + float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -6 - 5 * sinf(SpinTime)));
-	BossB->GetTransform()->SetLocalPosition(MoveVec + float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), -6 + 5 * sinf(SpinTime)));
+	BossA->GetTransform()->SetLocalPosition(MoveVec + float4(100 * cosf(SpinTime), -50 * sinf(SpinTime)/*, -1-sinf(SpinTime)*/));
+	BossB->GetTransform()->SetLocalPosition(MoveVec + float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime)/*, -1+sinf(SpinTime)*/));
 	if (false == Orb->IsAttack())
 	{
-		Orb->GetTransform()->SetLocalPosition(MoveVec);
+		Orb->GetTransform()->SetLocalPosition(MoveVec +float4(0,-45));
 	}
-
-	if (-6 + 5 * sinf(SpinTime) > -6 - 5 * sinf(SpinTime))
+	// A > B
+	if (-sinf(SpinTime) > sinf(SpinTime))
 	{
-		BossB->SetOrder(-1);
 		BossA->SetOrder(1);
+		BossB->SetOrder(3);
 	}
 	else
 	{
+		BossA->SetOrder(3);
 		BossB->SetOrder(1);
-		BossA->SetOrder(-1);
 
 	}
-	// 랜더 순서를 변경하기 위해 setorder
-	BossA->SetOrder(static_cast<int>(-10*sinf(SpinTime)));
-	BossB->SetOrder(static_cast<int>(10 * sinf(SpinTime)));
+	//// 랜더 순서를 변경하기 위해 setorder
+	//BossA->SetOrder(static_cast<int>(-10*sinf(SpinTime)));
+	//BossB->SetOrder(static_cast<int>(10 * sinf(SpinTime)));
 
 	if (false == isAttack && GetLiveTime() > 5.6f)
 	{

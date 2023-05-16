@@ -21,9 +21,7 @@ void Moon::MakeSprite()
 
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("stage1\\Boss\\Hilda\\Moon");
+		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Moon");
 
 
 		GameEngineSprite::LoadFolder("Moon_Intro0", NewDir.GetPlusFileName("TransitionToMoon\\Start").GetFullPath());

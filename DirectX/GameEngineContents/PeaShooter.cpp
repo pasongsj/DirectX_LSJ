@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "PeaShooter.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 
 PeaShooter::PeaShooter() 
@@ -40,10 +41,14 @@ void PeaShooter::Start()
 	Bullet->CreateAnimation({ .AnimationName = "Origin",  .SpriteName = "Cuphead_AirPlane_Bullet", .FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
 
 	Bullet->ChangeAnimation("Origin");
+
+	BulletCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::PlayerBullet);
 }
 
 void PeaShooter::Update(float _DeltaTime)
 {
+	BulletCollision->GetTransform()->SetLocalScale(Bullet->GetTransform()->GetLocalScale());
+
 	GetTransform()->AddLocalPosition(float4(ShootSpeed * _DeltaTime, 0));
 	GetTransform()->GetLocalPosition();
 

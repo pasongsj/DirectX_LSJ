@@ -22,9 +22,7 @@ void Sagittarius::MakeSprite()
 
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("stage1\\Boss\\Hilda\\Sagittarius\\Sagittarius");
+		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Sagittarius\\Sagittarius");
 
 
 		GameEngineSprite::LoadFolder( "Sagittarius_Lower_Idle", NewDir.GetPlusFileName("Lower\\Idle").GetFullPath());

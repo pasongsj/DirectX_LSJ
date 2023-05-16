@@ -18,9 +18,7 @@ void HIldaMoonUFO::MakeSprite()
 	{
 		GameEngineDirectory Dir;
 		Dir.MoveParentToDirectory("ContentResources");
-		Dir.Move("ContentResources");
-		Dir.Move("Texture");
-		Dir.Move("stage1\\Boss\\Hilda\\Moon\\Projectiles\\UFO");
+		Dir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Moon\\Projectiles\\UFO");
 
 		GameEngineSprite::LoadFolder("Hilda_UFO_Red", Dir.GetPlusFileName("Red").GetFullPath());
 		GameEngineSprite::LoadFolder("Hilda_UFO_Bronze", Dir.GetPlusFileName("Bronze").GetFullPath());

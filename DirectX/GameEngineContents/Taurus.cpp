@@ -18,9 +18,7 @@ void Taurus::MakeSprite()
 
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("stage1\\Boss\\Hilda\\Taurus");
+		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Taurus");
 
 
 		GameEngineSprite::LoadFolder("Taurus_Idle", NewDir.GetPlusFileName("Idle").GetFullPath());

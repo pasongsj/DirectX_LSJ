@@ -30,6 +30,7 @@ private:
 	std::string Mode = "Origin";
 
 	std::shared_ptr <class GameEngineSpriteRenderer > Bullet = nullptr;
+	std::shared_ptr<class GameEngineCollision> BulletCollision = nullptr;
 
 	float ShootSpeed = 1000.0f;
 

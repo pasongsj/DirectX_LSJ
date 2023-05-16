@@ -6,6 +6,8 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
+
 
 #include "PeaShooter.h"
 #include "BoomEffect.h"
@@ -159,6 +161,15 @@ void PlayerAirPlaneMode::Start()
 	Spark->CreateAnimation({ .AnimationName = "Spark", .SpriteName = "Cuphead_AirPlane_Spark", .FrameInter = 0.05f, .Loop = true,.ScaleToTexture = true });
 	Spark->ChangeAnimation("Spark");
 
+
+
+	
+	PlayerCollsion = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Player);
+	/*PlayerCollsion->GetTransform()->SetLocalScale(PlayerRender->GetTransform()->GetLocalScale());*/
+	//PlayerCollsion->SetOrder(CupHeadCollisionOrder::Player);
+
+
+
 	GetTransform()->SetLocalPosition(float4( - 300, 0, 0));
 
 
@@ -200,6 +211,7 @@ void PlayerAirPlaneMode::Start()
 
 void PlayerAirPlaneMode::Update(float _DeltaTime)
 {
+	PlayerCollsion->GetTransform()->SetLocalScale(PlayerRender->GetTransform()->GetLocalScale());
 
 	// 임시 체크용
 	if (true == GameEngineInput::IsDown("PlayerShmUpModeSwitch")) // VK_SPACE
@@ -231,7 +243,17 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 	}
 
 
+	std::vector<std::shared_ptr<GameEngineCollision>> ColTest;
 
+
+	if (true == PlayerCollsion->CollisionAll(CupHeadCollisionOrder::Enemy, ColType::SPHERE2D, ColType::SPHERE2D, ColTest))
+	{
+		for (std::shared_ptr<GameEngineCollision> Col : ColTest)
+		{
+			Col->GetActor()->Death();
+		}
+		// Col->GetActor()->Death();
+	}
 
 
 	// shoot

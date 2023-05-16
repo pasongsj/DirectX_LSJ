@@ -6,6 +6,7 @@
 #include "TestLevel.h"
 #include "HildaBergLevel.h"
 #include "IntroStoryLevel.h"
+#include "LoadingLevel.h"
 
 ContentsCore::ContentsCore() 
 {
@@ -39,7 +40,8 @@ void ContentsCore::GameStart()
 	//GameEngineCore::CreateLevel<TestLevel>();
 	GameEngineCore::CreateLevel<HildaBergLevel>();
 	GameEngineCore::CreateLevel<IntroStoryLevel>();
-	GameEngineCore::ChangeLevel("HildaBergLevel");
+	GameEngineCore::CreateLevel<LoadingLevel>();
+	GameEngineCore::ChangeLevel("LoadingLevel");
 }
 
 void ContentsCore::GameEnd() 

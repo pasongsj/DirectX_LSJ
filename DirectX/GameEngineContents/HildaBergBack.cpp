@@ -18,9 +18,7 @@ void HildaBergBack::MakeSprite()
 
 	GameEngineDirectory NewDir;
 	NewDir.MoveParentToDirectory("ContentResources");
-	NewDir.Move("ContentResources");
-	NewDir.Move("Texture");
-	NewDir.Move("stage1\\Boss\\Hilda\\Level");
+	NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Level");
 	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 	for (size_t i = 0; i < File.size(); i++)
 	{

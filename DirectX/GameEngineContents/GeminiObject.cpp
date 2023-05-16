@@ -17,9 +17,7 @@ void GeminiObject::MakeSprite()
 
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("stage1\\Boss\\Hilda\\Gemini");
+		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Gemini");
 
 
 		GameEngineSprite::LoadFolder("Gemini_Idle", NewDir.GetPlusFileName("Idle").GetFullPath());

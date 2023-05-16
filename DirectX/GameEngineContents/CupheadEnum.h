@@ -11,10 +11,9 @@ enum class CupHeadRendererOrder
 
 enum class CupHeadCollisionOrder
 {
-	BackGround,
 	Enemy,
-	Boss,
 	Player,
+	PlayerBullet,
 	UI,
 	MAX
 };
