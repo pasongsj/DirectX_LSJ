@@ -243,17 +243,17 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 	}
 
 
-	std::vector<std::shared_ptr<GameEngineCollision>> ColTest;
+	//std::vector<std::shared_ptr<GameEngineCollision>> ColTest;
 
 
-	if (true == PlayerCollsion->CollisionAll(CupHeadCollisionOrder::Enemy, ColType::SPHERE2D, ColType::SPHERE2D, ColTest))
-	{
-		for (std::shared_ptr<GameEngineCollision> Col : ColTest)
-		{
-			Col->GetActor()->Death();
-		}
-		// Col->GetActor()->Death();
-	}
+	//if (true == PlayerCollsion->CollisionAll(CupHeadCollisionOrder::Enemy, ColType::SPHERE2D, ColType::SPHERE2D, ColTest))
+	//{
+	//	for (std::shared_ptr<GameEngineCollision> Col : ColTest)
+	//	{
+	//		Col->GetActor()->Death();
+	//	}
+	//	// Col->GetActor()->Death();
+	//}
 
 
 	// shoot

@@ -9,9 +9,9 @@ enum class ColType
 	// 캡슐
 	// 2D에서의 충돌은 모두가 한축이 같아야 한다.
 	POINT2D, // z를 0으로 만들고 충돌
-	SPHERE2D, // z를 0으로 만들고 충돌
-	AABBBOX2D, // z를 0으로 만들고 충돌
-	OBBBOX2D, // z를 0으로 만들고 충돌
+	SPHERE2D, // z를 0으로 만들고 충돌	// 원충돌
+	AABBBOX2D, // z를 0으로 만들고 충돌	// 직 사각형 충돌
+	OBBBOX2D, // z를 0으로 만들고 충돌	// 변형된(평행사변형?)충돌
 	POINT3D,
 	SPHERE3D,
 	AABBBOX3D,

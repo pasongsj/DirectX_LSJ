@@ -79,8 +79,9 @@ void HIldaMoonUFO::Update(float _DeltaTime)
 	{
 		UFOMove(_DeltaTime);
 		UFOBeamRender->GetTransform()->SetLocalPosition(float4(0,-UFOBeamRender->GetTransform()->GetLocalScale().hy()));
-		UFOBeamCollision->GetTransform()->SetLocalPosition(UFOBeamRender->GetTransform()->GetLocalPosition());
-		UFOBeamCollision->GetTransform()->SetLocalScale(UFOBeamRender->GetTransform()->GetLocalScale());
+		GameEngineTransform* RenderData = UFOBeamRender->GetTransform();
+		UFOBeamCollision->GetTransform()->SetLocalPosition(RenderData->GetLocalPosition());
+		UFOBeamCollision->GetTransform()->SetLocalScale(RenderData->GetLocalScale().half()+ float4(0,40));
 		break;
 	}
 	case 4:
@@ -90,6 +91,13 @@ void HIldaMoonUFO::Update(float _DeltaTime)
 	default:
 		Death();
 		break;
+	}
+
+	std::shared_ptr<GameEngineCollision> Col = UFOBeamCollision->Collision(CupHeadCollisionOrder::Player, ColType::AABBBOX2D, ColType::SPHERE2D);
+	if (nullptr != Col) // 플레이어와 충돌 함
+	{
+		int a = 0;
+
 	}
 
 }

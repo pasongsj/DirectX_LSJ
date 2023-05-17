@@ -21,8 +21,6 @@ void GeminiOrbScatter::MakeSprite()
 		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Gemini\\Orb\\Attack");
 
 		GameEngineSprite::LoadFolder("Orb_Bullet", NewDir.GetPlusFileName("BulletStream").GetFullPath());
-
-
 	}
 }
 
@@ -30,7 +28,7 @@ void GeminiOrbScatter::Start()
 {
 	MakeSprite();
 	ScatterRender = CreateComponent<GameEngineSpriteRenderer>();
-	ScatterRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Orb_Bullet", .FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
+	ScatterRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Orb_Bullet", .FrameInter = 0.03f,.Loop = false,.ScaleToTexture = true });
 	ScatterRender->ChangeAnimation("Idle");
 
 	ScatterCollsion = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
@@ -38,11 +36,19 @@ void GeminiOrbScatter::Start()
 
 void GeminiOrbScatter::Update(float _DeltaTime)
 {
+	ScatterCollsion->GetTransform()->SetLocalScale(ScatterRender->GetTransform()->GetLocalScale().half());
 	GetTransform()->AddLocalPosition(Dir*ShootSpeed*_DeltaTime);
 
 	if (true == ScatterRender->IsAnimationEnd())
 	{
 		Death();
+	}
+
+	std::shared_ptr<GameEngineCollision> Col = ScatterCollsion->Collision(CupHeadCollisionOrder::Player, ColType::OBBBOX2D, ColType::SPHERE2D);
+	if (nullptr != Col) // 플레이어와 충돌 함
+	{
+		int a = 0;
+
 	}
 }
 

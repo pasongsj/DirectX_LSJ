@@ -19,11 +19,11 @@ enum class CupHeadCollisionOrder
 };
 enum class CupHeadActorOrder
 {
-	Camera,
 	BackGround,
 	Enemy,
 	Boss,
 	Player,
 	UI,
-	MAX
+	Camera,
+	MAX,
 };

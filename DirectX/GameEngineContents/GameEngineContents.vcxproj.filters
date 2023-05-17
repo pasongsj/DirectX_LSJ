@@ -18,17 +18,11 @@
     <ClInclude Include="ZepplingBullet.h">
       <Filter>Object\HildaBerg\Zeppling</Filter>
     </ClInclude>
-    <ClInclude Include="TestObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="HildaBergLevel.h">
       <Filter>Levels</Filter>
     </ClInclude>
     <ClInclude Include="HildaBergBack.h">
       <Filter>Object\HildaBerg</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerAirPlaneMode.h">
       <Filter>Object\Player</Filter>
@@ -116,17 +110,11 @@
     <ClCompile Include="ZepplingFSM.cpp">
       <Filter>Object\HildaBerg\Zeppling</Filter>
     </ClCompile>
-    <ClCompile Include="TestObject.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="HildaBergLevel.cpp">
       <Filter>Levels</Filter>
     </ClCompile>
     <ClCompile Include="HildaBergBack.cpp">
       <Filter>Object\HildaBerg</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerAirPlaneMode.cpp">
       <Filter>Object\Player</Filter>

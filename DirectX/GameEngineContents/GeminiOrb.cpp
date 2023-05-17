@@ -168,7 +168,7 @@ void GeminiOrb::Attack_Update(float _DeltaTime)
 		Scatter->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + Dir * 200);
 		Scatter->GetTransform()->AddLocalRotation(float4(0, 0, (Theta)*GameEngineMath::RadToDeg));
 		Scatter->SetDir(Dir);
-		ScatterInterval = 0.12f;
+		ScatterInterval += 0.15f;
 	}
 	if (GetLiveTime() > 8.0f)
 	{

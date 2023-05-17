@@ -59,4 +59,17 @@ void HildaTornado::Update(float _DeltaTime)
 		TornatoCollision->GetTransform()->SetLocalScale(TornatoRender->GetTransform()->GetLocalScale());
 		GetTransform()->AddLocalPosition(float4(-1000 * _DeltaTime, 0));
 	}
+
+	float4 Screen = GameEngineWindow::GetScreenSize();
+	if (GetTransform()->GetWorldPosition().x< -Screen.hx() || GetTransform()->GetWorldPosition().x > Screen.hx())
+	{
+		Death();
+	}
+
+	std::shared_ptr<GameEngineCollision> Col = TornatoCollision->Collision(CupHeadCollisionOrder::Player, ColType::AABBBOX2D, ColType::SPHERE2D);
+	if (nullptr != Col) // 플레이어와 충돌 함
+	{
+		int a = 0;
+
+	}
 }

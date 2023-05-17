@@ -137,7 +137,8 @@ void Hilda::ChangePhase_End()
 void Hilda::Tornado_Start()
 {
 	Boss->ChangeAnimation("Tornato");
-	GetLevel()->CreateActor<HildaTornado>(CupHeadActorOrder::Enemy);
+	std::shared_ptr<HildaTornado> Tronado = GetLevel()->CreateActor<HildaTornado>(CupHeadActorOrder::Enemy);
+	Tronado->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() - float4(Boss->GetTransform()->GetLocalScale().hx(), 0));
 }
 void Hilda::Tornado_Update(float _DeltaTime)
 {

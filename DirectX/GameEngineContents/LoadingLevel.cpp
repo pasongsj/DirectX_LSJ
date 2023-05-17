@@ -53,6 +53,14 @@ void LoadingLevel::LoadHildaSprite()
 			GameEngineSprite::LoadFolder("Hilda_Intro", NewDir.GetPlusFileName("Intro\\Hilda").GetFullPath());
 			// idle
 			GameEngineSprite::LoadFolder("Hilda_Idle", NewDir.GetPlusFileName("Idle").GetFullPath());
+			return;
+		}
+		if (nullptr == GameEngineSprite::Find("Hilda_Shoot"))
+		{
+
+			GameEngineDirectory NewDir;
+			NewDir.MoveParentToDirectory("ContentResources");
+			NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\HildaBerg\\Normal");
 			// shoot
 			GameEngineSprite::LoadFolder("Hilda_Shoot", NewDir.GetPlusFileName("Laugh\\Hilda").GetFullPath());
 			GameEngineSprite::LoadFolder("Hilda_Ha", NewDir.GetPlusFileName("Laugh\\Ha").GetFullPath());
@@ -76,6 +84,15 @@ void LoadingLevel::LoadHildaSprite()
 			GameEngineSprite::LoadFolder("Hilda_DashBack", NewDir.GetPlusFileName("ChangePhase\\Dash\\DashBack").GetFullPath());
 			// Summon
 			GameEngineSprite::LoadFolder("Hilda_Summon", NewDir.GetPlusFileName("ChangePhase\\Summon").GetFullPath());
+			return;
+		}
+		if (nullptr == GameEngineSprite::Find("Hilda_Tornado"))
+		{
+
+			GameEngineDirectory NewDir;
+			NewDir.MoveParentToDirectory("ContentResources");
+			NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\HildaBerg\\Normal");
+
 			// Tornato
 			GameEngineSprite::LoadFolder("Hilda_Tornado", NewDir.GetPlusFileName("Tornado\\Hilda").GetFullPath());
 			GameEngineSprite::LoadFolder("Hilda_Tornado_Attack", NewDir.GetPlusFileName("Tornado\\Tornado\\Attack").GetFullPath());
@@ -97,6 +114,14 @@ void LoadingLevel::LoadHildaSprite()
 
 			GameEngineSprite::LoadFolder("Taurus_Idle", NewDir.GetPlusFileName("Idle").GetFullPath());
 			GameEngineSprite::LoadFolder("Taurus_Charge", NewDir.GetPlusFileName("Attack\\Charge").GetFullPath());
+			return;
+		}
+		if (nullptr == GameEngineSprite::Find("Taurus_Attack"))
+		{
+
+			GameEngineDirectory NewDir;
+			NewDir.MoveParentToDirectory("ContentResources");
+			NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Taurus");
 			GameEngineSprite::LoadFolder("Taurus_Attack", NewDir.GetPlusFileName("Attack\\Attack").GetFullPath());
 			GameEngineSprite::LoadFolder("Taurus_Constellation", NewDir.GetPlusFileName("Constellation").GetFullPath());
 
@@ -147,6 +172,16 @@ void LoadingLevel::LoadHildaSprite()
 
 			GameEngineSprite::LoadFolder("Gemini_Idle", NewDir.GetPlusFileName("Idle").GetFullPath());
 			GameEngineSprite::LoadFolder("Gemini_AttackA", NewDir.GetPlusFileName("Attack (A)").GetFullPath());
+			return;
+
+		}
+		if (nullptr == GameEngineSprite::Find("Gemini_AttackB"))
+		{
+
+			GameEngineDirectory NewDir;
+			NewDir.MoveParentToDirectory("ContentResources");
+			NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Gemini");
+
 			GameEngineSprite::LoadFolder("Gemini_AttackB", NewDir.GetPlusFileName("Attack (B)").GetFullPath());
 			GameEngineSprite::LoadFolder("Gemini_Constellation", NewDir.GetPlusFileName("Constellation").GetFullPath());
 
