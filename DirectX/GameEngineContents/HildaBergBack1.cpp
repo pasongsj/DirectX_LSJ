@@ -1,45 +1,45 @@
 #include "PrecompileHeader.h"
-#include "HildaBergBack.h"
+#include "HildaBergBack1.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineResource.h>
 
-HildaBergBack::HildaBergBack() 
+HildaBergBack1::HildaBergBack1() 
 {
 }
 
-HildaBergBack::~HildaBergBack() 
+HildaBergBack1::~HildaBergBack1() 
 {
 }
 
-void HildaBergBack::MakeSprite()
+//void HildaBergBack1::MakeSprite()
+//{
+//
+//	GameEngineDirectory NewDir;
+//	NewDir.MoveParentToDirectory("ContentResources");
+//	NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Level");
+//	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+//	for (size_t i = 0; i < File.size(); i++)
+//	{
+//		GameEngineTexture::Load(File[i].GetFullPath());
+//	}
+//}
+
+void HildaBergBack1::Start()
 {
+	//MakeSprite();
 
-	GameEngineDirectory NewDir;
-	NewDir.MoveParentToDirectory("ContentResources");
-	NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Level");
-	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-	for (size_t i = 0; i < File.size(); i++)
-	{
-		GameEngineTexture::Load(File[i].GetFullPath());
-	}
-}
+	//MainBG = CreateComponent<GameEngineSpriteRenderer>();
+	//MainBG->SetScaleToTexture("blimp_sky.png");
 
-void HildaBergBack::Start()
-{
-	MakeSprite();
+	//BGRange = MainBG->GetTransform()->GetLocalScale().ix();
 
-	MainBG = CreateComponent<GameEngineSpriteRenderer>();
-	MainBG->SetScaleToTexture("blimp_sky.png");
+	//SubBG = CreateComponent<GameEngineSpriteRenderer>();
+	//SubBG->SetScaleToTexture("blimp_sky.png");
+	//SubBG->GetTransform()->SetLocalPosition(MainBG->GetTransform()->GetLocalPosition() + float4(static_cast<float>(BGRange),0));
 
-	BGRange = MainBG->GetTransform()->GetLocalScale().ix();
-
-	SubBG = CreateComponent<GameEngineSpriteRenderer>();
-	SubBG->SetScaleToTexture("blimp_sky.png");
-	SubBG->GetTransform()->SetLocalPosition(MainBG->GetTransform()->GetLocalPosition() + float4(static_cast<float>(BGRange),0));
-
-	BGLimit = (BGRange - GameEngineWindow::GetScreenSize().ix()) / 2;
+	//BGLimit = (BGRange - GameEngineWindow::GetScreenSize().ix()) / 2;
 
 
 
@@ -58,7 +58,7 @@ void HildaBergBack::Start()
 
 }
 
-void HildaBergBack::Update(float _DeltaTime)
+void HildaBergBack1::Update(float _DeltaTime)
 {
 
 	GetTransform()->AddLocalPosition(float4(-50 * _DeltaTime, 0));
@@ -69,15 +69,6 @@ void HildaBergBack::Update(float _DeltaTime)
 		return;
 	}
 	int CamX = (GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition()).ix();
-
-	// MainBG와 SubBG를 교체해주는 작업
-	if ((SubBG->GetTransform()->GetWorldPosition().ix() - BGRange / 2) < CamX && CamX < (SubBG->GetTransform()->GetWorldPosition().ix() + BGRange / 2)) {
-
-		std::shared_ptr<class GameEngineSpriteRenderer> tempBG = MainBG;
-		MainBG = SubBG;
-		SubBG = tempBG;
-		tempBG = nullptr;
-	}
 
 	// MainHill과 SubHill을 교체해주는 작업
 	if ((SubHill->GetTransform()->GetWorldPosition().ix() - HillRange / 2) < CamX && CamX < (SubHill->GetTransform()->GetWorldPosition().ix() + HillRange / 2)) {
@@ -90,21 +81,21 @@ void HildaBergBack::Update(float _DeltaTime)
 
 
 
-	float4 WorldBGPos = MainBG->GetTransform()->GetWorldPosition();
+	//float4 WorldBGPos = MainBG->GetTransform()->GetWorldPosition();
 
-	float4 NextBGPos = MainBG->GetTransform()->GetLocalPosition();
+	//float4 NextBGPos = MainBG->GetTransform()->GetLocalPosition();
 
-	if (CamX - WorldBGPos.ix() > BGLimit)
-	{
-		NextBGPos.x += BGRange;
-	}
-	else if (CamX - WorldBGPos.ix() < -BGLimit) {
-		NextBGPos.x -= BGRange;
-	}
+	//if (CamX - WorldBGPos.ix() > BGLimit)
+	//{
+	//	NextBGPos.x += BGRange;
+	//}
+	//else if (CamX - WorldBGPos.ix() < -BGLimit) {
+	//	NextBGPos.x -= BGRange;
+	//}
 
-	if (NextBGPos != SubBG->GetTransform()->GetLocalPosition()) {
-		SubBG->GetTransform()->SetLocalPosition(NextBGPos);
-	}
+	//if (NextBGPos != SubBG->GetTransform()->GetLocalPosition()) {
+	//	SubBG->GetTransform()->SetLocalPosition(NextBGPos);
+	//}
 
 
 

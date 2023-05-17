@@ -21,9 +21,6 @@
     <ClInclude Include="HildaBergLevel.h">
       <Filter>Levels</Filter>
     </ClInclude>
-    <ClInclude Include="HildaBergBack.h">
-      <Filter>Object\HildaBerg</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerAirPlaneMode.h">
       <Filter>Object\Player</Filter>
     </ClInclude>
@@ -88,6 +85,15 @@
     <ClInclude Include="Constellation.h">
       <Filter>Object\HildaBerg\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="HildaBergBack1.h">
+      <Filter>Object\HildaBerg\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaBergBack0.h">
+      <Filter>Object\HildaBerg\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaBergBack2.h">
+      <Filter>Object\HildaBerg\BackGround</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -112,9 +118,6 @@
     </ClCompile>
     <ClCompile Include="HildaBergLevel.cpp">
       <Filter>Levels</Filter>
-    </ClCompile>
-    <ClCompile Include="HildaBergBack.cpp">
-      <Filter>Object\HildaBerg</Filter>
     </ClCompile>
     <ClCompile Include="PlayerAirPlaneMode.cpp">
       <Filter>Object\Player</Filter>
@@ -185,6 +188,15 @@
     <ClCompile Include="Constellation.cpp">
       <Filter>Object\HildaBerg\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="HildaBergBack1.cpp">
+      <Filter>Object\HildaBerg\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBergBack0.cpp">
+      <Filter>Object\HildaBerg\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBergBack2.cpp">
+      <Filter>Object\HildaBerg\BackGround</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -219,6 +231,9 @@
     </Filter>
     <Filter Include="Object\HildaBerg\Boss\Taurus">
       <UniqueIdentifier>{cdec2553-cc9b-4801-8519-715cc534a267}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\HildaBerg\BackGround">
+      <UniqueIdentifier>{f69b685b-52d1-4860-89dc-11d186cc729d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
