@@ -17,14 +17,14 @@ Gemini::~Gemini()
 
 void Gemini::Start()
 {
-	BossA = GetLevel()->CreateActor<GeminiObject>("BossA");
+	BossA = GetLevel()->CreateActor<GeminiObject>(CupHeadActorOrder::Boss);
 	BossA->GetTransform()->SetLocalPosition(float4(100, 0));
 	BossA->ChangeGeminiAnimation("Idle");
 	BossA->SetGeminiController(DynamicThis<GameEngineActor>());
 
 	//BossA->GetTransform()->SetParent(GetTransform());
 
-	BossB = GetLevel()->CreateActor<GeminiObject>("BossB");
+	BossB = GetLevel()->CreateActor<GeminiObject>(CupHeadActorOrder::Boss);
 	BossB->GetTransform()->SetLocalPosition(float4(-100, 0));
 	BossB->ChangeGeminiAnimation("Idle", 15);
 	BossB->SetGeminiController(DynamicThis<GameEngineActor>());

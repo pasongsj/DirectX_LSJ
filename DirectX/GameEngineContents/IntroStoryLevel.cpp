@@ -27,7 +27,7 @@ void IntroStoryLevel::Update(float _DeltaTime)
 	
 void IntroStoryLevel::LevelChangeStart()
 {
-	Story = CreateActor<StoryObject>();
+	Story = CreateActor<StoryObject>(CupHeadActorOrder::BackGround);
 }
 void IntroStoryLevel::LevelChangeEnd()
 {

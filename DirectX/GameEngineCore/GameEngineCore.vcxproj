@@ -286,10 +286,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEngineUpdateObject.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="GameEngineVertex.h">
       <SubType>
       </SubType>
@@ -438,10 +434,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineTransform.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="GameEngineUpdateObject.cpp">
       <SubType>
       </SubType>
     </ClCompile>

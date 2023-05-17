@@ -157,7 +157,7 @@ void Sagittarius::Attack_Update(float _DeltaTime)
 	if (false == isShoot && GetLiveTime() > 0.5f)
 	{
 		isShoot = true;
-		std::shared_ptr<SagittariusArrow> Arrow = GetLevel()->CreateActor<SagittariusArrow>();
+		std::shared_ptr<SagittariusArrow> Arrow = GetLevel()->CreateActor<SagittariusArrow>(CupHeadActorOrder::Enemy);
 		Arrow->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0,30));
 	}
 	if (true == Upper->IsAnimationEnd())

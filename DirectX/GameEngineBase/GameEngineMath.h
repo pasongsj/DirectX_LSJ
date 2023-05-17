@@ -15,7 +15,6 @@
 
 
 
-
 // final 더이상 상속내릴지 못한다.
 // 상속도 못하고 만들지도 못하게 만든 상태로
 
@@ -121,6 +120,13 @@ public:
 			float w;
 		};
 
+		struct
+		{
+			float r;
+			float g;
+			float b;
+			float a;
+		};
 
 		float Arr1D[4];
 

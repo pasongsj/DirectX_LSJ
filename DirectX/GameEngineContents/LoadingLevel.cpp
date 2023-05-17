@@ -27,7 +27,7 @@ void LoadingLevel::Update(float _DeltaTime)
 
 void LoadingLevel::LevelChangeStart()
 {
-	CreateActor<LoadingBackGround>();
+	CreateActor<LoadingBackGround>(CupHeadActorOrder::BackGround);
 }
 
 void LoadingLevel::LevelChangeEnd()

@@ -61,7 +61,7 @@ void Hilda::Idle_End()
 void Hilda::Shoot_Start()
 {
 	Boss->ChangeAnimation("shoot");
-	std::shared_ptr<GameEngineActor> Ha = GetLevel()->CreateActor<HildaHA>();
+	std::shared_ptr<GameEngineActor> Ha = GetLevel()->CreateActor<HildaHA>(CupHeadActorOrder::Enemy);
 	Ha->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
 }
 void Hilda::Shoot_Update(float _DeltaTime)
@@ -93,8 +93,8 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 	{
 		Boss->ChangeAnimation("DashBack");
 		isDashBackTurn = true;
-		CurPos = GetTransform()->GetLocalPosition();
-		DestPos = CurPos - float4(GameEngineWindow::GetScreenSize().x, 0);
+		DestPos = CurPos = GetTransform()->GetLocalPosition();
+		DestPos.x = - (GameEngineWindow::GetScreenSize().hx() + Boss->GetTransform()->GetLocalScale().hx());
 	}
 
 	else if (true == isDashBackTurn && false == isBackTurn)
@@ -116,8 +116,12 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 	else if(true == isDashBackTurn && true == isBackTurn)
 	{
 		WaitingTime += _DeltaTime;
-		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(DestPos, CurPos, WaitingTime));
-		if (true == Boss->IsAnimationEnd())
+		//if (WaitingTime < 0.5f)
+		//{
+		//	return;
+		//}
+		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(DestPos, CurPos, WaitingTime * 0.8f));
+		if (WaitingTime > 2.0f/*true == Boss->IsAnimationEnd()*/)
 		{
 			NextState = HildaState::IDLE;
 		}
@@ -133,7 +137,7 @@ void Hilda::ChangePhase_End()
 void Hilda::Tornado_Start()
 {
 	Boss->ChangeAnimation("Tornato");
-	GetLevel()->CreateActor<HildaTornado>();
+	GetLevel()->CreateActor<HildaTornado>(CupHeadActorOrder::Enemy);
 }
 void Hilda::Tornado_Update(float _DeltaTime)
 {

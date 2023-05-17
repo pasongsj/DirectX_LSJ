@@ -63,6 +63,11 @@ public:
 	std::vector<float> FrameTime = std::vector<float>();
 };
 
+struct ColorOption
+{
+	float4 MulColor;
+	float4 PlusColor;
+};
 
 // Ό³Έν :
 class GameEngineSpriteRenderer : public GameEngineRenderer
@@ -116,6 +121,11 @@ public:
 		return AtlasData;
 	}
 
+	inline float GetScaleRatio() const
+	{
+		return ScaleRatio;
+	}
+
 	void SetSprite(const std::string_view& _SpriteName, size_t _Frame = 0);
 
 	void SetFrame(size_t _Frame);
@@ -130,9 +140,13 @@ public:
 		CurAnimation->PauseOff();
 	}
 
+	ColorOption ColorOptionValue;
+
 	void SetAnimationUpdateEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event);
 
 	void SetAnimationStartEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event);
+
+	std::string GetTexName();
 
 protected:
 

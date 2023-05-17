@@ -55,13 +55,13 @@ void Hilda::Start()
 	Boss->CreateAnimation({ .AnimationName = "shoot",  .SpriteName = "Hilda_Shoot",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Boss->CreateAnimation({ .AnimationName = "Dash",  .SpriteName = "Hilda_Dash", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Boss->CreateAnimation({ .AnimationName = "DashBack",  .SpriteName = "Hilda_DashBack", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Summon",  .SpriteName = "Hilda_Summon", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Boss->CreateAnimation({ .AnimationName = "Summon",  .SpriteName = "Hilda_Summon", .FrameInter = 0.1f, .Loop = false , .ScaleToTexture = true });
 	Boss->CreateAnimation({ .AnimationName = "Tornato",  .SpriteName = "Hilda_Tornado",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Boss->ChangeAnimation("Intro");
 	
 	Boss->SetAnimationUpdateEvent("DashBack", 3, [this]
 		{
-			GetLevel()->CreateActor<Constellation>();
+			GetLevel()->CreateActor<Constellation>(CupHeadActorOrder::Enemy);
 		});
 																				
 	GetTransform()->SetLocalPosition(float4(300.0f,0));							

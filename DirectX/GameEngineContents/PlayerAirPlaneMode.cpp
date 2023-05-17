@@ -349,7 +349,7 @@ void PlayerAirPlaneMode::CheckShoot(float _DeltaTime)
 		Spark->On();
 		if (0.0f > ShootInterVal)
 		{
-			std::shared_ptr<PeaShooter> bullet = GetLevel()->CreateActor<PeaShooter>();
+			std::shared_ptr<PeaShooter> bullet = GetLevel()->CreateActor<PeaShooter>(CupHeadActorOrder::Player);
 			float4 _Pos = GetTransform()->GetWorldPosition() + float4(100, BulletYPos);
 			bullet->GetTransform()->SetWorldPosition(_Pos);
 			BulletYPos *= -1;
@@ -366,7 +366,7 @@ void PlayerAirPlaneMode::ChangeMode(const std::string_view& _Mode)
 {
 	if (CurMode == "Super"  && _Mode.data() != "Super")
 	{
-		std::shared_ptr<GameEngineActor> Effect = GetLevel()->CreateActor<BoomEffect>();
+		std::shared_ptr<GameEngineActor> Effect = GetLevel()->CreateActor<BoomEffect>(CupHeadActorOrder::Player);
 		Effect->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
 		CurMode = _Mode.data();
 		ChangePlayerAnimation("Idle");

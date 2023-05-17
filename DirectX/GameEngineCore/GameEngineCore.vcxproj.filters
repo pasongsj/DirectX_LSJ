@@ -29,9 +29,6 @@
     <ClInclude Include="GameEngineCollision.h">
       <Filter>Object\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineUpdateObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineObjectBase.h">
       <Filter>Object</Filter>
     </ClInclude>
@@ -168,9 +165,6 @@
     </ClCompile>
     <ClCompile Include="GameEngineCollision.cpp">
       <Filter>Object\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineUpdateObject.cpp">
-      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineObjectBase.cpp">
       <Filter>Object</Filter>

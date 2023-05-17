@@ -32,7 +32,7 @@ void Zeppling::Shoot_Update(float _DeltaTime)
 {
 	if (true == Enemy->IsAnimationEnd())
 	{
-		std::shared_ptr<ZepplingBullet> Bullet = GetLevel()->CreateActor<ZepplingBullet>();
+		std::shared_ptr<ZepplingBullet> Bullet = GetLevel()->CreateActor<ZepplingBullet>(CupHeadActorOrder::Enemy);
 		Bullet->GetTransform()->SetWorldPosition(Enemy->GetTransform()->GetWorldPosition() - float4(Enemy->GetTransform()->GetLocalScale().hx(),0));
 
 		//float4 BulletDir =  플레이어 위치 - Zeppling의 위치

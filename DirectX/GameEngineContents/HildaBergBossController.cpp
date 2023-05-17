@@ -37,41 +37,40 @@ void HildaBergBossController::Update(float _DeltaTime)
 		{
 		case 1:
 		{
-			Boss = GetLevel()->CreateActor<Hilda>();
+			Boss = GetLevel()->CreateActor<Hilda>(CupHeadActorOrder::Boss);
 			break;
 		}
 		case 2:
 		{
-			Boss = GetLevel()->CreateActor<Taurus>();
+			Boss = GetLevel()->CreateActor<Taurus>(CupHeadActorOrder::Boss);
 			break;
 		}
 		case 3:
 		{
-			Boss = GetLevel()->CreateActor<Hilda>();
+			Boss = GetLevel()->CreateActor<Hilda>(CupHeadActorOrder::Boss);
 			break;
 		}
 		case 4:
 		{
-			Boss = GetLevel()->CreateActor<Gemini>();
-			/*int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
+			int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
 			if (1 == (RandomNum & 1))
 			{
-				Boss = GetLevel()->CreateActor<Sagittarius>();
+				Boss = GetLevel()->CreateActor<Sagittarius>(CupHeadActorOrder::Boss);
 			}
 			else
 			{
-				Boss = GetLevel()->CreateActor<Gemini>(); 
-			}*/
+				Boss = GetLevel()->CreateActor<Gemini>(CupHeadActorOrder::Boss);
+			}
 			break;
 		}
 		case 5:
 		{
-			Boss = GetLevel()->CreateActor<Hilda>();
+			Boss = GetLevel()->CreateActor<Hilda>(CupHeadActorOrder::Boss);
 			break;
 		}
 		case 6:
 		{
-			Boss = GetLevel()->CreateActor<Moon>();
+			Boss = GetLevel()->CreateActor<Moon>(CupHeadActorOrder::Boss);
 			break;
 		}
 		default:
