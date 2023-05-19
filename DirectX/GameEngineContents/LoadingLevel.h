@@ -25,5 +25,5 @@ protected:
 private:
 	int Phase = 0;
 	void LoadHildaSprite();
-
+	GameEngineDirectory Dir;
 };
