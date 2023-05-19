@@ -91,6 +91,9 @@
     <ClInclude Include="HildaBoss.h">
       <Filter>Object\HildaBerg\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerAirPlaneSmokeEffect.h">
+      <Filter>Object\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -190,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="HildaBoss.cpp">
       <Filter>Object\HildaBerg\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAirPlaneSmokeEffect.cpp">
+      <Filter>Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

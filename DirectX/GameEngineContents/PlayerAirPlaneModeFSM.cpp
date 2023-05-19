@@ -2,6 +2,7 @@
 #include "PlayerAirPlaneMode.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
+
 void PlayerAirPlaneMode::Intro_Start()
 {
 	ChangePlayerAnimation("Intro");
@@ -25,12 +26,11 @@ void PlayerAirPlaneMode::Idle_Start()
 	ChangePlayerAnimation("Idle");
 
 	Spark->GetTransform()->SetLocalPosition(float4(80, -5));
-	//PlayerRender->ChangeAnimation("Idle");
-	//PlayerRender->SetTexture("cuphead_plane_idle_straight_0001.png");
 }
 void PlayerAirPlaneMode::Idle_Update(float _DeltaTime)
 {
 	CheckInput();
+	MakeSmoke(_DeltaTime);
 }
 void PlayerAirPlaneMode::Idle_End()
 {
@@ -43,7 +43,6 @@ void PlayerAirPlaneMode::MoveUp_Start()
 	ChangePlayerAnimation("MoveUpTrans");
 
 	Spark->GetTransform()->SetLocalPosition(float4(80, 0));
-	//PlayerRender->ChangeAnimation("MoveUpTrans");
 }
 void PlayerAirPlaneMode::MoveUp_Update(float _DeltaTime)
 {
@@ -51,9 +50,9 @@ void PlayerAirPlaneMode::MoveUp_Update(float _DeltaTime)
 	{
 		isStartAnimationDone = true;
 		ChangePlayerAnimation("MoveUp");
-		//PlayerRender->ChangeAnimation("MoveUp");
 	}
 	CheckInput();
+	MakeSmoke(_DeltaTime);
 }
 void PlayerAirPlaneMode::MoveUp_End()
 {
@@ -66,7 +65,6 @@ void PlayerAirPlaneMode::MoveDown_Start()
 	ChangePlayerAnimation("MoveDownTrans");
 
 	Spark->GetTransform()->SetLocalPosition(float4(80, 5));
-	//PlayerRender->ChangeAnimation("MoveDownTrans");
 }
 void PlayerAirPlaneMode::MoveDown_Update(float _DeltaTime)
 {
@@ -74,9 +72,9 @@ void PlayerAirPlaneMode::MoveDown_Update(float _DeltaTime)
 	{
 		isStartAnimationDone = true;
 		ChangePlayerAnimation("MoveDown");
-		//PlayerRender->ChangeAnimation("MoveDown");
 	}
 	CheckInput();
+	MakeSmoke(_DeltaTime);
 }
 void PlayerAirPlaneMode::MoveDown_End()
 {

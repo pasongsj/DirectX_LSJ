@@ -11,6 +11,9 @@
 
 #include "PeaShooter.h"
 #include "BoomEffect.h"
+#include "PlayerAirPlaneSmokeEffect.h"
+
+PlayerAirPlaneMode* PlayerAirPlaneMode::MainPlayer = nullptr;
 
 PlayerAirPlaneMode::PlayerAirPlaneMode() 
 {
@@ -100,6 +103,12 @@ void PlayerAirPlaneMode::MakeSprite()
 
 void PlayerAirPlaneMode::Start()
 {
+	if (nullptr != PlayerAirPlaneMode::MainPlayer)
+	{
+		MsgAssert("플레이어는 한개만 생성할 수 있습니다.");
+	}
+
+	PlayerAirPlaneMode::MainPlayer = DynamicThis<PlayerAirPlaneMode>().get();
 
 	if (false == GameEngineInput::IsKey("PlayerAirPlaneMoveLeft"))
 	{
@@ -157,7 +166,7 @@ void PlayerAirPlaneMode::Start()
 	PlayerRender->ChangeAnimation("OriginIntro");
 	//PlayerRender->ChangeAnimation("Idle");
 
-	Spark = CreateComponent<GameEngineSpriteRenderer>();
+	Spark = CreateComponent<GameEngineSpriteRenderer>(CupHeadActorOrder::PlayerEffect);
 	Spark->CreateAnimation({ .AnimationName = "Spark", .SpriteName = "Cuphead_AirPlane_Spark", .FrameInter = 0.05f, .Loop = true,.ScaleToTexture = true });
 	Spark->ChangeAnimation("Spark");
 
@@ -372,4 +381,17 @@ void PlayerAirPlaneMode::ChangeMode(const std::string_view& _Mode)
 		ChangePlayerAnimation("Idle");
 	}
 	CurMode = _Mode.data();
+}
+
+void PlayerAirPlaneMode::MakeSmoke(float _DeltaTime)
+{
+
+	SmokeInterval -= _DeltaTime;
+	if (SmokeInterval < 0.0f)
+	{
+		SmokeInterval = 0.2f;
+		std::shared_ptr< PlayerAirPlaneSmokeEffect> Smoke = GetLevel()->CreateActor< PlayerAirPlaneSmokeEffect>(CupHeadActorOrder::PlayerEffect);
+		Smoke->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(-PlayerRender->GetTransform()->GetLocalScale().hx(), 0));
+	}
+
 }

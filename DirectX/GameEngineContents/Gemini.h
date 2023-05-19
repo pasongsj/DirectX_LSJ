@@ -28,7 +28,6 @@ protected:
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
-	void Render(float _DletaTime) override;
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BossA = nullptr;

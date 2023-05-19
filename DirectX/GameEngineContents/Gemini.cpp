@@ -61,10 +61,6 @@ void Gemini::Update(float _DeltaTime)
 	UpdateState(_DeltaTime);
 }
 
-void Gemini::Render(float _DletaTime)
-{
-	
-}
 
 
 void Gemini::UpdateState(float _DeltaTime)

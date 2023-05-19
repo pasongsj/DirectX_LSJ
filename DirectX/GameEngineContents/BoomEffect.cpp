@@ -34,11 +34,11 @@ void BoomEffect::MakeSprite()
 void BoomEffect::Start()
 {
 	MakeSprite();
-	Explode = CreateComponent<GameEngineSpriteRenderer>();
+	Explode = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
 	Explode->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "shmup_super_boom",.FrameInter = 0.02f, .Loop = false , .ScaleToTexture = true });
 	Explode->ChangeAnimation("Idle");
 
-	Boom = CreateComponent<GameEngineSpriteRenderer>();
+	Boom = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
 	Boom->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "shmup_super_explode", .FrameInter = 0.06f, .Loop = false , .ScaleToTexture = true });
 	Boom->ChangeAnimation("Idle");
 }

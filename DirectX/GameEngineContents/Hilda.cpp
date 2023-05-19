@@ -136,10 +136,7 @@ void Hilda::Update(float _DeltaTime)
 
 }
 
-void Hilda::Render(float _DeltaTime)
-{
 
-}
 
 void Hilda::UpdateState(float _DeltaTime)
 {

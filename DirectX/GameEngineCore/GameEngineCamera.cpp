@@ -252,7 +252,7 @@ bool GameEngineCamera::IsView(const TransformData& _TransData)
 
 		DirectX::BoundingSphere Sphere;
 		Sphere.Center = _TransData.WorldPosition.DirectFloat3;
-		Sphere.Radius = _TransData.WorldPosition.MaxFloat() * 0.5f;
+		Sphere.Radius = _TransData.WorldScale.MaxFloat() * 0.5f;
 
 		bool IsCal = Box.Intersects(Sphere);
 

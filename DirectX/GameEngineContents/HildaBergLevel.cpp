@@ -31,6 +31,7 @@
 // Test
 #include "HIldaMoonUFO.h"
 #include "ZepplingBullet.h"
+#include "PlayerAirPlaneSmokeEffect.h"
 
 
 HildaBergLevel::HildaBergLevel() 
@@ -66,7 +67,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 		NextSponeTime += 5.0f;
 	}
 
-	if (nullptr == Boss /*|| true == Boss->IsDeath()*/)
+	if (nullptr == Boss)
 	{
 		++Phase;
 		switch (Phase)
@@ -119,7 +120,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 		}
 	}
 
-	if (true == GameEngineInput::IsDown("NextBoss"))
+	if (true == GameEngineInput::IsDown("NextBoss") && nullptr != Boss)
 	{
 		Boss->Death();
 		Boss = nullptr;
@@ -146,6 +147,7 @@ void HildaBergLevel::LevelChangeStart()
 
 	CreateActor<HildaBergBack0>(CupHeadActorOrder::BackGround);
 	CreateActor<HildaBergBack1>(CupHeadActorOrder::BackGround);
+	//CreateActor<PlayerAirPlaneSmokeEffect>(CupHeadActorOrder::PlayerEffect);
 
 
 

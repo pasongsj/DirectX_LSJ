@@ -17,6 +17,8 @@ enum class PlayerAirPlaneModeState
 class PlayerAirPlaneMode : public GameEngineActor
 {
 public:
+
+	static PlayerAirPlaneMode* MainPlayer;
 	// constrcuter destructer
 	PlayerAirPlaneMode();
 	~PlayerAirPlaneMode();
@@ -53,6 +55,9 @@ private:
 	// bullet
 	float ShootInterVal = 1.0f;
 	float BulletYPos = 20.0f;
+	
+	// Effect Interval
+	float SmokeInterval = 0.3f;
 
 	void MoveUpdate(float _DeltaTime);
 
@@ -68,6 +73,7 @@ private:
 
 	void MakeSprite();
 
+	void MakeSmoke(float _DeltaTime);
 
 	// fsm 에 대한 함수
 
