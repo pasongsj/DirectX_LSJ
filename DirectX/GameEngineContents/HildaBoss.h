@@ -50,6 +50,7 @@ protected:
 
 private:
 
+
 	// idle Move
 	int CircleMove = 1;
 	int LastShare = -1;

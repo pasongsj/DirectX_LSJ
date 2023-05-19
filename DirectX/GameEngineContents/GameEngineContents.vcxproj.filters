@@ -30,9 +30,6 @@
     <ClInclude Include="BoomEffect.h">
       <Filter>Object\Player</Filter>
     </ClInclude>
-    <ClInclude Include="HildaBergBossController.h">
-      <Filter>Object\HildaBerg\Boss</Filter>
-    </ClInclude>
     <ClInclude Include="Gemini.h">
       <Filter>Object\HildaBerg\Boss\Gemini</Filter>
     </ClInclude>
@@ -130,9 +127,6 @@
     </ClCompile>
     <ClCompile Include="BoomEffect.cpp">
       <Filter>Object\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="HildaBergBossController.cpp">
-      <Filter>Object\HildaBerg\Boss</Filter>
     </ClCompile>
     <ClCompile Include="Gemini.cpp">
       <Filter>Object\HildaBerg\Boss\Gemini</Filter>

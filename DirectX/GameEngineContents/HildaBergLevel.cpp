@@ -25,7 +25,7 @@
 #include "Sagittarius.h"
 #include "Gemini.h"
 #include "Moon.h"
-#include "HildaBergBossController.h"
+
 #include "HildaBoss.h"
 
 // Test
