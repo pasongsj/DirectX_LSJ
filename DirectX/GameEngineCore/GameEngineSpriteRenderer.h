@@ -64,6 +64,7 @@ public:
 	std::vector<float> FrameTime = std::vector<float>();
 };
 
+
 // Ό³Έν :
 class GameEngineSpriteRenderer : public GameEngineRenderer
 {
@@ -108,7 +109,7 @@ public:
 
 	size_t GetCurrentFrame()
 	{
-		return CurAnimation->CurFrame;
+		return CurAnimation->FrameIndex[CurAnimation->CurFrame];
 	}
 
 	float4 GetAtlasData()
@@ -137,11 +138,13 @@ public:
 
 	ColorOption ColorOptionValue;
 
+
 	void SetAnimationUpdateEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event);
 
 	void SetAnimationStartEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event);
 
 	std::string GetTexName();
+
 
 protected:
 
@@ -155,6 +158,7 @@ private:
 	std::shared_ptr<AnimationInfo> CurAnimation;
 
 	float4 AtlasData;
+
 
 	std::shared_ptr<GameEngineSprite> Sprite = nullptr;
 	size_t Frame = -1;

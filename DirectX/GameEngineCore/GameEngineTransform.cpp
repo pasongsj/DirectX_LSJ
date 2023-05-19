@@ -266,6 +266,7 @@ void GameEngineTransform::WorldDecompose()
 	ColData.OBB.Center = TransData.WorldPosition.DirectFloat3;
 	ColData.OBB.Extents = (TransData.WorldScale * 0.5f).DirectFloat3;
 	ColData.OBB.Orientation = TransData.WorldQuaternion.DirectFloat4;
+	ColData.ScaleABS();
 }
 
 void GameEngineTransform::SetParent(GameEngineTransform* _Parent, bool _IsParentWorld /*= true*/)

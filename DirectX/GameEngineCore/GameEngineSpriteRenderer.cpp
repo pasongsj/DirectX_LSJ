@@ -23,7 +23,10 @@ void AnimationInfo::Reset()
 
 void AnimationInfo::Update(float _DeltaTime)
 {
-	IsEndValue = false;
+	if (true == Loop)
+	{
+		IsEndValue = false;
+	}
 
 	// 1;
 	// 
@@ -48,10 +51,7 @@ void AnimationInfo::Update(float _DeltaTime)
 		++CurFrame;
 
 
-		if (StartEventFunction.end() != StartEventFunction.find(CurFrameIndex))
-		{
-			StartEventFunction[CurFrameIndex]();
-		}
+
 
 		if (FrameIndex.size() <= CurFrame)
 		{
@@ -63,9 +63,24 @@ void AnimationInfo::Update(float _DeltaTime)
 			}
 			else
 			{
+				IsEndValue = true;
 				--CurFrame;
 			}
 		}
+
+		//다음프레임이 존재하면서
+		else
+		{
+			CurFrameIndex = FrameIndex[CurFrame];
+
+			//Start콜백이 있다면 콜백을 호출
+			if (StartEventFunction.end() != StartEventFunction.find(CurFrameIndex))
+			{
+				StartEventFunction[CurFrameIndex]();
+			}
+		}
+
+
 		CurTime += FrameTime[CurFrame];
 
 		// 0 ~ 9
@@ -182,7 +197,7 @@ std::shared_ptr<AnimationInfo> GameEngineSpriteRenderer::CreateAnimation(const A
 
 	if (nullptr == Sprite)
 	{
-		MsgAssert("존재하지 않는 스프라이트로 애니메이션을 만들려고 했습니다." + std::string(_Paramter.SpriteName));
+		MsgAssert("존재하지 않는 스프라이트로 애니메이션을 만들려고 했습니다." + std::string(_Paramter.AnimationName));
 		return nullptr;
 	}
 
@@ -204,7 +219,7 @@ std::shared_ptr<AnimationInfo> GameEngineSpriteRenderer::CreateAnimation(const A
 		{
 			if (_Paramter.Start < 0)
 			{
-				MsgAssert("스프라이트 범위를 초과하는 인덱스로 애니메이션을 만들려고 했습니다." + std::string(_Paramter.AnimationName));
+				MsgAssert("스프라이트 범위를 초과하는 인덱스로 애니메이션을 마들려고 했습니다." + std::string(_Paramter.AnimationName));
 				return nullptr;
 			}
 
@@ -281,7 +296,7 @@ void GameEngineSpriteRenderer::ChangeAnimation(const std::string_view& _Name, si
 		return;
 	}
 
-	if (CurAnimation == Find && false == _Force)
+	if (CurAnimation.get() == Find.get() && false == _Force)
 	{
 		return;
 	}
