@@ -23,8 +23,12 @@ protected:
 	void LevelChangeEnd() override;
 
 private:
-
+	// ¿‹√¨¿Ã
 	float NextSponeTime = 0.0f;
+
+	// ∫∏Ω∫
+	std::shared_ptr<class HildaBoss> Boss = nullptr;
+	int Phase = 0;
 
 };
 

@@ -2,7 +2,9 @@
 #include "HildaBergLevel.h"
 
 #include <GameEngineBase/GameEngineDirectory.h>
+#include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineBase/GameEngineFile.h>
+#include <GameEnginePlatform/GameEngineInput.h>
 
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
@@ -24,6 +26,7 @@
 #include "Gemini.h"
 #include "Moon.h"
 #include "HildaBergBossController.h"
+#include "HildaBoss.h"
 
 // Test
 #include "HIldaMoonUFO.h"
@@ -46,6 +49,11 @@ void HildaBergLevel::Start()
 	//GetMainCamera()->SetProjectionType(CameraType::Perspective);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
+	if (false == GameEngineInput::IsKey("NextBoss"))
+	{
+		GameEngineInput::CreateKey("NextBoss", VK_F2);
+	}
+
 
 }
 
@@ -57,6 +65,65 @@ void HildaBergLevel::Update(float _DeltaTime)
 		//std::shared_ptr<HIldaMoonUFO> NewMonster = CreateActor<HIldaMoonUFO>(CupHeadActorOrder::Enemy);
 		NextSponeTime += 5.0f;
 	}
+
+	if (nullptr == Boss /*|| true == Boss->IsDeath()*/)
+	{
+		++Phase;
+		switch (Phase)
+		{
+		case 1:
+		{
+			Boss = CreateActor<Hilda>(CupHeadActorOrder::Boss);
+			break;
+		}
+		case 2:
+		{
+			Boss = CreateActor<Taurus>(CupHeadActorOrder::Boss);
+			break;
+		}
+		case 3:
+		{
+			Boss = CreateActor<Hilda>(CupHeadActorOrder::Boss);
+			Boss->SetPhase(3);
+
+			break;
+		}
+		case 4:
+		{
+			int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
+			if (1 == (RandomNum & 1))
+			{
+				Boss = GetLevel()->CreateActor<Sagittarius>(CupHeadActorOrder::Boss);
+			}
+			else
+			{
+				Boss = CreateActor<Gemini>(CupHeadActorOrder::Boss);
+			}
+			break;
+		}
+		case 5:
+		{
+			Boss = CreateActor<Hilda>(CupHeadActorOrder::Boss);
+			Boss->SetPhase(5);
+			//std::shared_ptr<Hilda> HildaTmp = DynamicThis<Hilda>();
+			//HildaTmp->SetHildaPhase(5);
+			break;
+		}
+		case 6:
+		{
+			Boss = CreateActor<Moon>(CupHeadActorOrder::Boss);
+			break;
+		}
+		default:
+			break;
+		}
+	}
+
+	if (true == GameEngineInput::IsDown("NextBoss"))
+	{
+		Boss->Death();
+		Boss = nullptr;
+	}
 }
 
 
@@ -64,21 +131,25 @@ void HildaBergLevel::LevelChangeStart()
 {
 	ResetLiveTime();
 
-
-	GameEngineDirectory NewDir;
-	NewDir.MoveParentToDirectory("ContentResources");
-	NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Level");
-	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-	for (size_t i = 0; i < File.size(); i++)
+	// BackGround 이미지 로드
+	if (nullptr == GameEngineTexture::Find("blimp_clouds_0001.png"))
 	{
-		GameEngineTexture::Load(File[i].GetFullPath());
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Level");
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
+		}
 	}
-
-	//std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");
 
 	CreateActor<HildaBergBack0>(CupHeadActorOrder::BackGround);
 	CreateActor<HildaBergBack1>(CupHeadActorOrder::BackGround);
 
+
+
+	//std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");
 	//std::shared_ptr<Hilda> NewBoss0 = CreateActor<Hilda>(CupHeadActorOrder::Boss);
 	//std::shared_ptr<Taurus> NextBoss1 = CreateActor<Taurus>(CupHeadActorOrder::Boss);
 	//std::shared_ptr<Sagittarius> NextBoss2 = CreateActor<Sagittarius>(CupHeadActorOrder::Boss);
@@ -87,7 +158,7 @@ void HildaBergLevel::LevelChangeStart()
 	//std::shared_ptr<Zeppling> NewMonster5 = CreateActor<Zeppling>(CupHeadActorOrder::Boss);
 	//std::shared_ptr<HIldaMoonUFO> NewMonster6 = CreateActor<HIldaMoonUFO>(CupHeadActorOrder::Enemy);
 	//std::shared_ptr<ZepplingBullet> NewMonster = CreateActor<ZepplingBullet>(CupHeadActorOrder::Enemy);
-	std::shared_ptr<HildaBergBossController> NewBoss = CreateActor<HildaBergBossController>(CupHeadActorOrder::Boss);
+	//std::shared_ptr<HildaBergBossController> NewBoss = CreateActor<HildaBergBossController>(CupHeadActorOrder::Boss);
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer7 = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 }
 

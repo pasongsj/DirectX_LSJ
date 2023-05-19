@@ -4,6 +4,7 @@
 // Ό³Έν :
 class HildaBoss : public GameEngineActor
 {
+	friend class HildaBergLevel;
 public:
 	// constrcuter destructer
 	HildaBoss();
@@ -20,10 +21,6 @@ public:
 		Hp -= _Dmg;
 	}
 
-	inline void SetPhase(int _Phase)
-	{
-		Phase = _Phase;
-	}
 
 	inline int GetPhase()
 	{
@@ -38,13 +35,18 @@ public:
 
 protected:
 	float Hp = 0;
+	bool isAttack = false;
+
 	float4 GetHildaMove(float _Delta);
 	
 	inline void AddIdleMoveTime(float _Delta)
 	{
 		IdleMoveTime += _Delta;
 	}
-	bool isAttack = false;
+	inline void SetPhase(int _Phase)
+	{
+		Phase = _Phase;
+	}
 
 private:
 

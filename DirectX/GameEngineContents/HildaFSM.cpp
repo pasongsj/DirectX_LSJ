@@ -26,12 +26,25 @@ void Hilda::Intro_End()
 
 void Hilda::Idle_Start()
 {
+	ResetLiveTime();
 	Boss->ChangeAnimation("Idle");
 
 }
 
 void Hilda::Idle_Update(float _DeltaTime)
 {
+	if (AttackInterval < GetLiveTime())
+	{
+		if (GetPhase() == 1)
+		{
+			NextState = HildaState::SHOOT;
+		}
+		else
+		{
+			NextState = GameEngineRandom::MainRandom.RandomInt(0, 3) > 2 ? HildaState::TORNADO : HildaState::SHOOT;
+			AttackInterval = GameEngineRandom::MainRandom.RandomFloat(5.0f, 8.0f);
+		}
+	}
 	GetTransform()->SetLocalPosition(GetHildaMove(_DeltaTime) + float4(300.0f, 0));
 }
 

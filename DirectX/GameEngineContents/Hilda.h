@@ -26,11 +26,6 @@ public:
 	Hilda& operator=(const Hilda& _Other) = delete;
 	Hilda& operator=(Hilda&& _Other) noexcept = delete;
 
-	inline void SetHildaPhase(int _Phase)
-	{
-		Phase = _Phase;
-	}
-
 protected:
 
 	void Start() override;
@@ -39,7 +34,6 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Boss = nullptr;
-	int Phase = 1; 
 
 	// idle
 	
