@@ -147,6 +147,7 @@ public:
 
 
 protected:
+	void SpriteRenderInit();
 
 private:
 	void Update(float _Delta) override;

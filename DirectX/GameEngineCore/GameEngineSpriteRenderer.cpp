@@ -104,19 +104,7 @@ void GameEngineSpriteRenderer::Start()
 {
 	GameEngineRenderer::Start();
 
-	SetPipeLine("2DTexture");
-
-	AtlasData.x = 0.0f;
-	AtlasData.y = 0.0f;
-	AtlasData.z = 1.0f;
-	AtlasData.w = 1.0f;
-
-	ColorOptionValue.MulColor = float4::One;
-	ColorOptionValue.PlusColor = float4::Null;
-
-	GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
-	GetShaderResHelper().SetConstantBufferLink("ColorOption", ColorOptionValue);
-
+	SpriteRenderInit();
 	// AtlasData
 }
 
@@ -376,4 +364,22 @@ std::string GameEngineSpriteRenderer::GetTexName()
 	GameEngineTextureSetter* Tex = GetShaderResHelper().GetTextureSetter("DiffuseTex");
 	std::string Name = Tex->Res->GetNameToString();
 	return Name;
+}
+
+void GameEngineSpriteRenderer::SpriteRenderInit()
+{
+
+	SetPipeLine("2DTexture");
+
+	AtlasData.x = 0.0f;
+	AtlasData.y = 0.0f;
+	AtlasData.z = 1.0f;
+	AtlasData.w = 1.0f;
+
+	ColorOptionValue.MulColor = float4::One;
+	ColorOptionValue.PlusColor = float4::Null;
+
+	GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
+	GetShaderResHelper().SetConstantBufferLink("ColorOption", ColorOptionValue);
+
 }

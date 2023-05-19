@@ -45,6 +45,7 @@ float GameEngineTime::TimeCheck()
 
 	Tick = Current.QuadPart - Prev.QuadPart;
 
+	// 현재시간이 나오겠죠?
 	//                          200                               100                                              100
 	DoubleDeltaTime = (static_cast<double>(Current.QuadPart) - static_cast<double>(Prev.QuadPart)) / static_cast<double>(Second.QuadPart);
 
@@ -52,5 +53,5 @@ float GameEngineTime::TimeCheck()
 
 	floatDeltaTime = static_cast<float>(DoubleDeltaTime);
 
-	return GetTimeScleDeltaTime();
+	return GetTimeScaleDeltaTime();
 }
