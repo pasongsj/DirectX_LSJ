@@ -38,6 +38,8 @@ void HildaBergBossController::Update(float _DeltaTime)
 		case 1:
 		{
 			Boss = GetLevel()->CreateActor<Hilda>(CupHeadActorOrder::Boss);
+			//std::shared_ptr<Hilda> HildaTmp = DynamicThis<Hilda>();
+			//HildaTmp->SetHildaPhase(1);
 			break;
 		}
 		case 2:
@@ -48,10 +50,13 @@ void HildaBergBossController::Update(float _DeltaTime)
 		case 3:
 		{
 			Boss = GetLevel()->CreateActor<Hilda>(CupHeadActorOrder::Boss);
+			//std::shared_ptr<Hilda> HildaTmp = DynamicThis<Hilda>();
+			//HildaTmp->SetHildaPhase(3);
 			break;
 		}
 		case 4:
 		{
+			Boss = GetLevel()->CreateActor<Gemini>(CupHeadActorOrder::Boss);/*
 			int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
 			if (1 == (RandomNum & 1))
 			{
@@ -59,13 +64,14 @@ void HildaBergBossController::Update(float _DeltaTime)
 			}
 			else
 			{
-				Boss = GetLevel()->CreateActor<Gemini>(CupHeadActorOrder::Boss);
-			}
+			}*/
 			break;
 		}
 		case 5:
 		{
 			Boss = GetLevel()->CreateActor<Hilda>(CupHeadActorOrder::Boss);
+			//std::shared_ptr<Hilda> HildaTmp = DynamicThis<Hilda>();
+			//HildaTmp->SetHildaPhase(5);
 			break;
 		}
 		case 6:
@@ -81,6 +87,6 @@ void HildaBergBossController::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown("NextBoss"))
 	{
-		Boss->Death();
+		Boss->BossDeath();
 	}
 }

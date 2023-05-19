@@ -32,6 +32,7 @@ void Taurus::MakeSprite()
 
 void Taurus::Start()
 {
+	SetPhase(2);
 	MakeSprite();
 	Boss = CreateComponent<GameEngineSpriteRenderer>();
 	Boss->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Taurus_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
@@ -100,25 +101,7 @@ void Taurus::Idle_Update(float _DeltaTime)
 		NextState = TaurusState::ATTACK;
 	}
 
-	IdleMoveTime += _DeltaTime;
-
-	GetTransform()->SetLocalPosition(float4(cosf(IdleMoveTime * 2.5f) * SpinSpeed, CircleMove * (1 - sinf(IdleMoveTime * 2.5f)) * SpinSpeed) + float4(300.0f, 0)); // 힐다베르그  8자 움직임
-
-	float degree = (IdleMoveTime * 2.5f) / GameEngineMath::PIE2 + GameEngineMath::PIE / 4;
-
-	if (LastShare < degree)
-	{
-		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
-		if (0 == (RandNum & 1))
-		{
-			CircleMove = 1;
-		}
-		else
-		{
-			CircleMove = -1;
-		}
-		LastShare = static_cast<int>(degree) + 1;
-	}
+	GetTransform()->SetLocalPosition(GetHildaMove(_DeltaTime) + float4(300.0f, 0));
 }
 void Taurus::Idle_End()
 {

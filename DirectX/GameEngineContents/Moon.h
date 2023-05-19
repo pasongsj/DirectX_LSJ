@@ -1,5 +1,5 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "HildaBoss.h"
 
 enum class MoonState
 {
@@ -11,7 +11,7 @@ enum class MoonState
 };
 
 // Ό³Έν :
-class Moon : public GameEngineActor
+class Moon : public HildaBoss
 {
 public:
 	// constrcuter destructer

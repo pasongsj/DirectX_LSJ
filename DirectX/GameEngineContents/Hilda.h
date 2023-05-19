@@ -1,5 +1,5 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "HildaBoss.h"
 
 enum class HildaState
 {
@@ -13,7 +13,7 @@ enum class HildaState
 };
 
 // Ό³Έν :
-class Hilda : public GameEngineActor
+class Hilda : public HildaBoss
 {
 public:
 	// constrcuter destructer
@@ -26,6 +26,11 @@ public:
 	Hilda& operator=(const Hilda& _Other) = delete;
 	Hilda& operator=(Hilda&& _Other) noexcept = delete;
 
+	inline void SetHildaPhase(int _Phase)
+	{
+		Phase = _Phase;
+	}
+
 protected:
 
 	void Start() override;
@@ -34,12 +39,12 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Boss = nullptr;
+	int Phase = 1; 
 
 	// idle
-	int CircleMove = 1;
-	int LastShare = -1;
-	float SpinSpeed = 100.0f;
-	float IdleMoveTime = 0.0f;
+	
+	// attack
+	float AttackInterval = 5.0f;
 	
 	//changephase
 	bool isDashBackTurn = false;

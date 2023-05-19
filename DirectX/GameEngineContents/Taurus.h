@@ -1,5 +1,5 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "HildaBoss.h"
 
 enum class TaurusState
 {
@@ -11,7 +11,7 @@ enum class TaurusState
 
 
 // Ό³Έν :
-class Taurus : public GameEngineActor
+class Taurus : public HildaBoss
 {
 public:
 	// constrcuter destructer
@@ -33,11 +33,6 @@ private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> Boss = nullptr;
 
-	int CircleMove = 1;
-	int LastShare = -1;
-
-	float SpinSpeed = 100.0f;
-	float IdleMoveTime = 0.0f;
 	float AttackInterval = 5.0f;
 
 	TaurusState CurState = TaurusState::IDLE;

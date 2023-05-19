@@ -21,7 +21,7 @@ protected:
 
 private:
 
-	std::shared_ptr<GameEngineActor> Boss = nullptr;
+	std::shared_ptr<class HildaBoss> Boss = nullptr;
 	int Phase = 0;
 
 };

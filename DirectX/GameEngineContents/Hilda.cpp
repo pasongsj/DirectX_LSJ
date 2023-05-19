@@ -44,6 +44,7 @@ void Hilda::MakeSprite()
 																				
 void Hilda::Start()																
 {
+	SetPhase(1);
 	MakeSprite();
 	// 랜더러 설정				
 

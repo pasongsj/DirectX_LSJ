@@ -36,9 +36,6 @@
     <ClInclude Include="Gemini.h">
       <Filter>Object\HildaBerg\Boss\Gemini</Filter>
     </ClInclude>
-    <ClInclude Include="GeminiObject.h">
-      <Filter>Object\HildaBerg\Boss\Gemini</Filter>
-    </ClInclude>
     <ClInclude Include="GeminiOrb.h">
       <Filter>Object\HildaBerg\Boss\Gemini</Filter>
     </ClInclude>
@@ -94,6 +91,9 @@
     <ClInclude Include="HildaBergBack2.h">
       <Filter>Object\HildaBerg\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="HildaBoss.h">
+      <Filter>Object\HildaBerg\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -135,9 +135,6 @@
       <Filter>Object\HildaBerg\Boss</Filter>
     </ClCompile>
     <ClCompile Include="Gemini.cpp">
-      <Filter>Object\HildaBerg\Boss\Gemini</Filter>
-    </ClCompile>
-    <ClCompile Include="GeminiObject.cpp">
       <Filter>Object\HildaBerg\Boss\Gemini</Filter>
     </ClCompile>
     <ClCompile Include="GeminiOrb.cpp">
@@ -196,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="HildaBergBack2.cpp">
       <Filter>Object\HildaBerg\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBoss.cpp">
+      <Filter>Object\HildaBerg\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

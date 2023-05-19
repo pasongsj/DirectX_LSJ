@@ -1,5 +1,5 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "HildaBoss.h"
 
 enum class GeminiState 
 {
@@ -9,7 +9,7 @@ enum class GeminiState
 };
 
 // Ό³Έν :
-class Gemini : public GameEngineActor
+class Gemini : public HildaBoss
 {
 public:
 	// constrcuter destructer
@@ -22,6 +22,8 @@ public:
 	Gemini& operator=(const Gemini& _Other) = delete;
 	Gemini& operator=(Gemini&& _Other) noexcept = delete;
 
+	//void BossDeath() override;
+
 protected:
 
 	void Start() override;
@@ -29,16 +31,10 @@ protected:
 	void Render(float _DletaTime) override;
 
 private:
-	//std::shared_ptr<class GameEngineSpriteRenderer> BossA;
-	//std::shared_ptr<class GameEngineSpriteRenderer> BossB;
-	std::shared_ptr<class GeminiObject> BossA = nullptr;
-	std::shared_ptr<class GeminiObject> BossB = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> BossA = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> BossB = nullptr;
 
-	int CircleMove = 1;
-	int LastShare = -1;
-	float SpinSpeed = 100.0f;
-	float IdleMoveTime = 0.0f;
-	bool isAttack = false;
+	bool isOrbIntroEnd = false;
 
 	GeminiState CurState = GeminiState::IDLE;
 	GeminiState NextState = GeminiState::IDLE;
@@ -57,6 +53,6 @@ private:
 	std::function<void(float)> UpdateFuncPtr[static_cast<int>(GeminiState::MAX)];
 	std::function<void()> EndFuncPtr[static_cast<int>(GeminiState::MAX)];
 	
-	std::shared_ptr< class GeminiOrb> Orb = nullptr;
+	std::shared_ptr< class GameEngineSpriteRenderer> Orb = nullptr;
 };
 

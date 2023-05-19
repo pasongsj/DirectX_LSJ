@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include "HildaBoss.h"
 
 
 enum class SagittariusState
@@ -11,7 +12,7 @@ enum class SagittariusState
 };
 
 // Ό³Έν :
-class Sagittarius : public GameEngineActor
+class Sagittarius : public HildaBoss
 {
 public:
 	// constrcuter destructer
@@ -36,11 +37,6 @@ private:
 
 	bool isShoot = false;
 
-	int CircleMove = 1;
-	int LastShare = -1;
-
-	float SpinSpeed = 100.0f;
-	float IdleMoveTime = 0.0f;
 	float AttackInterval = 5.0f;
 
 	SagittariusState CurState = SagittariusState::IDLE;

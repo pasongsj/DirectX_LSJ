@@ -2,10 +2,9 @@
 #include "Gemini.h"
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
-#include "GeminiOrb.h"
 #include <GameEngineCore/GameEngineLevel.h>
 
-#include "GeminiObject.h"
+#include "GeminiOrb.h"
 
 Gemini::Gemini() 
 {
@@ -17,21 +16,25 @@ Gemini::~Gemini()
 
 void Gemini::Start()
 {
-	BossA = GetLevel()->CreateActor<GeminiObject>(CupHeadActorOrder::Boss);
-	BossA->GetTransform()->SetLocalPosition(float4(100, 0));
-	BossA->ChangeGeminiAnimation("Idle");
-	BossA->SetGeminiController(DynamicThis<GameEngineActor>());
+	SetPhase(4);
 
-	//BossA->GetTransform()->SetParent(GetTransform());
-
-	BossB = GetLevel()->CreateActor<GeminiObject>(CupHeadActorOrder::Boss);
-	BossB->GetTransform()->SetLocalPosition(float4(-100, 0));
-	BossB->ChangeGeminiAnimation("Idle", 15);
-	BossB->SetGeminiController(DynamicThis<GameEngineActor>());
-
-	//BossB->GetTransform()->SetParent(GetTransform());
-
+	BossA = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	BossA->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	BossA->CreateAnimation({ .AnimationName = "AttackA",  .SpriteName = "Gemini_AttackA",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossA->ChangeAnimation("Idle");
 	
+	
+	Orb = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	Orb->CreateAnimation({ .AnimationName = "IdleIntro",  .SpriteName = "Orb_Idle_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Orb->CreateAnimation({ .AnimationName = "IdleLoop",  .SpriteName = "Orb_Idle_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	Orb->CreateAnimation({ .AnimationName = "IdleLeave",  .SpriteName = "Orb_Idle_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Orb->ChangeAnimation("IdleIntro");
+	Orb->GetTransform()->SetLocalPosition(float4(0, -45));
+	
+	BossB = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	BossB->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	BossB->CreateAnimation({ .AnimationName = "AttackB",  .SpriteName = "Gemini_AttackB",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossB->ChangeAnimation("Idle", true, 15);
 
 
 	//FSM
@@ -46,9 +49,6 @@ void Gemini::Start()
 	UpdateFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_End, this);
 
-	Orb = GetLevel()->CreateActor<GeminiOrb>(2);
-	Orb->SetGeminiController(DynamicThis<GameEngineActor>());
-	//Orb->GetTransform()->SetParent(GetTransform());
 }
 
 void Gemini::Update(float _DeltaTime)
@@ -86,47 +86,32 @@ void Gemini::UpdateState(float _DeltaTime)
 }
 
 
+// fsm
 void Gemini::Idle_Start()
 {
-	BossA->ChangeGeminiAnimation("Idle");
-	BossB->ChangeGeminiAnimation("Idle",15);
+	BossA->ChangeAnimation("Idle");
+	BossB->ChangeAnimation("Idle", true, 15);
+	isOrbIntroEnd = false;
 }
 
 void Gemini::Idle_Update(float _DeltaTime)
 {
-	IdleMoveTime += _DeltaTime;
 
-
-	float4 MoveVec = float4(cosf(IdleMoveTime * 2.5f) * SpinSpeed, CircleMove * (1 - sinf(IdleMoveTime * 2.5f)) * SpinSpeed) + float4(300.0f, 0);
-	//GetTransform()->SetLocalPosition(float4(cosf(IdleMoveTime * 2.5f) * SpinSpeed, CircleMove * (1 - sinf(IdleMoveTime * 2.5f)) * SpinSpeed) + float4(300.0f, 0)); // 힐다베르그  8자 움직임
-
-	float degree = (IdleMoveTime * 2.5f) / GameEngineMath::PIE2 + GameEngineMath::PIE / 4;
-
-	if (LastShare < degree)
-	{
-		int RandNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
-		if (0 == (RandNum & 1))
-		{
-			CircleMove = 1;
-		}
-		else
-		{
-			CircleMove = -1;
-		}
-		LastShare = static_cast<int>(degree) + 1;
-	}
-
+	float4 MoveVec = GetHildaMove(_DeltaTime) + float4(300.0f, 0);
+	GetTransform()->SetLocalPosition(MoveVec);
+	
 	//y축 회전 + y축 진동
 	//x=acosθy=bsinθ
 
 	float SpinTime = -GetLiveTime() * 4;
-	BossA->GetTransform()->SetLocalPosition(MoveVec + float4(100 * cosf(SpinTime), -50 * sinf(SpinTime)/*, -1-sinf(SpinTime)*/));
-	BossB->GetTransform()->SetLocalPosition(MoveVec + float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime)/*, -1+sinf(SpinTime)*/));
-	if (false == Orb->IsAttack())
+	BossA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime)/*, -1-sinf(SpinTime)*/));
+	BossB->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime)/*, -1+sinf(SpinTime)*/));
+
+	if (false == isOrbIntroEnd && Orb->IsAnimationEnd())
 	{
-		Orb->GetTransform()->SetLocalPosition(MoveVec +float4(0,-45));
+		isOrbIntroEnd = true;
+		Orb->ChangeAnimation("IdleLoop");
 	}
-	// A > B
 	if (-sinf(SpinTime) > sinf(SpinTime))
 	{
 		BossA->SetOrder(1);
@@ -138,9 +123,6 @@ void Gemini::Idle_Update(float _DeltaTime)
 		BossB->SetOrder(1);
 
 	}
-	//// 랜더 순서를 변경하기 위해 setorder
-	//BossA->SetOrder(static_cast<int>(-10*sinf(SpinTime)));
-	//BossB->SetOrder(static_cast<int>(10 * sinf(SpinTime)));
 
 	if (false == isAttack && GetLiveTime() > 5.6f)
 	{
@@ -156,21 +138,27 @@ void Gemini::Idle_End()
 
 void Gemini::Attack_Start()
 {
-	BossA->ChangeGeminiAnimation("AttackA");
-	BossB->ChangeGeminiAnimation("AttackB");
+	BossA->ChangeAnimation("AttackA");
+	BossB->ChangeAnimation("AttackB");
+	Orb->ChangeAnimation("IdleLeave");
 	isAttack = true;
-	Orb->Attack();
 }
 
 void Gemini::Attack_Update(float _DeltaTime)
 {
-	if (true == BossA->isGeminiAnimationEnd())
+	if (true == BossA->IsAnimationEnd())
 	{
 		NextState = GeminiState::IDLE;
+	}
+	if (true == Orb->IsAnimationEnd())
+	{
+		Orb->Death();
 	}
 }
 
 void Gemini::Attack_End()
 {
+		std::shared_ptr<GeminiOrb> AttackOrb = GetLevel()->CreateActor<GeminiOrb>(CupHeadActorOrder::Enemy);
+		AttackOrb->GetTransform()->SetLocalPosition(float4(-300, 0));
 
 }

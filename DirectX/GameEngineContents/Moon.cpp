@@ -41,6 +41,7 @@ void Moon::MakeSprite()
 
 void Moon::Start()
 {
+	SetPhase(6);
 	MakeSprite();
 	Boss = CreateComponent<GameEngineSpriteRenderer>();
 	Boss->CreateAnimation({ .AnimationName = "Intro0",  .SpriteName = "Moon_Intro0", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });

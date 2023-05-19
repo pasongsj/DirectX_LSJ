@@ -2,13 +2,6 @@
 #include <GameEngineCore/GameEngineActor.h>
 // Ό³Έν :
 
-enum class OrbState
-{
-	IDLE,
-	ATTACK,
-	MAX
-};
-
 class GeminiOrb : public GameEngineActor
 {
 public:
@@ -22,19 +15,6 @@ public:
 	GeminiOrb& operator=(const GeminiOrb& _Other) = delete;
 	GeminiOrb& operator=(GeminiOrb&& _Other) noexcept = delete;
 
-	void Attack()
-	{
-		isAttack = true;
-	}
-
-	bool IsAttack() {
-		return isAttack;
-	}
-
-	void SetGeminiController(std::shared_ptr<GameEngineActor> _Ptr)
-	{
-		GeminiController = _Ptr;
-	}
 
 protected:
 	void Start() override;
@@ -44,36 +24,13 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Orb = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> OrbAttackEffect = nullptr;
 
-	std::shared_ptr<GameEngineActor> GeminiController = nullptr;
-
-	OrbState CurState = OrbState::IDLE;
-	OrbState NextState = OrbState::IDLE;
-
 	bool isLoop = false;
-	bool isAttack = false;
-	bool isLeaveAnimation = false;
+	bool isEnd = false;
 	
-	float StateChangeInterval = 1.0f;
 	float ScatterInterval = 0.12f;
 
 	void MakeSprite();
 
-	void UpdateState(float _DeltaTime);
-
-	//	IDLE,
-	//	ATTACK,
-	void Idle_Start();
-	void Idle_Update(float _DeltaTime);
-	void Idle_End();
-
-	void Attack_Start();
-	void Attack_Update(float _DeltaTime);
-	void Attack_End();
-
-
-	std::function<void()> StartFuncPtr[static_cast<int>(OrbState::MAX)];
-	std::function<void(float)> UpdateFuncPtr[static_cast<int>(OrbState::MAX)];
-	std::function<void()> EndFuncPtr[static_cast<int>(OrbState::MAX)];
 
 
 	
