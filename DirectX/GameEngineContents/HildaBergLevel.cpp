@@ -12,8 +12,10 @@
 
 
 // BackGround
-#include "HildaBergBack1.h"
 #include "HildaBergBack0.h"
+#include "HildaBergBack1.h"
+#include "HildaBergBack2.h"
+#include "HildaBergBack3.h"
 
 // Player
 #include "PlayerAirPlaneMode.h"
@@ -147,6 +149,8 @@ void HildaBergLevel::LevelChangeStart()
 
 	CreateActor<HildaBergBack0>(CupHeadActorOrder::BackGround);
 	CreateActor<HildaBergBack1>(CupHeadActorOrder::BackGround);
+	CreateActor<HildaBergBack2>(CupHeadActorOrder::BackGround);
+	//CreateActor<HildaBergBack3>(CupHeadActorOrder::BackGround);
 	//CreateActor<PlayerAirPlaneSmokeEffect>(CupHeadActorOrder::PlayerEffect);
 
 

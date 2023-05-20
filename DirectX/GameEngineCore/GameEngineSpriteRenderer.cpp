@@ -113,6 +113,11 @@ void GameEngineSpriteRenderer::SetTexture(const std::string_view& _Name)
 	GetShaderResHelper().SetTexture("DiffuseTex", _Name);
 }
 
+void GameEngineSpriteRenderer::SetTexture(std::shared_ptr<GameEngineTexture> _Texture)
+{
+	GetShaderResHelper().SetTexture("DiffuseTex", _Texture);
+}
+
 void GameEngineSpriteRenderer::SetFlipX()
 {
 	float4 LocalScale = GetTransform()->GetLocalScale();
@@ -139,6 +144,13 @@ void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name)
 	}
 
 	float4 Scale = float4(static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()), 1);
+	GetTransform()->SetLocalScale(Scale);
+}
+void GameEngineSpriteRenderer::SetScaleToTexture(std::shared_ptr<GameEngineTexture> _Texture)
+{
+	GetShaderResHelper().SetTexture("DiffuseTex", _Texture);
+
+	float4 Scale = _Texture->GetScale() + float4(0,0,1);
 	GetTransform()->SetLocalScale(Scale);
 }
 

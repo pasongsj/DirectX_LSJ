@@ -19,9 +19,10 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
-
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> MainHill = nullptr;
-	std::shared_ptr<class GameEngineSpriteRenderer> SubHill = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> MainGround = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> SubGround = nullptr;
+	int BGRange = 0;
+	int BGLimit = 0;
 };
 

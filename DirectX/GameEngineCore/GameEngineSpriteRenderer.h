@@ -80,8 +80,10 @@ public:
 	GameEngineSpriteRenderer& operator=(GameEngineSpriteRenderer&& _Other) noexcept = delete;
 
 	void SetScaleToTexture(const std::string_view& _Name);
+	void SetScaleToTexture(std::shared_ptr<GameEngineTexture> _Texture);
 
 	void SetTexture(const std::string_view& _Name);
+	void SetTexture(std::shared_ptr<GameEngineTexture> _Texture);
 
 	void SetScaleRatio(float _Ratio)
 	{

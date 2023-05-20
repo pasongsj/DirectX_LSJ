@@ -85,7 +85,7 @@
     <ClInclude Include="HildaBergBack0.h">
       <Filter>Object\HildaBerg\BackGround</Filter>
     </ClInclude>
-    <ClInclude Include="HildaBergBack2.h">
+    <ClInclude Include="HildaBergBack3.h">
       <Filter>Object\HildaBerg\BackGround</Filter>
     </ClInclude>
     <ClInclude Include="HildaBoss.h">
@@ -93,6 +93,9 @@
     </ClInclude>
     <ClInclude Include="PlayerAirPlaneSmokeEffect.h">
       <Filter>Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaBergBack2.h">
+      <Filter>Object\HildaBerg\BackGround</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +191,7 @@
     <ClCompile Include="HildaBergBack0.cpp">
       <Filter>Object\HildaBerg\BackGround</Filter>
     </ClCompile>
-    <ClCompile Include="HildaBergBack2.cpp">
+    <ClCompile Include="HildaBergBack3.cpp">
       <Filter>Object\HildaBerg\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="HildaBoss.cpp">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="PlayerAirPlaneSmokeEffect.cpp">
       <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBergBack2.cpp">
+      <Filter>Object\HildaBerg\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

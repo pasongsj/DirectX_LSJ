@@ -14,18 +14,19 @@ HildaBergBack0::~HildaBergBack0()
 
 void HildaBergBack0::Start()
 {
-	MainBack = CreateComponent<GameEngineSpriteRenderer>();
+
+	MainBack = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	MainBack->SetScaleToTexture("blimp_sky.png");
 
 	BGRange = MainBack->GetTransform()->GetLocalScale().ix();
 
-	SubBack = CreateComponent<GameEngineSpriteRenderer>();
+	SubBack = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	SubBack->SetScaleToTexture("blimp_sky.png");
 	SubBack->GetTransform()->SetLocalPosition(MainBack->GetTransform()->GetLocalPosition() + float4(static_cast<float>(BGRange), 0));
 
 	BGLimit = (BGRange - GameEngineWindow::GetScreenSize().ix()) / 2;
 
-	GetTransform()->AddLocalPosition(float4(0, 0, 100));
+	GetTransform()->SetLocalPosition(float4(0, 0, 500));
 
 }
 
@@ -53,11 +54,11 @@ void HildaBergBack0::Update(float _DeltaTime)
 
 	float4 NextBGPos = MainBack->GetTransform()->GetLocalPosition();
 
-	if (CamX - WorldBGPos.ix() > BGLimit)
+	if (CamX - WorldBGPos.ix() > BGLimit) // 오른쪽으로
 	{
 		NextBGPos.x += BGRange;
 	}
-	else if (CamX - WorldBGPos.ix() < -BGLimit) {
+	else if (CamX - WorldBGPos.ix() < -BGLimit) { // 왼쪽으로
 		NextBGPos.x -= BGRange;
 	}
 
