@@ -20,15 +20,12 @@ void HildaBergBack1::Start()
 
 	MainHill= CreateComponent<GameEngineSpriteRenderer>();
 	MainHill->SetScaleToTexture("blimp_dark_hills.png");
-	MainHill->GetTransform()->SetLocalPosition( float4(0,-WindowSize.hy()+ MainHill->GetTransform()->GetLocalScale().hy()));
-
-	HillRange = MainHill->GetTransform()->GetLocalScale().ix();
+	MainHill->GetTransform()->SetLocalPosition( float4(0,-WindowSize.hy()+ MainHill->GetTransform()->GetLocalScale().hy() - 30));
 
 	SubHill	= CreateComponent<GameEngineSpriteRenderer>();
 	SubHill->SetScaleToTexture("blimp_dark_hills.png");
-	SubHill->GetTransform()->SetLocalPosition(MainHill->GetTransform()->GetLocalPosition() + float4(static_cast<float>(HillRange)-70, 0));
+	SubHill->GetTransform()->SetLocalPosition(float4(MainHill->GetTransform()->GetLocalScale().x , MainHill->GetTransform()->GetLocalPosition().y));
 
-	HillLimit = (HillRange - GameEngineWindow::GetScreenSize().ix()) / 2;
 
 	GetTransform()->AddLocalPosition(float4(0, 0, 400));
 }
@@ -38,37 +35,31 @@ void HildaBergBack1::Update(float _DeltaTime)
 
 	GetTransform()->AddLocalPosition(float4(-100 * _DeltaTime, 0));
 
+
+
 	if (nullptr == GetLevel()->GetMainCamera())
 	{
 		MsgAssert("카메라를 가져오지 못했습니다");
 		return;
 	}
-	int CamX = (GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition()).ix();
+	float CamX = (GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition()).x;
+	float4 ScreenSize = GameEngineWindow::GetScreenSize();
 
-	// MainHill과 SubHill을 교체해주는 작업
-	if ((SubHill->GetTransform()->GetWorldPosition().ix() - HillRange / 2) < CamX && CamX < (SubHill->GetTransform()->GetWorldPosition().ix() + HillRange / 2)) {
-
-		std::shared_ptr<class GameEngineSpriteRenderer> tempHill = MainHill;
-		MainHill = SubHill;
-		SubHill = tempHill;
-		tempHill = nullptr;
-	}
-
-
-
-
-	float4 WorldHillPos = MainHill->GetTransform()->GetWorldPosition();
-
-	float4 NextHillPos = MainHill->GetTransform()->GetLocalPosition();
-	if (CamX - WorldHillPos.ix() > HillLimit)
+	//메인 배경의 오른쪽 끝이 화면 안으로 들어가는 경우
+	if (MainHill->GetTransform()->GetWorldPosition().x + MainHill->GetTransform()->GetLocalScale().hx() < CamX + ScreenSize.hx())
 	{
-		NextHillPos.x += HillRange;
-	}
-	else if (CamX - WorldHillPos.ix() < -HillLimit) {
-		NextHillPos.x -= HillRange;
+		// 메인배경과 서브배경을 교체해준다.
+		std::shared_ptr<class GameEngineSpriteRenderer> tempBG = MainHill;
+		MainHill = SubHill;
+		SubHill = tempBG;
+		tempBG = nullptr;
 	}
 
-	if (NextHillPos != SubHill->GetTransform()->GetLocalPosition()) {
-		SubHill->GetTransform()->SetLocalPosition(NextHillPos);
+	// 서브 배경의 오른쪽 끝이 화면밖으로 나가는 경우
+	else if (SubHill->GetTransform()->GetWorldPosition().x + SubHill->GetTransform()->GetLocalScale().hx() < CamX - ScreenSize.hx())
+	{
+		SubHill->GetTransform()->AddLocalPosition(float4(MainHill->GetTransform()->GetLocalScale().x + SubHill->GetTransform()->GetLocalScale().x, 0));
 	}
+
+	
 }

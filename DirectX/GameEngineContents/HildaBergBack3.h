@@ -24,14 +24,9 @@ protected:
 private:
 	std::queue< std::shared_ptr<class GameEngineSpriteRenderer>> LargeHill;
 
+	float IntervalX = 0.0f;
 
-	int LastX = 0;
+	float SettingX = 0.0f;
 
-	int BGRange = 0;
-	int BGLimit = 0;
-
-	int TextureIndex = 0;
-
-	void SetNextBackGround();
 };
 

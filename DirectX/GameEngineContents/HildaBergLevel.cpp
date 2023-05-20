@@ -150,7 +150,7 @@ void HildaBergLevel::LevelChangeStart()
 	CreateActor<HildaBergBack0>(CupHeadActorOrder::BackGround);
 	CreateActor<HildaBergBack1>(CupHeadActorOrder::BackGround);
 	CreateActor<HildaBergBack2>(CupHeadActorOrder::BackGround);
-	//CreateActor<HildaBergBack3>(CupHeadActorOrder::BackGround);
+	CreateActor<HildaBergBack3>(CupHeadActorOrder::BackGround);
 	//CreateActor<PlayerAirPlaneSmokeEffect>(CupHeadActorOrder::PlayerEffect);
 
 

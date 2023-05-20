@@ -18,13 +18,11 @@ void HildaBergBack0::Start()
 	MainBack = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	MainBack->SetScaleToTexture("blimp_sky.png");
 
-	BGRange = MainBack->GetTransform()->GetLocalScale().ix();
 
 	SubBack = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	SubBack->SetScaleToTexture("blimp_sky.png");
-	SubBack->GetTransform()->SetLocalPosition(MainBack->GetTransform()->GetLocalPosition() + float4(static_cast<float>(BGRange), 0));
+	SubBack->GetTransform()->SetLocalPosition(float4(MainBack->GetTransform()->GetLocalScale().x, 0));
 
-	BGLimit = (BGRange - GameEngineWindow::GetScreenSize().ix()) / 2;
 
 	GetTransform()->SetLocalPosition(float4(0, 0, 500));
 
@@ -39,31 +37,24 @@ void HildaBergBack0::Update(float _DeltaTime)
 		MsgAssert("카메라를 가져오지 못했습니다");
 		return;
 	}
-	int CamX = (GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition()).ix();
+	float CamX = (GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition()).x;
+	float4 ScreenSize = GameEngineWindow::GetScreenSize();
 
-	// MainBG와 SubBG를 교체해주는 작업
-	if ((SubBack->GetTransform()->GetWorldPosition().ix() - BGRange / 2) < CamX && CamX < (SubBack->GetTransform()->GetWorldPosition().ix() + BGRange / 2)) {
-
+	//메인 배경의 오른쪽 끝이 화면 안으로 들어가는 경우
+	if (MainBack->GetTransform()->GetWorldPosition().x + MainBack->GetTransform()->GetLocalScale().hx() < CamX + ScreenSize.hx())
+	{
+		// 메인배경과 서브배경을 교체해준다.
 		std::shared_ptr<class GameEngineSpriteRenderer> tempBG = MainBack;
 		MainBack = SubBack;
 		SubBack = tempBG;
 		tempBG = nullptr;
 	}
 
-	float4 WorldBGPos = MainBack->GetTransform()->GetWorldPosition();
-
-	float4 NextBGPos = MainBack->GetTransform()->GetLocalPosition();
-
-	if (CamX - WorldBGPos.ix() > BGLimit) // 오른쪽으로
+	// 서브 배경의 오른쪽 끝이 화면밖으로 나가는 경우
+	else if (SubBack->GetTransform()->GetWorldPosition().x + SubBack->GetTransform()->GetLocalScale().hx() < CamX - ScreenSize.hx())
 	{
-		NextBGPos.x += BGRange;
-	}
-	else if (CamX - WorldBGPos.ix() < -BGLimit) { // 왼쪽으로
-		NextBGPos.x -= BGRange;
+		SubBack->GetTransform()->AddLocalPosition(float4(MainBack->GetTransform()->GetLocalScale().x + SubBack->GetTransform()->GetLocalScale().x, 0));
 	}
 
-	if (NextBGPos != SubBack->GetTransform()->GetLocalPosition()) {
-		SubBack->GetTransform()->SetLocalPosition(NextBGPos);
-	}
 
 }

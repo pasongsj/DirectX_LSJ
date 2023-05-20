@@ -19,13 +19,13 @@ void HildaBergBack2::Start()
 
 	MainGround = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	MainGround->SetScaleToTexture("blimp_main_ground_0001.png");
-	MainGround->GetTransform()->SetLocalPosition(float4(0,-WindowSize.hy()+ MainGround->GetTransform()->GetLocalScale().hy()));
+	MainGround->GetTransform()->SetLocalPosition(float4(0,-WindowSize.hy()+ MainGround->GetTransform()->GetLocalScale().hy()-10));
 
 	BGRange = MainGround->GetTransform()->GetLocalScale().ix();
 
 	SubGround = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	SubGround->SetScaleToTexture("blimp_main_ground_0002.png");
-	SubGround->GetTransform()->SetLocalPosition(float4(static_cast<float>(BGRange), -WindowSize.hy() + SubGround->GetTransform()->GetLocalScale().hy()));
+	SubGround->GetTransform()->SetLocalPosition(float4(static_cast<float>(BGRange), -WindowSize.hy() + SubGround->GetTransform()->GetLocalScale().hy()-10));
 
 	BGLimit = (BGRange - GameEngineWindow::GetScreenSize().ix()) / 2;
 
@@ -37,36 +37,29 @@ void HildaBergBack2::Update(float _DeltaTime)
 {
 	GetTransform()->AddLocalPosition(float4(-200 * _DeltaTime, 0));
 
+
 	if (nullptr == GetLevel()->GetMainCamera())
 	{
 		MsgAssert("카메라를 가져오지 못했습니다");
 		return;
 	}
-	int CamX = (GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition()).ix();
+	float CamX = (GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition()).x;
+	float4 ScreenSize = GameEngineWindow::GetScreenSize();
 
-	// MainBG와 SubBG를 교체해주는 작업
-	if ((SubGround->GetTransform()->GetWorldPosition().ix() - BGRange / 2) < CamX && CamX < (SubGround->GetTransform()->GetWorldPosition().ix() + BGRange / 2)) {
-
+	//메인 배경의 오른쪽 끝이 화면 안으로 들어가는 경우
+	if (MainGround->GetTransform()->GetWorldPosition().x + MainGround->GetTransform()->GetLocalScale().hx() < CamX + ScreenSize.hx())
+	{
+		// 메인배경과 서브배경을 교체해준다.
 		std::shared_ptr<class GameEngineSpriteRenderer> tempBG = MainGround;
 		MainGround = SubGround;
 		SubGround = tempBG;
 		tempBG = nullptr;
 	}
 
-	float4 WorldBGPos = MainGround->GetTransform()->GetWorldPosition();
-
-	float4 NextBGPos = MainGround->GetTransform()->GetLocalPosition();
-
-	if (CamX - WorldBGPos.ix() > BGLimit)
+	// 서브 배경의 오른쪽 끝이 화면밖으로 나가는 경우
+	else if (SubGround->GetTransform()->GetWorldPosition().x + SubGround->GetTransform()->GetLocalScale().hx() < CamX - ScreenSize.hx())
 	{
-		NextBGPos.x += BGRange;
-	}
-	else if (CamX - WorldBGPos.ix() < -BGLimit) {
-		NextBGPos.x -= BGRange;
-	}
-
-	if (NextBGPos.x != SubGround->GetTransform()->GetLocalPosition().x) {
-		SubGround->GetTransform()->SetLocalPosition(NextBGPos);
+		SubGround->GetTransform()->AddLocalPosition(float4(MainGround->GetTransform()->GetLocalScale().x + SubGround->GetTransform()->GetLocalScale().x, 0));
 	}
 
 }

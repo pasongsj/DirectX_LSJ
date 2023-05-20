@@ -22,8 +22,6 @@ protected:
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> MainBack = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> SubBack = nullptr;
-	int BGRange = 0;
-	int BGLimit = 0;
 
 };
 
