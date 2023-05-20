@@ -29,7 +29,7 @@ void Gemini::Start()
 	Orb->CreateAnimation({ .AnimationName = "IdleLoop",  .SpriteName = "Orb_Idle_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	Orb->CreateAnimation({ .AnimationName = "IdleLeave",  .SpriteName = "Orb_Idle_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Orb->ChangeAnimation("IdleIntro");
-	Orb->GetTransform()->SetLocalPosition(float4(0, -45));
+	Orb->GetTransform()->SetLocalPosition(float4(0, -45,-1));
 	
 	BossB = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
 	BossB->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
@@ -48,6 +48,7 @@ void Gemini::Start()
 	StartFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_Start, this);
 	UpdateFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_End, this);
+
 
 }
 
@@ -100,24 +101,13 @@ void Gemini::Idle_Update(float _DeltaTime)
 	//x=acos¥èy=bsin¥è
 
 	float SpinTime = -GetLiveTime() * 4;
-	BossA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime)/*, -1-sinf(SpinTime)*/));
-	BossB->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime)/*, -1+sinf(SpinTime)*/));
+	BossA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -1-sinf(SpinTime)));
+	BossB->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), -1+sinf(SpinTime)));
 
 	if (false == isOrbIntroEnd && Orb->IsAnimationEnd())
 	{
 		isOrbIntroEnd = true;
 		Orb->ChangeAnimation("IdleLoop");
-	}
-	if (-sinf(SpinTime) > sinf(SpinTime))
-	{
-		BossA->SetOrder(1);
-		BossB->SetOrder(3);
-	}
-	else
-	{
-		BossA->SetOrder(3);
-		BossB->SetOrder(1);
-
 	}
 
 	if (false == isAttack && GetLiveTime() > 5.6f)

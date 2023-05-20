@@ -51,6 +51,7 @@ void HildaBergLevel::Start()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	//GetMainCamera()->SetProjectionType(CameraType::Perspective);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+	GetMainCamera()->isZsort = true;
 
 	if (false == GameEngineInput::IsKey("NextBoss"))
 	{
@@ -122,7 +123,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 		}
 	}
 
-	if (true == GameEngineInput::IsDown("NextBoss") && nullptr != Boss)
+	if (nullptr != Boss && true == GameEngineInput::IsDown("NextBoss"))
 	{
 		Boss->Death();
 		Boss = nullptr;
@@ -151,7 +152,7 @@ void HildaBergLevel::LevelChangeStart()
 	CreateActor<HildaBergBack1>(CupHeadActorOrder::BackGround);
 	CreateActor<HildaBergBack2>(CupHeadActorOrder::BackGround);
 	CreateActor<HildaBergBack3>(CupHeadActorOrder::BackGround);
-	//CreateActor<PlayerAirPlaneSmokeEffect>(CupHeadActorOrder::PlayerEffect);
+	CreateActor<PlayerAirPlaneSmokeEffect>(CupHeadActorOrder::PlayerEffect);
 
 
 

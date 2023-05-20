@@ -5,6 +5,7 @@
 #include "GameEngineDevice.h"
 #include "GameEngineRenderer.h"
 #include "GameEngineRenderTarget.h"
+#include <algorithm>
 
 GameEngineCamera::GameEngineCamera()
 {
@@ -156,6 +157,10 @@ void GameEngineCamera::Render(float _DeltaTime)
 	{
 		std::list<std::shared_ptr<GameEngineRenderer>>& RenderGroup = RenderGroupStartIter->second;
 
+		if (isZsort == true)
+		{
+			RenderGroup.sort([](const std::shared_ptr<GameEngineRenderer>& _A, const std::shared_ptr<GameEngineRenderer>& _B) {return _A->GetTransform()->GetLocalPosition().z > _B->GetTransform()->GetLocalPosition().z; });
+		}
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator StartRenderer = RenderGroup.begin();
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator EndRenderer = RenderGroup.end();
 

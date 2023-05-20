@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "GameEngineObject.h"
 
+//bool GameEngineObject::isZsort = false;
 GameEngineObject::GameEngineObject()
 {
 	Transform.SetMaster(this);
