@@ -22,7 +22,5 @@ protected:
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> MainGround = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> SubGround = nullptr;
-	int BGRange = 0;
-	int BGLimit = 0;
 };
 

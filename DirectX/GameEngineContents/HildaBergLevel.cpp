@@ -35,6 +35,8 @@
 #include "ZepplingBullet.h"
 #include "PlayerAirPlaneSmokeEffect.h"
 
+// UI
+#include "PlayerUI.h"
 
 HildaBergLevel::HildaBergLevel() 
 {
@@ -51,7 +53,7 @@ void HildaBergLevel::Start()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	//GetMainCamera()->SetProjectionType(CameraType::Perspective);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-	GetMainCamera()->isZsort = true;
+	GetMainCamera()->SetZSortOn();
 
 	if (false == GameEngineInput::IsKey("NextBoss"))
 	{
@@ -72,7 +74,6 @@ void HildaBergLevel::Update(float _DeltaTime)
 
 	if (nullptr == Boss)
 	{
-		++Phase;
 		switch (Phase)
 		{
 		case 1:
@@ -127,6 +128,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 	{
 		Boss->Death();
 		Boss = nullptr;
+		++Phase;
 	}
 }
 
@@ -167,6 +169,7 @@ void HildaBergLevel::LevelChangeStart()
 	//std::shared_ptr<ZepplingBullet> NewMonster = CreateActor<ZepplingBullet>(CupHeadActorOrder::Enemy);
 	//std::shared_ptr<HildaBergBossController> NewBoss = CreateActor<HildaBergBossController>(CupHeadActorOrder::Boss);
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer7 = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
+	std::shared_ptr<PlayerUI> UI = CreateActor<PlayerUI>(CupHeadActorOrder::UI);
 }
 
 void HildaBergLevel::LevelChangeEnd()

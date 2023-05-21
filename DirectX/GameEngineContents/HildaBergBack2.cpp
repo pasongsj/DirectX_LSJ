@@ -21,13 +21,12 @@ void HildaBergBack2::Start()
 	MainGround->SetScaleToTexture("blimp_main_ground_0001.png");
 	MainGround->GetTransform()->SetLocalPosition(float4(0,-WindowSize.hy()+ MainGround->GetTransform()->GetLocalScale().hy()-10));
 
-	BGRange = MainGround->GetTransform()->GetLocalScale().ix();
-
 	SubGround = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	SubGround->SetScaleToTexture("blimp_main_ground_0002.png");
-	SubGround->GetTransform()->SetLocalPosition(float4(static_cast<float>(BGRange), -WindowSize.hy() + SubGround->GetTransform()->GetLocalScale().hy()-10));
 
-	BGLimit = (BGRange - GameEngineWindow::GetScreenSize().ix()) / 2;
+	float4 Pos = float4(MainGround->GetTransform()->GetLocalScale().hx() + SubGround->GetTransform()->GetLocalScale().hx(), -WindowSize.hy() + SubGround->GetTransform()->GetLocalScale().hy() - 10);
+	SubGround->GetTransform()->SetLocalPosition(Pos);
+
 
 	GetTransform()->AddLocalPosition(float4(0, 0, 300));
 

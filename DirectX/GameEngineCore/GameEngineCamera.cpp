@@ -157,7 +157,7 @@ void GameEngineCamera::Render(float _DeltaTime)
 	{
 		std::list<std::shared_ptr<GameEngineRenderer>>& RenderGroup = RenderGroupStartIter->second;
 
-		if (isZsort == true)
+		if (true == isZSort)
 		{
 			RenderGroup.sort([](const std::shared_ptr<GameEngineRenderer>& _A, const std::shared_ptr<GameEngineRenderer>& _B) {return _A->GetTransform()->GetLocalPosition().z > _B->GetTransform()->GetLocalPosition().z; });
 		}

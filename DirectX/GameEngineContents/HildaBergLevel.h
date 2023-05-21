@@ -28,7 +28,7 @@ private:
 
 	// º¸½º
 	std::shared_ptr<class HildaBoss> Boss = nullptr;
-	int Phase = 0;
+	int Phase = 1;
 
 };
 

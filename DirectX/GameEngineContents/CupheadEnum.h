@@ -14,7 +14,7 @@ enum class CupHeadCollisionOrder
 {
 	Enemy,
 	Player,
-	PlayerBullet,
+	PlayerWepaon,
 	UI,
 	MAX
 };

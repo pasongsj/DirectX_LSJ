@@ -42,7 +42,8 @@ void PeaShooter::Start()
 
 	Bullet->ChangeAnimation("Origin");
 
-	BulletCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::PlayerBullet);
+	BulletCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::PlayerWepaon);
+	BulletCollision->GetTransform()->SetLocalScale(Bullet->GetTransform()->GetLocalScale().half());
 }
 
 void PeaShooter::Update(float _DeltaTime)

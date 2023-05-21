@@ -29,6 +29,16 @@ public:
 	PlayerAirPlaneMode& operator=(const PlayerAirPlaneMode& _Other) = delete;
 	PlayerAirPlaneMode& operator=(PlayerAirPlaneMode&& _Other) noexcept = delete;
 
+	inline int GetHP()
+	{
+		return PlayerHP;
+	}
+	
+	inline int GetSuperModeEnergy()
+	{
+		return SuperModeEnergy;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -36,8 +46,12 @@ protected:
 
 private:
 
+	int PlayerHP = 3;
+	int SuperModeEnergy = 0;
+
 	float  MoveSpeed = 500.0f;
 	float4 MoveVec = float4::Zero;
+
 
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerRender = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> Spark = nullptr;

@@ -18,7 +18,6 @@ class GameEngineObject :
 
 public:
 
-	//static bool isZsort;
 	// constrcuter destructer
 	GameEngineObject();
 	// 소멸자에 virtual붙이는 이유 => 자식소멸자가 제대로 호출되게 하기 위해서
@@ -69,7 +68,6 @@ public:
 	bool IsDeath() override;
 	bool IsUpdate() override;
 
-	bool isZsort = false;
 
 
 protected:

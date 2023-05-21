@@ -62,6 +62,15 @@ public:
 
 	bool IsView(const TransformData& _TransData);
 
+	inline void SetZSortOn()
+	{
+		isZSort = true;
+	}
+
+	inline void SetZSortOff()
+	{
+		isZSort = false;
+	}
 
 protected:
 	void Start() override;
@@ -70,6 +79,7 @@ private:
 	std::map<int, std::list<std::shared_ptr<GameEngineRenderer>>> Renderers;
 
 	DirectX::BoundingOrientedBox Box;
+	bool isZSort = false;
 
 	bool FreeCamera = false;
 

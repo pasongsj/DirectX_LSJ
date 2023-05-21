@@ -97,6 +97,9 @@
     <ClInclude Include="HildaBergBack2.h">
       <Filter>Object\HildaBerg\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerUI.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -203,6 +206,9 @@
     <ClCompile Include="HildaBergBack2.cpp">
       <Filter>Object\HildaBerg\BackGround</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerUI.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -240,6 +246,9 @@
     </Filter>
     <Filter Include="Object\HildaBerg\BackGround">
       <UniqueIdentifier>{f69b685b-52d1-4860-89dc-11d186cc729d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\UI">
+      <UniqueIdentifier>{550ac69d-4a2d-4d6a-8149-f26dce75adc3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
