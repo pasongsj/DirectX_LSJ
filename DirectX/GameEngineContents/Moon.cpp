@@ -3,6 +3,7 @@
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 
 Moon::Moon()
@@ -43,21 +44,23 @@ void Moon::Start()
 {
 	SetPhase(6);
 	MakeSprite();
-	Boss = CreateComponent<GameEngineSpriteRenderer>();
-	Boss->CreateAnimation({ .AnimationName = "Intro0",  .SpriteName = "Moon_Intro0", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Intro1",  .SpriteName = "Moon_Intro1", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Intro2",  .SpriteName = "Moon_Intro2", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Intro3",  .SpriteName = "Moon_Intro3", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Intro4",  .SpriteName = "Moon_Intro4", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
+	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	BossRender->CreateAnimation({ .AnimationName = "Intro0",  .SpriteName = "Moon_Intro0", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Intro1",  .SpriteName = "Moon_Intro1", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Intro2",  .SpriteName = "Moon_Intro2", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Intro3",  .SpriteName = "Moon_Intro3", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Intro4",  .SpriteName = "Moon_Intro4", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
 
-	Boss->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Moon_Idle", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Attack_Intro",  .SpriteName = "Moon_Attack_Intro", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Moon_Attack", .FrameInter = 0.08f, .Loop = true ,.ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Attack_Outtro",  .SpriteName = "Moon_Attack_Outtro", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Death",  .SpriteName = "Moon_Death", .FrameInter = 0.08f, .Loop = true ,.ScaleToTexture = true });
-	Boss->ChangeAnimation("Intro0");
+	BossRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Moon_Idle", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Attack_Intro",  .SpriteName = "Moon_Attack_Intro", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Moon_Attack", .FrameInter = 0.08f, .Loop = true ,.ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Attack_Outtro",  .SpriteName = "Moon_Attack_Outtro", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Death",  .SpriteName = "Moon_Death", .FrameInter = 0.08f, .Loop = true ,.ScaleToTexture = true });
+	BossRender->ChangeAnimation("Intro0");
 
 
+	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	// 수정 필요 - 보스 콜리전을 어떻게 하지??
 
 
 	//FSM			
@@ -94,7 +97,7 @@ void Moon::Start()
 
 void Moon::Update(float _DeltaTime)
 {
-	if (nullptr == Boss)
+	if (nullptr == BossRender)
 	{
 		MsgAssert("Moon 랜더러가 생성되지 않았습니다.")
 	}
@@ -132,7 +135,7 @@ void Moon::UpdateState(float _DeltaTime)
 
 void Moon::Intro_Start()
 {
-	Boss->ChangeAnimation("Intro0");
+	BossRender->ChangeAnimation("Intro0");
 	IntroAnimationIndex = 0;
 	IntroAnimationTimer = 2.0f;
 }
@@ -143,10 +146,10 @@ void Moon::Intro_Update(float _DeltaTime)
 	{
 	case 0:
 	{
-		if (true == Boss->IsAnimationEnd())
+		if (true == BossRender->IsAnimationEnd())
 		{
 			++IntroAnimationIndex;
-			Boss->ChangeAnimation("Intro1");
+			BossRender->ChangeAnimation("Intro1");
 			IntroAnimationTimer = 2.0f;
 		}
 		break;
@@ -157,16 +160,16 @@ void Moon::Intro_Update(float _DeltaTime)
 		if (IntroAnimationTimer < 0.0f)
 		{
 			++IntroAnimationIndex;
-			Boss->ChangeAnimation("Intro2");
+			BossRender->ChangeAnimation("Intro2");
 		}
 		break;
 	}
 	case 2:
 	{
-		if (true == Boss->IsAnimationEnd())
+		if (true == BossRender->IsAnimationEnd())
 		{
 			++IntroAnimationIndex;
-			Boss->ChangeAnimation("Intro3");
+			BossRender->ChangeAnimation("Intro3");
 			IntroAnimationTimer = 2.0f;
 		}
 		break;
@@ -177,13 +180,13 @@ void Moon::Intro_Update(float _DeltaTime)
 		if (IntroAnimationTimer < 0.0f)
 		{
 			++IntroAnimationIndex;
-			Boss->ChangeAnimation("Intro4");
+			BossRender->ChangeAnimation("Intro4");
 		}
 		break;
 	}
 	case 4:
 	{
-		if (true == Boss->IsAnimationEnd())
+		if (true == BossRender->IsAnimationEnd())
 		{
 			++IntroAnimationIndex;
 			NextState = MoonState::IDLE;
@@ -206,7 +209,7 @@ void Moon::Intro_End()
 
 void Moon::Idle_Start()
 {
-	Boss->ChangeAnimation("Idle");
+	BossRender->ChangeAnimation("Idle");
 	IntervalTimer = 3.0f;
 	StartPos = GetTransform()->GetLocalPosition();
 	DestPos = float4(320, -20);
@@ -230,7 +233,7 @@ void Moon::Idle_End()
 
 void Moon::Attack_Start()
 {
-	Boss->ChangeAnimation("Attack_Intro");
+	BossRender->ChangeAnimation("Attack_Intro");
 	IntervalTimer = 13.8f;
 	isAttackIntroDone = false;
 	isAttackDone = false;
@@ -245,9 +248,9 @@ void Moon::Attack_Update(float _DeltaTime)
 	GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(StartPos, DestPos, GetLiveTime()));
 	if (false == isAttackIntroDone)
 	{
-		if (true == Boss->IsAnimationEnd())
+		if (true == BossRender->IsAnimationEnd())
 		{
-			Boss->ChangeAnimation("Attack");
+			BossRender->ChangeAnimation("Attack");
 			isAttackIntroDone = true;
 		}
 	}
@@ -258,14 +261,14 @@ void Moon::Attack_Update(float _DeltaTime)
 			if (0.0f > IntervalTimer)
 			{
 				isAttackDone = true;
-				Boss->ChangeAnimation("Attack_Outtro");
+				BossRender->ChangeAnimation("Attack_Outtro");
 				StartPos = GetTransform()->GetLocalPosition();
 				DestPos = float4(320, -20);
 				ResetLiveTime();
 
 			}
 		}
-		else if (true == isAttackDone && Boss->IsAnimationEnd())
+		else if (true == isAttackDone && BossRender->IsAnimationEnd())
 		{
 			NextState = MoonState::IDLE;
 
@@ -279,7 +282,7 @@ void Moon::Attack_End()
 
 void Moon::Death_Start()
 {
-	Boss->ChangeAnimation("Death");
+	BossRender->ChangeAnimation("Death");
 }
 void Moon::Death_Update(float _DeltaTime)
 {

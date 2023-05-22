@@ -5,6 +5,8 @@
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineLevel.h>
 
+#include <GameEngineCore/GameEngineCollision.h>
+
 #include "SagittariusArrow.h"
 
 Sagittarius::Sagittarius() 
@@ -42,7 +44,7 @@ void Sagittarius::Start()
 	//GetTransform()->SetLocalPosition(float4(300.0f, 0));
 
 
-	Upper = CreateComponent<GameEngineSpriteRenderer>();
+	Upper = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
 	Upper->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Upper_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	Upper->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Sagittarius_Upper_Attack",.FrameInter = 0.07f, .Loop = false , .ScaleToTexture = true });
 
@@ -50,15 +52,17 @@ void Sagittarius::Start()
 	//Upper->SetScaleToTexture("sagg_idle_0001.png");
 	Upper->GetTransform()->SetLocalPosition(float4(0, 100));
 
-	Lower = CreateComponent<GameEngineSpriteRenderer>();
+	Lower = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
 	Lower->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Lower_Idle",  .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	//Lower->SetScaleToTexture("sagg_cloud_top_0003.png");
 	Lower->ChangeAnimation("Idle");
 	Lower->GetTransform()->SetLocalPosition(float4(160, -55));
 
+	//BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 
-
-																						
+	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BossCollision->GetTransform()->SetLocalScale(float4(450.0f,450.0f,0));
+	BossCollision->GetTransform()->SetCollisionType(ColType::SPHERE2D);
 																						
 	//FSM																				
 

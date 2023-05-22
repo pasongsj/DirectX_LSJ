@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "GameEnermy.h"
 
 // Ό³Έν :
-class HildaBoss : public GameEngineActor
+class HildaBoss : public GameEnermy
 {
 	friend class HildaBergLevel;
 public:
@@ -16,10 +16,6 @@ public:
 	HildaBoss& operator=(const HildaBoss& _Other) = delete;
 	HildaBoss& operator=(HildaBoss&& _Other) noexcept = delete;
 
-	inline void Attack(float _Dmg)
-	{
-		Hp -= _Dmg;
-	}
 
 
 	inline int GetPhase()
@@ -33,8 +29,8 @@ public:
 	};
 
 
+
 protected:
-	float Hp = 0;
 	bool isAttack = false;
 
 	float4 GetHildaMove(float _Delta);
@@ -43,10 +39,12 @@ protected:
 	{
 		IdleMoveTime += _Delta;
 	}
+
 	inline void SetPhase(int _Phase)
 	{
 		Phase = _Phase;
 	}
+
 
 private:
 

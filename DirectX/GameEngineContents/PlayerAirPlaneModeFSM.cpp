@@ -30,6 +30,7 @@ void PlayerAirPlaneMode::Idle_Start()
 void PlayerAirPlaneMode::Idle_Update(float _DeltaTime)
 {
 	CheckInput();
+	CheckShoot(_DeltaTime);
 	MakeSmoke(_DeltaTime);
 }
 void PlayerAirPlaneMode::Idle_End()
@@ -52,6 +53,7 @@ void PlayerAirPlaneMode::MoveUp_Update(float _DeltaTime)
 		ChangePlayerAnimation("MoveUp");
 	}
 	CheckInput();
+	CheckShoot(_DeltaTime);
 	MakeSmoke(_DeltaTime);
 }
 void PlayerAirPlaneMode::MoveUp_End()
@@ -74,6 +76,7 @@ void PlayerAirPlaneMode::MoveDown_Update(float _DeltaTime)
 		ChangePlayerAnimation("MoveDown");
 	}
 	CheckInput();
+	CheckShoot(_DeltaTime);
 	MakeSmoke(_DeltaTime);
 }
 void PlayerAirPlaneMode::MoveDown_End()

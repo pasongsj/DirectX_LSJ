@@ -169,6 +169,7 @@ void PlayerAirPlaneMode::Start()
 	Spark = CreateComponent<GameEngineSpriteRenderer>(CupHeadActorOrder::PlayerEffect);
 	Spark->CreateAnimation({ .AnimationName = "Spark", .SpriteName = "Cuphead_AirPlane_Spark", .FrameInter = 0.05f, .Loop = true,.ScaleToTexture = true });
 	Spark->ChangeAnimation("Spark");
+	Spark->Off();
 
 
 
@@ -252,29 +253,13 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 	}
 
 
-	//std::vector<std::shared_ptr<GameEngineCollision>> ColTest;
-
-
-	//if (true == PlayerCollsion->CollisionAll(CupHeadCollisionOrder::Enemy, ColType::SPHERE2D, ColType::SPHERE2D, ColTest))
-	//{
-	//	for (std::shared_ptr<GameEngineCollision> Col : ColTest)
-	//	{
-	//		Col->GetActor()->Death();
-	//	}
-	//	// Col->GetActor()->Death();
-	//}
-
-
 	// shoot
 	ShootInterVal -= _DeltaTime;
-	CheckShoot(_DeltaTime);
+	//CheckShoot(_DeltaTime);
 
 	// state
 	UpdateState(_DeltaTime);
 	MoveUpdate(_DeltaTime);
-
-	// for test
-	//GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(GetTransform()->GetLocalPosition() + (float4::Back * 100.0f));
 }
 
 void PlayerAirPlaneMode::MoveUpdate(float _DeltaTime)

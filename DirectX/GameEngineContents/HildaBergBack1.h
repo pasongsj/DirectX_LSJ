@@ -1,8 +1,9 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "HildaBergBack.h"
+
 
 // Ό³Έν : BackGround dark hill
-class HildaBergBack1 : public GameEngineActor
+class HildaBergBack1 : public HildaBergBack
 {
 public:
 	// constrcuter destructer
@@ -18,12 +19,10 @@ public:
 protected:
 
 	void Start() override;
-	void Update(float _DeltaTime) override;
 
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> MainHill = nullptr;
-	std::shared_ptr<class GameEngineSpriteRenderer> SubHill = nullptr;
+
 
 };
 

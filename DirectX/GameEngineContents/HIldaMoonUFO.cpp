@@ -55,6 +55,8 @@ void HIldaMoonUFO::Start()
 
 
 	UFOBeamCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	//UFOBeamCollision->SetRenderScaleToCollision(UFOBeamRender);
+	UFOBeamCollision->GetTransform()->SetCollisionType(ColType::AABBBOX2D);
 	UFOBeamCollision->Off();
 }
 

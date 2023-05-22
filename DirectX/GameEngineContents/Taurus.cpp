@@ -1,7 +1,8 @@
 #include "PrecompileHeader.h"
 #include "Taurus.h"
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 Taurus::Taurus() 
 {
@@ -34,14 +35,16 @@ void Taurus::Start()
 {
 	SetPhase(2);
 	MakeSprite();
-	Boss = CreateComponent<GameEngineSpriteRenderer>();
-	Boss->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Taurus_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "ChargeAttack", .SpriteName = "Taurus_Charge", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Taurus_Attack",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	
-	Boss->ChangeAnimation("Idle");
+	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	BossRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Taurus_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "ChargeAttack", .SpriteName = "Taurus_Charge", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Taurus_Attack",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 
-	//GetTransform()->SetLocalPosition(float4(300.0f, 0));											
+	BossRender->ChangeAnimation("Idle");
+
+	//GetTransform()->SetLocalPosition(float4(300.0f, 0));					
+	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BossCollision->GetTransform()->SetCollisionType(ColType::SPHERE2D);
 																			
 																							
 	//FSM																							
@@ -58,7 +61,11 @@ void Taurus::Start()
 
 void Taurus::Update(float _DeltaTime)
 {
-
+	if (nullptr == BossRender || nullptr == BossCollision)
+	{
+		MsgAssert("보스렌더 혹은 보스 콜리전이 생성되지 않았습니다");
+	}
+	BossCollision->SetRenderScaleToCollision(BossRender);
 	UpdateState(_DeltaTime);
 
 }
@@ -91,7 +98,7 @@ void Taurus::UpdateState(float _DeltaTime)
 void Taurus::Idle_Start()
 {
 	ResetLiveTime();
-	Boss->ChangeAnimation("Idle");
+	BossRender->ChangeAnimation("Idle");
 	//Boss->SetScaleToTexture("taurus_idle_0001.png");
 }
 void Taurus::Idle_Update(float _DeltaTime)
@@ -112,7 +119,7 @@ void Taurus::Attack_Start()
 {
 	ResetLiveTime();
 	AttackInterval = GameEngineRandom::MainRandom.RandomFloat(5.0f, 8.0f);
-	Boss->ChangeAnimation("ChargeAttack");
+	BossRender->ChangeAnimation("ChargeAttack");
 	//Boss->SetScaleToTexture("taurus_attack_0012.png");
 
 	CurPos = GetTransform()->GetLocalPosition();
@@ -121,15 +128,15 @@ void Taurus::Attack_Start()
 }
 void Taurus::Attack_Update(float _DeltaTime)
 {
-	if (true == isCharge && true == Boss->IsAnimationEnd())
+	if (true == isCharge && true == BossRender->IsAnimationEnd())
 	{
 		isCharge = false;
-		Boss->ChangeAnimation("Attack");
+		BossRender->ChangeAnimation("Attack");
 	}
 	else if(false == isCharge)
 	{
 		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(CurPos, DestPos, GetLiveTime()*2));
-		if (true == Boss->IsAnimationEnd())
+		if (true == BossRender->IsAnimationEnd())
 			//if (GetLiveTime() > 1.0f)
 		{
 			NextState = TaurusState::IDLE;

@@ -330,6 +330,16 @@ public:
 		TransData = _Data;
 	}
 
+	inline  ColType GetCollisionType()
+	{
+		return CollisionType;
+	}
+	
+	inline  void SetCollisionType(ColType _CollisionType)
+	{
+		CollisionType = _CollisionType;
+	}
+
 protected:
 
 private:
@@ -373,11 +383,14 @@ private:
 	GameEngineObject* Master = nullptr;
 
 
+
 public:
 	bool Collision(const CollisionParameter& Data);
 
 private:
 	friend class InitColFunction;
+
+	ColType CollisionType = ColType::SPHERE2D;
 
 	CollisionData ColData;
 

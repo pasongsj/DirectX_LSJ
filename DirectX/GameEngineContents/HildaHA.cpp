@@ -37,7 +37,8 @@ void HildaHA::Start()
 	
 	HaRender->ChangeAnimation("Ha");
 
-	HaColiision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	HaColiision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	HaColiision->GetTransform()->SetCollisionType(ColType::AABBBOX2D);
 }
 
 void HildaHA::Update(float _DeltaTime)

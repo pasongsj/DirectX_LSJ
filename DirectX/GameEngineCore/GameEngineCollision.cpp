@@ -40,6 +40,31 @@ std::shared_ptr<GameEngineCollision> GameEngineCollision::Collision(int _TargetG
 	return nullptr;
 }
 
+std::shared_ptr<GameEngineCollision> GameEngineCollision::Collision(int _TargetGroup)
+{
+	if (false == this->IsUpdate()) // off될 시 Collision체크가 되지 않도록
+	{
+		return nullptr;
+	}
+
+	std::list<std::shared_ptr<GameEngineCollision>>& Group = GetLevel()->Collisions[_TargetGroup];
+
+	for (std::shared_ptr<GameEngineCollision>& _OtherCol : Group)
+	{
+		if (false == _OtherCol->IsUpdate())
+		{
+			continue;
+		}
+
+		if (GetTransform()->Collision({ _OtherCol->GetTransform(),GetTransform()->GetCollisionType(), _OtherCol->GetTransform()->GetCollisionType() }))
+		{
+			return _OtherCol;
+		}
+	}
+
+	return nullptr;
+}
+
 void GameEngineCollision::SetOrder(int _Order)
 {
 	std::shared_ptr<GameEngineCollision> ConThis = DynamicThis<GameEngineCollision>();
@@ -85,4 +110,9 @@ bool GameEngineCollision::CollisionAll(int _TargetGroup, ColType _ThisColType, C
 
 	return _Col.size() != 0;
 
+}
+
+void GameEngineCollision::SetRenderScaleToCollision(std::shared_ptr<GameEngineRenderer> _Render)
+{
+	GetTransform()->SetLocalScale(_Render->GetTransform()->GetLocalScale());
 }

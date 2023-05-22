@@ -4,6 +4,7 @@
 // Ό³Έν :
 class PeaShooter : public GameEngineActor
 {
+	friend class PlayerAirPlaneMode;
 public:
 	// constrcuter destructer
 	PeaShooter();
@@ -26,6 +27,17 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+	inline void SetDmg(int _Dmg)
+	{
+		Dmg = _Dmg;
+	}
+	
+	inline int GetDmg()
+	{
+		return Dmg;
+	}
+
+	int Dmg = 10;
 
 	std::string Mode = "Origin";
 

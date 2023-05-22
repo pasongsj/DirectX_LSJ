@@ -75,7 +75,6 @@ void ZepplingBullet::Update(float _DeltaTime)
 	float4 MoveVec = Dir * BulletSpeed * _DeltaTime;
 	GetTransform()->AddLocalPosition(MoveVec);
 
-	// 수정필요 : 현재 윈도우의 위치를 가져와야 함
 	if (GetTransform()->GetWorldPosition().x < -GameEngineWindow::GetScreenSize().hx())
 	{
 		Death();

@@ -32,7 +32,8 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> Boss = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> BossRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
 
 	// idle
 	

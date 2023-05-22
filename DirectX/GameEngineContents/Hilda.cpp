@@ -4,6 +4,7 @@
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include "Constellation.h"
 
 Hilda::Hilda() 
@@ -50,22 +51,27 @@ void Hilda::Start()
 
 	//PlayerRender->CreateAnimation({ .AnimationName = "OriginIntro", .SpriteName = "Cuphead_AirPlane_Origin_intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 
-	Boss = CreateComponent<GameEngineSpriteRenderer>();		
-	Boss->CreateAnimation({ .AnimationName = "Intro",  .SpriteName = "Hilda_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Hilda_Idle",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "shoot",  .SpriteName = "Hilda_Shoot",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Dash",  .SpriteName = "Hilda_Dash", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "DashBack",  .SpriteName = "Hilda_DashBack", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Summon",  .SpriteName = "Hilda_Summon", .FrameInter = 0.1f, .Loop = false , .ScaleToTexture = true });
-	Boss->CreateAnimation({ .AnimationName = "Tornato",  .SpriteName = "Hilda_Tornado",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	Boss->ChangeAnimation("Intro");
-	
-	Boss->SetAnimationUpdateEvent("DashBack", 3, [this]
+	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Player);		
+	BossRender->CreateAnimation({ .AnimationName = "Intro",  .SpriteName = "Hilda_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Hilda_Idle",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "shoot",  .SpriteName = "Hilda_Shoot",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Dash",  .SpriteName = "Hilda_Dash", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "DashBack",  .SpriteName = "Hilda_DashBack", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Summon",  .SpriteName = "Hilda_Summon", .FrameInter = 0.1f, .Loop = false , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Tornato",  .SpriteName = "Hilda_Tornado",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossRender->ChangeAnimation("Intro");
+
+	BossRender->SetAnimationUpdateEvent("DashBack", 3, [this]
 		{
 			GetLevel()->CreateActor<Constellation>(CupHeadActorOrder::Enemy);
 		});
+
+	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BossCollision->SetRenderScaleToCollision(BossRender);
+	BossCollision->GetTransform()->SetCollisionType(ColType::SPHERE2D);
+	BossCollision->SetName("HildaCollision");
+
 																				
-	GetTransform()->SetLocalPosition(float4(300.0f,0));							
 																				
 
 	//FSM
@@ -96,6 +102,7 @@ void Hilda::Start()
 	EndFuncPtr[static_cast<int>(HildaState::TORNADO)] = std::bind(&Hilda::Tornado_End, this);
 	
 
+	GetTransform()->SetLocalPosition(float4(300.0f,0));							
 
 	// TestCode
 	if (false == GameEngineInput::IsKey("TestT"))
@@ -109,12 +116,12 @@ void Hilda::Start()
 
 void Hilda::Update(float _DeltaTime)
 {
-	if (nullptr == Boss)
+	if (nullptr == BossRender || nullptr == BossCollision)
 	{
-		MsgAssert("Hilda 랜더러가 제대로 생성되지 않았습니다.");
+		MsgAssert("Hilda 랜더러 또는 콜리전이 제대로 생성되지 않았습니다.");
 		return;
 	}
-
+	BossCollision->SetRenderScaleToCollision(BossRender);
 	UpdateState(_DeltaTime);
 
 

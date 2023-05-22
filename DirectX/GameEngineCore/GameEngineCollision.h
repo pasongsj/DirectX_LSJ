@@ -23,6 +23,14 @@ public:
 
 	std::shared_ptr<GameEngineCollision> Collision(int _TargetGroup, ColType _ThisColType, ColType _OtherColtype);
 
+	// 자신의 ColType으로 Collision하는 경우
+	template<typename EnumType>
+	std::shared_ptr<GameEngineCollision> Collision(EnumType _TargetGroup)
+	{
+		return Collision(static_cast<int>(_TargetGroup));
+	}
+	std::shared_ptr<GameEngineCollision> Collision(int _TargetGroup);
+
 	template<typename EnumType>
 	bool CollisionAll(EnumType _TargetGroup, ColType _ThisColType, ColType _OtherColtype, std::vector<std::shared_ptr<GameEngineCollision>>& _Col)
 	{
@@ -31,6 +39,8 @@ public:
 	bool CollisionAll(int _TargetGroup, ColType _ThisColType, ColType _OtherColtype, std::vector<std::shared_ptr<GameEngineCollision>>& _Col);
 
 	void SetOrder(int _Order) override;
+
+	void SetRenderScaleToCollision(std::shared_ptr<class GameEngineRenderer> _Render);
 
 protected:
 	void Start() override;

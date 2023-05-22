@@ -14,7 +14,7 @@ void Hilda::Intro_Start()
 }
 void Hilda::Intro_Update(float _DeltaTime)
 {
-	if (true == Boss->IsAnimationEnd())
+	if (true == BossRender->IsAnimationEnd())
 	{
 		NextState = HildaState::IDLE;
 	}
@@ -27,7 +27,7 @@ void Hilda::Intro_End()
 void Hilda::Idle_Start()
 {
 	ResetLiveTime();
-	Boss->ChangeAnimation("Idle");
+	BossRender->ChangeAnimation("Idle");
 
 }
 
@@ -55,14 +55,14 @@ void Hilda::Idle_End()
 
 void Hilda::Shoot_Start()
 {
-	Boss->ChangeAnimation("shoot");
+	BossRender->ChangeAnimation("shoot");
 	std::shared_ptr<GameEngineActor> Ha = GetLevel()->CreateActor<HildaHA>(CupHeadActorOrder::Enemy);
 	Ha->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
 }
 void Hilda::Shoot_Update(float _DeltaTime)
 {
 
-	if (true == Boss->IsAnimationEnd())
+	if (true == BossRender->IsAnimationEnd())
 	{
 		NextState = HildaState::IDLE;
 	}
@@ -79,17 +79,17 @@ void Hilda::ChangePhase_Start()
 	isBackTurn = false;
 
 	WaitingTime = 0.0f;
-	Boss->ChangeAnimation("Dash");
+	BossRender->ChangeAnimation("Dash");
 }
 void Hilda::ChangePhase_Update(float _DeltaTime)
 {
 
-	if (false == isDashBackTurn && false == isBackTurn && true == Boss->IsAnimationEnd())
+	if (false == isDashBackTurn && false == isBackTurn && true == BossRender->IsAnimationEnd())
 	{
-		Boss->ChangeAnimation("DashBack");
+		BossRender->ChangeAnimation("DashBack");
 		isDashBackTurn = true;
 		DestPos = CurPos = GetTransform()->GetLocalPosition();
-		DestPos.x = - (GameEngineWindow::GetScreenSize().hx() + Boss->GetTransform()->GetLocalScale().hx());
+		DestPos.x = - (GameEngineWindow::GetScreenSize().hx() + BossRender->GetTransform()->GetLocalScale().hx());
 	}
 
 	else if (true == isDashBackTurn && false == isBackTurn)
@@ -99,7 +99,7 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(CurPos, DestPos, WaitingTime));
 		if (WaitingTime >1.0f)
 		{
-			Boss->ChangeAnimation("Summon");
+			BossRender->ChangeAnimation("Summon");
 			//Boss->SetAnimationUpdateEvent("DashBack", 3, [this]
 			//	{
 			//		GetLevel()->CreateActor<Constellation>();
@@ -131,13 +131,13 @@ void Hilda::ChangePhase_End()
 
 void Hilda::Tornado_Start()
 {
-	Boss->ChangeAnimation("Tornato");
+	BossRender->ChangeAnimation("Tornato");
 	std::shared_ptr<HildaTornado> Tronado = GetLevel()->CreateActor<HildaTornado>(CupHeadActorOrder::Enemy);
-	Tronado->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() - float4(Boss->GetTransform()->GetLocalScale().hx(), 0));
+	Tronado->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() - float4(BossRender->GetTransform()->GetLocalScale().hx(), 0));
 }
 void Hilda::Tornado_Update(float _DeltaTime)
 {
-	if (true == Boss->IsAnimationEnd())
+	if (true == BossRender->IsAnimationEnd())
 	{
 		NextState = HildaState::IDLE;
 	}

@@ -35,6 +35,8 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Upper = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> Lower = nullptr;
 
+	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
+
 	bool isShoot = false;
 
 	float AttackInterval = 5.0f;

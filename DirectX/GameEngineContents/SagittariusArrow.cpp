@@ -35,6 +35,7 @@ void SagittariusArrow::Start()
 	ArrowCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	ArrowCollision->GetTransform()->SetLocalScale(float4(324, 18, 1));
 	ArrowCollision->GetTransform()->AddLocalPosition(float4(0,-50));
+	ArrowCollision->GetTransform()->SetCollisionType(ColType::AABBBOX2D);
 
 }
 

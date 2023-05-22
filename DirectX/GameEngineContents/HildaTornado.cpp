@@ -36,7 +36,8 @@ void HildaTornado::Start()
 	TornatoRender->CreateAnimation({ .AnimationName = "attack",  .SpriteName = "Hilda_Tornado_Attack",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	TornatoRender->ChangeAnimation("Intro");
 
-	TornatoCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	TornatoCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	TornatoCollision->GetTransform()->SetCollisionType(ColType::AABBBOX2D);
 	TornatoCollision->Off();
 }
 

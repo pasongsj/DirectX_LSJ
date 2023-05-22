@@ -13,6 +13,7 @@ enum class CupHeadRendererOrder
 enum class CupHeadCollisionOrder
 {
 	Enemy,
+	EnemyWeapon,
 	Player,
 	PlayerWepaon,
 	UI,
