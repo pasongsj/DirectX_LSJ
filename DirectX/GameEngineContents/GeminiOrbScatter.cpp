@@ -31,7 +31,7 @@ void GeminiOrbScatter::Start()
 	ScatterRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Orb_Bullet", .FrameInter = 0.03f,.Loop = false,.ScaleToTexture = true });
 	ScatterRender->ChangeAnimation("Idle");
 
-	ScatterCollsion = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	ScatterCollsion = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
 }
 
 void GeminiOrbScatter::Update(float _DeltaTime)

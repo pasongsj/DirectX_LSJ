@@ -26,7 +26,7 @@ public:
 	}
 
 protected:
-	int HP = 0;
+	int HP = 1;
 
 	inline void SetHP(int _HP)
 	{
