@@ -179,6 +179,7 @@ void GameEngineCamera::Render(float _DeltaTime)
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator StartRenderer = RenderGroup.begin();
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator EndRenderer = RenderGroup.end();
 
+
 		for (; StartRenderer != EndRenderer; ++StartRenderer)
 		{
 			std::shared_ptr<GameEngineRenderer>& Render = *StartRenderer;
@@ -254,6 +255,11 @@ void GameEngineCamera::PushRenderer(std::shared_ptr<GameEngineRenderer> _Render)
 bool GameEngineCamera::IsView(const TransformData& _TransData)
 {
 	// Width, Height, Near, Far;
+	if (true == IsFreeCamera())
+	{
+		return true;
+	}
+
 
 	switch (ProjectionType)
 	{

@@ -59,7 +59,11 @@ void Moon::Start()
 	BossRender->ChangeAnimation("Intro0");
 
 
-	//BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	//230,400
+	BossCollision->GetTransform()->SetLocalScale(float4(230, 400));
+	BossCollision->SetColType(ColType::AABBBOX2D);
+
 	// 수정 필요 - 보스 콜리전을 어떻게 하지??
 
 

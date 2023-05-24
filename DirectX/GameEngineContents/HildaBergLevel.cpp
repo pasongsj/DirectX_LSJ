@@ -53,7 +53,7 @@ void HildaBergLevel::Start()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	//GetMainCamera()->SetProjectionType(CameraType::Perspective);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-	GetMainCamera()->SetSortType(0, SortType::ZSort);
+	GetMainCamera()->SetSortType(CupHeadRendererOrder::Boss, SortType::ZSort);
 
 	if (false == GameEngineInput::IsKey("NextBoss"))
 	{
