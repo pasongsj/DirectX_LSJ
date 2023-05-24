@@ -99,3 +99,24 @@ void GameEngineRenderer::PushCameraRender(int _CameraOrder)
 {
 	GetLevel()->PushCameraRenderer(DynamicThis<GameEngineRenderer>(), _CameraOrder);
 }
+
+void GameEngineRenderer::CalSortZ(GameEngineCamera* _Camera)
+{
+	switch (_Camera->ProjectionType)
+	{
+	case CameraType::Orthogonal:
+	{
+		float4 View = GetTransform()->GetWorldPosition() * _Camera->View;
+		CalZ = View.z;
+		break;
+	}
+	case CameraType::Perspective:
+	{
+		float4 View = GetTransform()->GetWorldPosition() * _Camera->View;
+		CalZ = View.Size();
+		break;
+	}
+	default:
+		break;
+	}
+}

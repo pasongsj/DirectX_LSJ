@@ -37,7 +37,7 @@ void HildaTornado::Start()
 	TornatoRender->ChangeAnimation("Intro");
 
 	TornatoCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
-	TornatoCollision->GetTransform()->SetCollisionType(ColType::AABBBOX2D);
+	TornatoCollision->SetColType(ColType::AABBBOX2D);
 	TornatoCollision->Off();
 }
 

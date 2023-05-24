@@ -68,7 +68,7 @@ void Hilda::Start()
 
 	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	BossCollision->SetRenderScaleToCollision(BossRender);
-	BossCollision->GetTransform()->SetCollisionType(ColType::SPHERE2D);
+	BossCollision->SetColType(ColType::SPHERE2D);
 	BossCollision->SetName("HildaCollision");
 
 																				

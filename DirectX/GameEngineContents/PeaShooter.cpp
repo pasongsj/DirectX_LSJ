@@ -45,12 +45,14 @@ void PeaShooter::Start()
 
 	BulletCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::PlayerWepaon);
 	BulletCollision->GetTransform()->SetLocalScale(Bullet->GetTransform()->GetLocalScale().half());
-	BulletCollision->GetTransform()->SetCollisionType(ColType::AABBBOX2D);
+	BulletCollision->SetColType(ColType::AABBBOX2D);
+
 }
 
 void PeaShooter::Update(float _DeltaTime)
 {
-	BulletCollision->GetTransform()->SetLocalScale(Bullet->GetTransform()->GetLocalScale());
+	//BulletCollision->GetTransform()->SetLocalScale(Bullet->GetTransform()->GetLocalScale());
+	BulletCollision->SetRenderScaleToCollision(Bullet);
 
 	GetTransform()->AddLocalPosition(float4(ShootSpeed * _DeltaTime, 0));
 	GetTransform()->GetLocalPosition();
@@ -62,9 +64,12 @@ void PeaShooter::Update(float _DeltaTime)
 	}
 	else if (nullptr != (Col = BulletCollision->Collision(CupHeadCollisionOrder::Enemy)))
 	{
-		Col = BulletCollision->Collision(CupHeadCollisionOrder::Enemy);
-		std::shared_ptr<GameEnermy> ColActor = Col->GetActor()->DynamicThis<GameEnermy>();
-		ColActor->Attack(Dmg);
-		Death();
+		if (nullptr != Col && false == Col->IsDeath())
+		{
+			std::shared_ptr<GameEnermy> ColActor = Col->GetActor()->DynamicThis<GameEnermy>();
+			ColActor->Attack(Dmg);
+			Death();
+
+		}
 	}
 }

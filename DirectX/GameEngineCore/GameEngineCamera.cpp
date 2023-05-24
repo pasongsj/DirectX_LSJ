@@ -157,10 +157,25 @@ void GameEngineCamera::Render(float _DeltaTime)
 	{
 		std::list<std::shared_ptr<GameEngineRenderer>>& RenderGroup = RenderGroupStartIter->second;
 
-		if (true == isZSort)
+		int Order = RenderGroupStartIter->first;
+		std::map<int, SortType>::iterator SortIter = SortValues.find(Order);
+
+		if (SortIter != SortValues.end() && SortIter->second != SortType::None)
 		{
-			RenderGroup.sort([](const std::shared_ptr<GameEngineRenderer>& _A, const std::shared_ptr<GameEngineRenderer>& _B) {return _A->GetTransform()->GetLocalPosition().z > _B->GetTransform()->GetLocalPosition().z; });
+			if (SortIter->second == SortType::ZSort)
+			{
+				for (std::shared_ptr<GameEngineRenderer>& Render : RenderGroup)
+				{
+					Render->CalSortZ(this);
+				}
+
+				RenderGroup.sort([](std::shared_ptr<GameEngineRenderer>& _Left, std::shared_ptr<GameEngineRenderer>& _Right)
+					{
+						return _Left->CalZ > _Right->CalZ;
+					});
+			}
 		}
+
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator StartRenderer = RenderGroup.begin();
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator EndRenderer = RenderGroup.end();
 

@@ -17,46 +17,31 @@ void GameEngineCollision::Start()
 
 std::shared_ptr<GameEngineCollision> GameEngineCollision::Collision(int _TargetGroup, ColType _ThisColType, ColType _OtherColtype)
 {
-	if (false == this->IsUpdate()) // off될 시 Collision체크가 되지 않도록
+	if (false == this->IsUpdate())
 	{
 		return nullptr;
 	}
 
 	std::list<std::shared_ptr<GameEngineCollision>>& Group = GetLevel()->Collisions[_TargetGroup];
 
+	if (_ThisColType == ColType::MAX)
+	{
+		_ThisColType = Type;
+	}
+
 	for (std::shared_ptr<GameEngineCollision>& _OtherCol : Group)
 	{
 		if (false == _OtherCol->IsUpdate())
 		{
 			continue;
+		}
+
+		if (_OtherColtype == ColType::MAX)
+		{
+			_OtherColtype = _OtherCol->Type;
 		}
 
 		if (GetTransform()->Collision({ _OtherCol->GetTransform(),_ThisColType, _OtherColtype }))
-		{
-			return _OtherCol;
-		}
-	}
-
-	return nullptr;
-}
-
-std::shared_ptr<GameEngineCollision> GameEngineCollision::Collision(int _TargetGroup)
-{
-	if (false == this->IsUpdate()) // off될 시 Collision체크가 되지 않도록
-	{
-		return nullptr;
-	}
-
-	std::list<std::shared_ptr<GameEngineCollision>>& Group = GetLevel()->Collisions[_TargetGroup];
-
-	for (std::shared_ptr<GameEngineCollision>& _OtherCol : Group)
-	{
-		if (false == _OtherCol->IsUpdate())
-		{
-			continue;
-		}
-
-		if (GetTransform()->Collision({ _OtherCol->GetTransform(),GetTransform()->GetCollisionType(), _OtherCol->GetTransform()->GetCollisionType() }))
 		{
 			return _OtherCol;
 		}
@@ -79,7 +64,7 @@ void GameEngineCollision::SetOrder(int _Order)
 	GetLevel()->PushCollision(ConThis);
 }
 
-bool GameEngineCollision::CollisionAll(int _TargetGroup, ColType _ThisColType, ColType _OtherColtype, std::vector<std::shared_ptr<GameEngineCollision>>& _Col)
+bool GameEngineCollision::CollisionAll(int _TargetGroup, std::vector<std::shared_ptr<GameEngineCollision>>& _Col, ColType _ThisColType, ColType _OtherColtype)
 {
 	if (false == this->IsUpdate())
 	{
@@ -95,11 +80,21 @@ bool GameEngineCollision::CollisionAll(int _TargetGroup, ColType _ThisColType, C
 		return false;
 	}
 
+	if (_ThisColType == ColType::MAX)
+	{
+		_ThisColType = Type;
+	}
+
 	for (std::shared_ptr<GameEngineCollision>& _OtherCol : Group)
 	{
 		if (false == _OtherCol->IsUpdate())
 		{
 			continue;
+		}
+
+		if (_OtherColtype == ColType::MAX)
+		{
+			_OtherColtype = _OtherCol->Type;
 		}
 
 		if (GetTransform()->Collision({ _OtherCol->GetTransform(),_ThisColType, _OtherColtype }))
@@ -111,6 +106,7 @@ bool GameEngineCollision::CollisionAll(int _TargetGroup, ColType _ThisColType, C
 	return _Col.size() != 0;
 
 }
+
 
 void GameEngineCollision::SetRenderScaleToCollision(std::shared_ptr<GameEngineRenderer> _Render)
 {

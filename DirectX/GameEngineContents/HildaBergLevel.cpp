@@ -53,7 +53,7 @@ void HildaBergLevel::Start()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	//GetMainCamera()->SetProjectionType(CameraType::Perspective);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-	GetMainCamera()->SetZSortOn();
+	GetMainCamera()->SetSortType(0, SortType::ZSort);
 
 	if (false == GameEngineInput::IsKey("NextBoss"))
 	{
@@ -131,7 +131,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 		}
 	}
 
-	if (nullptr != Boss && (true == GameEngineInput::IsDown("NextBoss") || Boss->GetHP() < 0))
+	if (nullptr != Boss && (Boss->GetHP() < 0 || true == GameEngineInput::IsDown("NextBoss")))
 	{
 		Boss->Death();
 		Boss = nullptr;

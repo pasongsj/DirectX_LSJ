@@ -150,6 +150,7 @@ public:
 
 protected:
 	void SpriteRenderInit();
+	float4 AtlasData;
 
 private:
 	void Update(float _Delta) override;
@@ -160,7 +161,6 @@ private:
 
 	std::shared_ptr<AnimationInfo> CurAnimation;
 
-	float4 AtlasData;
 
 
 	std::shared_ptr<GameEngineSprite> Sprite = nullptr;

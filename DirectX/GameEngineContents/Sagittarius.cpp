@@ -62,7 +62,7 @@ void Sagittarius::Start()
 
 	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	BossCollision->GetTransform()->SetLocalScale(float4(450.0f,450.0f,0));
-	BossCollision->GetTransform()->SetCollisionType(ColType::SPHERE2D);
+	BossCollision->SetColType(ColType::SPHERE2D);
 																						
 	//FSM																				
 

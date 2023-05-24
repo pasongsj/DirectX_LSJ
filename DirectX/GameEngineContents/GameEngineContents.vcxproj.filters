@@ -262,5 +262,8 @@
     <Filter Include="Object\UI">
       <UniqueIdentifier>{550ac69d-4a2d-4d6a-8149-f26dce75adc3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{216717de-ca5b-4eeb-b55a-a9aa3cee7921}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

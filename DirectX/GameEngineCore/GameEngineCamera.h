@@ -4,6 +4,13 @@
 #include <list>
 #include <map>
 
+enum class SortType
+{
+	None,
+	ZSort,
+	YSort,
+};
+
 // Ό³Έν :
 class GameEngineRenderer;
 class GameEngineRenderTarget;
@@ -62,24 +69,27 @@ public:
 
 	bool IsView(const TransformData& _TransData);
 
-	inline void SetZSortOn()
+	template<typename EnumType>
+	void SetSortType(EnumType _Index, SortType _Sort)
 	{
-		isZSort = true;
+		SetSortType(static_cast<int>(_Index), _Sort);
 	}
 
-	inline void SetZSortOff()
+	void SetSortType(int _Index, SortType _Sort)
 	{
-		isZSort = false;
+		SortValues[_Index] = _Sort;
 	}
+
+
 
 protected:
 	void Start() override;
 
 private:
 	std::map<int, std::list<std::shared_ptr<GameEngineRenderer>>> Renderers;
+	std::map<int, SortType> SortValues;
 
 	DirectX::BoundingOrientedBox Box;
-	bool isZSort = false;
 
 	bool FreeCamera = false;
 

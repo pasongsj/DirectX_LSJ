@@ -44,7 +44,7 @@ void Taurus::Start()
 
 	//GetTransform()->SetLocalPosition(float4(300.0f, 0));					
 	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
-	BossCollision->GetTransform()->SetCollisionType(ColType::SPHERE2D);
+	BossCollision->SetColType(ColType::SPHERE2D);
 																			
 																							
 	//FSM																							
