@@ -37,7 +37,7 @@ private:
 		return Dmg;
 	}
 
-	int Dmg = 10;
+	int Dmg = 5;
 
 	std::string Mode = "Origin";
 

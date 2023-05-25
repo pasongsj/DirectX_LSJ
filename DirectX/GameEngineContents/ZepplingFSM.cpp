@@ -5,10 +5,11 @@
 #include <GameEngineCore/GameEngineLevel.h>
 
 #include "ZepplingBullet.h"
+#include "ZepplingBroken.h"
 
 void Zeppling::Move_Start()
 {
-	Enemy->ChangeAnimation(Mode + "Idle");
+	EnemyRender->ChangeAnimation(Mode + "Idle");
 }
 void Zeppling::Move_Update(float _DeltaTime)
 {
@@ -18,6 +19,7 @@ void Zeppling::Move_Update(float _DeltaTime)
 	{
 		NextState = ZepplingState::SHOOT;
 	}
+	CheckDeath();
 }
 void Zeppling::Move_End()
 {
@@ -26,14 +28,14 @@ void Zeppling::Move_End()
 
 void Zeppling::Shoot_Start()
 {
-	Enemy->ChangeAnimation(Mode + "Attack");
+	EnemyRender->ChangeAnimation(Mode + "Attack");
 }
 void Zeppling::Shoot_Update(float _DeltaTime)
 {
-	if (true == Enemy->IsAnimationEnd())
+	if (true == EnemyRender->IsAnimationEnd())
 	{
 		std::shared_ptr<ZepplingBullet> Bullet = GetLevel()->CreateActor<ZepplingBullet>(CupHeadActorOrder::Enemy);
-		Bullet->GetTransform()->SetWorldPosition(Enemy->GetTransform()->GetWorldPosition() - float4(Enemy->GetTransform()->GetLocalScale().hx(),0));
+		Bullet->GetTransform()->SetWorldPosition(EnemyRender->GetTransform()->GetWorldPosition() - float4(EnemyRender->GetTransform()->GetLocalScale().hx(),0));
 
 		//float4 BulletDir =  플레이어 위치 - Zeppling의 위치
 		//Bullet->SetBulletDir(BulletDir);
@@ -43,6 +45,7 @@ void Zeppling::Shoot_Update(float _DeltaTime)
 		}
 		NextState = ZepplingState::TURN;
 	}
+	CheckDeath();
 }
 void Zeppling::Shoot_End()
 {
@@ -52,18 +55,19 @@ void Zeppling::Shoot_End()
 
 void Zeppling::Turn_Start()
 {
-	Enemy->ChangeAnimation(Mode + "Turn");
+	EnemyRender->ChangeAnimation(Mode + "Turn");
 }
 
 void Zeppling::Turn_Update(float _DeltaTime)
 {
 
-	if (true == Enemy->IsAnimationEnd())
+	if (true == EnemyRender->IsAnimationEnd())
 	{
-		TransformData Tmp = Enemy->GetTransform()->GetTransDataRef();
+		TransformData Tmp = EnemyRender->GetTransform()->GetTransDataRef();
 
 		NextState = ZepplingState::BACK;
 	}
+	CheckDeath();
 }
 
 void Zeppling::Turn_End()
@@ -75,6 +79,10 @@ void Zeppling::Turn_End()
 
 void Zeppling::Dead_Start()
 {
+	std::shared_ptr< ZepplingBroken> Pieces = GetLevel()->CreateActor< ZepplingBroken>(CupHeadActorOrder::Enemy);
+	Pieces->SetColor(Mode);
+	Pieces->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+	Death();
 
 }
 void Zeppling::Dead_Update(float _DeltaTime)
@@ -88,7 +96,7 @@ void Zeppling::Dead_End()
 
 void Zeppling::Back_Start()
 {
-	Enemy->ChangeAnimation(Mode + "Idle");
+	EnemyRender->ChangeAnimation(Mode + "Idle");
 	GetTransform()->SetLocalNegativeScaleX();
 }
 void Zeppling::Back_Update(float _DeltaTime)

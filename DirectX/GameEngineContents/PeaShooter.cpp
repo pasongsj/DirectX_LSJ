@@ -38,7 +38,7 @@ void PeaShooter::Start()
 
 	MakeSprite();
 
-	Bullet = CreateComponent<GameEngineSpriteRenderer>();
+	Bullet = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
 	Bullet->CreateAnimation({ .AnimationName = "Origin",  .SpriteName = "Cuphead_AirPlane_Bullet", .FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
 
 	Bullet->ChangeAnimation("Origin");
@@ -67,8 +67,12 @@ void PeaShooter::Update(float _DeltaTime)
 		if (nullptr != Col && false == Col->IsDeath())
 		{
 			std::shared_ptr<GameEnermy> ColActor = Col->GetActor()->DynamicThis<GameEnermy>();
-			ColActor->Attack(Dmg);
-			Death();
+			if (nullptr != ColActor)
+			{
+				ColActor->Attack(Dmg);
+				Death();
+
+			}
 
 		}
 	}

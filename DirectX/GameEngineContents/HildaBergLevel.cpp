@@ -34,6 +34,7 @@
 #include "HIldaMoonUFO.h"
 #include "ZepplingBullet.h"
 #include "PlayerAirPlaneSmokeEffect.h"
+#include "ZepplingBroken.h"
 
 // UI
 #include "PlayerUI.h"
@@ -67,7 +68,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 {
 	if (GetLiveTime() > NextSponeTime)
 	{
-		//std::shared_ptr<Zeppling> NewMonster = CreateActor<Zeppling>(CupHeadActorOrder::Enemy);
+		/*std::shared_ptr<Zeppling> NewMonster = */CreateActor<Zeppling>(CupHeadActorOrder::Enemy);
 		//std::shared_ptr<HIldaMoonUFO> NewMonster = CreateActor<HIldaMoonUFO>(CupHeadActorOrder::Enemy);
 		NextSponeTime += 5.0f;
 	}
@@ -161,9 +162,10 @@ void HildaBergLevel::LevelChangeStart()
 	CreateActor<HildaBergBack1>(CupHeadActorOrder::BackGround);
 	CreateActor<HildaBergBack2>(CupHeadActorOrder::BackGround);
 	CreateActor<HildaBergBack3>(CupHeadActorOrder::BackGround);
-	CreateActor<PlayerAirPlaneSmokeEffect>(CupHeadActorOrder::PlayerEffect);
 
 
+	//std::shared_ptr< ZepplingBroken> B = CreateActor<ZepplingBroken>(CupHeadActorOrder::Enemy);
+	//B->SetColor("Purple_");
 
 	//std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");
 	//std::shared_ptr<Hilda> NewBoss0 = CreateActor<Hilda>(CupHeadActorOrder::Boss);

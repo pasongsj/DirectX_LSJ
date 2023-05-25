@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-#include <GameEngineCore/GameEngineActor.h>
+#include "GameEnermy.h"
 
 enum class ZepplingMode
 {
@@ -20,7 +20,7 @@ enum class ZepplingState
 };
 
 // Ό³Έν :
-class Zeppling : public GameEngineActor
+class Zeppling : public GameEnermy
 {
 public:
 
@@ -43,7 +43,8 @@ protected:
 	void Render(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> Enemy = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> EnemyRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> EnemyCollision = nullptr;
 
 	ZepplingState CurState = ZepplingState::MOVE;
 	ZepplingState NextState = ZepplingState::MOVE;
@@ -60,6 +61,8 @@ private:
 	void UpdateState(float _DeltaTime);
 
 	void MakeSprite();
+
+	void CheckDeath();
 
 
 

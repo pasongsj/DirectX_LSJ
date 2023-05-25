@@ -1,7 +1,8 @@
 #include "PrecompileHeader.h"
 #include "Zeppling.h"
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 
 //std::vector<std::shared_ptr<Zeppling>> Zeppling::AllZepplings;
@@ -16,39 +17,23 @@ Zeppling::~Zeppling()
 
 void Zeppling::MakeSprite()
 {
-	if (nullptr == GameEngineSprite::Find("PurPle_Idle"))
+	if (nullptr == GameEngineSprite::Find("BlimpEnemy_PurPle_Idle"))
 	{
 
 		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("stage1\\Boss\\Hilda\\BlimpEnemy");
+		NewDir.MoveParentToDirectory("ContentResources");;
+		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\BlimpEnemy");
 
 		// idle
-		GameEngineSprite::LoadFolder("PurPle_Idle", NewDir.GetPlusFileName("Purple\\Idle").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Idle", NewDir.GetPlusFileName("Green\\Idle").GetFullPath());
-		// attack
-		GameEngineSprite::LoadFolder("Purple_Attack", NewDir.GetPlusFileName("Purple\\Attack").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Attack", NewDir.GetPlusFileName("Green\\Attack").GetFullPath());
-		// turn
-		GameEngineSprite::LoadFolder("Purple_Turn", NewDir.GetPlusFileName("Purple\\Turn").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Turn", NewDir.GetPlusFileName("Green\\Turn").GetFullPath());
+		GameEngineSprite::LoadFolder("BlimpEnemy_PurPle_Idle", NewDir.GetPlusFileName("Purple\\Idle").GetFullPath());
+		GameEngineSprite::LoadFolder("BlimpEnemy_Green_Idle", NewDir.GetPlusFileName("Green\\Idle").GetFullPath());
+		// attack				
+		GameEngineSprite::LoadFolder("BlimpEnemy_Purple_Attack", NewDir.GetPlusFileName("Purple\\Attack").GetFullPath());
+		GameEngineSprite::LoadFolder("BlimpEnemy_Green_Attack", NewDir.GetPlusFileName("Green\\Attack").GetFullPath());
+		// turn						
+		GameEngineSprite::LoadFolder("BlimpEnemy_Purple_Turn", NewDir.GetPlusFileName("Purple\\Turn").GetFullPath());
+		GameEngineSprite::LoadFolder("BlimpEnemy_Green_Turn", NewDir.GetPlusFileName("Green\\Turn").GetFullPath());
 
-		// death
-		GameEngineSprite::LoadFolder("Green_Death_A", NewDir.GetPlusFileName("Green\\Pieces\\A").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Death_B", NewDir.GetPlusFileName("Green\\Pieces\\B").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Death_C", NewDir.GetPlusFileName("Green\\Pieces\\C").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Death_D", NewDir.GetPlusFileName("Green\\Pieces\\D").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Death_E", NewDir.GetPlusFileName("Green\\Pieces\\E").GetFullPath());
-		GameEngineSprite::LoadFolder("Green_Death_F", NewDir.GetPlusFileName("Green\\Pieces\\F").GetFullPath());
-
-		GameEngineSprite::LoadFolder("Purple_Death_A", NewDir.GetPlusFileName("Purple\\Pieces\\A").GetFullPath());
-		GameEngineSprite::LoadFolder("Purple_Death_B", NewDir.GetPlusFileName("Purple\\Pieces\\B").GetFullPath());
-		GameEngineSprite::LoadFolder("Purple_Death_C", NewDir.GetPlusFileName("Purple\\Pieces\\C").GetFullPath());
-		GameEngineSprite::LoadFolder("Purple_Death_D", NewDir.GetPlusFileName("Purple\\Pieces\\D").GetFullPath());
-		GameEngineSprite::LoadFolder("Purple_Death_E", NewDir.GetPlusFileName("Purple\\Pieces\\E").GetFullPath());
-		GameEngineSprite::LoadFolder("Purple_Death_F", NewDir.GetPlusFileName("Purple\\Pieces\\F").GetFullPath());
 
 	}
 }
@@ -58,47 +43,54 @@ void Zeppling::MakeSprite()
 void Zeppling::Start()
 {
 	MakeSprite();
-	Enemy = CreateComponent<GameEngineSpriteRenderer>();
+	EnemyRender = CreateComponent<GameEngineSpriteRenderer>();
 	float4x4 tmpmatrix1 = GetTransform()->GetWorldMatrix();
-	float4x4 Enemytmpmatrix0 = Enemy->GetTransform()->GetLocalWorldMatrix();
-	float4x4 Enemytmpmatrix1 = Enemy->GetTransform()->GetWorldMatrix();
+	float4x4 Enemytmpmatrix0 = EnemyRender->GetTransform()->GetLocalWorldMatrix();
+	float4x4 Enemytmpmatrix1 = EnemyRender->GetTransform()->GetWorldMatrix();
 
 
 	// 몬스터 이미지 랜더러
 
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Idle",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Back",  .SpriteName = "PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true/* ,.FlipX = true*/});
-	Enemy->CreateAnimation({ .AnimationName = "Green_Idle",  .SpriteName = "Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Back",  .SpriteName = "Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true /*,.FlipX = true */});
+	EnemyRender->CreateAnimation({ .AnimationName = "Purple_Idle",  .SpriteName = "BlimpEnemy_PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	EnemyRender->CreateAnimation({ .AnimationName = "Purple_Back",  .SpriteName = "BlimpEnemy_PurPle_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true/* ,.FlipX = true*/});
+	EnemyRender->CreateAnimation({ .AnimationName = "Green_Idle",  .SpriteName = "BlimpEnemy_Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	EnemyRender->CreateAnimation({ .AnimationName = "Green_Back",  .SpriteName = "BlimpEnemy_Green_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true /*,.FlipX = true */});
 
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Attack",  .SpriteName = "Purple_Attack", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Attack",  .SpriteName = "Green_Attack", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	EnemyRender->CreateAnimation({ .AnimationName = "Purple_Attack",  .SpriteName = "BlimpEnemy_Purple_Attack", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	EnemyRender->CreateAnimation({ .AnimationName = "Green_Attack",  .SpriteName = "BlimpEnemy_Green_Attack", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	
+	EnemyRender->CreateAnimation({ .AnimationName = "Purple_Turn",  .SpriteName = "BlimpEnemy_Purple_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	EnemyRender->CreateAnimation({ .AnimationName = "Green_Turn",  .SpriteName = "BlimpEnemy_Green_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_A",  .SpriteName = "Green_Death_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_B",  .SpriteName = "Green_Death_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_C",  .SpriteName = "Green_Death_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_D",  .SpriteName = "Green_Death_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_E",  .SpriteName = "Green_Death_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_F",  .SpriteName = "Green_Death_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//	
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_A",  .SpriteName = "Purple_Death_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_B",  .SpriteName = "Purple_Death_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_C",  .SpriteName = "Purple_Death_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_D",  .SpriteName = "Purple_Death_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_E",  .SpriteName = "Purple_Death_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_F",  .SpriteName = "Purple_Death_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Turn",  .SpriteName = "Purple_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Turn",  .SpriteName = "Green_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 
-	Enemy->CreateAnimation({ .AnimationName = "Green_Death_A",  .SpriteName = "Green_Death_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Death_B",  .SpriteName = "Green_Death_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Death_C",  .SpriteName = "Green_Death_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Death_D",  .SpriteName = "Green_Death_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Death_E",  .SpriteName = "Green_Death_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Green_Death_F",  .SpriteName = "Green_Death_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_A",  .SpriteName = "Purple_Death_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_B",  .SpriteName = "Purple_Death_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_C",  .SpriteName = "Purple_Death_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_D",  .SpriteName = "Purple_Death_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_E",  .SpriteName = "Purple_Death_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	Enemy->CreateAnimation({ .AnimationName = "Purple_Death_F",  .SpriteName = "Purple_Death_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-
-
-	Enemy->ChangeAnimation(Mode + "Idle");
+	EnemyRender->ChangeAnimation(Mode + "Idle");
 	// 위치,회전, 크기
+
+	EnemyCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	EnemyCollision->GetTransform()->SetLocalScale(float4(100, 100));
+	EnemyCollision->SetColType(ColType::SPHERE2D);
+	
+	HP = 10;
 
 	ScreenSize = GameEngineWindow::GetScreenSize();
 	float4 Pos = float4(ScreenSize.hx(), GameEngineRandom::MainRandom.RandomFloat(-ScreenSize.hy() / 2, ScreenSize.hy() - 50));
 	GetTransform()->SetLocalPosition(Pos);
 
+	SetName("Zeppling");
 
 	//FSM
 	
@@ -158,4 +150,13 @@ void Zeppling::UpdateState(float _DeltaTime)
 	}
 
 	UpdateFuncPtr[static_cast<int>(CurState)](_DeltaTime);
+}
+
+
+void Zeppling::CheckDeath()
+{
+	if (HP <= 0)
+	{
+		NextState = ZepplingState::DEAD;
+	}
 }

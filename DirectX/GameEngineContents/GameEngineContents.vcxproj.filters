@@ -106,6 +106,9 @@
     <ClInclude Include="GameEnermy.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="ZepplingBroken.h">
+      <Filter>Object\HildaBerg\Zeppling</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -220,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="GameEnermy.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ZepplingBroken.cpp">
+      <Filter>Object\HildaBerg\Zeppling</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

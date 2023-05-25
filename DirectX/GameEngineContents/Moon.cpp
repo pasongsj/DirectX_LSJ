@@ -218,6 +218,7 @@ void Moon::Idle_Start()
 	StartPos = GetTransform()->GetLocalPosition();
 	DestPos = float4(320, -20);
 	ResetLiveTime();
+	BossCollision->GetTransform()->SetLocalPosition(float4(130, 0));
 }
 void Moon::Idle_Update(float _DeltaTime)
 {
@@ -243,6 +244,7 @@ void Moon::Attack_Start()
 	isAttackDone = false;
 	StartPos = GetTransform()->GetLocalPosition();
 	DestPos = float4(240, -20);
+	BossCollision->GetTransform()->SetLocalPosition(float4(-100, 0));
 	ResetLiveTime();
 }
 void Moon::Attack_Update(float _DeltaTime)
