@@ -10,19 +10,19 @@
 #include "GameEngineInputLayOut.h"
 #include "GameEngineDepthState.h"
 
-GameEngineRenderingPipeLine::GameEngineRenderingPipeLine()
+GameEngineRenderingPipeLine::GameEngineRenderingPipeLine() 
 {
 	InputLayOutPtr = std::make_shared<GameEngineInputLayOut>();
 }
 
-GameEngineRenderingPipeLine::~GameEngineRenderingPipeLine()
+GameEngineRenderingPipeLine::~GameEngineRenderingPipeLine() 
 {
 }
 
 // 매쉬 + 머티리얼
 
 // 점에 대한 정보를 준비하고
-void GameEngineRenderingPipeLine::InputAssembler1()
+void GameEngineRenderingPipeLine::InputAssembler1() 
 {
 	if (nullptr == InputLayOutPtr)
 	{
@@ -62,7 +62,7 @@ void GameEngineRenderingPipeLine::VertexShader()
 }
 
 // 점의 정보를 토대로 어떤 순서로 그릴지 정하고
-void GameEngineRenderingPipeLine::InputAssembler2()
+void GameEngineRenderingPipeLine::InputAssembler2() 
 {
 	// 그리는 순서에 대한 데이터를 넣어준다.
 	if (nullptr == IndexBufferPtr)
@@ -79,19 +79,19 @@ void GameEngineRenderingPipeLine::InputAssembler2()
 }
 
 // 여기서부터
-void GameEngineRenderingPipeLine::HullShader()
+void GameEngineRenderingPipeLine::HullShader() 
 {
 
 }
-void GameEngineRenderingPipeLine::Tessellator()
+void GameEngineRenderingPipeLine::Tessellator() 
 {
 
 }
-void GameEngineRenderingPipeLine::DomainShader()
+void GameEngineRenderingPipeLine::DomainShader() 
 {
 
 }
-void GameEngineRenderingPipeLine::GeometryShaeder()
+void GameEngineRenderingPipeLine::GeometryShaeder() 
 {
 
 }
@@ -101,7 +101,7 @@ void GameEngineRenderingPipeLine::GeometryShaeder()
 // 뷰포트도 곱해줍니다.
 // 화면 컬링 
 // 픽셀 건지기
-void GameEngineRenderingPipeLine::Rasterizer()
+void GameEngineRenderingPipeLine::Rasterizer() 
 {
 	if (nullptr == RasterizerPtr)
 	{
@@ -116,7 +116,7 @@ void GameEngineRenderingPipeLine::Rasterizer()
 }
 
 
-void GameEngineRenderingPipeLine::PixelShader()
+void GameEngineRenderingPipeLine::PixelShader() 
 {
 	if (nullptr == PixelShaderPtr)
 	{
@@ -129,7 +129,7 @@ void GameEngineRenderingPipeLine::PixelShader()
 
 	// GameEngineDevice::GetContext()->PSSetShader
 }
-void GameEngineRenderingPipeLine::OutputMerger()
+void GameEngineRenderingPipeLine::OutputMerger() 
 {
 	if (nullptr == BlendStatePtr)
 	{
@@ -229,7 +229,7 @@ void GameEngineRenderingPipeLine::SetDepthState(const std::string_view& _Value)
 
 	if (nullptr == DepthStatePtr)
 	{
-		MsgAssert("존재하지 않는 블랜드를 세팅하려고 했습니다.");
+		MsgAssert("존재하지 않는 깊이버퍼 스테이트를 세팅하려고 했습니다.");
 		return;
 	}
 }
@@ -264,4 +264,21 @@ void GameEngineRenderingPipeLine::Render()
 {
 	UINT IndexCount = IndexBufferPtr->GetIndexCount();
 	GameEngineDevice::GetContext()->DrawIndexed(IndexCount, 0, 0);
+}
+
+std::shared_ptr<GameEngineRenderingPipeLine> GameEngineRenderingPipeLine::Clone() 
+{
+	std::shared_ptr<GameEngineRenderingPipeLine> ClonePipe = std::make_shared<GameEngineRenderingPipeLine>();
+
+	ClonePipe->InputLayOutPtr = InputLayOutPtr;
+	ClonePipe->VertexBufferPtr = VertexBufferPtr;
+	ClonePipe->IndexBufferPtr = IndexBufferPtr;
+	ClonePipe->VertexShaderPtr = VertexShaderPtr;
+	ClonePipe->RasterizerPtr = RasterizerPtr;
+	ClonePipe->PixelShaderPtr = PixelShaderPtr;
+	ClonePipe->BlendStatePtr = BlendStatePtr;
+	ClonePipe->DepthStatePtr = DepthStatePtr;
+	ClonePipe->IsCloneValue = true;
+
+	return ClonePipe;
 }

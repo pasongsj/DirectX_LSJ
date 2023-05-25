@@ -27,7 +27,7 @@ public:
 	//GameEngineFile& operator=(const GameEngineFile& _Other) = delete;
 	//GameEngineFile& operator=(GameEngineFile&& _Other) noexcept = delete;
 
-	std::string GetFullPath() 
+	std::string GetFullPath()
 	{
 		return Path.Path.string();
 	}
@@ -36,6 +36,12 @@ public:
 	void SaveText(const std::string_view& _View);
 
 	void LoadBin(GameEngineSerializer& _Data);
+
+	void LoadText(GameEngineSerializer& _Data);
+
+	std::string GetString();
+
+	uintmax_t GetFileSize();
 
 protected:
 

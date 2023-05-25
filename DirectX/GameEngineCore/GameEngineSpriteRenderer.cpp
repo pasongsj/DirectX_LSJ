@@ -51,7 +51,7 @@ void AnimationInfo::Update(float _DeltaTime)
 		++CurFrame;
 
 
-
+		
 
 		if (FrameIndex.size() <= CurFrame)
 		{
@@ -113,11 +113,6 @@ void GameEngineSpriteRenderer::SetTexture(const std::string_view& _Name)
 	GetShaderResHelper().SetTexture("DiffuseTex", _Name);
 }
 
-void GameEngineSpriteRenderer::SetTexture(std::shared_ptr<GameEngineTexture> _Texture)
-{
-	GetShaderResHelper().SetTexture("DiffuseTex", _Texture);
-}
-
 void GameEngineSpriteRenderer::SetFlipX()
 {
 	float4 LocalScale = GetTransform()->GetLocalScale();
@@ -146,11 +141,12 @@ void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name)
 	float4 Scale = float4(static_cast<float>(FindTex->GetWidth()), static_cast<float>(FindTex->GetHeight()), 1);
 	GetTransform()->SetLocalScale(Scale);
 }
+
 void GameEngineSpriteRenderer::SetScaleToTexture(std::shared_ptr<GameEngineTexture> _Texture)
 {
 	GetShaderResHelper().SetTexture("DiffuseTex", _Texture);
 
-	float4 Scale = _Texture->GetScale() + float4(0,0,1);
+	float4 Scale = _Texture->GetScale() + float4(0, 0, 1);
 	GetTransform()->SetLocalScale(Scale);
 }
 
@@ -347,9 +343,9 @@ void GameEngineSpriteRenderer::Render(float _Delta)
 	GameEngineRenderer::Render(_Delta);
 }
 
-void GameEngineSpriteRenderer::SetAnimationUpdateEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event)
+void GameEngineSpriteRenderer::SetAnimationUpdateEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event) 
 {
-	std::shared_ptr<AnimationInfo>  Info = FindAnimation(_AnimationName);
+	std::shared_ptr<AnimationInfo>  Info =  FindAnimation(_AnimationName);
 
 	if (nullptr == Info)
 	{
@@ -393,5 +389,4 @@ void GameEngineSpriteRenderer::SpriteRenderInit()
 
 	GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
 	GetShaderResHelper().SetConstantBufferLink("ColorOption", ColorOptionValue);
-
 }

@@ -26,7 +26,7 @@ private:
 		IsPauseValue = true;
 	}
 
-	inline void PauseOff()
+	inline void PauseOff() 
 	{
 		IsPauseValue = false;
 	}
@@ -83,7 +83,6 @@ public:
 	void SetScaleToTexture(std::shared_ptr<GameEngineTexture> _Texture);
 
 	void SetTexture(const std::string_view& _Name);
-	void SetTexture(std::shared_ptr<GameEngineTexture> _Texture);
 
 	void SetScaleRatio(float _Ratio)
 	{
@@ -128,7 +127,7 @@ public:
 
 	void SetFrame(size_t _Frame);
 
-	void SetAnimPauseOn()
+	void SetAnimPauseOn() 
 	{
 		CurAnimation->PauseOn();
 	}

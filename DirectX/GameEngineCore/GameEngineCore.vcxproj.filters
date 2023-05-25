@@ -91,11 +91,11 @@
     <ClInclude Include="GameEngineSampler.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineBlend.h">
-      <Filter>Resources\RenderingSetting</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineSpriteRenderer.h">
       <Filter>Object\Rendering\Component\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineBlend.h">
+      <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineVideo.h">
       <Filter>Resources\Movie</Filter>
@@ -104,42 +104,45 @@
       <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
     <ClInclude Include="imconfig.h">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui.h">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_win32.h">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imgui_internal.h">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imstb_rectpack.h">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imstb_textedit.h">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="imstb_truetype.h">
-      <Filter>Resources\UI\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEngineCoreWindow.h">
-      <Filter>Resources\UI\SubWindow</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineGUI.h">
-      <Filter>Resources\UI</Filter>
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineCoreWindow.h">
+      <Filter>UI\SubWindow</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineSprite.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineUIRenderer.h">
+    <ClInclude Include="GameEngineTileMapRenderer.h">
       <Filter>Object\Rendering\Component\2D</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineTileMapRenderer.h">
+    <ClInclude Include="GameEngineFSM.h">
+      <Filter>ContentPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineUIRenderer.h">
       <Filter>Object\Rendering\Component\2D</Filter>
     </ClInclude>
   </ItemGroup>
@@ -233,11 +236,11 @@
     <ClCompile Include="GameEngineSampler.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineBlend.cpp">
-      <Filter>Resources\RenderingSetting</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngineSpriteRenderer.cpp">
       <Filter>Object\Rendering\Component\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineBlend.cpp">
+      <Filter>Resources\RenderingSetting</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineVideo.cpp">
       <Filter>Resources\Movie</Filter>
@@ -246,39 +249,42 @@
       <Filter>Resources\RenderingSetting</Filter>
     </ClCompile>
     <ClCompile Include="imgui.cpp">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_demo.cpp">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_draw.cpp">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_dx11.cpp">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_win32.cpp">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_tables.cpp">
-      <Filter>Resources\UI\ImGui</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="imgui_widgets.cpp">
-      <Filter>Resources\UI\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineCoreWindow.cpp">
-      <Filter>Resources\UI\SubWindow</Filter>
+      <Filter>UI\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineGUI.cpp">
-      <Filter>Resources\UI</Filter>
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineCoreWindow.cpp">
+      <Filter>UI\SubWindow</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineSprite.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineUIRenderer.cpp">
+    <ClCompile Include="GameEngineTileMapRenderer.cpp">
       <Filter>Object\Rendering\Component\2D</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineTileMapRenderer.cpp">
+    <ClCompile Include="GameEngineFSM.cpp">
+      <Filter>ContentPattern</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineUIRenderer.cpp">
       <Filter>Object\Rendering\Component\2D</Filter>
     </ClCompile>
   </ItemGroup>
@@ -338,19 +344,22 @@
       <UniqueIdentifier>{751c2843-6bfa-4251-a6dc-6fef84080d9b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object\Rendering\Component\2D">
-      <UniqueIdentifier>{c22a5c77-7ae3-4375-af3f-f82974fe9e49}</UniqueIdentifier>
+      <UniqueIdentifier>{90a6147b-b313-40db-99b0-8f952e7a45a0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\Movie">
-      <UniqueIdentifier>{08824695-8100-4750-b028-134f6f3488e8}</UniqueIdentifier>
+      <UniqueIdentifier>{1170661b-aa82-40fd-bd8b-768071db3115}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\UI">
-      <UniqueIdentifier>{61f0b94c-34e9-405a-9668-67fc25af2db0}</UniqueIdentifier>
+    <Filter Include="UI">
+      <UniqueIdentifier>{8a671e32-3cf5-4234-a5d7-b44b136d22c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\UI\SubWindow">
-      <UniqueIdentifier>{13628da6-d4ec-464e-b32a-de8b7f7932e7}</UniqueIdentifier>
+    <Filter Include="UI\ImGui">
+      <UniqueIdentifier>{a9a101b7-b3e7-4533-bad3-1b44301f77e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources\UI\ImGui">
-      <UniqueIdentifier>{78d66f1a-9cc0-4cf4-ac74-76e648cd4c60}</UniqueIdentifier>
+    <Filter Include="UI\SubWindow">
+      <UniqueIdentifier>{652ba404-c390-4c5a-b3af-a2c8b2f3336d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentPattern">
+      <UniqueIdentifier>{0ea0f19a-ed9f-42de-afea-08993b589204}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

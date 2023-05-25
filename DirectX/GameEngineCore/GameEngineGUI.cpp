@@ -63,7 +63,6 @@ void GameEngineGUI::Initialize()
 
     GameEngineWindow::SetUserMessageFunction(ImGui_ImplWin32_WndProcHandler);
 
-    // 한글 폰트 설정
     // setlocale(LC_ALL, "KOR");
 
     GameEngineDirectory NewDir;
@@ -102,6 +101,11 @@ void GameEngineGUI::Render(std::shared_ptr<class GameEngineLevel> Level, float _
     for (const std::pair<std::string, std::shared_ptr<GameEngineGUIWindow>>& WindowPair : AllWindow)
     {
         std::shared_ptr<GameEngineGUIWindow> WindowPtr = WindowPair.second;
+
+        if (false == WindowPtr->IsUpdate())
+        {
+            continue;
+        }
 
         WindowPtr->Begin();
         WindowPtr->OnGUI(Level, _DeltaTime);

@@ -4,8 +4,9 @@
 #include "GameEngineCamera.h"
 #include "GameEngineGUI.h"
 #include "GameEngineCollision.h"
+#include <GameEnginePlatform/GameEngineInput.h>
 
-GameEngineLevel::GameEngineLevel()
+GameEngineLevel::GameEngineLevel() 
 {
 	MainCamera = CreateActor<GameEngineCamera>();
 
@@ -15,9 +16,11 @@ GameEngineLevel::GameEngineLevel()
 	UICamera->SetProjectionType(CameraType::Orthogonal);
 
 	Cameras.insert(std::make_pair(100, UICamera));
+
+	LastTarget = GameEngineRenderTarget::Create(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, GameEngineWindow::GetScreenSize(), float4::Null);
 }
 
-GameEngineLevel::~GameEngineLevel()
+GameEngineLevel::~GameEngineLevel() 
 {
 }
 
@@ -25,7 +28,6 @@ GameEngineLevel::~GameEngineLevel()
 
 void GameEngineLevel::Start()
 {
-
 }
 
 void GameEngineLevel::ActorUpdate(float _DeltaTime)
@@ -110,10 +112,6 @@ void GameEngineLevel::ActorLevelChangeEnd()
 
 void GameEngineLevel::ActorRender(float _DeltaTime)
 {
-	// GetMainCamera()->Setting();
-	// GetMainCamera()->CameraTransformUpdate();
-	// GetMainCamera()->Render(_DeltaTime);
-
 	for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
 	{
 		std::shared_ptr<GameEngineCamera> Cam = Pair.second;
@@ -129,6 +127,31 @@ void GameEngineLevel::ActorRender(float _DeltaTime)
 
 		GameEngineDevice::GetBackBufferTarget()->Merge(Target);
 	}
+
+	//for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
+	//{
+	//	std::shared_ptr<GameEngineCamera> Cam = Pair.second;
+	//	Cam->Setting();
+	//	Cam->CameraTransformUpdate();
+	//	Cam->Render(_DeltaTime);
+	//	Cam->CamTarget->Effect();
+	//}
+
+	//LastTarget->Clear();
+
+	//for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
+	//{
+	//	std::shared_ptr<GameEngineCamera> Camera = Pair.second;
+	//	std::shared_ptr<GameEngineRenderTarget> Target = Camera->GetCamTarget();
+
+	//	LastTarget->Merge(Target);
+	//}
+
+	// 백버퍼는 효과를 줄수가 없습니다.
+
+	GameEngineDevice::GetBackBufferTarget()->Merge(LastTarget);
+
+
 
 
 	//// 이건 나중에 만들어질 랜더러의 랜더가 다 끝나고 되는 랜더가 될겁니다.
@@ -159,7 +182,17 @@ void GameEngineLevel::ActorRender(float _DeltaTime)
 	//	}
 	//}
 
-	GameEngineGUI::Render(GetSharedThis(), _DeltaTime);
+	static bool GUIRender = true;
+
+	if (true == GameEngineInput::IsDown("GUISwitch"))
+	{
+		GUIRender = !GUIRender;
+	}
+
+	if (true == GUIRender)
+	{
+		// GameEngineGUI::Render(GetSharedThis(), _DeltaTime);
+	}
 
 }
 
@@ -198,7 +231,7 @@ void GameEngineLevel::ActorRelease()
 		}
 	}
 
-
+	
 	{
 		std::map<int, std::list<std::shared_ptr<GameEngineActor>>>::iterator GroupStartIter = Actors.begin();
 		std::map<int, std::list<std::shared_ptr<GameEngineActor>>>::iterator GroupEndIter = Actors.end();
@@ -229,12 +262,12 @@ void GameEngineLevel::ActorRelease()
 
 }
 
-void GameEngineLevel::Update(float _DeltaTime)
+void GameEngineLevel::Update(float _DeltaTime) 
 {
 
 }
 
-void GameEngineLevel::Render(float _DeltaTime)
+void GameEngineLevel::Render(float _DeltaTime) 
 {
 }
 
@@ -252,11 +285,11 @@ void GameEngineLevel::PushCollision(std::shared_ptr<GameEngineCollision> _Collis
 	Collisions[_Collision->GetOrder()].push_back(_Collision);
 }
 
-void GameEngineLevel::LevelChangeStart()
+void GameEngineLevel::LevelChangeStart() 
 {
 
 }
-void GameEngineLevel::LevelChangeEnd()
+void GameEngineLevel::LevelChangeEnd() 
 {
 
 }
@@ -275,7 +308,7 @@ void GameEngineLevel::PushCameraRenderer(std::shared_ptr<GameEngineRenderer> _Re
 	FindCamera->PushRenderer(_Renderer);
 }
 
-std::shared_ptr<GameEngineCamera> GameEngineLevel::GetCamera(int _CameraOrder)
+std::shared_ptr<GameEngineCamera> GameEngineLevel::GetCamera(int _CameraOrder) 
 {
 	std::map<int, std::shared_ptr<GameEngineCamera>>::iterator FindIter = Cameras.find(_CameraOrder);
 
@@ -287,4 +320,37 @@ std::shared_ptr<GameEngineCamera> GameEngineLevel::GetCamera(int _CameraOrder)
 	std::shared_ptr<GameEngineCamera> Camera = FindIter->second;
 
 	return Camera;
+}
+
+void GameEngineLevel::TextureUnLoad(GameEngineLevel* _NextLevel)
+{
+	for (const std::pair<std::string, std::string>& Pair : LoadEndPath)
+	{
+		if (nullptr != _NextLevel && true == _NextLevel->TexturePath.contains(Pair.first))
+		{
+			continue;
+		}
+
+		GameEngineTexture::UnLoad(Pair.first);
+		TexturePath.insert(std::make_pair(Pair.first, Pair.second));
+	}
+
+	LoadEndPath.clear();
+}
+
+void GameEngineLevel::TextureReLoad(GameEngineLevel* _PrevLevel)
+{
+
+	for (const std::pair<std::string, std::string>& Pair : TexturePath)
+	{
+		if (nullptr != _PrevLevel && true == _PrevLevel->TexturePath.contains(Pair.first))
+		{
+			continue;
+		}
+
+		GameEngineTexture::ReLoad(Pair.second, Pair.first);
+		LoadEndPath.insert(std::make_pair(Pair.first, Pair.second));
+	}
+
+	TexturePath.clear();
 }
