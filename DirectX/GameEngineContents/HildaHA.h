@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "GameEnermyAttack.h"
 
 // Ό³Έν :
-class HildaHA : public GameEngineActor
+class HildaHA : public GameEnermyAttack
 {
 public:
 	// constrcuter destructer
@@ -21,7 +21,7 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> HaRender = nullptr;
-	std::shared_ptr<class GameEngineCollision> HaColiision = nullptr;
+	std::shared_ptr<class GameEngineCollision> HaCollision = nullptr;
 	void MakeSprite();
 };
 

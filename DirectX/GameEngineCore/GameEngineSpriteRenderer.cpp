@@ -144,6 +144,11 @@ void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name)
 
 void GameEngineSpriteRenderer::SetScaleToTexture(std::shared_ptr<GameEngineTexture> _Texture)
 {
+	if (nullptr == _Texture)
+	{
+		MsgAssert("nullptr인 텍스쳐를 사용하려 했습니다");
+		return;
+	}
 	GetShaderResHelper().SetTexture("DiffuseTex", _Texture);
 
 	float4 Scale = _Texture->GetScale() + float4(0, 0, 1);

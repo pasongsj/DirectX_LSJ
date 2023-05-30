@@ -3,6 +3,9 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCamera.h>
+#include "Player.h"
 
 
 ZepplingBullet::ZepplingBullet() 
@@ -39,14 +42,14 @@ void ZepplingBullet::Start()
 {
 	MakeSprite();
 	// 총알 이미지 랜더러
-	Bullet = CreateComponent<GameEngineSpriteRenderer>();
+	BulletRender = CreateComponent<GameEngineSpriteRenderer>();
 	//Bullet->SetTexture("blimp_enemy_bullet_a_0001.png");
-	Bullet->CreateAnimation({ .AnimationName = "BulletA", .SpriteName = "BlimpEnemy_BulletA",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Bullet->CreateAnimation({ .AnimationName = "BulletB", .SpriteName = "BlimpEnemy_BulletB",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Bullet->CreateAnimation({ .AnimationName = "BulletV", .SpriteName = "BlimpEnemy_BulletC",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Bullet->CreateAnimation({ .AnimationName = "BulletPinkA", .SpriteName = "BlimpEnemy_BulletPinkA",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Bullet->CreateAnimation({ .AnimationName = "BulletPinkB", .SpriteName = "BlimpEnemy_BulletPinkB",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	Bullet->ChangeAnimation("BulletA");
+	BulletRender->CreateAnimation({ .AnimationName = "BulletA", .SpriteName = "BlimpEnemy_BulletA",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	BulletRender->CreateAnimation({ .AnimationName = "BulletB", .SpriteName = "BlimpEnemy_BulletB",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	BulletRender->CreateAnimation({ .AnimationName = "BulletV", .SpriteName = "BlimpEnemy_BulletC",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	BulletRender->CreateAnimation({ .AnimationName = "BulletPinkA", .SpriteName = "BlimpEnemy_BulletPinkA",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	BulletRender->CreateAnimation({ .AnimationName = "BulletPinkB", .SpriteName = "BlimpEnemy_BulletPinkB",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	BulletRender->ChangeAnimation("BulletA");
 	// 위치,회전, 크기
 	//Bullet->GetTransform()->SetLocalScale(float4(46, 33) * 0.8f);
 	//Bullet->Off();
@@ -57,15 +60,30 @@ void ZepplingBullet::Start()
 
 void ZepplingBullet::Update(float _DeltaTime)
 {
-	BulletCollision->GetTransform()->SetLocalScale(Bullet->GetTransform()->GetLocalScale());
+	BulletCollision->SetRenderScaleToCollision(BulletRender);
 
 	//if ()// 화면밖으로 나갔다던가, 플레이어를 때렸다던가
-	//{
-	//	return;
-	//}
+	if (false == GetLevel()->GetMainCamera()->IsView(GetTransform()->GetTransDataRef()))
+	{
+		Death();
+		return;
+	}
 	//else if () // 플레이어를 때렸다던가
+	CollisionPlayer(BulletCollision);
+	//std::shared_ptr<GameEngineCollision> Col = nullptr;
+	//if (nullptr != (Col = BulletCollision->Collision(CupHeadCollisionOrder::Player)))
 	//{
-	//	return;
+	//	if (nullptr != Col && false == Col->IsDeath())
+	//	{
+	//		std::shared_ptr<Player> ColActor = Col->GetActor()->DynamicThis<Player>();
+	//		if (nullptr != ColActor)
+	//		{
+	//			ColActor->Attack(1);
+	//			Death();
+	//			return;
+	//		}
+
+	//	}
 	//}
 	//else if () // 플레이어의 패리를 당했다던가
 	//{
@@ -75,10 +93,11 @@ void ZepplingBullet::Update(float _DeltaTime)
 	float4 MoveVec = Dir * BulletSpeed * _DeltaTime;
 	GetTransform()->AddLocalPosition(MoveVec);
 
-	if (GetTransform()->GetWorldPosition().x < -GameEngineWindow::GetScreenSize().hx())
-	{
-		Death();
-	}
+
+	//if (GetTransform()->GetWorldPosition().x < -GameEngineWindow::GetScreenSize().hx())
+	//{
+	//	Death();
+	//}
 
 }
 
@@ -92,6 +111,6 @@ void ZepplingBullet::SetPurpleBullet()
 	int RandomNumber = GameEngineRandom::MainRandom.RandomInt(0, 4);
 	if (3 < RandomNumber)
 	{
-		Bullet->ChangeAnimation("BulletPinkA");
+		BulletRender->ChangeAnimation("BulletPinkA");
 	}
 }

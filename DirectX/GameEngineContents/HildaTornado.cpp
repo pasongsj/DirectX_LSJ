@@ -67,10 +67,5 @@ void HildaTornado::Update(float _DeltaTime)
 		Death();
 	}
 
-	std::shared_ptr<GameEngineCollision> Col = TornatoCollision->Collision(CupHeadCollisionOrder::Player, ColType::AABBBOX2D, ColType::SPHERE2D);
-	if (nullptr != Col) // 플레이어와 충돌 함
-	{
-		int a = 0;
-
-	}
+	CollisionPlayer(TornatoCollision);
 }

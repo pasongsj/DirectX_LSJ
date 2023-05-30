@@ -37,34 +37,28 @@ void HildaHA::Start()
 	
 	HaRender->ChangeAnimation("Ha");
 
-	HaColiision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
-	HaColiision->SetColType(ColType::AABBBOX2D);
+	HaCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	HaCollision->SetColType(ColType::AABBBOX2D);
 }
 
 void HildaHA::Update(float _DeltaTime)
 {
-	if (nullptr == HaRender || nullptr == HaColiision)
+	if (nullptr == HaRender || nullptr == HaCollision)
 	{
 		MsgAssert("Ha 랜더러 또는 콜리전이 제대로 생성되지 않았습니다.");
 		return;
 	}
-
-	HaColiision->GetTransform()->SetLocalScale(HaRender->GetTransform()->GetLocalScale());
-
-	GetTransform()->AddLocalPosition(float4(-800 * _DeltaTime, 0));
+	HaCollision->SetRenderScaleToCollision(HaRender);
 
 
 	float4 ScreenSize = GameEngineWindow::GetScreenSize();
 	if (GetTransform()->GetWorldPosition().x < -ScreenSize.hx())
 	{
 		Death();
+		return;
 	}
-
-	std::shared_ptr<GameEngineCollision> Col = HaColiision->Collision(CupHeadCollisionOrder::Player, ColType::AABBBOX2D, ColType::SPHERE2D);
-	if (nullptr != Col) // 플레이어와 충돌 함
-	{
-		int a = 0;
-
-	}
-
+	// 플레이어와 충돌 함
+	CollisionPlayer(HaCollision);
+	
+	GetTransform()->AddLocalPosition(float4(-800 * _DeltaTime, 0));
 }

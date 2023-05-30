@@ -48,6 +48,7 @@ void SagittariusArrow::Update(float _DeltaTime)
 	}
 	GetTransform()->AddLocalPosition(float4::Left * ArrowSpeed * _DeltaTime);
 
+
 	// 이 레벨에서는 화면이동이 아닌 배경이동이기 때문에 적용 가능한 것
 	float4 ArrowPos = GetTransform()->GetWorldPosition();
 	float4 ScreenSize = GameEngineWindow::GetScreenSize() + (GetTransform()->GetLocalScale()).half();

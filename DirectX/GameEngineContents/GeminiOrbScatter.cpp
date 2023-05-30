@@ -32,6 +32,7 @@ void GeminiOrbScatter::Start()
 	ScatterRender->ChangeAnimation("Idle");
 
 	ScatterCollsion = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	ScatterCollsion->SetColType(ColType::OBBBOX2D);
 }
 
 void GeminiOrbScatter::Update(float _DeltaTime)
@@ -50,6 +51,8 @@ void GeminiOrbScatter::Update(float _DeltaTime)
 		int a = 0;
 
 	}
+
+	CollisionPlayer(ScatterCollsion);
 }
 
 

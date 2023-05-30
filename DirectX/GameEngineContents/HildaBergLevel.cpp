@@ -158,6 +158,21 @@ void HildaBergLevel::LevelChangeStart()
 		}
 	}
 
+	if (nullptr == GameEngineTexture::Find("hud_hp_1.png"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\PlayerUI");
+
+		NewDir.Move("HPBar");
+
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
+		}
+	}
+
 	CreateActor<HildaBergBack0>(CupHeadActorOrder::BackGround);
 	CreateActor<HildaBergBack1>(CupHeadActorOrder::BackGround);
 	CreateActor<HildaBergBack2>(CupHeadActorOrder::BackGround);

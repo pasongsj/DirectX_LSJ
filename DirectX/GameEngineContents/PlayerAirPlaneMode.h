@@ -1,6 +1,6 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
 #include <functional>
+#include "Player.h"
 
 enum class PlayerAirPlaneModeState
 {
@@ -14,11 +14,10 @@ enum class PlayerAirPlaneModeState
 
 
 // Ό³Έν :
-class PlayerAirPlaneMode : public GameEngineActor
+class PlayerAirPlaneMode : public Player
 {
 public:
 
-	static PlayerAirPlaneMode* MainPlayer;
 	// constrcuter destructer
 	PlayerAirPlaneMode();
 	~PlayerAirPlaneMode();
@@ -29,15 +28,6 @@ public:
 	PlayerAirPlaneMode& operator=(const PlayerAirPlaneMode& _Other) = delete;
 	PlayerAirPlaneMode& operator=(PlayerAirPlaneMode&& _Other) noexcept = delete;
 
-	inline int GetHP()
-	{
-		return PlayerHP;
-	}
-	
-	inline int GetSuperModeEnergy()
-	{
-		return SuperModeEnergy;
-	}
 
 protected:
 	void Start() override;
@@ -46,9 +36,6 @@ protected:
 
 private:
 
-	int PlayerHP = 3;
-	int SuperModeEnergy = 0;
-
 	float  MoveSpeed = 500.0f;
 	float4 MoveVec = float4::Zero;
 
@@ -56,7 +43,7 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerRender = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> Spark = nullptr;
 
-	std::shared_ptr<class GameEngineCollision> PlayerCollsion = nullptr;
+	std::shared_ptr<class GameEngineCollision> PlayerCollision = nullptr;
 
 
 	PlayerAirPlaneModeState CurState = PlayerAirPlaneModeState::INTRO;

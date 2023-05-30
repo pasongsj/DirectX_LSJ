@@ -464,6 +464,11 @@ void LoadingLevel::LoadHildaSprite()
 		GameEngineSprite::LoadFolder("BlimpEnemy_Spark", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Explode (Death)\\Spark").GetFullPath());
 		++Phase;
 		break;
+
+	case 85:
+		FEffect->FadeIn();
+		++Phase;
+		break;
 	default:
 		GameEngineCore::ChangeLevel("HildaBergLevel");
 		break;

@@ -1,8 +1,7 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
-
+#include "GameEnermyAttack.h"
 // Ό³Έν :
-class ZepplingBullet : public GameEngineActor
+class ZepplingBullet : public GameEnermyAttack
 {
 	friend class Zeppling;
 public:
@@ -31,7 +30,7 @@ private:
 
 	void SetPurpleBullet();
 
-	std::shared_ptr<class GameEngineSpriteRenderer> Bullet = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> BulletRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> BulletCollision = nullptr;
 	float BulletSpeed = 400.0f;
 

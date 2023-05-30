@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "GameEnermyAttack.h"
 
 // Ό³Έν :
-class HildaTornado : public GameEngineActor
+class HildaTornado : public GameEnermyAttack
 {
 	friend class Hilda;
 public:

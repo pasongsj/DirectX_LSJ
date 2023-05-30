@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "GameEnermyAttack.h"
 
 // Ό³Έν :
-class SagittariusArrow : public GameEngineActor
+class SagittariusArrow : public GameEnermyAttack
 {
 public:
 	// constrcuter destructer

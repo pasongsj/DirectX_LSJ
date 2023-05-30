@@ -13,7 +13,6 @@
 #include "BoomEffect.h"
 #include "PlayerAirPlaneSmokeEffect.h"
 
-PlayerAirPlaneMode* PlayerAirPlaneMode::MainPlayer = nullptr;
 
 PlayerAirPlaneMode::PlayerAirPlaneMode() 
 {
@@ -103,12 +102,12 @@ void PlayerAirPlaneMode::MakeSprite()
 
 void PlayerAirPlaneMode::Start()
 {
-	if (nullptr != PlayerAirPlaneMode::MainPlayer)
+	if (nullptr != Player::MainPlayer)
 	{
 		MsgAssert("플레이어는 한개만 생성할 수 있습니다.");
 	}
 
-	PlayerAirPlaneMode::MainPlayer = DynamicThis<PlayerAirPlaneMode>().get();
+	Player::MainPlayer = DynamicThis<PlayerAirPlaneMode>().get();
 
 	if (false == GameEngineInput::IsKey("PlayerAirPlaneMoveLeft"))
 	{
@@ -174,7 +173,8 @@ void PlayerAirPlaneMode::Start()
 
 
 	
-	PlayerCollsion = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Player);
+	PlayerCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Player);
+	PlayerCollision->SetColType(ColType::SPHERE2D);
 	/*PlayerCollsion->GetTransform()->SetLocalScale(PlayerRender->GetTransform()->GetLocalScale());*/
 	//PlayerCollsion->SetOrder(CupHeadCollisionOrder::Player);
 
@@ -221,7 +221,8 @@ void PlayerAirPlaneMode::Start()
 
 void PlayerAirPlaneMode::Update(float _DeltaTime)
 {
-	PlayerCollsion->GetTransform()->SetLocalScale(PlayerRender->GetTransform()->GetLocalScale());
+	PlayerCollision->SetRenderScaleToCollision(PlayerRender);
+	SuperModeEnergy += _DeltaTime;
 
 	// 임시 체크용
 	if (true == GameEngineInput::IsDown("PlayerShmUpModeSwitch")) // VK_SPACE
