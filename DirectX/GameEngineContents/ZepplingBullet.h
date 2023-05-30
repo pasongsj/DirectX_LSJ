@@ -4,6 +4,7 @@
 // Ό³Έν :
 class ZepplingBullet : public GameEngineActor
 {
+	friend class Zeppling;
 public:
 	// constrcuter destructer
 	ZepplingBullet();
@@ -15,12 +16,6 @@ public:
 	ZepplingBullet& operator=(const ZepplingBullet& _Other) = delete;
 	ZepplingBullet& operator=(ZepplingBullet&& _Other) noexcept = delete;
 
-	void SetBulletDir(const float4& _Dir)
-	{
-		Dir = _Dir;
-	}
-
-	void SetPurpleBullet();
 
 protected:
 	void Start() override;
@@ -29,6 +24,13 @@ protected:
 
 
 private:
+	void SetBulletDir(const float4& _Dir)
+	{
+		Dir = _Dir;
+	}
+
+	void SetPurpleBullet();
+
 	std::shared_ptr<class GameEngineSpriteRenderer> Bullet = nullptr;
 	std::shared_ptr<class GameEngineCollision> BulletCollision = nullptr;
 	float BulletSpeed = 400.0f;

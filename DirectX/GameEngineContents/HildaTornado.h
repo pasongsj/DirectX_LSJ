@@ -4,6 +4,7 @@
 // Ό³Έν :
 class HildaTornado : public GameEngineActor
 {
+	friend class Hilda;
 public:
 	// constrcuter destructer
 	HildaTornado();
@@ -23,7 +24,17 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> TornatoRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> TornatoCollision = nullptr;
 	bool isIntro = true;
+
+	float4 TornadoDir = float4::Left;
+
+	float TornadoSpeed = 1000.0f;
+
 	void MakeSprite();
+
+	void SetTornadoDir(float4 _Dir)
+	{
+		TornadoDir = _Dir;
+	}
 
 };
 

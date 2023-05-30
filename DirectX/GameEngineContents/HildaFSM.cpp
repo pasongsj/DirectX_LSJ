@@ -7,7 +7,7 @@
 
 #include "HildaTornado.h"
 #include "HildaHA.h"
-
+#include "PlayerAirPlaneMode.h"
 
 void Hilda::Intro_Start()
 {
@@ -134,6 +134,9 @@ void Hilda::Tornado_Start()
 	BossRender->ChangeAnimation("Tornato");
 	std::shared_ptr<HildaTornado> Tronado = GetLevel()->CreateActor<HildaTornado>(CupHeadActorOrder::Enemy);
 	Tronado->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() - float4(BossRender->GetTransform()->GetLocalScale().hx(), 0));
+	float4 tmpDir = PlayerAirPlaneMode::MainPlayer->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+	tmpDir.Normalize();
+	Tronado->SetTornadoDir(tmpDir);
 }
 void Hilda::Tornado_Update(float _DeltaTime)
 {

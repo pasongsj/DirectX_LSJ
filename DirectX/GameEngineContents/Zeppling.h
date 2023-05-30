@@ -55,7 +55,7 @@ private:
 	std::string Mode = "Purple_";
 
 	float4 ScreenSize = float4::Zero;
-	
+	float4 BulletDir = float4::Zero;
 
 
 	void UpdateState(float _DeltaTime);

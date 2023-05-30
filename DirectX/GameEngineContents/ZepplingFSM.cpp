@@ -4,8 +4,10 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 
+
 #include "ZepplingBullet.h"
 #include "ZepplingBroken.h"
+#include "PlayerAirPlaneMode.h"
 
 void Zeppling::Move_Start()
 {
@@ -29,6 +31,8 @@ void Zeppling::Move_End()
 void Zeppling::Shoot_Start()
 {
 	EnemyRender->ChangeAnimation(Mode + "Attack");
+	BulletDir = PlayerAirPlaneMode::MainPlayer->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();// 플레이어 위치 - Zeppling의 위치
+	BulletDir.Normalize();
 }
 void Zeppling::Shoot_Update(float _DeltaTime)
 {
@@ -36,9 +40,7 @@ void Zeppling::Shoot_Update(float _DeltaTime)
 	{
 		std::shared_ptr<ZepplingBullet> Bullet = GetLevel()->CreateActor<ZepplingBullet>(CupHeadActorOrder::Enemy);
 		Bullet->GetTransform()->SetWorldPosition(EnemyRender->GetTransform()->GetWorldPosition() - float4(EnemyRender->GetTransform()->GetLocalScale().hx(),0));
-
-		//float4 BulletDir =  플레이어 위치 - Zeppling의 위치
-		//Bullet->SetBulletDir(BulletDir);
+		Bullet->SetBulletDir(BulletDir);
 		if ("Purple_" == Mode)
 		{
 			Bullet->SetPurpleBullet();

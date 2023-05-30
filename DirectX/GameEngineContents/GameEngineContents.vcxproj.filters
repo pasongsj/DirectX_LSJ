@@ -271,5 +271,8 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{216717de-ca5b-4eeb-b55a-a9aa3cee7921}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NewFilter1">
+      <UniqueIdentifier>{38a85205-c060-4ebf-a603-11b466ada88a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

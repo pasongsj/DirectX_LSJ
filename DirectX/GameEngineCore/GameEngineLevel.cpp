@@ -112,42 +112,42 @@ void GameEngineLevel::ActorLevelChangeEnd()
 
 void GameEngineLevel::ActorRender(float _DeltaTime)
 {
-	for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
-	{
-		std::shared_ptr<GameEngineCamera> Cam = Pair.second;
-		Cam->Setting();
-		Cam->CameraTransformUpdate();
-		Cam->Render(_DeltaTime);
-	}
-
-	for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
-	{
-		std::shared_ptr<GameEngineCamera> Camera = Pair.second;
-		std::shared_ptr<GameEngineRenderTarget> Target = Camera->GetCamTarget();
-
-		GameEngineDevice::GetBackBufferTarget()->Merge(Target);
-	}
-
 	//for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
 	//{
 	//	std::shared_ptr<GameEngineCamera> Cam = Pair.second;
 	//	Cam->Setting();
 	//	Cam->CameraTransformUpdate();
 	//	Cam->Render(_DeltaTime);
-	//	Cam->CamTarget->Effect();
 	//}
-
-	//LastTarget->Clear();
 
 	//for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
 	//{
 	//	std::shared_ptr<GameEngineCamera> Camera = Pair.second;
 	//	std::shared_ptr<GameEngineRenderTarget> Target = Camera->GetCamTarget();
 
-	//	LastTarget->Merge(Target);
+	//	GameEngineDevice::GetBackBufferTarget()->Merge(Target);
 	//}
 
-	// 백버퍼는 효과를 줄수가 없습니다.
+	for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
+	{
+		std::shared_ptr<GameEngineCamera> Cam = Pair.second;
+		Cam->Setting();
+		Cam->CameraTransformUpdate();
+		Cam->Render(_DeltaTime);
+		Cam->CamTarget->Effect(_DeltaTime);
+	}
+
+	LastTarget->Clear();
+
+	for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
+	{
+		std::shared_ptr<GameEngineCamera> Camera = Pair.second;
+		std::shared_ptr<GameEngineRenderTarget> Target = Camera->GetCamTarget();
+
+		LastTarget->Merge(Target);
+	}
+
+	 //백버퍼는 효과를 줄수가 없습니다.
 
 	GameEngineDevice::GetBackBufferTarget()->Merge(LastTarget);
 
@@ -187,11 +187,19 @@ void GameEngineLevel::ActorRender(float _DeltaTime)
 	if (true == GameEngineInput::IsDown("GUISwitch"))
 	{
 		GUIRender = !GUIRender;
+
+		if (false == GUIRender)
+		{
+			GameEngineGUI::Release();
+		}
+		else {
+			GameEngineGUI::Initialize();
+		}
 	}
 
 	if (true == GUIRender)
 	{
-		// GameEngineGUI::Render(GetSharedThis(), _DeltaTime);
+		GameEngineGUI::Render(GetSharedThis(), _DeltaTime);
 	}
 
 }

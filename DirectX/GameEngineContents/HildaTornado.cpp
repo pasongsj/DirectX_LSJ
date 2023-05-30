@@ -58,7 +58,7 @@ void HildaTornado::Update(float _DeltaTime)
 	else if (false == isIntro)
 	{
 		TornatoCollision->GetTransform()->SetLocalScale(TornatoRender->GetTransform()->GetLocalScale());
-		GetTransform()->AddLocalPosition(float4(-1000 * _DeltaTime, 0));
+		GetTransform()->AddLocalPosition(TornadoDir * TornadoSpeed * _DeltaTime);
 	}
 
 	float4 Screen = GameEngineWindow::GetScreenSize();
