@@ -1,6 +1,12 @@
 #include "PrecompileHeader.h"
 #include "ContentsCore.h"
 #include <GameEngineCore/GameEngineCoreWindow.h>
+#include <GameEngineBase/GameEngineDirectory.h>
+#include <GameEngineCore/GameEngineVertexShader.h>
+#include <GameEngineCore/GameEnginePixelShader.h>
+#include <GameEngineCore/GameEngineRenderingPipeLine.h>
+
+
 #include "PlayLevel.h"
 #include "TitleLevel.h"
 #include "TestLevel.h"
@@ -16,12 +22,6 @@ ContentsCore::~ContentsCore()
 {
 }
 
-void ContentsCore::ContentsResourcesCreate()
-{
-	// 텍스처 로드만 각 레벨별로 하도록 함
-
-
-}
 
 void ContentsCore::GameStart() 
 {

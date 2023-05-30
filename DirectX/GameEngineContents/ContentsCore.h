@@ -1,8 +1,7 @@
 #pragma once
-#include <GameEngineCore/GameEngineCore.h>
 
 // Ό³Έν :
-class ContentsCore : public GameEngineCore
+class ContentsCore
 {
 public:
 	// constrcuter destructer

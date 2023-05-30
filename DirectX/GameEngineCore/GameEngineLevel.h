@@ -64,7 +64,7 @@ public:
 		return std::dynamic_pointer_cast<ActorType>(NewActor);
 	}
 
-	std::shared_ptr<class GameEngineCamera> GetMainCamera() 
+	std::shared_ptr<class GameEngineCamera> GetMainCamera()
 	{
 		return MainCamera;
 	}
@@ -76,7 +76,7 @@ public:
 
 	std::shared_ptr<GameEngineCamera> GetCamera(int _CameraOrder);
 
-	std::shared_ptr<GameEngineRenderTarget> GetLastTarget() 
+	std::shared_ptr<GameEngineRenderTarget> GetLastTarget()
 	{
 		return LastTarget;
 	}
@@ -127,4 +127,3 @@ private:
 
 };
 
- 

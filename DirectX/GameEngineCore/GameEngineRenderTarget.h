@@ -16,7 +16,6 @@ public:
 protected:
 	virtual void Start(GameEngineRenderTarget* _Target) = 0;
 	virtual void Effect(GameEngineRenderTarget* _Target, float _DeltaTime) = 0;
-
 };
 
 // Ό³Έν :
@@ -86,6 +85,7 @@ public:
 	{
 		return Textures[_Index];
 	}
+
 protected:
 
 private:

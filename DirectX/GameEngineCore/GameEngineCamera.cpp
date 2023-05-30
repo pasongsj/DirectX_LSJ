@@ -5,7 +5,6 @@
 #include "GameEngineDevice.h"
 #include "GameEngineRenderer.h"
 #include "GameEngineRenderTarget.h"
-#include <algorithm>
 
 GameEngineCamera::GameEngineCamera()
 {
@@ -169,16 +168,18 @@ void GameEngineCamera::Render(float _DeltaTime)
 					Render->CalSortZ(this);
 				}
 
+				// 퀵소트 내일
 				RenderGroup.sort([](std::shared_ptr<GameEngineRenderer>& _Left, std::shared_ptr<GameEngineRenderer>& _Right)
 					{
 						return _Left->CalZ > _Right->CalZ;
 					});
 			}
+
+			// 정렬을 하겠다는 뜻으로 본다.
 		}
 
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator StartRenderer = RenderGroup.begin();
 		std::list<std::shared_ptr<GameEngineRenderer>>::iterator EndRenderer = RenderGroup.end();
-
 
 		for (; StartRenderer != EndRenderer; ++StartRenderer)
 		{
@@ -221,7 +222,7 @@ void GameEngineCamera::CameraTransformUpdate()
 		Projection.PerspectiveFovLH(FOV, Width / Height, Near, Far);
 		break;
 	case CameraType::Orthogonal:
-		Projection.OrthographicLH(Width, Height, Near, Far);
+		Projection.OrthographicLH(Width * ZoomRatio, Height * ZoomRatio, Near, Far);
 		break;
 	default:
 		break;
@@ -254,12 +255,12 @@ void GameEngineCamera::PushRenderer(std::shared_ptr<GameEngineRenderer> _Render)
 
 bool GameEngineCamera::IsView(const TransformData& _TransData)
 {
-	// Width, Height, Near, Far;
 	if (true == IsFreeCamera())
 	{
 		return true;
 	}
 
+	// Width, Height, Near, Far;
 
 	switch (ProjectionType)
 	{

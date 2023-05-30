@@ -24,8 +24,15 @@ GameEngineGUI::~GameEngineGUI()
 //    return 0;
 //}
 
+bool GameEngineGUI::IsInit = false;
+
 void GameEngineGUI::Initialize()
 {
+    if (true == IsInit)
+    {
+        return;
+    }
+
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -69,8 +76,7 @@ void GameEngineGUI::Initialize()
     NewDir.MoveParentToDirectory("EngineResources");
     NewDir.Move("EngineResources");
     NewDir.Move("Font");
-
-    io.Fonts->AddFontFromFileTTF(GameEngineString::AnsiToUTF8(NewDir.GetPlusFileName("malgun.ttf").GetFullPath()).c_str(), 18.0f, nullptr, io.Fonts->GetGlyphRangesKorean());
+    io.Fonts->AddFontFromFileTTF(NewDir.GetPlusFileName("malgun.ttf").GetFullPath().c_str(), 18.0f, nullptr, io.Fonts->GetGlyphRangesKorean());
 
     // Load Fonts
     // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
@@ -87,7 +93,7 @@ void GameEngineGUI::Initialize()
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, nullptr, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != nullptr);
-
+    IsInit = true;
 }
 
 void GameEngineGUI::Render(std::shared_ptr<class GameEngineLevel> Level, float _DeltaTime)
@@ -130,8 +136,15 @@ void GameEngineGUI::Render(std::shared_ptr<class GameEngineLevel> Level, float _
 
 void GameEngineGUI::Release()
 {
+    if (false == IsInit)
+    {
+        return;
+    }
+
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
+
+    IsInit = false;
 }
 

@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineCore.h>
 
 #include "LoadingBackGround.h"
+#include "FadeEffect.h"
 
 LoadingLevel::LoadingLevel()
 {
@@ -18,6 +19,9 @@ void LoadingLevel::Start()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+
+	FEffect = GetLastTarget()->CreateEffect<FadeEffect>();
+
 }
 
 void LoadingLevel::Update(float _DeltaTime)

@@ -119,7 +119,6 @@ bool GameEngineObject::IsUpdate()
 	return GameEngineObjectBase::IsUpdate();
 }
 
-
 void GameEngineObject::AllLevelChangeStart()
 {
 	LevelChangeStart();

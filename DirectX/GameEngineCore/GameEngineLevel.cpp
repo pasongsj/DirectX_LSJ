@@ -6,7 +6,7 @@
 #include "GameEngineCollision.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 
-GameEngineLevel::GameEngineLevel() 
+GameEngineLevel::GameEngineLevel()
 {
 	MainCamera = CreateActor<GameEngineCamera>();
 
@@ -20,7 +20,7 @@ GameEngineLevel::GameEngineLevel()
 	LastTarget = GameEngineRenderTarget::Create(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, GameEngineWindow::GetScreenSize(), float4::Null);
 }
 
-GameEngineLevel::~GameEngineLevel() 
+GameEngineLevel::~GameEngineLevel()
 {
 }
 
@@ -112,21 +112,9 @@ void GameEngineLevel::ActorLevelChangeEnd()
 
 void GameEngineLevel::ActorRender(float _DeltaTime)
 {
-	//for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
-	//{
-	//	std::shared_ptr<GameEngineCamera> Cam = Pair.second;
-	//	Cam->Setting();
-	//	Cam->CameraTransformUpdate();
-	//	Cam->Render(_DeltaTime);
-	//}
-
-	//for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
-	//{
-	//	std::shared_ptr<GameEngineCamera> Camera = Pair.second;
-	//	std::shared_ptr<GameEngineRenderTarget> Target = Camera->GetCamTarget();
-
-	//	GameEngineDevice::GetBackBufferTarget()->Merge(Target);
-	//}
+	// GetMainCamera()->Setting();
+	// GetMainCamera()->CameraTransformUpdate();
+	// GetMainCamera()->Render(_DeltaTime);
 
 	for (std::pair<int, std::shared_ptr<GameEngineCamera>> Pair : Cameras)
 	{
@@ -147,11 +135,13 @@ void GameEngineLevel::ActorRender(float _DeltaTime)
 		LastTarget->Merge(Target);
 	}
 
-	 //백버퍼는 효과를 줄수가 없습니다.
+	LastTarget->Effect(_DeltaTime);
+
+	// 백버퍼는 효과를 줄수가 없습니다.
+
+
 
 	GameEngineDevice::GetBackBufferTarget()->Merge(LastTarget);
-
-
 
 
 	//// 이건 나중에 만들어질 랜더러의 랜더가 다 끝나고 되는 랜더가 될겁니다.
@@ -239,7 +229,7 @@ void GameEngineLevel::ActorRelease()
 		}
 	}
 
-	
+
 	{
 		std::map<int, std::list<std::shared_ptr<GameEngineActor>>>::iterator GroupStartIter = Actors.begin();
 		std::map<int, std::list<std::shared_ptr<GameEngineActor>>>::iterator GroupEndIter = Actors.end();
@@ -270,12 +260,12 @@ void GameEngineLevel::ActorRelease()
 
 }
 
-void GameEngineLevel::Update(float _DeltaTime) 
+void GameEngineLevel::Update(float _DeltaTime)
 {
 
 }
 
-void GameEngineLevel::Render(float _DeltaTime) 
+void GameEngineLevel::Render(float _DeltaTime)
 {
 }
 
@@ -293,11 +283,11 @@ void GameEngineLevel::PushCollision(std::shared_ptr<GameEngineCollision> _Collis
 	Collisions[_Collision->GetOrder()].push_back(_Collision);
 }
 
-void GameEngineLevel::LevelChangeStart() 
+void GameEngineLevel::LevelChangeStart()
 {
 
 }
-void GameEngineLevel::LevelChangeEnd() 
+void GameEngineLevel::LevelChangeEnd()
 {
 
 }
@@ -316,7 +306,7 @@ void GameEngineLevel::PushCameraRenderer(std::shared_ptr<GameEngineRenderer> _Re
 	FindCamera->PushRenderer(_Renderer);
 }
 
-std::shared_ptr<GameEngineCamera> GameEngineLevel::GetCamera(int _CameraOrder) 
+std::shared_ptr<GameEngineCamera> GameEngineLevel::GetCamera(int _CameraOrder)
 {
 	std::map<int, std::shared_ptr<GameEngineCamera>>::iterator FindIter = Cameras.find(_CameraOrder);
 

@@ -109,6 +109,9 @@
     <ClInclude Include="ZepplingBroken.h">
       <Filter>Object\HildaBerg\Zeppling</Filter>
     </ClInclude>
+    <ClInclude Include="FadeEffect.h">
+      <Filter>PostEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -227,6 +230,10 @@
     <ClCompile Include="ZepplingBroken.cpp">
       <Filter>Object\HildaBerg\Zeppling</Filter>
     </ClCompile>
+    <ClCompile Include="FadeEffect.cpp">
+      <Filter>PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Contents_Resources.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -273,6 +280,9 @@
     </Filter>
     <Filter Include="NewFilter1">
       <UniqueIdentifier>{38a85205-c060-4ebf-a603-11b466ada88a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PostEffect">
+      <UniqueIdentifier>{efe8a6b9-40c2-4473-804a-d91690d9b784}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

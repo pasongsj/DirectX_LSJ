@@ -312,9 +312,14 @@ void GameEngineSpriteRenderer::Update(float _Delta)
 	if (nullptr != CurAnimation)
 	{
 		CurAnimation->Update(_Delta);
+
+		const SpriteInfo& Info = CurAnimation->CurSpriteInfo();
+
+		GetShaderResHelper().SetTexture("DiffuseTex", Info.Texture);
+		AtlasData = Info.CutData;
+
 		if (true == CurAnimation->ScaleToTexture)
 		{
-			const SpriteInfo& Info = CurAnimation->CurSpriteInfo();
 			std::shared_ptr<GameEngineTexture> Texture = Info.Texture;
 
 			float4 Scale = Texture->GetScale();
@@ -329,32 +334,9 @@ void GameEngineSpriteRenderer::Update(float _Delta)
 		}
 	}
 }
-
 void GameEngineSpriteRenderer::Render(float _Delta)
 {
-	if (nullptr != CurAnimation)
-	{
-		const SpriteInfo& Info = CurAnimation->CurSpriteInfo();
 
-		GetShaderResHelper().SetTexture("DiffuseTex", Info.Texture);
-		AtlasData = Info.CutData;
-
-		/*if (true == CurAnimation->ScaleToTexture)
-		{
-			std::shared_ptr<GameEngineTexture> Texture = Info.Texture;
-
-			float4 Scale = Texture->GetScale();
-
-			Scale.x *= Info.CutData.SizeX;
-			Scale.y *= Info.CutData.SizeY;
-			Scale.z = 1.0f;
-
-			Scale *= ScaleRatio;
-
-			GetTransform()->SetLocalScale(Scale);
-		}*/
-
-	}
 	GameEngineRenderer::Render(_Delta);
 }
 

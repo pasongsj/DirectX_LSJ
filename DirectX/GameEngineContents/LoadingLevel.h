@@ -15,6 +15,8 @@ public:
 	LoadingLevel& operator=(const LoadingLevel& _Other) = delete;
 	LoadingLevel& operator=(LoadingLevel&& _Other) noexcept = delete;
 
+	std::shared_ptr<class FadeEffect> FEffect;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
