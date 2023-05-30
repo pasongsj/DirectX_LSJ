@@ -68,9 +68,26 @@ void HildaBergLevel::Update(float _DeltaTime)
 {
 	if (GetLiveTime() > NextSponeTime)
 	{
-		/*std::shared_ptr<Zeppling> NewMonster = */CreateActor<Zeppling>(CupHeadActorOrder::Enemy);
+		///*std::shared_ptr<Zeppling> NewMonster = */CreateActor<Zeppling>(CupHeadActorOrder::Enemy);
 		//std::shared_ptr<HIldaMoonUFO> NewMonster = CreateActor<HIldaMoonUFO>(CupHeadActorOrder::Enemy);
+		if (Phase < 6)
+		{
+			CreateActor<Zeppling>(CupHeadActorOrder::Enemy);
+		}
+		else
+		{
+			CreateActor<HIldaMoonUFO>(CupHeadActorOrder::Enemy);
+		}
 		NextSponeTime += 5.0f;
+	}
+
+	float4 LastBossPos = float4::Zero;
+	if (nullptr != Boss && (Boss->GetHP() < 0 || true == GameEngineInput::IsDown("NextBoss")))
+	{
+		LastBossPos = Boss->GetTransform()->GetWorldPosition();
+		Boss->Death();
+		Boss = nullptr;
+		++Phase;
 	}
 
 	if (nullptr == Boss)
@@ -125,6 +142,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 			Boss = CreateActor<Moon>(CupHeadActorOrder::Boss);
 			Boss->SetPhase(6);
 			Boss->SetHP(884);
+			Boss->GetTransform()->SetLocalPosition(LastBossPos);
 			break;
 		}
 		default:
@@ -132,12 +150,6 @@ void HildaBergLevel::Update(float _DeltaTime)
 		}
 	}
 
-	if (nullptr != Boss && (Boss->GetHP() < 0 || true == GameEngineInput::IsDown("NextBoss")))
-	{
-		Boss->Death();
-		Boss = nullptr;
-		++Phase;
-	}
 }
 
 
@@ -165,6 +177,21 @@ void HildaBergLevel::LevelChangeStart()
 		NewDir.Move("ContentResources\\Texture\\PlayerUI");
 
 		NewDir.Move("HPBar");
+
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
+		}
+	}
+
+	if (nullptr == GameEngineTexture::Find("hud_ch_card_flip_0000.png"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\PlayerUI");
+
+		NewDir.Move("OriginCard");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)

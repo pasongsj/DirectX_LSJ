@@ -11,7 +11,7 @@ GameEnermyAttack::~GameEnermyAttack()
 {
 }
 
-void GameEnermyAttack::CollisionPlayer(std::shared_ptr<class GameEngineCollision> _EnermyCol)
+bool GameEnermyAttack::CollisionPlayer(std::shared_ptr<class GameEngineCollision> _EnermyCol)
 {
 	std::shared_ptr<GameEngineCollision> Col = nullptr;
 	if (nullptr != (Col = _EnermyCol->Collision(CupHeadCollisionOrder::Player)))
@@ -22,10 +22,10 @@ void GameEnermyAttack::CollisionPlayer(std::shared_ptr<class GameEngineCollision
 			if (nullptr != ColActor)
 			{
 				ColActor->Attack(1);
-				Death();
-				return;
+				return true;
 			}
 
 		}
 	}
+	return false;
 }

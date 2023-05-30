@@ -3,9 +3,10 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineUIRenderer.h>
-#include <GameEngineCore/GameEngineSprite.h>
 
-#include "PlayerAirPlaneMode.h"
+#include "GameContentsUIRenderer.h"
+
+#include "Player.h"
 
 PlayerUI::PlayerUI() 
 {
@@ -62,14 +63,50 @@ void PlayerUI::Start()
 
 
 
+
+	float4 UIPos = -GameEngineWindow::GetScreenSize().half();
+	UIPos += float4(120, 20);
+	for (int i = 0; i < 5; i++)
+	{
+		std::shared_ptr<GameContentsUIRenderer> tmp = CreateComponent< GameContentsUIRenderer>();
+		CardPos.push_back(UIPos);
+		tmp->Off();
+		SuperModeCard.push_back(tmp);
+		UIPos.x += 20;
+
+	}
+
 }
 
 void PlayerUI::Update(float _Delta)
 {
-	int Hp = PlayerAirPlaneMode::MainPlayer->GetHP();
-	if (Hp < 0)
 	{
-		Hp = 0;
+		int Hp = Player::MainPlayer->GetHP();
+		if (Hp < 0)
+		{
+			Hp = 0;
+		}
+		HPRender->SetScaleToTexture(HPTexture[Hp]);
 	}
-	HPRender->SetScaleToTexture(HPTexture[Hp]);
+
+	{
+		float Energy = Player::MainPlayer->GetSuperModeEnergy();
+
+		int CardCount = static_cast<int>(Energy) / 100;
+		float LastEnergy = (Energy - (100.0f * CardCount)) * 0.01f;
+
+		if (CardCount > 0)
+		{
+			SuperModeCard[CardCount - 1]->SetScaleToTexture("hud_ch_card_flip_0000.png");
+			SuperModeCard[CardCount - 1]->GetTransform()->SetLocalPosition(CardPos[CardCount - 1] + CardYSize.half());
+			SuperModeCard[CardCount - 1]->On();
+		}
+		if (CardCount != 5)
+		{
+			SuperModeCard[CardCount]->SetScaleToCutTexture("hud_ch_card_flip_0000.png", 0, 0, 1, LastEnergy);
+			SuperModeCard[CardCount]->GetTransform()->SetLocalPosition(CardPos[CardCount] + CardYSize.half() * LastEnergy);
+			SuperModeCard[CardCount]->On();
+		}
+	}
+
 }

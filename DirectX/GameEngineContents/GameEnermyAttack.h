@@ -14,7 +14,8 @@ public:
 	GameEnermyAttack& operator=(const GameEnermyAttack& _Other) = delete;
 	GameEnermyAttack& operator=(GameEnermyAttack&& _Other) noexcept = delete;
 
-	void CollisionPlayer(std::shared_ptr<class GameEngineCollision> _EnermyCol);
+	bool CollisionPlayer(std::shared_ptr<class GameEngineCollision> _EnermyCol);
+
 protected:
 
 private:

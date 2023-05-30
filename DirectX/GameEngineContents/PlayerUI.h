@@ -24,7 +24,10 @@ private:
 	std::map<int, std::shared_ptr<class GameEngineTexture>> HPTexture;
 	std::shared_ptr<class GameEngineUIRenderer> HPRender = nullptr;
 
-	int CardCount = 0;
-	int CardEnergy = 0;
+	std::vector<std::shared_ptr<class GameContentsUIRenderer>> SuperModeCard;
+	std::vector<float4> CardPos;
+
+	float4 CardYSize = float4(0, 30);
+
 };
 

@@ -118,6 +118,9 @@
     <ClInclude Include="GameEnermyAttack.h">
       <Filter>Object\Enermy</Filter>
     </ClInclude>
+    <ClInclude Include="GameContentsUIRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -245,6 +248,9 @@
     </ClCompile>
     <ClCompile Include="GameEnermyAttack.cpp">
       <Filter>Object\Enermy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameContentsUIRenderer.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

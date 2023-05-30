@@ -222,7 +222,7 @@ void PlayerAirPlaneMode::Start()
 void PlayerAirPlaneMode::Update(float _DeltaTime)
 {
 	PlayerCollision->SetRenderScaleToCollision(PlayerRender);
-	SuperModeEnergy += _DeltaTime;
+	SuperModeEnergy += _DeltaTime*10;
 
 	// 임시 체크용
 	if (true == GameEngineInput::IsDown("PlayerShmUpModeSwitch")) // VK_SPACE
