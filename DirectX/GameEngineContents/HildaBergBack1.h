@@ -19,6 +19,7 @@ public:
 protected:
 
 	void Start() override;
+	void ChangeNight() override;
 
 
 private:

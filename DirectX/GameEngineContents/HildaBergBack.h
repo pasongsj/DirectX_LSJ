@@ -4,6 +4,7 @@
 // Ό³Έν :
 class HildaBergBack : public GameEngineActor
 {
+	friend class HildaBergLevel;
 public:
 	// constrcuter destructer
 	HildaBergBack();
@@ -24,6 +25,8 @@ protected:
 
 	float Interval = 0.0f;
 	float BackGroundMoveSpeed = 50.0f;
+
+	virtual void ChangeNight() {};
 
 private:
 

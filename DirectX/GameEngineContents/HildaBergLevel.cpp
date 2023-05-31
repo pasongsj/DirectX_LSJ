@@ -12,6 +12,7 @@
 
 
 // BackGround
+#include "HildaBergBack.h"
 #include "HildaBergBack0.h"
 #include "HildaBergBack1.h"
 #include "HildaBergBack2.h"
@@ -142,6 +143,10 @@ void HildaBergLevel::Update(float _DeltaTime)
 			Boss->SetPhase(6);
 			Boss->SetHP(884);
 			Boss->GetTransform()->SetLocalPosition(LastBossPos);
+			for (size_t i = 0; i < HildaBG.size(); i++)
+			{
+				HildaBG[i]->ChangeNight();
+			}
 			break;
 		}
 		default:
@@ -199,10 +204,14 @@ void HildaBergLevel::LevelChangeStart()
 		}
 	}
 
-	CreateActor<HildaBergBack0>(CupHeadActorOrder::BackGround);
-	CreateActor<HildaBergBack1>(CupHeadActorOrder::BackGround);
-	CreateActor<HildaBergBack2>(CupHeadActorOrder::BackGround);
-	CreateActor<HildaBergBack3>(CupHeadActorOrder::BackGround);
+	std::shared_ptr<HildaBergBack> BG0 = CreateActor<HildaBergBack0>(CupHeadActorOrder::BackGround);
+	HildaBG.push_back(BG0);
+	std::shared_ptr<HildaBergBack> BG1 = CreateActor<HildaBergBack1>(CupHeadActorOrder::BackGround);
+	HildaBG.push_back(BG1);
+	std::shared_ptr<HildaBergBack> BG2 = CreateActor<HildaBergBack2>(CupHeadActorOrder::BackGround);
+	HildaBG.push_back(BG2);
+	std::shared_ptr<HildaBergBack> BG3 = CreateActor<HildaBergBack3>(CupHeadActorOrder::BackGround);
+	HildaBG.push_back(BG3);
 
 
 	//std::shared_ptr< ZepplingBroken> B = CreateActor<ZepplingBroken>(CupHeadActorOrder::Enemy);

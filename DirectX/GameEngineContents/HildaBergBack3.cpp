@@ -64,3 +64,30 @@ void HildaBergBack3::Update(float _DeltaTime)
 	}
 
 }
+
+void HildaBergBack3::ChangeNight()
+{
+	float4 ScreenSize = GameEngineWindow::GetScreenSize();
+
+	for (int i = 1; i <= 4; i++)
+	{
+		std::string TextureName = "blimp_large_forest_night_000" + std::to_string(i) + ".png";
+		std::shared_ptr<GameEngineSpriteRenderer> Hill = CreateComponent< GameEngineSpriteRenderer>();
+		Hill->SetScaleToTexture(TextureName);
+		float4 HillScale = Hill->GetTransform()->GetLocalScale();
+		IntervalX += HillScale.x;
+		if (true == LargeHill.empty())
+		{
+			Hill->GetTransform()->SetLocalPosition(float4(0, -ScreenSize.hy() + HillScale.hy() - 10));
+			SettingX += HillScale.hx();
+		}
+		else
+		{
+			SettingX += HillScale.hx();
+			Hill->GetTransform()->SetLocalPosition(float4(SettingX, -ScreenSize.hy() + HillScale.hy() - 10) /*+ HillScale.half()*/);
+			SettingX += HillScale.hx();
+		}
+		LargeHill.push(Hill);
+
+	}
+}

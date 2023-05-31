@@ -32,3 +32,9 @@ void HildaBergBack1::Start()
 	Interval = 0.0f;
 	BackGroundMoveSpeed = 100.0f;
 }
+
+void HildaBergBack1::ChangeNight()
+{
+	MainBack->SetScaleToTexture("blimp_dark_hills_night.png");
+	SubBack->SetScaleToTexture("blimp_dark_hills_night.png");
+}

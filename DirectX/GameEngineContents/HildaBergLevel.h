@@ -30,5 +30,8 @@ private:
 	std::shared_ptr<class HildaBoss> Boss = nullptr;
 	int Phase = 1;
 
+	// ¹è°æ
+	std::vector<std::shared_ptr<class HildaBergBack>> HildaBG;
+
 };
 

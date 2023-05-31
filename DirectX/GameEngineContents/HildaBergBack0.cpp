@@ -30,3 +30,9 @@ void HildaBergBack0::Start()
 	BackGroundMoveSpeed = 50.0f;
 
 }
+
+void HildaBergBack0::ChangeNight()
+{
+	MainBack->SetScaleToTexture("blimp_sky_night.png");
+	SubBack->SetScaleToTexture("blimp_sky_night.png");
+}

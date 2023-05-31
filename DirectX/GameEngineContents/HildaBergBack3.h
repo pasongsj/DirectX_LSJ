@@ -1,9 +1,9 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "HildaBergBack.h"
 #include <queue>
 
 // Ό³Έν :
-class HildaBergBack3 : public GameEngineActor
+class HildaBergBack3 : public HildaBergBack
 {
 public:
 	// constrcuter destructer
@@ -19,7 +19,7 @@ public:
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
-
+	void ChangeNight() override;
 
 private:
 	std::queue< std::shared_ptr<class GameEngineSpriteRenderer>> LargeHill;
