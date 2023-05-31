@@ -26,7 +26,7 @@ public:
 
 	inline float GetSuperModeEnergy()
 	{
-		return SuperModeEnergy;
+		return (SuperModeEnergy>500?500: SuperModeEnergy);
 	}
 	inline void Attack(int _Dmg)
 	{
