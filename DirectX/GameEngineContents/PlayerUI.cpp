@@ -93,15 +93,15 @@ void PlayerUI::Update(float _Delta)
 		float Energy = Player::MainPlayer->GetSuperModeEnergy();
 
 		int CardCount = static_cast<int>(Energy) / 100;
-		float LastEnergy = (Energy - (100.0f * CardCount)) * 0.01f;
-
-		if (CardCount > 0)
+		if (0 < CardCount && CardCount <= 5)
 		{
 			SuperModeCard[CardCount - 1]->SetScaleToTexture("hud_ch_card_flip_0000.png");
 			SuperModeCard[CardCount - 1]->GetTransform()->SetLocalPosition(CardPos[CardCount - 1] + CardYSize.half());
 			SuperModeCard[CardCount - 1]->On();
+
 		}
-		if (CardCount != 5)
+		float LastEnergy = (Energy - (100.0f * CardCount)) * 0.01f;
+		if (CardCount < 5 && 0.01f < LastEnergy)
 		{
 			SuperModeCard[CardCount]->SetScaleToCutTexture("hud_ch_card_flip_0000.png", 0, 0, 1, LastEnergy);
 			SuperModeCard[CardCount]->GetTransform()->SetLocalPosition(CardPos[CardCount] + CardYSize.half() * LastEnergy);
