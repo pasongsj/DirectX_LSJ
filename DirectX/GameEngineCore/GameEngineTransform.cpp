@@ -531,7 +531,7 @@ void GameEngineTransform::ChildRelease()
 
 		if (nullptr == Trans->Master)
 		{
-			MsgAssert("몬가 잘못됨 도라에몽을 부르자.");
+			MsgAssert("몬가 잘못됨");
 		}
 
 		if (false == Trans->Master->IsDeath())
