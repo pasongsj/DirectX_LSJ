@@ -4,7 +4,8 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCollision.h>
-
+#include <GameEngineCore/GameEngineLevel.h>
+#include "MoonStar.h"
 
 Moon::Moon()
 {
@@ -132,7 +133,15 @@ void Moon::UpdateState(float _DeltaTime)
 	UpdateFuncPtr[static_cast<int>(CurState)](_DeltaTime);
 }
 
-
+void Moon::MakeStar(float _DeltaTime)
+{
+	StarInterval -= _DeltaTime;
+	if (StarInterval < 0)
+	{
+		GetLevel()->CreateActor<MoonStar>(CupHeadActorOrder::Enemy);
+		StarInterval = 1.0f;
+	}
+}
 
 // FSM
 
@@ -222,6 +231,7 @@ void Moon::Idle_Start()
 }
 void Moon::Idle_Update(float _DeltaTime)
 {
+	MakeStar(_DeltaTime);
 	GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(StartPos, DestPos, GetLiveTime()));
 
 	IntervalTimer -= _DeltaTime;
@@ -229,6 +239,7 @@ void Moon::Idle_Update(float _DeltaTime)
 	{
 		NextState = MoonState::ATTACK;
 	}
+
 }
 void Moon::Idle_End()
 {
@@ -249,7 +260,7 @@ void Moon::Attack_Start()
 }
 void Moon::Attack_Update(float _DeltaTime)
 {
-
+	MakeStar(_DeltaTime);
 	IntervalTimer -= _DeltaTime;
 	GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(StartPos, DestPos, GetLiveTime()));
 	if (false == isAttackIntroDone)
@@ -301,3 +312,4 @@ void Moon::Death_Update(float _DeltaTime)
 void Moon::Death_End()
 {
 }
+

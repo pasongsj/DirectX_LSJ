@@ -24,7 +24,7 @@ protected:
 
 private:
 	// ¿‹√¨¿Ã
-	float NextSponeTime = 0.0f;
+	float NextSponeTime = 5.0f;
 
 	// ∫∏Ω∫
 	std::shared_ptr<class HildaBoss> Boss = nullptr;

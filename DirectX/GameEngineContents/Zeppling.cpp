@@ -62,20 +62,6 @@ void Zeppling::Start()
 	EnemyRender->CreateAnimation({ .AnimationName = "Purple_Turn",  .SpriteName = "BlimpEnemy_Purple_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	EnemyRender->CreateAnimation({ .AnimationName = "Green_Turn",  .SpriteName = "BlimpEnemy_Green_Turn", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_A",  .SpriteName = "Green_Death_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_B",  .SpriteName = "Green_Death_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_C",  .SpriteName = "Green_Death_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_D",  .SpriteName = "Green_Death_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_E",  .SpriteName = "Green_Death_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Green_Death_F",  .SpriteName = "Green_Death_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	//	
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_A",  .SpriteName = "Purple_Death_A", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_B",  .SpriteName = "Purple_Death_B", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_C",  .SpriteName = "Purple_Death_C", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_D",  .SpriteName = "Purple_Death_D", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_E",  .SpriteName = "Purple_Death_E", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-	//EnemyRender->CreateAnimation({ .AnimationName = "BlimpEnemy_Purple_Death_F",  .SpriteName = "Purple_Death_F", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
-
 
 	EnemyRender->ChangeAnimation(Mode + "Idle");
 	// 위치,회전, 크기

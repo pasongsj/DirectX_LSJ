@@ -50,6 +50,9 @@ private:
 	bool isAttackIntroDone = false;
 	bool isAttackDone = false;
 	
+	float StarInterval = 1.0f;
+
+	void MakeStar(float _DeltaTime);
 
 	void MakeSprite();
 

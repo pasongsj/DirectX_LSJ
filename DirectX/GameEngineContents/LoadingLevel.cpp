@@ -466,6 +466,51 @@ void LoadingLevel::LoadHildaSprite()
 		break;
 
 	case 85:
+		GameEngineSprite::LoadFolder("Sagittarius_Star_Idle", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\Star\\Idle").GetFullPath());
+		++Phase;
+		break;
+
+	case 86:
+		GameEngineSprite::LoadFolder("Sagittarius_Star_Trail", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\Star\\Trail\\A").GetFullPath());
+		++Phase;
+		break;
+
+	case 87:
+		GameEngineSprite::LoadFolder("Sagittarius_Star_Death", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\Star\\Death").GetFullPath());
+		++Phase;
+		break;
+
+	case 88:
+		GameEngineSprite::LoadFolder("Moon_Star_A", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\A").GetFullPath());
+		++Phase;
+		break;
+
+	case 89:
+		GameEngineSprite::LoadFolder("Moon_Star_B", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\B").GetFullPath());
+		++Phase;
+		break;
+
+	case 90:
+		GameEngineSprite::LoadFolder("Moon_Star_C", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\C").GetFullPath());
+		++Phase;
+		break;
+
+	case 91:
+		GameEngineSprite::LoadFolder("Moon_Star_Pink", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\Pink").GetFullPath());
+		++Phase;
+		break;
+
+	case 92:
+		GameEngineSprite::LoadFolder("Moon_Star_IdleFX", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\IdleFX").GetFullPath());
+		++Phase;
+		break;
+
+	case 93:
+		GameEngineSprite::LoadFolder("Moon_Star_PinkFX", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\PinkFX").GetFullPath());
+		++Phase;
+		break;
+
+	case 94:
 		FEffect->FadeIn();
 		++Phase;
 		break;
@@ -474,16 +519,9 @@ void LoadingLevel::LoadHildaSprite()
 		break;
 	}
 
-	//GameEngineDirectory NewDir;
-	//NewDir.MoveParentToDirectory("ContentResources");
-	//NewDir.Move("ContentResources");
-	//NewDir.Move("Texture");
-	//NewDir.Move("stage1\\Boss\\Hilda\\BlimpEnemy\\");
 
 
-
-
-
+	
 
 
 

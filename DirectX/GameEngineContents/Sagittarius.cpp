@@ -8,6 +8,7 @@
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include "SagittariusArrow.h"
+#include "SagittariusStar.h"
 
 Sagittarius::Sagittarius() 
 {
@@ -146,6 +147,12 @@ void Sagittarius::Attack_Update(float _DeltaTime)
 		isShoot = true;
 		std::shared_ptr<SagittariusArrow> Arrow = GetLevel()->CreateActor<SagittariusArrow>(CupHeadActorOrder::Enemy);
 		Arrow->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0,30));
+
+		std::shared_ptr<SagittariusStar> Star1 = GetLevel()->CreateActor<SagittariusStar>(CupHeadActorOrder::Enemy);
+		Star1->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0, 60));
+
+		std::shared_ptr<SagittariusStar> Star2 = GetLevel()->CreateActor<SagittariusStar>(CupHeadActorOrder::Enemy);
+		Star2->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0, 0));
 	}
 	if (true == Upper->IsAnimationEnd())
 	{

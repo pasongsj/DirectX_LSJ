@@ -35,6 +35,7 @@
 #include "ZepplingBullet.h"
 #include "PlayerAirPlaneSmokeEffect.h"
 #include "ZepplingBroken.h"
+#include "MoonStar.h"
 
 // UI
 #include "PlayerUI.h"
@@ -68,8 +69,6 @@ void HildaBergLevel::Update(float _DeltaTime)
 {
 	if (GetLiveTime() > NextSponeTime)
 	{
-		///*std::shared_ptr<Zeppling> NewMonster = */CreateActor<Zeppling>(CupHeadActorOrder::Enemy);
-		//std::shared_ptr<HIldaMoonUFO> NewMonster = CreateActor<HIldaMoonUFO>(CupHeadActorOrder::Enemy);
 		if (Phase < 6)
 		{
 			CreateActor<Zeppling>(CupHeadActorOrder::Enemy);

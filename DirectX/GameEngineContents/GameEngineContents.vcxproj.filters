@@ -121,6 +121,12 @@
     <ClInclude Include="GameContentsUIRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="SagittariusStar.h">
+      <Filter>Object\HildaBerg\Boss\Sagittarius</Filter>
+    </ClInclude>
+    <ClInclude Include="MoonStar.h">
+      <Filter>Object\HildaBerg\Boss\Moon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -251,6 +257,12 @@
     </ClCompile>
     <ClCompile Include="GameContentsUIRenderer.cpp">
       <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="SagittariusStar.cpp">
+      <Filter>Object\HildaBerg\Boss\Sagittarius</Filter>
+    </ClCompile>
+    <ClCompile Include="MoonStar.cpp">
+      <Filter>Object\HildaBerg\Boss\Moon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

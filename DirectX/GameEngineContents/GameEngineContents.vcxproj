@@ -292,6 +292,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="MoonStar.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PeaShooter.h">
       <SubType>
       </SubType>
@@ -338,6 +342,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="SagittariusArrow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SagittariusStar.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -522,6 +530,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="MoonStar.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PeaShooter.cpp">
       <SubType>
       </SubType>
@@ -574,6 +586,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="SagittariusArrow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SagittariusStar.cpp">
       <SubType>
       </SubType>
     </ClCompile>

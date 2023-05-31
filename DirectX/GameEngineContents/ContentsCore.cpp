@@ -31,7 +31,7 @@ void ContentsCore::GameStart()
 
 	ContentsResourcesCreate();
 
-	GameEngineGUI::GUIWindowCreate<GameEngineCoreWindow>("Controller");
+	//GameEngineGUI::GUIWindowCreate<GameEngineCoreWindow>("Controller");
 
 
 

@@ -58,4 +58,7 @@ void SagittariusArrow::Update(float _DeltaTime)
 		Death();
 		// 화면 밖으로 나감!
 	}
+
+	// 플레이어와 충돌 함
+	CollisionPlayer(ArrowCollision);
 }

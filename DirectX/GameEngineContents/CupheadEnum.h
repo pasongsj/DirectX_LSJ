@@ -2,6 +2,7 @@
 enum class CupHeadRendererOrder
 {
 	BackGround,
+	EnemyEffect,
 	Enemy,
 	Boss,
 	PlayerEffect,
@@ -22,8 +23,8 @@ enum class CupHeadCollisionOrder
 enum class CupHeadActorOrder
 {
 	BackGround,
-	Enemy,
 	Boss,
+	Enemy,
 	PlayerEffect,
 	Player,
 	UI,

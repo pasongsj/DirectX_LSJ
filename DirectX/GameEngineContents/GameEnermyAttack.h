@@ -16,8 +16,14 @@ public:
 
 	bool CollisionPlayer(std::shared_ptr<class GameEngineCollision> _EnermyCol);
 
+	bool IsPink()
+	{
+		return Pink;
+	}
+
 protected:
 
+	bool Pink = false; // 패리가능 개체
 private:
 
 };
