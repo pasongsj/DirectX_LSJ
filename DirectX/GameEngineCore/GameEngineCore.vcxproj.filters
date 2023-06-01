@@ -145,6 +145,9 @@
     <ClInclude Include="GameEngineUIRenderer.h">
       <Filter>Object\Rendering\Component\2D</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineButton.h">
+      <Filter>Contents\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineCore.cpp" />
@@ -287,6 +290,9 @@
     <ClCompile Include="GameEngineUIRenderer.cpp">
       <Filter>Object\Rendering\Component\2D</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineButton.cpp">
+      <Filter>Contents\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -360,6 +366,12 @@
     </Filter>
     <Filter Include="ContentPattern">
       <UniqueIdentifier>{0ea0f19a-ed9f-42de-afea-08993b589204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{b31fb5d1-cbed-43c8-a309-456f2adb5fe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\UI">
+      <UniqueIdentifier>{95bbb4ef-6213-41b8-aad8-d1dab335e0ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
