@@ -12,6 +12,7 @@ FadeEffect::~FadeEffect()
 void FadeEffect::Start(GameEngineRenderTarget* _Target)
 {
 	FadeUnit = std::make_shared<GameEngineRenderUnit>();
+	FadeUnit->SetMesh("Rect");
 	FadeUnit->SetPipeLine("Fade");
 
 	FadeUnit->ShaderResHelper.SetConstantBufferLink("FADEDATA", FadeData);

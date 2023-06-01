@@ -61,11 +61,11 @@ void Hilda::SetPhase(int _Phase)
 
 void Hilda::HildaDeath()
 {
-	if (1 == GetPhase() || 3 == GetPhase())
+	if (HildaState::CHANGEPHASE != CurState && (1 == GetPhase() || 3 == GetPhase()))
 	{
 		NextState = HildaState::CHANGEPHASE;
 	}
-	else
+	else if(5 == GetPhase())
 	{
 		Death();
 	}

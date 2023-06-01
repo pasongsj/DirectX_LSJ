@@ -2,6 +2,8 @@
 #include "GameEngineCollision.h"
 #include "GameEngineLevel.h"
 
+GameEngineRenderUnit GameEngineCollision::DebugUnit;
+
 GameEngineCollision::GameEngineCollision()
 {
 }
@@ -13,6 +15,7 @@ GameEngineCollision::~GameEngineCollision()
 
 void GameEngineCollision::Start()
 {
+	SetDebugCamera(GetLevel()->GetCamera(0).get());
 }
 
 std::shared_ptr<GameEngineCollision> GameEngineCollision::Collision(int _TargetGroup, ColType _ThisColType, ColType _OtherColtype)
@@ -111,4 +114,14 @@ bool GameEngineCollision::CollisionAll(int _TargetGroup, std::vector<std::shared
 void GameEngineCollision::SetRenderScaleToCollision(std::shared_ptr<GameEngineRenderer> _Render)
 {
 	GetTransform()->SetLocalScale(_Render->GetTransform()->GetLocalScale());
+}
+
+#include "GameEngineCamera.h"
+
+void GameEngineCollision::DebugRender(float _DeltaTime)
+{
+
+	DebugUnit.Render(_DeltaTime);
+	// DebugUnit.SetPipeLine()
+	// 
 }

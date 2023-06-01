@@ -91,7 +91,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 			Boss = nullptr;
 			++Phase;
 		}
-		else if (Boss->GetHP() < 0 || true == GameEngineInput::IsDown("NextBoss"))
+		else if (Boss->GetHP() <= 0 || true == GameEngineInput::IsDown("NextBoss"))
 		{
 			Boss->HildaDeath();
 		}

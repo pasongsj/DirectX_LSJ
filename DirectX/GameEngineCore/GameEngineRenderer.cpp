@@ -9,8 +9,25 @@
 #include "GameEngineVertexShader.h"
 #include "GameEnginePixelShader.h"
 #include "GameEngineShaderResHelper.h"
+#include "GameEngineMesh.h"
+#include "GameEngineInputLayOut.h"
 
-void GameEngineRenderUnit::SetPipeLine(const std::string_view& _Name) 
+GameEngineRenderUnit::GameEngineRenderUnit()
+{
+	InputLayOutPtr = std::make_shared<GameEngineInputLayOut>();
+}
+
+void GameEngineRenderUnit::SetMesh(const std::string_view& _Name)
+{
+	Mesh = GameEngineMesh::Find(_Name);
+
+	if (nullptr != Pipe)
+	{
+		InputLayOutPtr->ResCreate(Mesh->GetVertexBuffer(), Pipe->GetVertexShader());
+	}
+}
+
+void GameEngineRenderUnit::SetPipeLine(const std::string_view& _Name)
 {
 	Pipe = GameEngineRenderingPipeLine::Find(_Name);
 
@@ -23,20 +40,42 @@ void GameEngineRenderUnit::SetPipeLine(const std::string_view& _Name)
 		const GameEngineShaderResHelper& Res = Pipe->GetPixelShader()->GetShaderResHelper();
 		ShaderResHelper.Copy(Res);
 	}
+
+	if (nullptr != Mesh)
+	{
+		InputLayOutPtr->ResCreate(Mesh->GetVertexBuffer(), Pipe->GetVertexShader());
+	}
+
 }
 
 void GameEngineRenderUnit::Render(float _DeltaTime)
 {
+	if (nullptr == Mesh)
+	{
+		MsgAssert("매쉬가 존재하지 않는 유니트 입니다");
+	}
+
+	if (nullptr == Pipe)
+	{
+		MsgAssert("파이프라인이 존재하지 않는 유니트 입니다");
+	}
+
+	InputLayOutPtr->Setting();
+
+	Mesh->Setting();
 	Pipe->RenderingPipeLineSetting();
 	ShaderResHelper.Setting();
-	Pipe->Render();
+	// Pipe->Render();
+
+	UINT IndexCount = Mesh->IndexBufferPtr->GetIndexCount();
+	GameEngineDevice::GetContext()->DrawIndexed(IndexCount, 0, 0);
 }
 
-GameEngineRenderer::GameEngineRenderer() 
+GameEngineRenderer::GameEngineRenderer()
 {
 }
 
-GameEngineRenderer::~GameEngineRenderer() 
+GameEngineRenderer::~GameEngineRenderer()
 {
 }
 
@@ -56,7 +95,7 @@ void GameEngineRenderer::RenderTransformUpdate(GameEngineCamera* _Camera)
 	GetTransform()->SetCameraMatrix(_Camera->GetView(), _Camera->GetProjection());
 }
 
-void GameEngineRenderer::Render(float _Delta) 
+void GameEngineRenderer::Render(float _Delta)
 {
 	// GameEngineDevice::GetContext()->VSSetConstantBuffers();
 	// GameEngineDevice::GetContext()->PSSetConstantBuffers();
@@ -65,17 +104,20 @@ void GameEngineRenderer::Render(float _Delta)
 
 	for (size_t i = 0; i < Units.size(); i++)
 	{
+		Units[i]->Mesh->Setting();
 		Units[i]->Pipe->RenderingPipeLineSetting();
 
 		Units[i]->ShaderResHelper.Setting();
 
 		// 이걸하기 전에 각 세팅이 완벽하게 되어있으면 된다.
-		Units[i]->Pipe->Render();
+
+		UINT IndexCount = Units[i]->Mesh->IndexBufferPtr->GetIndexCount();
+		GameEngineDevice::GetContext()->DrawIndexed(IndexCount, 0, 0);
 	}
 
 }
 
-std::shared_ptr<GameEngineRenderingPipeLine> GameEngineRenderer::GetPipeLine(int _index/* = 0*/) 
+std::shared_ptr<GameEngineRenderingPipeLine> GameEngineRenderer::GetPipeLine(int _index/* = 0*/)
 {
 	if (Units.size() <= _index)
 	{
@@ -101,6 +143,30 @@ std::shared_ptr<GameEngineRenderingPipeLine> GameEngineRenderer::GetPipeLineClon
 	return Units[_index]->Pipe;
 }
 
+
+void GameEngineRenderer::SetMesh(const std::string_view& _Name, int _index /*= 0*/)
+{
+	if (Units.size() + 1 <= _index)
+	{
+		MsgAssert("너무큰 랜더유니트 확장을 하려고 했습니다");
+	}
+
+	if (Units.size() <= _index)
+	{
+		Units.resize(_index + 1);
+		Units[_index] = std::make_shared<GameEngineRenderUnit>();
+	}
+
+	std::shared_ptr<GameEngineRenderUnit> Unit = Units[_index];
+
+	if (nullptr == Unit)
+	{
+		MsgAssert("존재하지 않는 랜더유니트를 사용하려고 했습니다.");
+	}
+
+
+	Unit->Mesh = GameEngineMesh::Find(_Name);
+}
 
 void GameEngineRenderer::SetPipeLine(const std::string_view& _Name, int _index)
 {

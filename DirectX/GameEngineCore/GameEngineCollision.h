@@ -1,9 +1,14 @@
 #pragma once
+#include "GameEngineRenderer.h"
 #include "GameEngineComponent.h"
 
 // Ό³Έν :
 class GameEngineCollision : public GameEngineComponent
 {
+	friend class GameEngineLevel;
+
+	static GameEngineRenderUnit DebugUnit;
+
 public:
 	// constrcuter destructer
 	GameEngineCollision();
@@ -40,13 +45,20 @@ public:
 
 	void SetRenderScaleToCollision(std::shared_ptr<class GameEngineRenderer> _Render);
 
-
+	void SetDebugCamera(GameEngineCamera* _DebugCamera)
+	{
+		DebugCamera = _DebugCamera;
+	}
 
 protected:
 	void Start() override;
 
 private:
 	ColType Type = ColType::SPHERE2D;
+
+	GameEngineCamera* DebugCamera = nullptr;
+
+	void DebugRender(float _DeltaTime);
 
 };
 

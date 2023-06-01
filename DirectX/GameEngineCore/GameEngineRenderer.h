@@ -2,14 +2,22 @@
 #include "GameEngineComponent.h"
 #include "GameEngineShader.h"
 
-class GameEngineRenderUnit 
+class GameEngineRenderUnit
 	: std::enable_shared_from_this<GameEngineRenderUnit>
 {
 public:
+	GameEngineRenderUnit();
+
+public:
+	std::shared_ptr<class GameEngineInputLayOut> InputLayOutPtr;
+	std::shared_ptr<class GameEngineMesh> Mesh;
 	std::shared_ptr<class GameEngineRenderingPipeLine> Pipe;
 	GameEngineShaderResHelper ShaderResHelper;
 
+	// 
+
 public:
+	void SetMesh(const std::string_view& _Name);
 	void SetPipeLine(const std::string_view& _Name);
 	void Render(float _DeltaTime);
 };
@@ -37,18 +45,20 @@ public:
 	// 어떤 샘플러 어떤 상수버퍼를 사용했는지를 알아야 한다.
 	void SetPipeLine(const std::string_view& _Name, int _index = 0);
 
+	void SetMesh(const std::string_view& _Name, int _index = 0);
+
 	// 여기서 리턴된 파이프라인을 수정하면 이 파이프라인을 사용하는 모든 애들이 바뀌게 된다.
 	std::shared_ptr<GameEngineRenderingPipeLine> GetPipeLine(int _index = 0);
 
 	// 이걸 사용하게되면 이 랜더러의 유니트는 자신만의 클론 파이프라인을 가지게 된다.
 	std::shared_ptr<GameEngineRenderingPipeLine> GetPipeLineClone(int _index = 0);
 
-	inline GameEngineShaderResHelper& GetShaderResHelper(int _index = 0) 
+	inline GameEngineShaderResHelper& GetShaderResHelper(int _index = 0)
 	{
 		return Units[_index]->ShaderResHelper;
 	}
 
-	void CameraCullingOn() 
+	void CameraCullingOn()
 	{
 		IsCameraCulling = true;
 	}
