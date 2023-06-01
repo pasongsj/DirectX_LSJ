@@ -24,12 +24,6 @@
     <ClInclude Include="PlayerAirPlaneMode.h">
       <Filter>Object\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PeaShooter.h">
-      <Filter>Object\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="BoomEffect.h">
-      <Filter>Object\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Gemini.h">
       <Filter>Object\HildaBerg\Boss\Gemini</Filter>
     </ClInclude>
@@ -91,9 +85,6 @@
     <ClInclude Include="HildaBoss.h">
       <Filter>Object\HildaBerg\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerAirPlaneSmokeEffect.h">
-      <Filter>Object\Player</Filter>
-    </ClInclude>
     <ClInclude Include="HildaBergBack2.h">
       <Filter>Object\HildaBerg\BackGround</Filter>
     </ClInclude>
@@ -127,6 +118,21 @@
     <ClInclude Include="MoonStar.h">
       <Filter>Object\HildaBerg\Boss\Moon</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerAirPlaneSmokeEffect.h">
+      <Filter>Object\Player\PlayerFX</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomEffect.h">
+      <Filter>Object\Player\PlayerFX</Filter>
+    </ClInclude>
+    <ClInclude Include="PeaShooter.h">
+      <Filter>Object\Player\PlayerWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaDashExplodeFX.h">
+      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaDashBackExplodeFX.h">
+      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -156,12 +162,6 @@
       <Filter>Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerAirPlaneModeFSM.cpp">
-      <Filter>Object\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PeaShooter.cpp">
-      <Filter>Object\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="BoomEffect.cpp">
       <Filter>Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="Gemini.cpp">
@@ -227,9 +227,6 @@
     <ClCompile Include="HildaBoss.cpp">
       <Filter>Object\HildaBerg\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerAirPlaneSmokeEffect.cpp">
-      <Filter>Object\Player</Filter>
-    </ClCompile>
     <ClCompile Include="HildaBergBack2.cpp">
       <Filter>Object\HildaBerg\BackGround</Filter>
     </ClCompile>
@@ -246,9 +243,6 @@
       <Filter>PostEffect</Filter>
     </ClCompile>
     <ClCompile Include="Contents_Resources.cpp" />
-    <ClCompile Include="Player.cpp">
-      <Filter>Object\Player</Filter>
-    </ClCompile>
     <ClCompile Include="GameEnermy.cpp">
       <Filter>Object\Enermy</Filter>
     </ClCompile>
@@ -263,6 +257,24 @@
     </ClCompile>
     <ClCompile Include="MoonStar.cpp">
       <Filter>Object\HildaBerg\Boss\Moon</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAirPlaneSmokeEffect.cpp">
+      <Filter>Object\Player\PlayerFX</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomEffect.cpp">
+      <Filter>Object\Player\PlayerFX</Filter>
+    </ClCompile>
+    <ClCompile Include="PeaShooter.cpp">
+      <Filter>Object\Player\PlayerWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object\Player\PlayerWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaDashExplodeFX.cpp">
+      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaDashBackExplodeFX.cpp">
+      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +325,15 @@
     </Filter>
     <Filter Include="Object\Enermy">
       <UniqueIdentifier>{38a85205-c060-4ebf-a603-11b466ada88a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\HildaBerg\Boss\HildaFX">
+      <UniqueIdentifier>{39a0df52-ad1c-47d3-b07d-41cf61496ab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player\PlayerFX">
+      <UniqueIdentifier>{c18bd24c-73e4-4bf7-8a20-648459c99a07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player\PlayerWeapon">
+      <UniqueIdentifier>{ddd14ce1-bd03-40ca-ab60-75b279f5d4a1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

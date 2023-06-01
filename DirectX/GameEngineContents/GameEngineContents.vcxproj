@@ -252,6 +252,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="HildaDashBackExplodeFX.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HildaDashExplodeFX.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="HildaHA.h">
       <SubType>
       </SubType>
@@ -481,6 +489,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="HildaBoss.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HildaDashBackExplodeFX.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HildaDashExplodeFX.cpp">
       <SubType>
       </SubType>
     </ClCompile>

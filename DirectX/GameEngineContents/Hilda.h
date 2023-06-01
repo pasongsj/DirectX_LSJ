@@ -31,8 +31,14 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
+	void SetPhase(int _Phase) override;
+
+	void HildaDeath() override;
+
+
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BossRender = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> BossSmokeRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
 
 	// idle

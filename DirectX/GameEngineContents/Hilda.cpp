@@ -2,10 +2,13 @@
 #include "Hilda.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 
+#include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include "Constellation.h"
+#include "HildaDashExplodeFX.h"
+#include "HildaDashBackExplodeFX.h"
 
 Hilda::Hilda() 
 {
@@ -39,8 +42,34 @@ void Hilda::MakeSprite()
 		GameEngineSprite::LoadFolder("Hilda_Summon", NewDir.GetPlusFileName("ChangePhase\\Summon").GetFullPath());
 		// Tornato
 		GameEngineSprite::LoadFolder("Hilda_Tornado", NewDir.GetPlusFileName("Tornado\\Hilda").GetFullPath());
+		// ChangeBack
+		GameEngineSprite::LoadFolder("Hilda_ChangeBack", NewDir.GetPlusFileName("ChangePhase\\ChangeBack").GetFullPath());
+		// DashSmoke
+		GameEngineSprite::LoadFolder("HildaChangePhaseDashSmoke", NewDir.GetPlusFileName("ChangePhase\\Dash\\SmokeFX").GetFullPath());
 
 	}
+}
+
+void Hilda::SetPhase(int _Phase)
+{
+	HildaBoss::SetPhase(_Phase);
+	if (3 == _Phase || 5 == _Phase)
+	{
+		BossRender->ChangeAnimation("SecondIntro");
+	}
+}
+
+void Hilda::HildaDeath()
+{
+	if (1 == GetPhase() || 3 == GetPhase())
+	{
+		NextState = HildaState::CHANGEPHASE;
+	}
+	else
+	{
+		Death();
+	}
+	return;
 }
 																				
 void Hilda::Start()																
@@ -53,11 +82,12 @@ void Hilda::Start()
 
 	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Player);		
 	BossRender->CreateAnimation({ .AnimationName = "Intro",  .SpriteName = "Hilda_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "SecondIntro",  .SpriteName = "Hilda_ChangeBack", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Hilda_Idle",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "shoot",  .SpriteName = "Hilda_Shoot",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Dash",  .SpriteName = "Hilda_Dash", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "DashBack",  .SpriteName = "Hilda_DashBack", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	BossRender->CreateAnimation({ .AnimationName = "Summon",  .SpriteName = "Hilda_Summon", .FrameInter = 0.1f, .Loop = false , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Summon",  .SpriteName = "Hilda_Summon", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Tornato",  .SpriteName = "Hilda_Tornado",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->ChangeAnimation("Intro");
 
@@ -72,8 +102,34 @@ void Hilda::Start()
 	BossCollision->SetName("HildaCollision");
 
 																				
-																				
+	BossSmokeRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
+	BossSmokeRender->CreateAnimation({ .AnimationName = "DashSmoke",  .SpriteName = "HildaChangePhaseDashSmoke",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	BossSmokeRender->GetTransform()->SetLocalPosition(float4(570, -30));
+	BossSmokeRender->Off();
 
+
+
+	for (int i = 12; i < 21; i+=3)
+	{
+
+		BossRender->SetAnimationStartEvent("Summon", i, [this]
+			{
+				std::shared_ptr<HildaDashBackExplodeFX> ExplodeGx0 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
+				ExplodeGx0->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(100, 0, - 50));
+
+				std::shared_ptr<HildaDashBackExplodeFX> ExplodeGx1 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
+				ExplodeGx1->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(150, GameEngineRandom::MainRandom.RandomFloat(20,200), -50));
+
+				std::shared_ptr<HildaDashBackExplodeFX> ExplodeGx2 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
+				ExplodeGx2->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(200, GameEngineRandom::MainRandom.RandomFloat(-200, -20), -50));
+			});
+	}
+
+	BossSmokeRender->SetAnimationStartEvent("DashSmoke", 5, [this]
+		{
+			std::shared_ptr< HildaDashExplodeFX> ExplodeGx = GetLevel()->CreateActor< HildaDashExplodeFX>(CupHeadActorOrder::EnemyEffect);
+			ExplodeGx->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+		});
 	//FSM
 
 	//INTRO

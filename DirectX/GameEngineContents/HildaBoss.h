@@ -40,13 +40,18 @@ protected:
 		IdleMoveTime += _Delta;
 	}
 
-	inline void SetPhase(int _Phase)
+	virtual void SetPhase(int _Phase)
 	{
 		Phase = _Phase;
 	}
 
+	virtual void HildaDeath() 
+	{
+		Death();
+	}
 
 private:
+
 
 
 	// idle Move

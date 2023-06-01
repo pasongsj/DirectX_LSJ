@@ -68,6 +68,7 @@ void HildaBergLevel::Start()
 
 void HildaBergLevel::Update(float _DeltaTime)
 {
+	// ÀÜÃ¬ÀÌ ¼ÒÈ¯
 	if (GetLiveTime() > NextSponeTime)
 	{
 		if (Phase < 6)
@@ -82,13 +83,22 @@ void HildaBergLevel::Update(float _DeltaTime)
 	}
 
 	float4 LastBossPos = float4::Zero;
-	if (nullptr != Boss && (Boss->GetHP() < 0 || true == GameEngineInput::IsDown("NextBoss")))
+	if (nullptr != Boss)
 	{
-		LastBossPos = Boss->GetTransform()->GetWorldPosition();
-		Boss->Death();
-		Boss = nullptr;
-		++Phase;
+		if (true == Boss->IsDeath())
+		{
+			LastBossPos = Boss->GetTransform()->GetWorldPosition();
+			Boss = nullptr;
+			++Phase;
+		}
+		else if (Boss->GetHP() < 0 || true == GameEngineInput::IsDown("NextBoss"))
+		{
+			Boss->HildaDeath();
+		}
+
 	}
+
+
 
 	if (nullptr == Boss)
 	{

@@ -8,6 +8,9 @@
 #include "HildaTornado.h"
 #include "HildaHA.h"
 #include "PlayerAirPlaneMode.h"
+#include "HildaDashBackExplodeFX.h"
+
+
 
 void Hilda::Intro_Start()
 {
@@ -90,6 +93,8 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 		isDashBackTurn = true;
 		DestPos = CurPos = GetTransform()->GetLocalPosition();
 		DestPos.x = - (GameEngineWindow::GetScreenSize().hx() + BossRender->GetTransform()->GetLocalScale().hx());
+		BossSmokeRender->ChangeAnimation("DashSmoke");
+		BossSmokeRender->On();
 	}
 
 	else if (true == isDashBackTurn && false == isBackTurn)
@@ -100,12 +105,9 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 		if (WaitingTime >1.0f)
 		{
 			BossRender->ChangeAnimation("Summon");
-			//Boss->SetAnimationUpdateEvent("DashBack", 3, [this]
-			//	{
-			//		GetLevel()->CreateActor<Constellation>();
-			//	});
 			isBackTurn = true;
 			WaitingTime = 0.0f;
+			BossSmokeRender->Off();
 		}
 	}
 	else if(true == isDashBackTurn && true == isBackTurn)
@@ -115,8 +117,8 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 		//{
 		//	return;
 		//}
-		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(DestPos, CurPos, WaitingTime * 0.8f));
-		if (WaitingTime > 2.0f/*true == Boss->IsAnimationEnd()*/)
+		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(DestPos, CurPos, WaitingTime * 0.95f));
+		if (true == BossRender->IsAnimationEnd())
 		{
 			NextState = HildaState::IDLE;
 		}
@@ -127,6 +129,11 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 }
 void Hilda::ChangePhase_End()
 {
+	std::shared_ptr<HildaDashBackExplodeFX> ExplodeGx0 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
+	ExplodeGx0->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(110, 0, -50));
+	ExplodeGx0->MakeBigFX(1.3f);
+	Death();
+	return;
 }
 
 void Hilda::Tornado_Start()

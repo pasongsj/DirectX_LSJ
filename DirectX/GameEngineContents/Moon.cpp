@@ -41,6 +41,12 @@ void Moon::MakeSprite()
 	}
 }
 
+void Moon::HildaDeath()
+{
+	NextState = MoonState::DEATH;
+}
+
+
 void Moon::Start()
 {
 	SetPhase(6);
@@ -304,10 +310,6 @@ void Moon::Death_Start()
 void Moon::Death_Update(float _DeltaTime)
 {
 	GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(GetTransform()->GetLocalPosition(), DestPos, GetLiveTime()));
-	//if (true == Boss->IsAnimationEnd())
-	//{
-	//	Death();
-	//}
 }
 void Moon::Death_End()
 {
