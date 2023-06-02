@@ -3,7 +3,6 @@
 // Ό³Έν :
 class HildaDashBackExplodeFX : public GameEngineActor
 {
-	friend class Hilda;
 public:
 	// constrcuter destructer
 	HildaDashBackExplodeFX();
@@ -24,6 +23,5 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> ExplodeFX = nullptr;
 	void MakeSprite();
 
-	void LasCloudtFX();
 };
 

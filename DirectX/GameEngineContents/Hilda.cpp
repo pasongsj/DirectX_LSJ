@@ -109,7 +109,7 @@ void Hilda::Start()
 
 
 
-	for (int i = 12; i < 21; i+=3)
+	for (int i = 12; i < 16; i+=3)
 	{
 
 		BossRender->SetAnimationStartEvent("Summon", i, [this]

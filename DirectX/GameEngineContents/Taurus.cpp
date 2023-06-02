@@ -3,6 +3,9 @@
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include "HIldaBigCloudFX.h"
+#include "HildaDashBackExplodeFX.h"
 
 Taurus::Taurus() 
 {
@@ -70,10 +73,6 @@ void Taurus::Update(float _DeltaTime)
 
 }
 
-void Taurus::Render(float _DeltaTime)
-{
-
-}
 
 void Taurus::UpdateState(float _DeltaTime)
 {

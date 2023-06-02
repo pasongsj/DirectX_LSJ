@@ -45,10 +45,8 @@ protected:
 		Phase = _Phase;
 	}
 
-	virtual void HildaDeath() 
-	{
-		Death();
-	}
+	virtual void HildaDeath();
+
 
 private:
 

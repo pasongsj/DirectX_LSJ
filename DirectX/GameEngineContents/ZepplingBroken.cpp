@@ -4,11 +4,11 @@
 #include <GameEngineCore/GameEngineSprite.h>
 #include <GameEngineBase/GameEngineRandom.h>
 
-ZepplingBroken::ZepplingBroken() 
+ZepplingBroken::ZepplingBroken()
 {
 }
 
-ZepplingBroken::~ZepplingBroken() 
+ZepplingBroken::~ZepplingBroken()
 {
 }
 
@@ -27,19 +27,19 @@ void ZepplingBroken::Start()
 	Spark = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
 	Explode = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
 
-	A->CreateAnimation({.AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_A", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	B->CreateAnimation({.AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_B", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	C->CreateAnimation({.AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_C", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	D->CreateAnimation({.AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_D", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	E->CreateAnimation({.AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_E", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	F->CreateAnimation({.AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_F", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	
-	A->CreateAnimation({.AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_A", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	B->CreateAnimation({.AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_B", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	C->CreateAnimation({.AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_C", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	D->CreateAnimation({.AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_D", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	E->CreateAnimation({.AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_E", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
-	F->CreateAnimation({.AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_F", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	A->CreateAnimation({ .AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_A", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	B->CreateAnimation({ .AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_B", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	C->CreateAnimation({ .AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_C", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	D->CreateAnimation({ .AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_D", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	E->CreateAnimation({ .AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_E", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	F->CreateAnimation({ .AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_F", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+
+	A->CreateAnimation({ .AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_A", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	B->CreateAnimation({ .AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_B", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	C->CreateAnimation({ .AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_C", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	D->CreateAnimation({ .AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_D", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	E->CreateAnimation({ .AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_E", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	F->CreateAnimation({ .AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_F", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 
 	Spark->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "BlimpEnemy_Spark", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	Explode->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "BlimpEnemy_Explode", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
@@ -49,7 +49,7 @@ void ZepplingBroken::Start()
 void ZepplingBroken::Update(float _DeltaTime)
 {
 	Dir.y -= 0.1f;
-	GetTransform()->AddLocalPosition(Dir * 100 *_DeltaTime);
+	GetTransform()->AddLocalPosition(Dir * 100 * _DeltaTime);
 	MovePieces(_DeltaTime);
 	if (true == CheckEnd())
 	{
@@ -129,6 +129,13 @@ void ZepplingBroken::MovePieces(float _DeltaTime)
 	D->GetTransform()->AddLocalPosition(DirD * _DeltaTime * MoveSpeed);
 	E->GetTransform()->AddLocalPosition(DirE * _DeltaTime * MoveSpeed);
 	F->GetTransform()->AddLocalPosition(DirF * _DeltaTime * MoveSpeed);
+
+	DirA.y -= 0.0007f	* MoveSpeed;
+	DirB.y -= 0.0007f	* MoveSpeed;
+	DirC.y -= 0.0007f	* MoveSpeed;
+	DirD.y -= 0.0007f	* MoveSpeed;
+	DirE.y -= 0.0007f	* MoveSpeed;
+	DirF.y -= 0.0007f	* MoveSpeed;
 }
 
 void ZepplingBroken::MakePiecesDir()
@@ -136,10 +143,11 @@ void ZepplingBroken::MakePiecesDir()
 	float4 d = float4(GameEngineRandom::MainRandom.RandomFloat(-1, 1), GameEngineRandom::MainRandom.RandomFloat(-1, 1));
 	d.Normalize();
 	DirA = d;
-	DirB = d.RotaitonYDegReturn(60);
-	DirC = d.RotaitonYDegReturn(120);
-	DirD = d.RotaitonYDegReturn(180);
-	DirE = d.RotaitonYDegReturn(240);
-	DirF = d.RotaitonYDegReturn(300);
+	DirB = d.RotaitonZDegReturn(60);
+	DirC = d.RotaitonZDegReturn(120);
+	DirD = d.RotaitonZDegReturn(180);
+	DirE = d.RotaitonZDegReturn(240);
+	DirF = d.RotaitonZDegReturn(300);
+
 
 }

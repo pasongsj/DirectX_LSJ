@@ -3,8 +3,9 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineCore/GameEngineLevel.h>
 #include "GameEnermy.h"
-
+#include "PeashotFX.h"
 PeaShooter::PeaShooter() 
 {
 }
@@ -70,8 +71,10 @@ void PeaShooter::Update(float _DeltaTime)
 			if (nullptr != ColActor)
 			{
 				ColActor->Attack(Dmg);
+				std::shared_ptr<PeashotFX> FX = GetLevel()->CreateActor<PeashotFX>(CupHeadActorOrder::PlayerEffect);
+				FX->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
 				Death();
-
+				return;
 			}
 
 		}

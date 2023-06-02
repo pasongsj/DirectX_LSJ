@@ -8,7 +8,7 @@
 #include "HildaTornado.h"
 #include "HildaHA.h"
 #include "PlayerAirPlaneMode.h"
-#include "HildaDashBackExplodeFX.h"
+#include "HIldaBigCloudFX.h"
 
 
 
@@ -125,11 +125,7 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 }
 void Hilda::ChangePhase_End()
 {
-	std::shared_ptr<HildaDashBackExplodeFX> Explode = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
-	Explode->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(100, 0, -50));
-	Explode->LasCloudtFX();
-
-	Death();
+	HildaBoss::HildaDeath();
 	return;
 }
 

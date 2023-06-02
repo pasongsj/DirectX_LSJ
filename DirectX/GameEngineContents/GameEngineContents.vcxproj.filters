@@ -133,6 +133,12 @@
     <ClInclude Include="HildaDashBackExplodeFX.h">
       <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
     </ClInclude>
+    <ClInclude Include="HIldaBigCloudFX.h">
+      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+    </ClInclude>
+    <ClInclude Include="PeashotFX.h">
+      <Filter>Object\Player\PlayerWeapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -267,14 +273,20 @@
     <ClCompile Include="PeaShooter.cpp">
       <Filter>Object\Player\PlayerWeapon</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Object\Player\PlayerWeapon</Filter>
-    </ClCompile>
     <ClCompile Include="HildaDashExplodeFX.cpp">
       <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
     </ClCompile>
     <ClCompile Include="HildaDashBackExplodeFX.cpp">
       <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+    </ClCompile>
+    <ClCompile Include="HIldaBigCloudFX.cpp">
+      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+    </ClCompile>
+    <ClCompile Include="PeashotFX.cpp">
+      <Filter>Object\Player\PlayerWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

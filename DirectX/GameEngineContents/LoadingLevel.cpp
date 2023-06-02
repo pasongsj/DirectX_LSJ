@@ -521,6 +521,24 @@ void LoadingLevel::LoadHildaSprite()
 		break;
 
 	case 96:
+		GameEngineSprite::LoadFolder("peashotFX", Dir.GetPlusFileName("Cuphead_AirPlane\\bullet\\peashotFX").GetFullPath());
+		++Phase;
+		break;
+
+	case 97:
+		GameEngineSprite::LoadFolder("HildaChangePhaseDashBackExplode", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\DashBackExplodeFX").GetFullPath());
+		++Phase;
+		break;
+
+	case 98:
+		GameEngineSprite::LoadFolder("HildaChangePhaseDashExplode", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\DashExplodeFX").GetFullPath()); ++Phase;
+		break;
+
+	case 99:
+		GameEngineSprite::LoadFolder("HildaChangeFX", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\HildaChangeFX").GetFullPath()); ++Phase;
+		break;
+
+	case 100:
 		FEffect->FadeIn();
 		++Phase;
 		break;

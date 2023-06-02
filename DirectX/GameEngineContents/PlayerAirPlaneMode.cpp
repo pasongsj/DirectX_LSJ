@@ -258,6 +258,9 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 	ShootInterVal -= _DeltaTime;
 	//CheckShoot(_DeltaTime);
 
+	//defeat interval
+	InvincibleTime -= _DeltaTime;
+
 	// state
 	UpdateState(_DeltaTime);
 	MoveUpdate(_DeltaTime);

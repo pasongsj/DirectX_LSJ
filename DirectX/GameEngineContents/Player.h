@@ -30,12 +30,19 @@ public:
 	}
 	inline void Attack(int _Dmg)
 	{
-		PlayerHP -= _Dmg;
+		if (InvincibleTime < 0)
+		{
+			PlayerHP -= _Dmg;
+			InvincibleTime = 2.0f;
+		}
+
 	}
 
 protected:
 	int PlayerHP = 3;
-	float SuperModeEnergy = 0;
+	float SuperModeEnergy = 0.0f;
+	float InvincibleTime = 0.0f;
+
 
 
 private:

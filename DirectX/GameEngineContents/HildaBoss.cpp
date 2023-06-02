@@ -2,7 +2,9 @@
 #include "HildaBoss.h"
 
 #include <GameEngineBase/GameEngineRandom.h>
-
+#include <GameEngineCore/GameEngineLevel.h>
+#include "HIldaBigCloudFX.h"
+#include "HildaDashBackExplodeFX.h"
 
 HildaBoss::HildaBoss() 
 {
@@ -36,4 +38,21 @@ float4 HildaBoss::GetHildaMove(float _Delta)
 	return ReturnValue;
 
 
+}
+
+void HildaBoss::HildaDeath()
+{
+
+	std::shared_ptr<HIldaBigCloudFX> Explode0 = GetLevel()->CreateActor< HIldaBigCloudFX>(CupHeadActorOrder::EnemyEffect);
+	Explode0->GetTransform()->SetLocalPosition(float4(300, 0, -50));
+	std::shared_ptr<HildaDashBackExplodeFX> Explode1 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
+	Explode1->GetTransform()->SetLocalPosition(float4(120, 150, -50));
+	std::shared_ptr<HildaDashBackExplodeFX> Explode2 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
+	Explode2->GetTransform()->SetLocalPosition(float4(90, 0, -50));
+	std::shared_ptr<HildaDashBackExplodeFX> Explode3 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
+	Explode3->GetTransform()->SetLocalPosition(float4(150, -150, -50));
+	std::shared_ptr<HildaDashBackExplodeFX> Explode4 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
+	Explode4->GetTransform()->SetLocalPosition(float4(500, -120, -50));
+
+	Death();
 }

@@ -2,10 +2,12 @@
 enum class CupHeadRendererOrder
 {
 	BackGround,
-	EnemyEffect,
-	Enemy,
 	Boss,
+	Enemy,
+	EnemyWeapon,
+	EnemyEffect,
 	Player,
+	PlayerWepaon,
 	PlayerEffect,
 	UI,
 	MAX,
@@ -13,12 +15,16 @@ enum class CupHeadRendererOrder
 
 enum class CupHeadCollisionOrder
 {
+	BackGround,
+	Boss,
 	Enemy,
 	EnemyWeapon,
+	EnemyEffect,
 	Player,
 	PlayerWepaon,
+	PlayerEffect,
 	UI,
-	MAX
+	MAX,
 };
 enum class CupHeadActorOrder
 {

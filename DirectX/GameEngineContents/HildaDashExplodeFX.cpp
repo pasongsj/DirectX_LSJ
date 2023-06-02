@@ -27,7 +27,7 @@ void HildaDashExplodeFX::MakeSprite()
 void HildaDashExplodeFX::Start()
 {
 	MakeSprite();
-	ExplodeFX = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
+	ExplodeFX = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	ExplodeFX->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "HildaChangePhaseDashExplode", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	ExplodeFX->ChangeAnimation("Idle");
 }
