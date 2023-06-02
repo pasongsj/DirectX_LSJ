@@ -18,7 +18,7 @@ void HildaDashExplodeFX::MakeSprite()
 
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\Dash");
+		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX");
 
 		GameEngineSprite::LoadFolder("HildaChangePhaseDashExplode", NewDir.GetPlusFileName("DashExplodeFX").GetFullPath());
 	}

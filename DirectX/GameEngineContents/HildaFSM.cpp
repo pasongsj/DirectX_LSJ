@@ -113,10 +113,6 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 	else if(true == isDashBackTurn && true == isBackTurn)
 	{
 		WaitingTime += _DeltaTime;
-		//if (WaitingTime < 0.5f)
-		//{
-		//	return;
-		//}
 		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(DestPos, CurPos, WaitingTime * 0.95f));
 		if (true == BossRender->IsAnimationEnd())
 		{
@@ -129,9 +125,10 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 }
 void Hilda::ChangePhase_End()
 {
-	std::shared_ptr<HildaDashBackExplodeFX> ExplodeGx0 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
-	ExplodeGx0->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(110, 0, -50));
-	ExplodeGx0->MakeBigFX(1.3f);
+	std::shared_ptr<HildaDashBackExplodeFX> Explode = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
+	Explode->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(100, 0, -50));
+	Explode->LasCloudtFX();
+
 	Death();
 	return;
 }

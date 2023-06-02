@@ -24,6 +24,6 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> ExplodeFX = nullptr;
 	void MakeSprite();
 
-	void MakeBigFX(float _Ratio);
+	void LasCloudtFX();
 };
 

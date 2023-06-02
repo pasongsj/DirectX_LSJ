@@ -516,7 +516,7 @@ void LoadingLevel::LoadHildaSprite()
 		break;
 
 	case 95:
-		GameEngineSprite::LoadFolder("HildaChangePhaseDashSmoke", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\Dash\\SmokeFX").GetFullPath());
+		GameEngineSprite::LoadFolder("HildaChangePhaseDashSmoke", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\SmokeFX").GetFullPath());
 		++Phase;
 		break;
 
