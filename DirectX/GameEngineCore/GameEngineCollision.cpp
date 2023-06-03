@@ -18,6 +18,41 @@ void GameEngineCollision::Start()
 	SetDebugCamera(GetLevel()->GetCamera(0).get());
 }
 
+
+void GameEngineCollision::Update(float _Delta)
+{
+	if (false == IsDebug())
+	{
+		return;
+	}
+	switch (Type)
+	{
+	case ColType::SPHERE2D:
+		GameEngineDebug::DrawSphere(DebugCamera, GetTransform());
+		break;
+	case ColType::AABBBOX2D:
+		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
+		break;
+	case ColType::OBBBOX2D:
+		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
+		break;
+	case ColType::SPHERE3D:
+		GameEngineDebug::DrawSphere(DebugCamera, GetTransform());
+		break;
+	case ColType::AABBBOX3D:
+		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
+		break;
+	case ColType::OBBBOX3D:
+		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
+		break;
+	case ColType::MAX:
+		break;
+	default:
+		break;
+	}
+}
+
+
 std::shared_ptr<GameEngineCollision> GameEngineCollision::Collision(int _TargetGroup, ColType _ThisColType, ColType _OtherColtype)
 {
 	if (false == this->IsUpdate())
@@ -114,14 +149,4 @@ bool GameEngineCollision::CollisionAll(int _TargetGroup, std::vector<std::shared
 void GameEngineCollision::SetRenderScaleToCollision(std::shared_ptr<GameEngineRenderer> _Render)
 {
 	GetTransform()->SetLocalScale(_Render->GetTransform()->GetLocalScale());
-}
-
-#include "GameEngineCamera.h"
-
-void GameEngineCollision::DebugRender(float _DeltaTime)
-{
-
-	DebugUnit.Render(_DeltaTime);
-	// DebugUnit.SetPipeLine()
-	// 
 }

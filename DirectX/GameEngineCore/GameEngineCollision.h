@@ -52,13 +52,12 @@ public:
 
 protected:
 	void Start() override;
+	void Update(float _Delta) override;
+
 
 private:
 	ColType Type = ColType::SPHERE2D;
 
 	GameEngineCamera* DebugCamera = nullptr;
-
-	void DebugRender(float _DeltaTime);
-
 };
 
