@@ -301,9 +301,6 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{c16991ef-8e9a-49d8-b420-853cff2955d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager">
-      <UniqueIdentifier>{b420b215-6a8f-4fa5-bec3-c52265a46089}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Rendering">
       <UniqueIdentifier>{6e970db4-fd75-4e59-8a4d-7b21615522d4}</UniqueIdentifier>
     </Filter>

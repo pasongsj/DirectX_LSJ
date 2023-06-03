@@ -104,15 +104,7 @@ void GameEngineRenderer::Render(float _Delta)
 
 	for (size_t i = 0; i < Units.size(); i++)
 	{
-		Units[i]->Mesh->Setting();
-		Units[i]->Pipe->RenderingPipeLineSetting();
-
-		Units[i]->ShaderResHelper.Setting();
-
-		// 이걸하기 전에 각 세팅이 완벽하게 되어있으면 된다.
-
-		UINT IndexCount = Units[i]->Mesh->IndexBufferPtr->GetIndexCount();
-		GameEngineDevice::GetContext()->DrawIndexed(IndexCount, 0, 0);
+		Units[i]->Render(_Delta);
 	}
 
 }
@@ -194,7 +186,7 @@ void GameEngineRenderer::SetPipeLine(const std::string_view& _Name, int _index)
 	}
 
 
-	Unit->Pipe = GameEngineRenderingPipeLine::Find(_Name);
+	Unit->SetPipeLine(_Name);
 
 	{
 		const GameEngineShaderResHelper& Res = Unit->Pipe->GetVertexShader()->GetShaderResHelper();
