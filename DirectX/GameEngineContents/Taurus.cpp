@@ -122,7 +122,7 @@ void Taurus::Attack_Start()
 	//Boss->SetScaleToTexture("taurus_attack_0012.png");
 
 	CurPos = GetTransform()->GetLocalPosition();
-	DestPos = CurPos + float4(-200, 0);
+	DestPos = CurPos + float4(-500, 0);
 	isCharge = true;
 }
 void Taurus::Attack_Update(float _DeltaTime)
