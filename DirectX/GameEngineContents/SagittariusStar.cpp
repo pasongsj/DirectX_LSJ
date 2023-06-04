@@ -40,7 +40,7 @@ void SagittariusStar::Update(float _DeltaTime)
 {
 	if (true == isStarDeath)
 	{
-		if (true == StarRender->IsAnimationEnd() || GetLiveTime() > 250.0f)
+		if (true == StarRender->IsAnimationEnd() || GetLiveTime() > 60.0f)
 		{
 			Death();
 

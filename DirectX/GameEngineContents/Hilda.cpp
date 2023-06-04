@@ -80,7 +80,7 @@ void Hilda::Start()
 
 	//PlayerRender->CreateAnimation({ .AnimationName = "OriginIntro", .SpriteName = "Cuphead_AirPlane_Origin_intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 
-	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Player);		
+	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);		
 	BossRender->CreateAnimation({ .AnimationName = "Intro",  .SpriteName = "Hilda_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "SecondIntro",  .SpriteName = "Hilda_ChangeBack", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Hilda_Idle",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
@@ -93,7 +93,7 @@ void Hilda::Start()
 
 	BossRender->SetAnimationUpdateEvent("DashBack", 3, [this]
 		{
-			GetLevel()->CreateActor<Constellation>(CupHeadActorOrder::Enemy);
+			GetLevel()->CreateActor<Constellation>(CupHeadActorOrder::UI);
 		});
 
 	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
@@ -102,7 +102,7 @@ void Hilda::Start()
 	BossCollision->SetName("HildaCollision");
 
 																				
-	BossSmokeRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
+	BossSmokeRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	BossSmokeRender->CreateAnimation({ .AnimationName = "DashSmoke",  .SpriteName = "HildaChangePhaseDashSmoke",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	BossSmokeRender->GetTransform()->SetLocalPosition(float4(570, -30));
 	BossSmokeRender->Off();

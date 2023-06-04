@@ -106,6 +106,7 @@ private:
 
 	bool isStartAnimationDone = true;
 
-
+	void TimeStop();
+	void TimePlay();
 };
 

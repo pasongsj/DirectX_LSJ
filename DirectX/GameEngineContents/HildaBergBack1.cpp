@@ -18,11 +18,11 @@ void HildaBergBack1::Start()
 {
 	float4 WindowSize = GameEngineWindow::GetScreenSize();
 
-	MainBack= CreateComponent<GameEngineSpriteRenderer>();
+	MainBack= CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	MainBack->SetScaleToTexture("blimp_dark_hills.png");
 	MainBack->GetTransform()->SetLocalPosition( float4(0,-WindowSize.hy()+ MainBack->GetTransform()->GetLocalScale().hy() - 30));
 
-	SubBack = CreateComponent<GameEngineSpriteRenderer>();
+	SubBack = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	SubBack->SetScaleToTexture("blimp_dark_hills.png");
 	SubBack->GetTransform()->SetLocalPosition(float4(MainBack->GetTransform()->GetLocalScale().x , MainBack->GetTransform()->GetLocalPosition().y));
 

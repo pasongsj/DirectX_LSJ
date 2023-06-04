@@ -19,7 +19,7 @@ void HildaBergBack3::Start()
 	for (int i = 1; i <= 4; i++)
 	{
 		std::string TextureName = "blimp_large_forest_000" + std::to_string(i) + ".png";
-		std::shared_ptr<GameEngineSpriteRenderer> Hill = CreateComponent< GameEngineSpriteRenderer>();
+		std::shared_ptr<GameEngineSpriteRenderer> Hill = CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 		Hill->SetScaleToTexture(TextureName);
 		float4 HillScale = Hill->GetTransform()->GetLocalScale();
 		IntervalX += HillScale.x;
@@ -72,7 +72,7 @@ void HildaBergBack3::ChangeNight()
 	for (int i = 1; i <= 4; i++)
 	{
 		std::string TextureName = "blimp_large_forest_night_000" + std::to_string(i) + ".png";
-		std::shared_ptr<GameEngineSpriteRenderer> Hill = CreateComponent< GameEngineSpriteRenderer>();
+		std::shared_ptr<GameEngineSpriteRenderer> Hill = CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 		Hill->SetScaleToTexture(TextureName);
 		float4 HillScale = Hill->GetTransform()->GetLocalScale();
 		IntervalX += HillScale.x;

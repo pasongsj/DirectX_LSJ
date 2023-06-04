@@ -18,7 +18,7 @@ void Constellation::Start()
 		MsgAssert("별자리 Sprite가 생성되지 않았습니다.");
 		return;
 	}
-	ConstellationRender = CreateComponent<GameEngineSpriteRenderer>();
+	ConstellationRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::UI);
 	ConstellationRender->CreateAnimation({ .AnimationName = "Gemini", .SpriteName = "Gemini_Constellation", .Loop = true, .ScaleToTexture = true });
 	ConstellationRender->CreateAnimation({ .AnimationName = "Taurus", .SpriteName = "Taurus_Constellation", .Loop = true, .ScaleToTexture = true });
 	ConstellationRender->CreateAnimation({ .AnimationName = "Sagittarius", .SpriteName = "Sagittarius_Constellation", .Loop = true, .ScaleToTexture = true });

@@ -8,7 +8,7 @@
 #include "GameEngineDebug3D.h"
 
 
-bool GameEngineLevel::IsDebugRender = true;
+bool GameEngineLevel::IsDebugRender = false;
 
 GameEngineLevel::GameEngineLevel()
 {
@@ -53,13 +53,14 @@ void GameEngineLevel::ActorUpdate(float _DeltaTime)
 
 			std::list<std::shared_ptr<GameEngineActor>>::iterator ActorStart = ActorList.begin();
 			std::list<std::shared_ptr<GameEngineActor>>::iterator ActorEnd = ActorList.end();
+			float ScaleTime = _DeltaTime * GameEngineTime::GlobalTime.GetUpdateOrderTimeScale(GroupStartIter->first);
 
 			for (; ActorStart != ActorEnd; ++ActorStart)
 			{
 				std::shared_ptr<GameEngineActor>& Actor = *ActorStart;
 
-				Actor->AllAccTime(_DeltaTime);
-				Actor->AllUpdate(_DeltaTime);
+				Actor->AllAccTime(ScaleTime);
+				Actor->AllUpdate(ScaleTime);
 			}
 		}
 	}
@@ -154,33 +155,6 @@ void GameEngineLevel::ActorRender(float _DeltaTime)
 	GameEngineDevice::GetBackBufferTarget()->Merge(LastTarget);
 
 
-	//// 이건 나중에 만들어질 랜더러의 랜더가 다 끝나고 되는 랜더가 될겁니다.
-	//std::map<int, std::list<std::shared_ptr<GameEngineActor>>>::iterator GroupStartIter = Actors.begin();
-	//std::map<int, std::list<std::shared_ptr<GameEngineActor>>>::iterator GroupEndIter = Actors.end();
-
-	//for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
-	//{
-	//	std::list<std::shared_ptr<GameEngineActor>>& ActorList = GroupStartIter->second;
-
-	//	std::list<std::shared_ptr<GameEngineActor>>::iterator ActorStart = ActorList.begin();
-	//	std::list<std::shared_ptr<GameEngineActor>>::iterator ActorEnd = ActorList.end();
-
-	//	for (; ActorStart != ActorEnd; ++ActorStart)
-	//	{
-	//		std::shared_ptr<GameEngineActor>& Actor = *ActorStart;
-
-	//		Actor->AllRender(_DeltaTime);
-
-
-	//		/*if (false == Actor->IsUpdate())
-	//		{
-	//			continue;
-	//		}
-
-	//		GameEngineTransform* Transform = Actor->GetTransform();
-	//		Transform->AllRender(_DeltaTime);*/
-	//	}
-	//}
 
 	static bool GUIRender = true;
 

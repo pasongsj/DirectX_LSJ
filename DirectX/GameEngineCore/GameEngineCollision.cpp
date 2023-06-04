@@ -21,10 +21,10 @@ void GameEngineCollision::Start()
 
 void GameEngineCollision::Update(float _Delta)
 {
-	if (false == IsDebug())
-	{
-		return;
-	}
+	//if (false == IsDebug())
+	//{
+	//	return;
+	//}
 	switch (Type)
 	{
 	case ColType::SPHERE2D:
@@ -34,11 +34,15 @@ void GameEngineCollision::Update(float _Delta)
 		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
 		break;
 	case ColType::OBBBOX2D:
-		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
-		break;
-	case ColType::SPHERE3D:
+	{
 		GameEngineDebug::DrawSphere(DebugCamera, GetTransform());
 		break;
+	}
+	case ColType::SPHERE3D:
+	{
+		GameEngineDebug::DrawSphere(DebugCamera, GetTransform());
+		break;
+	}
 	case ColType::AABBBOX3D:
 		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
 		break;

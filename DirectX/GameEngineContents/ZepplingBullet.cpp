@@ -42,7 +42,7 @@ void ZepplingBullet::Start()
 {
 	MakeSprite();
 	// 총알 이미지 랜더러
-	BulletRender = CreateComponent<GameEngineSpriteRenderer>();
+	BulletRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	//Bullet->SetTexture("blimp_enemy_bullet_a_0001.png");
 	BulletRender->CreateAnimation({ .AnimationName = "BulletA", .SpriteName = "BlimpEnemy_BulletA",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	BulletRender->CreateAnimation({ .AnimationName = "BulletB", .SpriteName = "BlimpEnemy_BulletB",  .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });

@@ -43,14 +43,14 @@ void GeminiOrb::Start()
 {
 	MakeSprite();
 
-	Orb = CreateComponent<GameEngineSpriteRenderer>();
+	Orb = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 
 	Orb->CreateAnimation({ .AnimationName = "AttackIntro",  .SpriteName = "Orb_Attack_Intro",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Orb->CreateAnimation({ .AnimationName = "AttackLoop",  .SpriteName = "Orb_Attack_Loop",.FrameInter = 0.03f, .Loop = true , .ScaleToTexture = true });
 	Orb->CreateAnimation({ .AnimationName = "AttackLeave",  .SpriteName = "Orb_Attack_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Orb->ChangeAnimation("AttackIntro");
 
-	OrbAttackEffect = CreateComponent<GameEngineSpriteRenderer>();
+	OrbAttackEffect = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	OrbAttackEffect->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Orb_Attack_Scatter",.FrameInter = 0.03f, .Loop = true, .ScaleToTexture = true });
 	OrbAttackEffect->ChangeAnimation("Attack");
 	OrbAttackEffect->Off();

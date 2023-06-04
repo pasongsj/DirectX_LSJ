@@ -127,7 +127,7 @@ void PlayerAirPlaneMode::Start()
 	MakeSprite();
 
 
-	PlayerRender = CreateComponent<GameEngineSpriteRenderer>();
+	PlayerRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Player);
 	//----------
 	// 
 	// idle mode
@@ -383,4 +383,21 @@ void PlayerAirPlaneMode::MakeSmoke(float _DeltaTime)
 		Smoke->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(-PlayerRender->GetTransform()->GetLocalScale().hx(), 0));
 	}
 
+}
+
+void PlayerAirPlaneMode::TimeStop()
+{
+	for (int i = 0; i < static_cast<int>(CupHeadActorOrder::MAX); i++)
+	{
+		GameEngineTime::GlobalTime.SetUpdateOrderTimeScale(i,0.0f);
+		GameEngineTime::GlobalTime.SetRenderOrderTimeScale(i,0.0f);
+	}
+	GameEngineTime::GlobalTime.SetUpdateOrderTimeScale(CupHeadActorOrder::Player, 1.0f);
+	GameEngineTime::GlobalTime.SetRenderOrderTimeScale(CupHeadActorOrder::Player, 1.0f);
+}
+
+void PlayerAirPlaneMode::TimePlay()
+{
+	GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(1.0f);
+	GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(1.0f);
 }

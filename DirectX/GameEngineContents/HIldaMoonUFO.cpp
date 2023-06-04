@@ -30,11 +30,11 @@ void HIldaMoonUFO::MakeSprite()
 void HIldaMoonUFO::Start()
 {
 	MakeSprite();
-	UFORender = CreateComponent<GameEngineSpriteRenderer>();
+	UFORender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
 	UFORender->CreateAnimation({.AnimationName = "Red", .SpriteName = "Hilda_UFO_Red", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true});
 	UFORender->CreateAnimation({.AnimationName = "Bronze", .SpriteName = "Hilda_UFO_Bronze", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true});
 
-	UFOBeamRender = CreateComponent<GameEngineSpriteRenderer>();
+	UFOBeamRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	UFOBeamRender->CreateAnimation({ .AnimationName = "Beam", .SpriteName = "Hilda_UFO_Beam", .FrameInter = 0.07f, .Loop = false, .ScaleToTexture = true });
 	UFOBeamRender->ChangeAnimation("Beam");
 	UFOBeamRender->Off();

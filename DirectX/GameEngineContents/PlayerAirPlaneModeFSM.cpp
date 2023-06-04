@@ -6,6 +6,10 @@
 void PlayerAirPlaneMode::Intro_Start()
 {
 	ChangePlayerAnimation("Intro");
+	if ("Super" == CurMode)
+	{
+		TimeStop();
+	}
 }
 void PlayerAirPlaneMode::Intro_Update(float _DeltaTime)
 {
@@ -13,11 +17,11 @@ void PlayerAirPlaneMode::Intro_Update(float _DeltaTime)
 	if (true == PlayerRender->IsAnimationEnd())
 	{
 		NextState = PlayerAirPlaneModeState::IDLE;
-
 	}
 }
 void PlayerAirPlaneMode::Intro_End()
 {
+ 	TimePlay();
 }
 
 

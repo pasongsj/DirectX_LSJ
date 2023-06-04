@@ -62,12 +62,20 @@ void HildaBergLevel::Start()
 	{
 		GameEngineInput::CreateKey("NextBoss", VK_F2);
 	}
-
+	if (false == GameEngineInput::IsKey("DebugRender"))
+	{
+		GameEngineInput::CreateKey("DebugRender", VK_F3);
+	}
 
 }
 
 void HildaBergLevel::Update(float _DeltaTime)
 {
+	if (true == GameEngineInput::IsDown("DebugRender"))
+	{
+		GameEngineLevel::IsDebugSwitch();
+	}
+
 	// ÀÜÃ¬ÀÌ ¼ÒÈ¯
 	if (GetLiveTime() > NextSponeTime)
 	{
@@ -223,21 +231,7 @@ void HildaBergLevel::LevelChangeStart()
 	std::shared_ptr<HildaBergBack> BG3 = CreateActor<HildaBergBack3>(CupHeadActorOrder::BackGround);
 	HildaBG.push_back(BG3);
 
-
-	//std::shared_ptr< ZepplingBroken> B = CreateActor<ZepplingBroken>(CupHeadActorOrder::Enemy);
-	//B->SetColor("Purple_");
-
-	//std::shared_ptr<Gemini> NextBoss = CreateActor<Gemini>("Gemini");
-	//std::shared_ptr<Hilda> NewBoss0 = CreateActor<Hilda>(CupHeadActorOrder::Boss);
-	//std::shared_ptr<Taurus> NextBoss1 = CreateActor<Taurus>(CupHeadActorOrder::Boss);
-	//std::shared_ptr<Sagittarius> NextBoss2 = CreateActor<Sagittarius>(CupHeadActorOrder::Boss);
-	//std::shared_ptr<Gemini> NextBoss3 = CreateActor<Gemini>(CupHeadActorOrder::Boss);
-	//std::shared_ptr<Moon> NewBoss4 = CreateActor<Moon>(CupHeadActorOrder::Boss);
-	//std::shared_ptr<Zeppling> NewMonster5 = CreateActor<Zeppling>(CupHeadActorOrder::Boss);
-	//std::shared_ptr<HIldaMoonUFO> NewMonster6 = CreateActor<HIldaMoonUFO>(CupHeadActorOrder::Enemy);
-	//std::shared_ptr<ZepplingBullet> NewMonster = CreateActor<ZepplingBullet>(CupHeadActorOrder::Enemy);
-	//std::shared_ptr<HildaBergBossController> NewBoss = CreateActor<HildaBergBossController>(CupHeadActorOrder::Boss);
-	std::shared_ptr<PlayerAirPlaneMode> NewPlayer7 = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
+std::shared_ptr<PlayerAirPlaneMode> NewPlayer7 = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 	std::shared_ptr<PlayerUI> UI = CreateActor<PlayerUI>(CupHeadActorOrder::UI);
 }
 

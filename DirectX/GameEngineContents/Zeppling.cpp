@@ -43,7 +43,7 @@ void Zeppling::MakeSprite()
 void Zeppling::Start()
 {
 	MakeSprite();
-	EnemyRender = CreateComponent<GameEngineSpriteRenderer>();
+	EnemyRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
 	float4x4 tmpmatrix1 = GetTransform()->GetWorldMatrix();
 	float4x4 Enemytmpmatrix0 = EnemyRender->GetTransform()->GetLocalWorldMatrix();
 	float4x4 Enemytmpmatrix1 = EnemyRender->GetTransform()->GetWorldMatrix();

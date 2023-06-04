@@ -39,7 +39,7 @@ void StoryObject::MakeSprite()
 void StoryObject::Start()
 {
 	MakeSprite();
-	BackGround = CreateComponent<GameEngineSpriteRenderer>();
+	BackGround = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	BackGround->CreateAnimation({ .AnimationName = "1",  .SpriteName = "story1", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
 	BackGround->CreateAnimation({ .AnimationName = "2",  .SpriteName = "story2", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
 	BackGround->CreateAnimation({ .AnimationName = "3",  .SpriteName = "story3", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
