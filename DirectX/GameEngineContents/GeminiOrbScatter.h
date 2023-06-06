@@ -1,8 +1,8 @@
 #pragma once
-#include "GameEnermyAttack.h"
+#include "GameEnemyAttack.h"
 
 // Ό³Έν :
-class GeminiOrbScatter : public GameEnermyAttack
+class GeminiOrbScatter : public GameEnemyAttack
 {
 public:
 	// constrcuter destructer

@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-#include "GameEnermy.h"
+#include "GameEnemy.h"
 
 enum class ZepplingMode
 {
@@ -20,7 +20,7 @@ enum class ZepplingState
 };
 
 // Ό³Έν :
-class Zeppling : public GameEnermy
+class Zeppling : public GameEnemy
 {
 public:
 

@@ -1,12 +1,12 @@
 #include "PrecompileHeader.h"
-#include "GameEnermy.h"
+#include "GameEnemy.h"
 #include "Player.h"
 #include <GameEngineCore/GameEngineCollision.h>
 
-GameEnermy::GameEnermy() 
+GameEnemy::GameEnemy() 
 {
 }
 
-GameEnermy::~GameEnermy() 
+GameEnemy::~GameEnemy() 
 {
 }

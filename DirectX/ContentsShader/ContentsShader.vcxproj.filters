@@ -3,5 +3,6 @@
   <ItemGroup>
     <FxCompile Include="..\ContentResources\ContentsShader\FadeShader.hlsl" />
     <FxCompile Include="..\ContentResources\ContentsShader\MyShader.fx" />
+    <FxCompile Include="..\ContentResources\ContentsShader\GlowShader.hlsl" />
   </ItemGroup>
 </Project>

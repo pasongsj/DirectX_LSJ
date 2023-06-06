@@ -103,10 +103,10 @@
     <ClInclude Include="Player.h">
       <Filter>Object\Player</Filter>
     </ClInclude>
-    <ClInclude Include="GameEnermy.h">
+    <ClInclude Include="GameEnemy.h">
       <Filter>Object\Enermy</Filter>
     </ClInclude>
-    <ClInclude Include="GameEnermyAttack.h">
+    <ClInclude Include="GameEnemyAttack.h">
       <Filter>Object\Enermy</Filter>
     </ClInclude>
     <ClInclude Include="GameContentsUIRenderer.h">
@@ -138,6 +138,9 @@
     </ClInclude>
     <ClInclude Include="PeashotFX.h">
       <Filter>Object\Player\PlayerWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="GameContentsBossRenderer.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -249,10 +252,10 @@
       <Filter>PostEffect</Filter>
     </ClCompile>
     <ClCompile Include="Contents_Resources.cpp" />
-    <ClCompile Include="GameEnermy.cpp">
+    <ClCompile Include="GameEnemy.cpp">
       <Filter>Object\Enermy</Filter>
     </ClCompile>
-    <ClCompile Include="GameEnermyAttack.cpp">
+    <ClCompile Include="GameEnemyAttack.cpp">
       <Filter>Object\Enermy</Filter>
     </ClCompile>
     <ClCompile Include="GameContentsUIRenderer.cpp">
@@ -287,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameContentsBossRenderer.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

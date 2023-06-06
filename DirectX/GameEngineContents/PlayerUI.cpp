@@ -95,7 +95,7 @@ void PlayerUI::Update(float _Delta)
 		int CardCount = static_cast<int>(Energy) / 100;
 		if (0 < CardCount && CardCount <= 5)
 		{
-			SuperModeCard[CardCount - 1]->SetScaleToTexture("hud_ch_card_flip_0000.png");
+			SuperModeCard[CardCount - 1]->SetScaleToTexture("hud_ch_card_flip_0006.png");
 			SuperModeCard[CardCount - 1]->GetTransform()->SetLocalPosition(CardPos[CardCount - 1] + CardYSize.half());
 			SuperModeCard[CardCount - 1]->On();
 

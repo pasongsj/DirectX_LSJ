@@ -4,7 +4,8 @@
 // Ό³Έν :
 class Player : public GameEngineActor
 {
-	friend class GameEnermy;
+	friend class GameEnemy;
+	friend class PeaShooter;
 public:
 
 	static Player* MainPlayer;

@@ -1,9 +1,9 @@
 #pragma once
-#include "GameEnermyAttack.h"
+#include "GameEnemyAttack.h"
 #include <queue>
 
 // Ό³Έν :
-class SagittariusStar : public GameEnermyAttack
+class SagittariusStar : public GameEnemyAttack
 {
 public:
 	// constrcuter destructer

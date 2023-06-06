@@ -2,18 +2,18 @@
 #include <GameEngineCore/GameEngineActor.h>
 
 // Ό³Έν :
-class GameEnermy : public GameEngineActor
+class GameEnemy : public GameEngineActor
 {
 public:
 	// constrcuter destructer
-	GameEnermy();
-	~GameEnermy();
+	GameEnemy();
+	~GameEnemy();
 
 	// delete Function
-	GameEnermy(const GameEnermy& _Other) = delete;
-	GameEnermy(GameEnermy&& _Other) noexcept = delete;
-	GameEnermy& operator=(const GameEnermy& _Other) = delete;
-	GameEnermy& operator=(GameEnermy&& _Other) noexcept = delete;
+	GameEnemy(const GameEnemy& _Other) = delete;
+	GameEnemy(GameEnemy&& _Other) noexcept = delete;
+	GameEnemy& operator=(const GameEnemy& _Other) = delete;
+	GameEnemy& operator=(GameEnemy&& _Other) noexcept = delete;
 
 	inline void Attack(int _Dmg)
 	{

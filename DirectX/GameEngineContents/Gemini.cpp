@@ -3,6 +3,7 @@
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "GeminiOrb.h"
 
@@ -36,6 +37,9 @@ void Gemini::Start()
 	BossB->CreateAnimation({ .AnimationName = "AttackB",  .SpriteName = "Gemini_AttackB",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossB->ChangeAnimation("Idle", true, 15);
 
+
+	BossCollisionA = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BossCollisionB = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 
 	//FSM
 

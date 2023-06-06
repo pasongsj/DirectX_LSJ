@@ -33,6 +33,9 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BossA = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> BossB = nullptr;
 
+	std::shared_ptr<class GameEngineCollision> BossCollisionA = nullptr;
+	std::shared_ptr<class GameEngineCollision> BossCollisionB = nullptr;
+
 	bool isOrbIntroEnd = false;
 
 	GeminiState CurState = GeminiState::IDLE;

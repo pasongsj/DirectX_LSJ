@@ -180,11 +180,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameContentsBossRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameContentsUIRenderer.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEnermy.h">
+    <ClInclude Include="GameEnemy.h">
       <SubType>
       </SubType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -192,7 +196,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="GameEnermyAttack.h">
+    <ClInclude Include="GameEnemyAttack.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -428,11 +432,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameContentsBossRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GameContentsUIRenderer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GameEnermy.cpp">
+    <ClCompile Include="GameEnemy.cpp">
       <SubType>
       </SubType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -440,7 +448,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GameEnermyAttack.cpp">
+    <ClCompile Include="GameEnemyAttack.cpp">
       <SubType>
       </SubType>
     </ClCompile>

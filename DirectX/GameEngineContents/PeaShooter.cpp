@@ -4,8 +4,9 @@
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
-#include "GameEnermy.h"
+#include "GameEnemy.h"
 #include "PeashotFX.h"
+#include "Player.h"
 PeaShooter::PeaShooter() 
 {
 }
@@ -67,12 +68,13 @@ void PeaShooter::Update(float _DeltaTime)
 	{
 		if (nullptr != Col && false == Col->IsDeath())
 		{
-			std::shared_ptr<GameEnermy> ColActor = Col->GetActor()->DynamicThis<GameEnermy>();
+			std::shared_ptr<GameEnemy> ColActor = Col->GetActor()->DynamicThis<GameEnemy>();
 			if (nullptr != ColActor)
 			{
 				ColActor->Attack(Dmg);
 				std::shared_ptr<PeashotFX> FX = GetLevel()->CreateActor<PeashotFX>(CupHeadActorOrder::PlayerEffect);
 				FX->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+				Player::MainPlayer->SuperModeEnergy += 2.0f;
 				Death();
 				return;
 			}

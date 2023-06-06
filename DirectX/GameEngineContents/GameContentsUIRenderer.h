@@ -28,14 +28,10 @@ public:
 	void SetCutTexture(const std::string_view& _Name, float _StartX, float _StartY, float _SizeX, float _SizeY);
 	void SetScaleToCutTexture(const std::string_view& _Name, float _StartX, float _StartY, float _SizeX, float _SizeY);
 
-	void SetPivot(UIRenderPivot _Pivot)
-	{
-		Pivot = _Pivot;
-	}
 
 protected:
 
 private:
-	UIRenderPivot Pivot = UIRenderPivot::CENTER;
+
 };
 
