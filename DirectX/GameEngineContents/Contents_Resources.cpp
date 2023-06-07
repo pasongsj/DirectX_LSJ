@@ -62,12 +62,12 @@ void ContentsCore::ContentsResourcesCreate()
 		Pipe->SetDepthState("EngineDepth");
 	}
 	{
-		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("Glowshader");
+		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("BrightShader");
 		//Pipe->SetVertexBuffer("Rect");
 		//Pipe->SetIndexBuffer("Rect");
-		Pipe->SetVertexShader("GlowShader.hlsl");
+		Pipe->SetVertexShader("BrightShader.hlsl");
 		Pipe->SetRasterizer("Engine2DBase");
-		Pipe->SetPixelShader("GlowShader.hlsl");
+		Pipe->SetPixelShader("BrightShader.hlsl");
 		Pipe->SetBlendState("AlphaBlend");
 		Pipe->SetDepthState("EngineDepth");
 	}

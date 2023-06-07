@@ -15,7 +15,7 @@ public:
 	GameEnemy& operator=(const GameEnemy& _Other) = delete;
 	GameEnemy& operator=(GameEnemy&& _Other) noexcept = delete;
 
-	inline void Attack(int _Dmg)
+	virtual void Attack(int _Dmg)
 	{
 		HP -= _Dmg;
 	}
@@ -27,6 +27,7 @@ public:
 
 protected:
 	int HP = 1;
+	float BrightenInterval = 0.0f;
 
 	inline void SetHP(int _HP)
 	{
@@ -34,6 +35,7 @@ protected:
 	}
 
 private:
+
 
 };
 

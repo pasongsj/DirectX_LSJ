@@ -21,7 +21,7 @@
   <ItemGroup>
     <FxCompile Include="..\ContentResources\ContentsShader\FadeShader.hlsl" />
     <FxCompile Include="..\ContentResources\ContentsShader\MyShader.fx" />
-    <FxCompile Include="..\ContentResources\ContentsShader\GlowShader.hlsl" />
+    <FxCompile Include="..\ContentResources\ContentsShader\BrightShader.hlsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

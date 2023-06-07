@@ -9,6 +9,7 @@
 #include "Constellation.h"
 #include "HildaDashExplodeFX.h"
 #include "HildaDashBackExplodeFX.h"
+#include "GameContentsBossRenderer.h"
 
 Hilda::Hilda() 
 {
@@ -80,7 +81,7 @@ void Hilda::Start()
 
 	//PlayerRender->CreateAnimation({ .AnimationName = "OriginIntro", .SpriteName = "Cuphead_AirPlane_Origin_intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 
-	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);		
+	BossRender = CreateComponent<GameContentsBossRenderer>(CupHeadRendererOrder::Boss);
 	BossRender->CreateAnimation({ .AnimationName = "Intro",  .SpriteName = "Hilda_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "SecondIntro",  .SpriteName = "Hilda_ChangeBack", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Hilda_Idle",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
@@ -172,15 +173,6 @@ void Hilda::Start()
 
 void Hilda::Update(float _DeltaTime)
 {
-	if (nullptr == BossRender || nullptr == BossCollision)
-	{
-		MsgAssert("Hilda 랜더러 또는 콜리전이 제대로 생성되지 않았습니다.");
-		return;
-	}
-	BossCollision->SetRenderScaleToCollision(BossRender);
-	UpdateState(_DeltaTime);
-
-
 	// 임시 테스트용
 	if (true == GameEngineInput::IsPress("TestT"))
 	{
@@ -194,8 +186,23 @@ void Hilda::Update(float _DeltaTime)
 	{
 		NextState = HildaState::CHANGEPHASE;
 	}
-	
 
+
+
+
+	if (nullptr == BossRender || nullptr == BossCollision)
+	{
+		MsgAssert("Hilda 랜더러 또는 콜리전이 제대로 생성되지 않았습니다.");
+		return;
+	}
+	BossCollision->SetRenderScaleToCollision(BossRender);
+	UpdateState(_DeltaTime);
+
+	BrightenInterval -= _DeltaTime;
+	if (BrightenInterval < 0.0f)
+	{
+		BossRender->BrightOptionValue.x = 0.0f;
+	}
 
 }
 
@@ -217,4 +224,11 @@ void Hilda::UpdateState(float _DeltaTime)
 	}
 
 	UpdateFuncPtr[static_cast<int>(CurState)](_DeltaTime);
+}
+
+void Hilda::Attack(int _Dmg)
+{
+	BrightenInterval = 0.1f;
+	BossRender->BrightOptionValue.x = 1.0f;
+	GameEnemy::Attack(_Dmg);
 }

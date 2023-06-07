@@ -26,6 +26,8 @@ public:
 	Hilda& operator=(const Hilda& _Other) = delete;
 	Hilda& operator=(Hilda&& _Other) noexcept = delete;
 
+	void Attack(int _Dmg) override;
+
 protected:
 
 	void Start() override;
@@ -37,7 +39,7 @@ protected:
 
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> BossRender = nullptr;
+	std::shared_ptr<class GameContentsBossRenderer> BossRender = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> BossSmokeRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
 

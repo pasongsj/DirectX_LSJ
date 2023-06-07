@@ -14,18 +14,19 @@ void GameContentsBossRenderer::Start()
 	GameEngineRenderer::Start();
 
 	SetMesh("Rect");
-	SetPipeLine("Glowshader");
+	SetPipeLine("BrightShader");
 
 	AtlasData.x = 0.0f;
 	AtlasData.y = 0.0f;
 	AtlasData.z = 1.0f;
 	AtlasData.w = 1.0f;
 
-	Perc.Percentage = 1.0f;
-	Perc.Affect = true;
+	ColorOptionValue.MulColor = float4::One;
+	ColorOptionValue.PlusColor = float4::Null;
 
+	BrightOptionValue.x = 1;
 
 	GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
-	//GetShaderResHelper().SetConstantBufferLink("ColorOption", ColorOptionValue);
-	GetShaderResHelper().SetConstantBufferLink("PercentData ", Perc);
+	GetShaderResHelper().SetConstantBufferLink("BrightOption", BrightOptionValue);
+
 }
