@@ -9,7 +9,7 @@
 #include "Constellation.h"
 #include "HildaDashExplodeFX.h"
 #include "HildaDashBackExplodeFX.h"
-#include "GameContentsBossRenderer.h"
+#include "GameContentsEnemyRenderer.h"
 
 Hilda::Hilda() 
 {
@@ -81,7 +81,7 @@ void Hilda::Start()
 
 	//PlayerRender->CreateAnimation({ .AnimationName = "OriginIntro", .SpriteName = "Cuphead_AirPlane_Origin_intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 
-	BossRender = CreateComponent<GameContentsBossRenderer>(CupHeadRendererOrder::Boss);
+	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	BossRender->CreateAnimation({ .AnimationName = "Intro",  .SpriteName = "Hilda_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "SecondIntro",  .SpriteName = "Hilda_ChangeBack", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Hilda_Idle",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
@@ -198,12 +198,6 @@ void Hilda::Update(float _DeltaTime)
 	BossCollision->SetRenderScaleToCollision(BossRender);
 	UpdateState(_DeltaTime);
 
-	BrightenInterval -= _DeltaTime;
-	if (BrightenInterval < 0.0f)
-	{
-		BossRender->BrightOptionValue.x = 0.0f;
-	}
-
 }
 
 
@@ -228,7 +222,6 @@ void Hilda::UpdateState(float _DeltaTime)
 
 void Hilda::Attack(int _Dmg)
 {
-	BrightenInterval = 0.1f;
-	BossRender->BrightOptionValue.x = 1.0f;
+	BossRender->MakeBright();
 	GameEnemy::Attack(_Dmg);
 }

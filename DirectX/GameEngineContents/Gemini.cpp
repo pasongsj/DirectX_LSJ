@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include "GameContentsEnemyRenderer.h"
 
 #include "GeminiOrb.h"
 
@@ -19,7 +20,7 @@ void Gemini::Start()
 {
 	SetPhase(4);
 
-	BossA = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	BossA = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	BossA->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	BossA->CreateAnimation({ .AnimationName = "AttackA",  .SpriteName = "Gemini_AttackA",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossA->ChangeAnimation("Idle");
@@ -32,14 +33,25 @@ void Gemini::Start()
 	Orb->ChangeAnimation("IdleIntro");
 	Orb->GetTransform()->SetLocalPosition(float4(0, -45,-1));
 	
-	BossB = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	BossB = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	BossB->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	BossB->CreateAnimation({ .AnimationName = "AttackB",  .SpriteName = "Gemini_AttackB",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossB->ChangeAnimation("Idle", true, 15);
 
 
 	BossCollisionA = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BossCollisionA->SetColType(ColType::AABBBOX2D);
+	BossCollisionA->GetTransform()->SetLocalScale(float4(220, 560, 1));
+	BossCollisionA->SetName("GeminiCollisionA");
+
+
 	BossCollisionB = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BossCollisionB->SetColType(ColType::AABBBOX2D);
+	BossCollisionB->GetTransform()->SetLocalScale(float4(220, 560, 1));
+	BossCollisionB->SetName("GeminiCollisionA");
+
+
+
 
 	//FSM
 
@@ -105,8 +117,12 @@ void Gemini::Idle_Update(float _DeltaTime)
 	//x=acos¥èy=bsin¥è
 
 	float SpinTime = -GetLiveTime() * 4;
+
 	BossA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -1-sinf(SpinTime)));
+	BossCollisionA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -1 - sinf(SpinTime)));
+
 	BossB->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), -1+sinf(SpinTime)));
+	BossCollisionB->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), -1 + sinf(SpinTime)));
 
 	if (false == isOrbIntroEnd && Orb->IsAnimationEnd())
 	{
@@ -151,4 +167,11 @@ void Gemini::Attack_End()
 		std::shared_ptr<GeminiOrb> AttackOrb = GetLevel()->CreateActor<GeminiOrb>(CupHeadActorOrder::Enemy);
 		AttackOrb->GetTransform()->SetLocalPosition(float4(-300, 0));
 
+}
+
+void Gemini::Attack(int _Dmg)
+{
+	BossA->MakeBright();
+	BossB->MakeBright();
+	GameEnemy::Attack(_Dmg);
 }

@@ -180,7 +180,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameContentsBossRenderer.h">
+    <ClInclude Include="GameContentsEnemyRenderer.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -432,7 +432,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GameContentsBossRenderer.cpp">
+    <ClCompile Include="GameContentsEnemyRenderer.cpp">
       <SubType>
       </SubType>
     </ClCompile>

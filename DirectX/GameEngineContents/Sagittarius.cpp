@@ -9,6 +9,8 @@
 
 #include "SagittariusArrow.h"
 #include "SagittariusStar.h"
+#include "GameContentsEnemyRenderer.h"
+
 
 Sagittarius::Sagittarius() 
 {
@@ -45,7 +47,7 @@ void Sagittarius::Start()
 	//GetTransform()->SetLocalPosition(float4(300.0f, 0));
 
 
-	Upper = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	Upper = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	Upper->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Upper_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	Upper->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Sagittarius_Upper_Attack",.FrameInter = 0.07f, .Loop = false , .ScaleToTexture = true });
 
@@ -53,7 +55,7 @@ void Sagittarius::Start()
 	//Upper->SetScaleToTexture("sagg_idle_0001.png");
 	Upper->GetTransform()->SetLocalPosition(float4(0, 100));
 
-	Lower = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	Lower = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	Lower->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Lower_Idle",  .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	//Lower->SetScaleToTexture("sagg_cloud_top_0003.png");
 	Lower->ChangeAnimation("Idle");
@@ -163,4 +165,13 @@ void Sagittarius::Attack_Update(float _DeltaTime)
 void Sagittarius::Attack_End()
 {
 
+}
+
+
+
+void Sagittarius::Attack(int _Dmg)
+{
+	Upper->MakeBright();
+	Lower->MakeBright();
+	GameEnemy::Attack(_Dmg);
 }

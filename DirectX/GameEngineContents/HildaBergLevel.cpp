@@ -138,7 +138,9 @@ void HildaBergLevel::Update(float _DeltaTime)
 			int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
 			if (1 == (RandomNum & 1))
 			{
-				Boss = CreateActor<Sagittarius>(CupHeadActorOrder::Boss);
+				//Boss = CreateActor<Sagittarius>(CupHeadActorOrder::Boss);
+				Boss = CreateActor<Gemini>(CupHeadActorOrder::Boss);
+
 			}
 			else
 			{

@@ -4,7 +4,7 @@
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineLevel.h>
 //#include <GameEngineCore/GameEngineSpriteRenderer.h>
-#include "GameContentsBossRenderer.h"
+#include "GameContentsEnemyRenderer.h"
 
 #include "HildaTornado.h"
 #include "HildaHA.h"

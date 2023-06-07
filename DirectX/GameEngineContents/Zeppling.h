@@ -35,6 +35,9 @@ public:
 	Zeppling& operator=(const Zeppling& _Other) = delete;
 	Zeppling& operator=(Zeppling&& _Other) noexcept = delete;
 
+	void Attack(int _Dmg) override;
+
+
 
 protected:
 
@@ -43,7 +46,7 @@ protected:
 	void Render(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> EnemyRender = nullptr;
+	std::shared_ptr<class GameContentsEnemyRenderer> EnemyRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> EnemyCollision = nullptr;
 
 	ZepplingState CurState = ZepplingState::MOVE;

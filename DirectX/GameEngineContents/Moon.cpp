@@ -5,6 +5,8 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include "GameContentsEnemyRenderer.h"
+
 #include "MoonStar.h"
 
 Moon::Moon()
@@ -51,7 +53,7 @@ void Moon::Start()
 {
 	SetPhase(6);
 	MakeSprite();
-	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	BossRender->CreateAnimation({ .AnimationName = "Intro0",  .SpriteName = "Moon_Intro0", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Intro1",  .SpriteName = "Moon_Intro1", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Intro2",  .SpriteName = "Moon_Intro2", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
@@ -315,3 +317,9 @@ void Moon::Death_End()
 {
 }
 
+
+void Moon::Attack(int _Dmg)
+{
+	BossRender->MakeBright();
+	GameEnemy::Attack(_Dmg);
+}

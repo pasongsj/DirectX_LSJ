@@ -1,7 +1,7 @@
 #include "PrecompileHeader.h"
 #include "Constellation.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
-#include <GameEngineCore/GameEngineSprite.h>
+#include <GameEngineCore/GameEngineRenderer.h>
 
 Constellation::Constellation() 
 {
@@ -38,6 +38,8 @@ void Constellation::SetConstellation(const std::string_view& _Constellation)
 
 void Constellation::Update(float _DeltaTime)
 {
+	ConstellationRender->ColorOptionValue.MulColor = float4::One;
+	ConstellationRender->ColorOptionValue.MulColor.w = GetLiveTime();
 	if (GetLiveTime() > 2.5f)
 	{
 		Death();

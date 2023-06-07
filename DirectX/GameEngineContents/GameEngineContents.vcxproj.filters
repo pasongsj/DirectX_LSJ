@@ -128,20 +128,18 @@
       <Filter>Object\Player\PlayerWeapon</Filter>
     </ClInclude>
     <ClInclude Include="HildaDashExplodeFX.h">
-      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+      <Filter>Object\HildaBerg\HildaFX</Filter>
     </ClInclude>
     <ClInclude Include="HildaDashBackExplodeFX.h">
-      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+      <Filter>Object\HildaBerg\HildaFX</Filter>
     </ClInclude>
     <ClInclude Include="HIldaBigCloudFX.h">
-      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+      <Filter>Object\HildaBerg\HildaFX</Filter>
     </ClInclude>
     <ClInclude Include="PeashotFX.h">
       <Filter>Object\Player\PlayerWeapon</Filter>
     </ClInclude>
-    <ClInclude Include="GameContentsBossRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
+    <ClInclude Include="GameContentsEnemyRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -277,13 +275,13 @@
       <Filter>Object\Player\PlayerWeapon</Filter>
     </ClCompile>
     <ClCompile Include="HildaDashExplodeFX.cpp">
-      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+      <Filter>Object\HildaBerg\HildaFX</Filter>
     </ClCompile>
     <ClCompile Include="HildaDashBackExplodeFX.cpp">
-      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+      <Filter>Object\HildaBerg\HildaFX</Filter>
     </ClCompile>
     <ClCompile Include="HIldaBigCloudFX.cpp">
-      <Filter>Object\HildaBerg\Boss\HildaFX</Filter>
+      <Filter>Object\HildaBerg\HildaFX</Filter>
     </ClCompile>
     <ClCompile Include="PeashotFX.cpp">
       <Filter>Object\Player\PlayerWeapon</Filter>
@@ -291,9 +289,7 @@
     <ClCompile Include="Player.cpp">
       <Filter>Object\Player</Filter>
     </ClCompile>
-    <ClCompile Include="GameContentsBossRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
+    <ClCompile Include="GameContentsEnemyRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -344,14 +340,14 @@
     <Filter Include="Object\Enermy">
       <UniqueIdentifier>{38a85205-c060-4ebf-a603-11b466ada88a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\HildaBerg\Boss\HildaFX">
-      <UniqueIdentifier>{39a0df52-ad1c-47d3-b07d-41cf61496ab1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Player\PlayerFX">
       <UniqueIdentifier>{c18bd24c-73e4-4bf7-8a20-648459c99a07}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object\Player\PlayerWeapon">
       <UniqueIdentifier>{ddd14ce1-bd03-40ca-ab60-75b279f5d4a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\HildaBerg\HildaFX">
+      <UniqueIdentifier>{39a0df52-ad1c-47d3-b07d-41cf61496ab1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

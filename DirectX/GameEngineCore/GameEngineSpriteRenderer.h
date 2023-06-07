@@ -151,8 +151,8 @@ protected:
 	void SpriteRenderInit();
 	float4 AtlasData;
 
-private:
 	void Update(float _Delta) override;
+private:
 
 	void Render(float _Delta) override;
 

@@ -3,11 +3,13 @@
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include "GameContentsEnemyRenderer.h"
 
 
 #include "ZepplingBullet.h"
 #include "ZepplingBroken.h"
 #include "PlayerAirPlaneMode.h"
+
 
 void Zeppling::Move_Start()
 {

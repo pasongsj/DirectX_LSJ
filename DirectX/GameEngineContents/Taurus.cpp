@@ -4,6 +4,9 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include "GameContentsEnemyRenderer.h"
+
+
 #include "HIldaBigCloudFX.h"
 #include "HildaDashBackExplodeFX.h"
 
@@ -38,7 +41,7 @@ void Taurus::Start()
 {
 	SetPhase(2);
 	MakeSprite();
-	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	BossRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Taurus_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "ChargeAttack", .SpriteName = "Taurus_Charge", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Taurus_Attack",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
@@ -147,4 +150,10 @@ void Taurus::Attack_Update(float _DeltaTime)
 void Taurus::Attack_End()
 {
 	GetTransform()->SetLocalPosition(CurPos);
+}
+
+void Taurus::Attack(int _Dmg)
+{
+	BossRender->MakeBright();
+	GameEnemy::Attack(_Dmg);
 }

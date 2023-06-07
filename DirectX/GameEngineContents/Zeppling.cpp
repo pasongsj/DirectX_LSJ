@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
+#include "GameContentsEnemyRenderer.h"
 
 //std::vector<std::shared_ptr<Zeppling>> Zeppling::AllZepplings;
 
@@ -43,7 +44,7 @@ void Zeppling::MakeSprite()
 void Zeppling::Start()
 {
 	MakeSprite();
-	EnemyRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
+	EnemyRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Enemy);
 	float4x4 tmpmatrix1 = GetTransform()->GetWorldMatrix();
 	float4x4 Enemytmpmatrix0 = EnemyRender->GetTransform()->GetLocalWorldMatrix();
 	float4x4 Enemytmpmatrix1 = EnemyRender->GetTransform()->GetWorldMatrix();
@@ -145,4 +146,12 @@ void Zeppling::CheckDeath()
 	{
 		NextState = ZepplingState::DEAD;
 	}
+}
+
+
+
+void Zeppling::Attack(int _Dmg)
+{
+	EnemyRender->MakeBright();
+	GameEnemy::Attack(_Dmg);
 }

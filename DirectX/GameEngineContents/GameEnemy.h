@@ -27,7 +27,6 @@ public:
 
 protected:
 	int HP = 1;
-	float BrightenInterval = 0.0f;
 
 	inline void SetHP(int _HP)
 	{

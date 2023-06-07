@@ -22,7 +22,7 @@ public:
 	Gemini& operator=(const Gemini& _Other) = delete;
 	Gemini& operator=(Gemini&& _Other) noexcept = delete;
 
-	//void BossDeath() override;
+	void Attack(int _Dmg) override;
 
 protected:
 
@@ -30,8 +30,8 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> BossA = nullptr;
-	std::shared_ptr<class GameEngineSpriteRenderer> BossB = nullptr;
+	std::shared_ptr<class GameContentsEnemyRenderer> BossA = nullptr;
+	std::shared_ptr<class GameContentsEnemyRenderer> BossB = nullptr;
 
 	std::shared_ptr<class GameEngineCollision> BossCollisionA = nullptr;
 	std::shared_ptr<class GameEngineCollision> BossCollisionB = nullptr;

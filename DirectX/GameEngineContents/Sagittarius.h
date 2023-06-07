@@ -25,6 +25,9 @@ public:
 	Sagittarius& operator=(const Sagittarius& _Other) = delete;
 	Sagittarius& operator=(Sagittarius&& _Other) noexcept = delete;
 
+	void Attack(int _Dmg) override;
+
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -32,8 +35,8 @@ protected:
 
 private:
 
-	std::shared_ptr<class GameEngineSpriteRenderer> Upper = nullptr;
-	std::shared_ptr<class GameEngineSpriteRenderer> Lower = nullptr;
+	std::shared_ptr<class GameContentsEnemyRenderer> Upper = nullptr;
+	std::shared_ptr<class GameContentsEnemyRenderer> Lower = nullptr;
 
 	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
 
