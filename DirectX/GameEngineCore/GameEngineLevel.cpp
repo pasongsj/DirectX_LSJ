@@ -12,14 +12,10 @@ bool GameEngineLevel::IsDebugRender = false;
 
 GameEngineLevel::GameEngineLevel()
 {
-	MainCamera = CreateActor<GameEngineCamera>();
+	MainCamera = CreateNewCamera(0);
 
-	Cameras.insert(std::make_pair(0, MainCamera));
-
-	std::shared_ptr<GameEngineCamera> UICamera = CreateActor<GameEngineCamera>();
+	std::shared_ptr<GameEngineCamera> UICamera = CreateNewCamera(100);
 	UICamera->SetProjectionType(CameraType::Orthogonal);
-
-	Cameras.insert(std::make_pair(100, UICamera));
 
 	LastTarget = GameEngineRenderTarget::Create(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, GameEngineWindow::GetScreenSize(), float4::Null);
 }
@@ -288,6 +284,20 @@ void GameEngineLevel::PushCameraRenderer(std::shared_ptr<GameEngineRenderer> _Re
 	}
 
 	FindCamera->PushRenderer(_Renderer);
+}
+
+std::shared_ptr<GameEngineCamera> GameEngineLevel::CreateNewCamera(int _Order)
+{
+	if (Cameras.find(_Order) != Cameras.end())
+	{
+		MsgAssert("이미 존재하는 오더의 카메라를 중복 생성하려했습니다 Order : " + std::to_string(_Order));
+		return nullptr;
+	}
+
+	std::shared_ptr<GameEngineCamera> NewCamera = CreateActor<GameEngineCamera>();
+	Cameras.insert(std::make_pair(_Order, NewCamera));
+
+	return NewCamera;
 }
 
 std::shared_ptr<GameEngineCamera> GameEngineLevel::GetCamera(int _CameraOrder)
