@@ -67,6 +67,7 @@ void MoonStar::Update(float _DeltaTime)
 		return;
 	}
 	StarCollision->SetRenderScaleToCollision(StarRender);
+	CollisionPlayer(StarCollision);
 	StarMove(_DeltaTime);
 
 }

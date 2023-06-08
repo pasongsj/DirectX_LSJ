@@ -140,6 +140,9 @@
       <Filter>Object\Player\PlayerWeapon</Filter>
     </ClInclude>
     <ClInclude Include="GameContentsEnemyRenderer.h" />
+    <ClInclude Include="GetReadyUI.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -290,6 +293,9 @@
       <Filter>Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="GameContentsEnemyRenderer.cpp" />
+    <ClCompile Include="GetReadyUI.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">

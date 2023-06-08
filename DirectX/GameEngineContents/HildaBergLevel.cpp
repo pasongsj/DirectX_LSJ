@@ -41,6 +41,7 @@
 
 // UI
 #include "PlayerUI.h"
+#include "GetReadyUI.h"
 
 HildaBergLevel::HildaBergLevel() 
 {
@@ -240,8 +241,9 @@ void HildaBergLevel::LevelChangeStart()
 	std::shared_ptr<HildaBergBack> BG3 = CreateActor<HildaBergBack3>(CupHeadActorOrder::BackGround);
 	HildaBG.push_back(BG3);
 
-std::shared_ptr<PlayerAirPlaneMode> NewPlayer7 = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
+	std::shared_ptr<PlayerAirPlaneMode> NewPlayer7 = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 	std::shared_ptr<PlayerUI> UI = CreateActor<PlayerUI>(CupHeadActorOrder::UI);
+	CreateActor<GetReadyUI>(CupHeadActorOrder::UI);
 }
 
 void HildaBergLevel::LevelChangeEnd()
