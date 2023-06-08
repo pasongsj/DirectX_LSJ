@@ -72,7 +72,8 @@ void Hilda::HildaDeath()
 	}
 	return;
 }
-																				
+
+
 void Hilda::Start()																
 {
 	SetPhase(1);
@@ -92,10 +93,10 @@ void Hilda::Start()
 	BossRender->CreateAnimation({ .AnimationName = "Tornato",  .SpriteName = "Hilda_Tornado",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->ChangeAnimation("Intro");
 
-	BossRender->SetAnimationUpdateEvent("DashBack", 3, [this]
-		{
-			GetLevel()->CreateActor<Constellation>(CupHeadActorOrder::UI);
-		});
+	//BossRender->SetAnimationUpdateEvent("DashBack", 3, [this]
+	//	{
+	//		GetLevel()->CreateActor<Constellation>(CupHeadActorOrder::UI);
+	//	});
 
 	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	BossCollision->SetRenderScaleToCollision(BossRender);

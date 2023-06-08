@@ -25,6 +25,7 @@ public:
 	GameContentsUIRenderer& operator=(const GameContentsUIRenderer& _Other) = delete;
 	GameContentsUIRenderer& operator=(GameContentsUIRenderer&& _Other) noexcept = delete;
 
+	void SetAtlasData(float _StartX, float _StartY, float _SizeX, float _SizeY);
 	void SetCutTexture(const std::string_view& _Name, float _StartX, float _StartY, float _SizeX, float _SizeY);
 	void SetScaleToCutTexture(const std::string_view& _Name, float _StartX, float _StartY, float _SizeX, float _SizeY);
 

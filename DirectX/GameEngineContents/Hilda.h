@@ -15,6 +15,7 @@ enum class HildaState
 // Ό³Έν :
 class Hilda : public HildaBoss
 {
+	friend class HildaBergLevel;
 public:
 	// constrcuter destructer
 	Hilda();
@@ -42,6 +43,7 @@ private:
 	std::shared_ptr<class GameContentsEnemyRenderer> BossRender = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> BossSmokeRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
+
 
 	// idle
 	

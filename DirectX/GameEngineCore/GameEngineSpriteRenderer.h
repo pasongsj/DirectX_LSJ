@@ -152,13 +152,13 @@ protected:
 	float4 AtlasData;
 
 	void Update(float _Delta) override;
+	std::shared_ptr<AnimationInfo> CurAnimation;
 private:
 
 	void Render(float _Delta) override;
 
 	std::map<std::string, std::shared_ptr<AnimationInfo>> Animations;
 
-	std::shared_ptr<AnimationInfo> CurAnimation;
 
 
 

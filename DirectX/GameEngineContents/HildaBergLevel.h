@@ -29,6 +29,8 @@ private:
 	// 보스
 	std::shared_ptr<class HildaBoss> Boss = nullptr;
 	int Phase = 1;
+	bool IsConstell = false;
+	bool IsGemini = false;
 
 	// 배경
 	std::vector<std::shared_ptr<class HildaBergBack>> HildaBG;

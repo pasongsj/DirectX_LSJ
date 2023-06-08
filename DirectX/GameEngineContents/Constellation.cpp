@@ -39,7 +39,7 @@ void Constellation::SetConstellation(const std::string_view& _Constellation)
 void Constellation::Update(float _DeltaTime)
 {
 	ConstellationRender->ColorOptionValue.MulColor = float4::One;
-	ConstellationRender->ColorOptionValue.MulColor.w = GetLiveTime();
+	ConstellationRender->ColorOptionValue.MulColor.w = GetLiveTime() * 0.8f;
 	if (GetLiveTime() > 2.5f)
 	{
 		Death();

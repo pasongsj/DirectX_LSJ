@@ -25,9 +25,9 @@ public:
 		return PlayerHP;
 	}
 
-	inline float GetSuperModeEnergy()
+	inline int GetSuperModeEnergy()
 	{
-		return (SuperModeEnergy>500?500: SuperModeEnergy);
+		return (SuperModeEnergy > 500 ? 500 : SuperModeEnergy);
 	}
 	inline void Attack(int _Dmg)
 	{
@@ -41,7 +41,7 @@ public:
 
 protected:
 	int PlayerHP = 3;
-	float SuperModeEnergy = 0.0f;
+	int SuperModeEnergy = 0;
 	float InvincibleTime = 0.0f;
 
 

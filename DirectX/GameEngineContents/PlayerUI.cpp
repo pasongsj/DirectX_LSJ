@@ -15,21 +15,35 @@ PlayerUI::PlayerUI()
 PlayerUI::~PlayerUI() 
 {
 }
-
-
-void PlayerUI::Start()
+void PlayerUI::MakeSprite()
 {
-	if (nullptr == GameEngineSprite::Find("CharacterCardFlip"))
+	if (nullptr == GameEngineSprite::Find("CharacterRotateCard"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
 		NewDir.Move("ContentResources\\Texture\\PlayerUI");
 
 
-		GameEngineSprite::LoadFolder("CharacterCardFlip", NewDir.GetPlusFileName("FlipCard").GetFullPath().c_str());
+		GameEngineSprite::LoadFolder("CharacterRotateCard", NewDir.GetPlusFileName("RotateCard").GetFullPath().c_str());
+		GameEngineSprite::LoadFolder("CharacterBackCard", NewDir.GetPlusFileName("BackCard").GetFullPath().c_str());
+		GameEngineSprite::LoadFolder("CharacterFrontCard", NewDir.GetPlusFileName("FrontCard").GetFullPath().c_str());
+		GameEngineSprite::LoadFolder("CharacterFlipCard", NewDir.GetPlusFileName("FlipCard").GetFullPath().c_str());
 		GameEngineSprite::LoadFolder("Character1HPFlash", NewDir.GetPlusFileName("HpFlash").GetFullPath().c_str());
 	}
 
+}
+
+
+void PlayerUI::Start()
+{
+	MakeSprite();
+	// camera
+	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetCamera(100);
+	Camera->SetProjectionType(CameraType::Orthogonal);
+	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+	float4 ScreenSize = GameEngineWindow::GetScreenSize();
+
+	// hp Render
 	std::shared_ptr<GameEngineTexture> hp0 = GameEngineTexture::Find("hud_hp_dead.png");
 	if (nullptr == hp0)
 	{
@@ -47,30 +61,32 @@ void PlayerUI::Start()
 		HPTexture.insert(std::make_pair(i, HpRender));
 	}
 
-	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetCamera(100);
-	Camera->SetProjectionType(CameraType::Orthogonal);
-	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-
-	float4 ScreenSize = GameEngineWindow::GetScreenSize();
-
 	{
 		// HPBar
 		HPRender = CreateComponent<GameEngineUIRenderer>(CupHeadRendererOrder::UI);
 		HPRender->SetScaleToTexture(HPTexture[3]);
-
 		HPRender->GetTransform()->SetLocalPosition(-ScreenSize.half() + float4(20, 20) + HPRender->GetTransform()->GetLocalScale().half());
 	}
 
 
 
 
-	float4 UIPos = -GameEngineWindow::GetScreenSize().half();
+
+	// card Render
+	float4 UIPos = -ScreenSize.half();
 	UIPos += float4(120, 20);
 	for (int i = 0; i < 5; i++)
 	{
 		std::shared_ptr<GameContentsUIRenderer> tmp = CreateComponent< GameContentsUIRenderer>();
-		CardPos.push_back(UIPos);
+		tmp->CreateAnimation({ .AnimationName = "RotateCard",  .SpriteName = "CharacterRotateCard", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+		tmp->CreateAnimation({ .AnimationName = "BackCard",  .SpriteName = "CharacterBackCard" , .FrameInter = 0.05f, .Loop = true  });
+		tmp->CreateAnimation({ .AnimationName = "FrontCard",  .SpriteName = "CharacterFrontCard", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+		tmp->CreateAnimation({ .AnimationName = "FlipCard",  .SpriteName = "CharacterFlipCard" , .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+
 		tmp->Off();
+		tmp->GetTransform()->SetLocalPosition(UIPos + float4(0, 15));
+
+		CardPos.push_back(UIPos);
 		SuperModeCard.push_back(tmp);
 		UIPos.x += 20;
 
@@ -88,25 +104,54 @@ void PlayerUI::Update(float _Delta)
 		}
 		HPRender->SetScaleToTexture(HPTexture[Hp]);
 	}
+	CardUIUpdate();
+}
 
+void PlayerUI::CardUIUpdate()
+{
+	int Energy = Player::MainPlayer->GetSuperModeEnergy();
+	Energy = (500 < Energy ? 500 : Energy);
+
+	if (LastInputEnergy != Energy) // 증가했다면
 	{
-		float Energy = Player::MainPlayer->GetSuperModeEnergy();
+		int FullCardCount = Energy / 100;
+		float LastEnergy = static_cast<float>(Energy % 100) * 0.01f;
+		int index = 0;
 
-		int CardCount = static_cast<int>(Energy) / 100;
-		if (0 < CardCount && CardCount <= 5)
+		for (int i = 0; i < 5; i++)
 		{
-			SuperModeCard[CardCount - 1]->SetScaleToTexture("hud_ch_card_flip_0006.png");
-			SuperModeCard[CardCount - 1]->GetTransform()->SetLocalPosition(CardPos[CardCount - 1] + CardYSize.half());
-			SuperModeCard[CardCount - 1]->On();
-
+			if (500 == Energy)
+			{
+				SuperModeCard[i]->ChangeAnimation("RotateCard");
+				SuperModeCard[i]->GetTransform()->SetLocalPosition(CardPos[i] + CardYSize.half());
+				SuperModeCard[i]->On();
+				continue;
+			}
+			if (i < FullCardCount)
+			{
+				SuperModeCard[i]->ChangeAnimation("FrontCard");
+				SuperModeCard[i]->GetTransform()->SetLocalPosition(CardPos[i] + CardYSize.half());
+				SuperModeCard[i]->On();
+			}
+			else if (i == FullCardCount && LastEnergy > 0)
+			{
+				SuperModeCard[i]->ChangeAnimation("BackCard");
+				SuperModeCard[i]->SetAtlasData(0, 0, 1, LastEnergy);
+				//SuperModeCard[i]->SetScaleToCutTexture("hud_ch_card_flip_0000.png", 0, 0, 1, LastEnergy);
+				float4 Size = CardSize;
+				Size.y *= LastEnergy;
+				SuperModeCard[i]->GetTransform()->SetLocalScale(Size);
+				SuperModeCard[i]->GetTransform()->SetLocalPosition(CardPos[i] + CardYSize.half() * LastEnergy);
+				SuperModeCard[i]->On();
+			}
+			else
+			{
+				SuperModeCard[i]->Off();
+			}
 		}
-		float LastEnergy = (Energy - (100.0f * CardCount)) * 0.01f;
-		if (CardCount < 5 && 0.01f < LastEnergy)
-		{
-			SuperModeCard[CardCount]->SetScaleToCutTexture("hud_ch_card_flip_0000.png", 0, 0, 1, LastEnergy);
-			SuperModeCard[CardCount]->GetTransform()->SetLocalPosition(CardPos[CardCount] + CardYSize.half() * LastEnergy);
-			SuperModeCard[CardCount]->On();
-		}
+		LastInputEnergy = Energy;
 	}
+
+
 
 }

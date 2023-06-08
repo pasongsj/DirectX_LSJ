@@ -225,11 +225,11 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 	//SuperModeEnergy += _DeltaTime*10;
 
 	// 임시 체크용
-	if (true == GameEngineInput::IsDown("PlayerShmUpModeSwitch")) // VK_SPACE
+	if (SuperModeEnergy >= 500 && true == GameEngineInput::IsDown("PlayerShmUpModeSwitch")) // VK_SPACE
 	{
 		ChangeMode("Super");
-
 		NextState = PlayerAirPlaneModeState::INTRO;
+		SuperModeEnergy = 0;
 	}
 	if ("Super" == CurMode && true == GameEngineInput::IsDown("PlayerShmupSkill")) // 'V'
 	{

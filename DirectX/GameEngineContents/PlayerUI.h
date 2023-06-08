@@ -21,6 +21,8 @@ protected:
 	void Update(float _Delta) override;
 
 private:
+	
+
 	std::map<int, std::shared_ptr<class GameEngineTexture>> HPTexture;
 	std::shared_ptr<class GameEngineUIRenderer> HPRender = nullptr;
 
@@ -28,6 +30,13 @@ private:
 	std::vector<float4> CardPos;
 
 	float4 CardYSize = float4(0, 30);
+	int LastInputEnergy = 0;
+
+
+	void MakeSprite();
+	void CardUIUpdate();
+
+	float4 CardSize = float4(20, 30, 1);
 
 };
 

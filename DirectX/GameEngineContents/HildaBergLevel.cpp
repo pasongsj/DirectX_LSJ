@@ -30,6 +30,7 @@
 #include "Moon.h"
 
 #include "HildaBoss.h"
+#include "Constellation.h"
 
 // Test
 #include "HIldaMoonUFO.h"
@@ -96,12 +97,34 @@ void HildaBergLevel::Update(float _DeltaTime)
 		if (true == Boss->IsDeath())
 		{
 			LastBossPos = Boss->GetTransform()->GetWorldPosition();
+			IsConstell = false;
 			Boss = nullptr;
 			++Phase;
 		}
-		else if (Boss->GetHP() <= 0 || true == GameEngineInput::IsDown("NextBoss"))
+		else if (false == IsConstell && (Boss->GetHP() <= 0 || true == GameEngineInput::IsDown("NextBoss")))
 		{
 			Boss->HildaDeath();
+			if (Phase == 1)
+			{
+				std::shared_ptr<Constellation> Constell = CreateActor<Constellation>(CupHeadActorOrder::UI);
+				Constell->SetConstellation("Taurus");
+			}
+			else if(Phase == 3)
+			{
+				std::shared_ptr<Constellation> Constell = CreateActor<Constellation>(CupHeadActorOrder::UI);
+
+				int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 1);
+				IsGemini = static_cast<bool>(RandomNum);
+				if (true == IsGemini)
+				{
+					Constell->SetConstellation("Gemini");
+				}
+				else
+				{																	
+					Constell->SetConstellation("Sagittarius");						
+				}																	
+			}
+			IsConstell = true;
 		}
 
 	}
@@ -136,15 +159,13 @@ void HildaBergLevel::Update(float _DeltaTime)
 		case 4:
 		{
 			int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
-			if (1 == (RandomNum & 1))
+			if (true == IsGemini)
 			{
-				//Boss = CreateActor<Sagittarius>(CupHeadActorOrder::Boss);
 				Boss = CreateActor<Gemini>(CupHeadActorOrder::Boss);
-
 			}
 			else
 			{
-				Boss = CreateActor<Gemini>(CupHeadActorOrder::Boss);
+				Boss = CreateActor<Sagittarius>(CupHeadActorOrder::Boss);
 			}
 			Boss->SetPhase(4);
 			Boss->SetHP(468);
@@ -209,20 +230,6 @@ void HildaBergLevel::LevelChangeStart()
 		}
 	}
 
-	if (nullptr == GameEngineTexture::Find("hud_ch_card_flip_0000.png"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources\\Texture\\PlayerUI");
-
-		NewDir.Move("OriginCard");
-
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
-		{
-			GameEngineTexture::Load(File[i].GetFullPath());
-		}
-	}
 
 	std::shared_ptr<HildaBergBack> BG0 = CreateActor<HildaBergBack0>(CupHeadActorOrder::BackGround);
 	HildaBG.push_back(BG0);

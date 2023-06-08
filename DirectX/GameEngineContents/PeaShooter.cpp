@@ -74,7 +74,7 @@ void PeaShooter::Update(float _DeltaTime)
 				ColActor->Attack(Dmg);
 				std::shared_ptr<PeashotFX> FX = GetLevel()->CreateActor<PeashotFX>(CupHeadActorOrder::PlayerEffect);
 				FX->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
-				Player::MainPlayer->SuperModeEnergy += 2.0f;
+				Player::MainPlayer->SuperModeEnergy += 30;
 				Death();
 				return;
 			}
