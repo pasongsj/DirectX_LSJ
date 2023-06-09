@@ -146,6 +146,12 @@
     <ClInclude Include="ChangeSuperModeEffect.h">
       <Filter>Object\Player\PlayerFX</Filter>
     </ClInclude>
+    <ClInclude Include="SupermodeShadowEffect.h">
+      <Filter>Object\Player\PlayerFX</Filter>
+    </ClInclude>
+    <ClInclude Include="KnockOutUI.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -301,6 +307,12 @@
     </ClCompile>
     <ClCompile Include="ChangeSuperModeEffect.cpp">
       <Filter>Object\Player\PlayerFX</Filter>
+    </ClCompile>
+    <ClCompile Include="SupermodeShadowEffect.cpp">
+      <Filter>Object\Player\PlayerFX</Filter>
+    </ClCompile>
+    <ClCompile Include="KnockOutUI.cpp">
+      <Filter>Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -20,34 +20,34 @@ void FadeEffect::Start(GameEngineRenderTarget* _Target)
 	ResultTarget = GameEngineRenderTarget::Create(DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, GameEngineWindow::GetScreenSize(), float4::Null);
 }
 
-void FadeIn()
-{
-
-}
-
-void FadeOut()
-{
-
-}
-
 void FadeEffect::Effect(GameEngineRenderTarget* _Target, float _DeltaTime)
 {
 	if (State == FadeState::None)
 	{
 		return;
 	}
-
-	if (State == FadeState::FadeOut && 1.0f <= FadeData.x)
-	{
-		return;
-	}
-
+	float Delta = _DeltaTime / TimeRatio;
 	if (State == FadeState::FadeOut)
 	{
-		FadeData.x += _DeltaTime;
+		if (1.0f <= FadeData.x)
+		{
+			FadeData.x = 1.0f;
+			StateEnd = true;
+			return;
+		}
+		StateEnd = false;
+		FadeData.x += Delta;
 	}
-	else {
-		FadeData.x -= _DeltaTime;
+	else { // Fade In
+		if (0.0f >= FadeData.x)
+		{
+			StateEnd = true;
+			FadeData.x = 0.0f;
+			return;
+		}
+		StateEnd = false;
+
+		FadeData.x -= Delta;
 	}
 
 

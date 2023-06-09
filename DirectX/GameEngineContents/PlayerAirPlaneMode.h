@@ -76,6 +76,8 @@ private:
 
 	void MakeSmoke(float _DeltaTime);
 
+	std::shared_ptr<class GameEngineActor> ShadowEffect = nullptr;
+
 	// fsm 에 대한 함수
 
 

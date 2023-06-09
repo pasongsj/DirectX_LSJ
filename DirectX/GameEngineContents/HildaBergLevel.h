@@ -35,5 +35,9 @@ private:
 	// πË∞Ê
 	std::vector<std::shared_ptr<class HildaBergBack>> HildaBG;
 
+	// ¿Ã∆Â∆Æ
+	std::shared_ptr<class FadeEffect> FEffect = nullptr;
+	float EndTime = 0.0f;
+
 };
 

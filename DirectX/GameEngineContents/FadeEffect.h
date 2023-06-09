@@ -34,12 +34,30 @@ public:
 		FadeData.x = 0.0f;
 	}
 
+	inline bool IsEnd()
+	{
+		return StateEnd;
+	}
+
+	inline void SetTakesTime(float _Time)
+	{
+		if (0.0f == _Time)
+		{
+			return;
+		}
+		TimeRatio = _Time;
+	}
+
 protected:
 	void Start(GameEngineRenderTarget* _Target) override;
 	void Effect(GameEngineRenderTarget* _Target, float _DeltaTime) override;
 
 private:
 	float4 FadeData = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	bool StateEnd = false;
+
+	float TimeRatio = 1.0f;
 
 	FadeState State = FadeState::None;
 

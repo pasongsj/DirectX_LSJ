@@ -9,6 +9,7 @@ void PlayerAirPlaneMode::Intro_Start()
 	if ("Super" == CurMode)
 	{
 		TimeStop();
+		ShadowEffect->On();
 	}
 }
 void PlayerAirPlaneMode::Intro_Update(float _DeltaTime)
@@ -22,6 +23,7 @@ void PlayerAirPlaneMode::Intro_Update(float _DeltaTime)
 void PlayerAirPlaneMode::Intro_End()
 {
  	TimePlay();
+	ShadowEffect->Off();
 }
 
 

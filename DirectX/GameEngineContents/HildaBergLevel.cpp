@@ -8,6 +8,7 @@
 
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
+#include <GameEngineCore/GameEngineCore.h>
 
 
 
@@ -42,6 +43,10 @@
 // UI
 #include "PlayerUI.h"
 #include "GetReadyUI.h"
+#include "KnockOutUI.h"
+
+//Effect
+#include "FadeEffect.h"
 
 HildaBergLevel::HildaBergLevel() 
 {
@@ -125,12 +130,26 @@ void HildaBergLevel::Update(float _DeltaTime)
 					Constell->SetConstellation("Sagittarius");						
 				}																	
 			}
+			else if (Phase == 6)
+			{
+				CreateActor<KnockOutUI>(CupHeadActorOrder::UI);
+				EndTime = GetLiveTime() + 5.0f;
+			}
 			IsConstell = true;
 		}
 
 	}
 
-
+	if (0.0f < EndTime && EndTime < GetLiveTime())
+	{
+		FEffect->SetTakesTime(3.0f);
+		FEffect->FadeIn();
+		EndTime = -1;
+	}
+	else if (EndTime < 0.0f && true == FEffect->IsEnd())
+	{
+		//GameEngineCore::ChangeLevel("IntroStoryLevel");
+	}
 
 	if (nullptr == Boss)
 	{
@@ -192,6 +211,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 			break;
 		}
 		default:
+
 			break;
 		}
 	}
@@ -202,6 +222,10 @@ void HildaBergLevel::Update(float _DeltaTime)
 void HildaBergLevel::LevelChangeStart()
 {
 	ResetLiveTime();
+	if (nullptr == FEffect)
+	{
+		FEffect = GetLastTarget()->CreateEffect<FadeEffect>();
+	}
 
 	// BackGround 이미지 로드
 	if (nullptr == GameEngineTexture::Find("blimp_clouds_0001.png"))

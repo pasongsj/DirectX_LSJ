@@ -13,6 +13,7 @@
 #include "BoomEffect.h"
 #include "PlayerAirPlaneSmokeEffect.h"
 #include "ChangeSuperModeEffect.h"
+#include "SupermodeShadowEffect.h"
 
 
 PlayerAirPlaneMode::PlayerAirPlaneMode() 
@@ -173,7 +174,8 @@ void PlayerAirPlaneMode::Start()
 	Spark->ChangeAnimation("Spark");
 	Spark->Off();
 
-
+	ShadowEffect = GetLevel()->CreateActor <SupermodeShadowEffect>(CupHeadActorOrder::PlayerBackGround);
+	ShadowEffect->Off();
 
 	
 	PlayerCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Player);
