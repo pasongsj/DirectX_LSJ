@@ -35,6 +35,8 @@ void HIldaBigCloudFX::Start()
 
 void HIldaBigCloudFX::Update(float _DeltaTime)
 {
+	float4 Pos = GetTransform()->GetWorldPosition();
+
 	GetTransform()->AddLocalPosition(float4::Up * 50 * _DeltaTime);
 	if (true == ExplodeFX->IsAnimationEnd())
 	{

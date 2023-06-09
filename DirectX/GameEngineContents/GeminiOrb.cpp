@@ -55,7 +55,8 @@ void GeminiOrb::Start()
 	OrbAttackEffect->ChangeAnimation("Attack");
 	OrbAttackEffect->Off();
 
-	/*GetTransform()->SetLocalPosition(float4(-300, 0));*/
+	GetTransform()->SetLocalPosition(float4(0, 0, 500));
+
 }
 
 void GeminiOrb::Update(float _DeltaTime)
@@ -79,7 +80,7 @@ void GeminiOrb::Update(float _DeltaTime)
 		ScatterInterval -= _DeltaTime;
 		if (ScatterInterval < 0 /*&& GetLiveTime() < 6.5f*/)
 		{
-			std::shared_ptr<GeminiOrbScatter> Scatter = GetLevel()->CreateActor<GeminiOrbScatter>(CupHeadActorOrder::Enemy);
+			std::shared_ptr<GeminiOrbScatter> Scatter = GetLevel()->CreateActor<GeminiOrbScatter>(CupHeadActorOrder::EnemyWeapon);
 
 			float Theta = -GetLiveTime() * 1.5f + 45;
 			float4 Dir = float4(cosf(Theta), sinf(Theta));

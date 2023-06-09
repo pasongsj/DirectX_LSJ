@@ -29,7 +29,7 @@ void PlayerAirPlaneMode::Idle_Start()
 {
 	ChangePlayerAnimation("Idle");
 
-	Spark->GetTransform()->SetLocalPosition(float4(80, -5));
+	Spark->GetTransform()->SetLocalPosition(float4(80, -5, -50));
 }
 void PlayerAirPlaneMode::Idle_Update(float _DeltaTime)
 {
@@ -47,7 +47,7 @@ void PlayerAirPlaneMode::MoveUp_Start()
 	isStartAnimationDone = false;
 	ChangePlayerAnimation("MoveUpTrans");
 
-	Spark->GetTransform()->SetLocalPosition(float4(80, 0));
+	Spark->GetTransform()->SetLocalPosition(float4(80, 0, -50));
 }
 void PlayerAirPlaneMode::MoveUp_Update(float _DeltaTime)
 {
@@ -70,7 +70,7 @@ void PlayerAirPlaneMode::MoveDown_Start()
 	isStartAnimationDone = false;
 	ChangePlayerAnimation("MoveDownTrans");
 
-	Spark->GetTransform()->SetLocalPosition(float4(80, 5));
+	Spark->GetTransform()->SetLocalPosition(float4(80, 5, -50));
 }
 void PlayerAirPlaneMode::MoveDown_Update(float _DeltaTime)
 {

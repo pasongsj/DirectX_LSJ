@@ -40,7 +40,7 @@ void PeaShooter::Start()
 
 	MakeSprite();
 
-	Bullet = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
+	Bullet = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerWepaon);
 	Bullet->CreateAnimation({ .AnimationName = "Origin",  .SpriteName = "Cuphead_AirPlane_Bullet", .FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
 
 	Bullet->ChangeAnimation("Origin");
@@ -71,10 +71,16 @@ void PeaShooter::Update(float _DeltaTime)
 			std::shared_ptr<GameEnemy> ColActor = Col->GetActor()->DynamicThis<GameEnemy>();
 			if (nullptr != ColActor)
 			{
+				// 적에게 영향
 				ColActor->Attack(Dmg);
-				std::shared_ptr<PeashotFX> FX = GetLevel()->CreateActor<PeashotFX>(CupHeadActorOrder::PlayerEffect);
-				FX->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+				// 플레이어에 영향
 				Player::MainPlayer->SuperModeEnergy += 30;
+				//이펙트 만들기
+				std::shared_ptr<PeashotFX> FX = GetLevel()->CreateActor<PeashotFX>(CupHeadActorOrder::PlayerEffect);
+				float4 Pos = GetTransform()->GetWorldPosition();
+				Pos.z = 310;
+				FX->GetTransform()->SetLocalPosition(Pos);
+
 				Death();
 				return;
 			}

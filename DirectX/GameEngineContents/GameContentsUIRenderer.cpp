@@ -46,3 +46,30 @@ void GameContentsUIRenderer::SetScaleToCutTexture(const std::string_view& _Name,
 	GetTransform()->SetLocalScale(scale);
 
 }
+
+void GameContentsUIRenderer::Update(float _DeltaTime)
+{
+	if (nullptr != CurAnimation)
+	{
+		CurAnimation->Update(_DeltaTime);
+
+		const SpriteInfo& Info = CurAnimation->CurSpriteInfo();
+
+		GetShaderResHelper().SetTexture("DiffuseTex", Info.Texture);
+
+		if (true == CurAnimation->ScaleToTexture)
+		{
+			std::shared_ptr<GameEngineTexture> Texture = Info.Texture;
+
+			float4 Scale = Texture->GetScale();
+
+			Scale.x *= AtlasData.z;
+			Scale.y *= AtlasData.w;
+			Scale.z = 1.0f;
+
+			Scale *= GetScaleRatio();
+
+			GetTransform()->SetLocalScale(Scale);
+		}
+	}
+}

@@ -3,15 +3,7 @@
 
 // Ό³Έν :
 
-enum class UIRenderPivot
-{
-	CENTER,
-	LEFT,
-	RIGHT,
-	BOT,
-	TOP,
 
-};
 class GameContentsUIRenderer : public GameEngineUIRenderer
 {
 public:
@@ -31,6 +23,7 @@ public:
 
 
 protected:
+	void Update(float _DeltaTime) override;
 
 private:
 

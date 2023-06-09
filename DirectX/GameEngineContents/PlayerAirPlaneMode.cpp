@@ -12,6 +12,7 @@
 #include "PeaShooter.h"
 #include "BoomEffect.h"
 #include "PlayerAirPlaneSmokeEffect.h"
+#include "ChangeSuperModeEffect.h"
 
 
 PlayerAirPlaneMode::PlayerAirPlaneMode() 
@@ -126,7 +127,6 @@ void PlayerAirPlaneMode::Start()
 
 	MakeSprite();
 
-
 	PlayerRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Player);
 	//----------
 	// 
@@ -161,11 +161,14 @@ void PlayerAirPlaneMode::Start()
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDown",  .SpriteName = "Cuphead_AirPlane_Shrink_Idledown", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDownTrans",  .SpriteName = "Cuphead_AirPlane_Shrink_transdown", .FrameInter = 0.01f, .Loop = false, .ScaleToTexture = true });
 
-
+	PlayerRender->SetAnimationStartEvent("SuperIntro", 1, [this] {
+		std::shared_ptr< ChangeSuperModeEffect> effect = GetLevel()->CreateActor< ChangeSuperModeEffect>(CupHeadActorOrder::PlayerBackGround);
+		effect->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(0,0,1));
+		});
 	PlayerRender->ChangeAnimation("OriginIntro");
 	//PlayerRender->ChangeAnimation("Idle");
 
-	Spark = CreateComponent<GameEngineSpriteRenderer>(CupHeadActorOrder::PlayerEffect);
+	Spark = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
 	Spark->CreateAnimation({ .AnimationName = "Spark", .SpriteName = "Cuphead_AirPlane_Spark", .FrameInter = 0.05f, .Loop = true,.ScaleToTexture = true });
 	Spark->ChangeAnimation("Spark");
 	Spark->Off();
@@ -180,7 +183,7 @@ void PlayerAirPlaneMode::Start()
 
 
 
-	GetTransform()->SetLocalPosition(float4( - 300, 0, 0));
+	GetTransform()->SetLocalPosition(float4( -500, 0, 400));
 
 
 	CurState = PlayerAirPlaneModeState::INTRO;
@@ -214,7 +217,6 @@ void PlayerAirPlaneMode::Start()
 	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::PARRY)]	= std::bind(&PlayerAirPlaneMode::Parry_Start, this);
 	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::PARRY)] = std::bind(&PlayerAirPlaneMode::Parry_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::PARRY)]	= std::bind(&PlayerAirPlaneMode::Parry_End, this);
-
 
 }
 
@@ -268,7 +270,14 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 
 void PlayerAirPlaneMode::MoveUpdate(float _DeltaTime)
 {
-	GetTransform()->AddLocalPosition(MoveVec * MoveSpeed * _DeltaTime);
+	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
+	float4 ScreenSize = GameEngineWindow::GetScreenSize() - MaxPlayerSize;
+
+	float4 PlayerNextPos = GetTransform()->GetWorldPosition() + MoveVec * MoveSpeed * _DeltaTime;
+	if (abs(PlayerNextPos.x - CamPos.x) < ScreenSize.hx() && abs(PlayerNextPos.y - CamPos.y) < ScreenSize.hy())
+	{
+		GetTransform()->AddLocalPosition(MoveVec * MoveSpeed * _DeltaTime);
+	}
 	MoveVec = float4::Zero;
 }
 
@@ -287,7 +296,7 @@ void PlayerAirPlaneMode::CheckInput()
 			MoveVec += float4::Left;
 			isPressKey = true;
 		}
-		if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveRight"))
+		else if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveRight"))
 		{
 			MoveVec += float4::Right;
 			isPressKey = true;
@@ -298,11 +307,15 @@ void PlayerAirPlaneMode::CheckInput()
 			NextState = PlayerAirPlaneModeState::MOVE_UP;
 			isPressKey = true;
 		}
-		if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveDown"))
+		else if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveDown"))
 		{
 			MoveVec += float4::Down;
 			NextState = PlayerAirPlaneModeState::MOVE_DOWN;
 			isPressKey = true;
+		}
+		else
+		{
+			NextState = PlayerAirPlaneModeState::IDLE;
 		}
 
 	}
@@ -347,8 +360,9 @@ void PlayerAirPlaneMode::CheckShoot(float _DeltaTime)
 		Spark->On();
 		if (0.0f > ShootInterVal)
 		{
-			std::shared_ptr<PeaShooter> bullet = GetLevel()->CreateActor<PeaShooter>(CupHeadActorOrder::Player);
+			std::shared_ptr<PeaShooter> bullet = GetLevel()->CreateActor<PeaShooter>(CupHeadActorOrder::PlayerWepaon);
 			float4 _Pos = GetTransform()->GetWorldPosition() + float4(100, BulletYPos);
+			_Pos.z = 350;
 			bullet->GetTransform()->SetWorldPosition(_Pos);
 			BulletYPos *= -1;
 			ShootInterVal = 0.1f;
@@ -364,8 +378,10 @@ void PlayerAirPlaneMode::ChangeMode(const std::string_view& _Mode)
 {
 	if (CurMode == "Super"  && _Mode.data() != "Super")
 	{
-		std::shared_ptr<GameEngineActor> Effect = GetLevel()->CreateActor<BoomEffect>(CupHeadActorOrder::Player);
-		Effect->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+		std::shared_ptr<GameEngineActor> Effect = GetLevel()->CreateActor<BoomEffect>(CupHeadActorOrder::PlayerEffect);
+		float4 Pos = GetTransform()->GetWorldPosition();
+		Pos.z = 300;
+		Effect->GetTransform()->SetLocalPosition(Pos);
 		CurMode = _Mode.data();
 		ChangePlayerAnimation("Idle");
 	}
@@ -380,7 +396,10 @@ void PlayerAirPlaneMode::MakeSmoke(float _DeltaTime)
 	{
 		SmokeInterval = 0.2f;
 		std::shared_ptr< PlayerAirPlaneSmokeEffect> Smoke = GetLevel()->CreateActor< PlayerAirPlaneSmokeEffect>(CupHeadActorOrder::PlayerEffect);
-		Smoke->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(-PlayerRender->GetTransform()->GetLocalScale().hx(), 0));
+		float4 Pos = GetTransform()->GetWorldPosition();
+		Pos.x -= PlayerRender->GetTransform()->GetLocalScale().hx();
+		Pos.z = 310;
+		Smoke->GetTransform()->SetLocalPosition(Pos);
 	}
 
 }
@@ -394,6 +413,8 @@ void PlayerAirPlaneMode::TimeStop()
 	}
 	GameEngineTime::GlobalTime.SetUpdateOrderTimeScale(CupHeadActorOrder::Player, 1.0f);
 	GameEngineTime::GlobalTime.SetRenderOrderTimeScale(CupHeadActorOrder::Player, 1.0f);
+	GameEngineTime::GlobalTime.SetUpdateOrderTimeScale(CupHeadActorOrder::PlayerBackGround, 1.0f);
+	GameEngineTime::GlobalTime.SetRenderOrderTimeScale(CupHeadActorOrder::PlayerBackGround, 1.0f);
 }
 
 void PlayerAirPlaneMode::TimePlay()

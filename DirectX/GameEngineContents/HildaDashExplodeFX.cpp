@@ -34,6 +34,8 @@ void HildaDashExplodeFX::Start()
 
 void HildaDashExplodeFX::Update(float _DeltaTime)
 {
+	float4 Pos = GetTransform()->GetWorldPosition();
+
 	if (true == ExplodeFX->IsAnimationEnd())
 	{
 		Death();

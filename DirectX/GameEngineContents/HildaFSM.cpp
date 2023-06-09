@@ -49,7 +49,7 @@ void Hilda::Idle_Update(float _DeltaTime)
 			AttackInterval = GameEngineRandom::MainRandom.RandomFloat(5.0f, 8.0f);
 		}
 	}
-	GetTransform()->SetLocalPosition(GetHildaMove(_DeltaTime) + float4(300.0f, 0));
+	GetTransform()->SetLocalPosition(GetHildaMove(_DeltaTime) + float4(300.0f,0, 600));
 }
 
 void Hilda::Idle_End()
@@ -60,8 +60,10 @@ void Hilda::Idle_End()
 void Hilda::Shoot_Start()
 {
 	BossRender->ChangeAnimation("shoot");
-	std::shared_ptr<GameEngineActor> Ha = GetLevel()->CreateActor<HildaHA>(CupHeadActorOrder::Enemy);
-	Ha->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+	std::shared_ptr<HildaHA> Ha = GetLevel()->CreateActor<HildaHA>(CupHeadActorOrder::EnemyWeapon);
+	float4 Pos = GetTransform()->GetWorldPosition();
+	Pos.z = 500;
+	Ha->GetTransform()->SetLocalPosition(Pos);
 }
 void Hilda::Shoot_Update(float _DeltaTime)
 {
@@ -132,10 +134,18 @@ void Hilda::ChangePhase_End()
 
 void Hilda::Tornado_Start()
 {
+	// 토네이도 공격 생성
 	BossRender->ChangeAnimation("Tornato");
-	std::shared_ptr<HildaTornado> Tronado = GetLevel()->CreateActor<HildaTornado>(CupHeadActorOrder::Enemy);
-	Tronado->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() - float4(BossRender->GetTransform()->GetLocalScale().hx(), 0));
+	std::shared_ptr<HildaTornado> Tronado = GetLevel()->CreateActor<HildaTornado>(CupHeadActorOrder::EnemyWeapon);
+
+	float4 Pos = GetTransform()->GetWorldPosition();
+	Pos.z = 500;
+	Pos.x -= BossRender->GetTransform()->GetLocalScale().hx();
+	Tronado->GetTransform()->SetLocalPosition(Pos);
+
+	// 토네이도 방향설정
 	float4 tmpDir = PlayerAirPlaneMode::MainPlayer->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+	tmpDir.z = 0;
 	tmpDir.Normalize();
 	Tronado->SetTornadoDir(tmpDir);
 }

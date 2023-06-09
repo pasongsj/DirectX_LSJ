@@ -70,34 +70,11 @@ void ZepplingBullet::Update(float _DeltaTime)
 	}
 	//else if () // 플레이어를 때렸다던가
 	CollisionPlayer(BulletCollision);
-	//std::shared_ptr<GameEngineCollision> Col = nullptr;
-	//if (nullptr != (Col = BulletCollision->Collision(CupHeadCollisionOrder::Player)))
-	//{
-	//	if (nullptr != Col && false == Col->IsDeath())
-	//	{
-	//		std::shared_ptr<Player> ColActor = Col->GetActor()->DynamicThis<Player>();
-	//		if (nullptr != ColActor)
-	//		{
-	//			ColActor->Attack(1);
-	//			Death();
-	//			return;
-	//		}
 
-	//	}
-	//}
-	//else if () // 플레이어의 패리를 당했다던가
-	//{
-	//	return;
-	//}
 
 	float4 MoveVec = Dir * BulletSpeed * _DeltaTime;
 	GetTransform()->AddLocalPosition(MoveVec);
 
-
-	//if (GetTransform()->GetWorldPosition().x < -GameEngineWindow::GetScreenSize().hx())
-	//{
-	//	Death();
-	//}
 
 }
 

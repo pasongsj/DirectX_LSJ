@@ -18,7 +18,7 @@ MoonStar::~MoonStar()
 void MoonStar::Start()
 {
 	MakeSprite();
-	StarRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
+	StarRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	FxRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	StarCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
 
@@ -75,7 +75,7 @@ void MoonStar::Update(float _DeltaTime)
 
 void MoonStar::StarMove(float _DeltaTime)
 {
-	float4 NextPos = float4(-1 * StarSpeed * GetLiveTime(),50 * sinf(5 * GetLiveTime()));
+	float4 NextPos = float4(-1 * StarSpeed * GetLiveTime(),50 * sinf(5 * GetLiveTime()), 500);
 	GetTransform()->SetLocalPosition(StartPos + NextPos);
 }
 

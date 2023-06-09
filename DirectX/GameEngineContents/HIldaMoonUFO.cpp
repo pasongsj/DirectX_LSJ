@@ -48,9 +48,9 @@ void HIldaMoonUFO::Start()
 	{
 		UFORender->ChangeAnimation("Bronze");
 	}
-	Point[0] = float4(GameEngineWindow::GetScreenSize().hx(), 50);
-	Point[1] = float4(GameEngineWindow::GetScreenSize().hx()/2, 50);
-	Point[2] = float4(0, GameEngineWindow::GetScreenSize().hy() - 50);
+	Point[0] = float4(GameEngineWindow::GetScreenSize().hx(), 50, 500);
+	Point[1] = float4(GameEngineWindow::GetScreenSize().hx()/2, 50, 500);
+	Point[2] = float4(0, GameEngineWindow::GetScreenSize().hy() - 50, 500);
 	Point[3] = float4(-GameEngineWindow::GetScreenSize().hx(), GameEngineWindow::GetScreenSize().hy() - 50);
 
 
@@ -58,6 +58,7 @@ void HIldaMoonUFO::Start()
 	//UFOBeamCollision->SetRenderScaleToCollision(UFOBeamRender);
 	UFOBeamCollision->SetColType(ColType::AABBBOX2D);
 	UFOBeamCollision->Off();
+	//GetTransform()->SetLocalPosition(float4(0, 0, 500));
 }
 
 void HIldaMoonUFO::Update(float _DeltaTime)

@@ -22,6 +22,7 @@ void GeminiOrbScatter::MakeSprite()
 
 		GameEngineSprite::LoadFolder("Orb_Bullet", NewDir.GetPlusFileName("BulletStream").GetFullPath());
 	}
+	GetTransform()->SetLocalPosition(float4(0, 0, 600));
 }
 
 void GeminiOrbScatter::Start()

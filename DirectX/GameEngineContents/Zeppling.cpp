@@ -74,7 +74,7 @@ void Zeppling::Start()
 	HP = 10;
 
 	ScreenSize = GameEngineWindow::GetScreenSize();
-	float4 Pos = float4(ScreenSize.hx(), GameEngineRandom::MainRandom.RandomFloat(-ScreenSize.hy() / 2, ScreenSize.hy() - 50));
+	float4 Pos = float4(ScreenSize.hx(), GameEngineRandom::MainRandom.RandomFloat(-ScreenSize.hy() / 2, ScreenSize.hy() - 50),550);
 	GetTransform()->SetLocalPosition(Pos);
 
 	SetName("Zeppling");

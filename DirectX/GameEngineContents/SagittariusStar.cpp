@@ -18,7 +18,7 @@ void SagittariusStar::Start()
 {
 	MakeSprite();
 
-	StarRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
+	StarRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	StarCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
 	StarRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Star_Idle",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	StarRender->CreateAnimation({ .AnimationName = "Death", .SpriteName = "Sagittarius_Star_Death",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
@@ -78,10 +78,11 @@ void SagittariusStar::Update(float _DeltaTime)
 
 void SagittariusStar::CheckDir()
 {
-	Dir = (Player::MainPlayer->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition()).NormalizeReturn();
+	float4 Dir = Player::MainPlayer->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+	Dir.z = 0;
+	Dir.Normalize();
+
 }
-
-
 
 void SagittariusStar::MakeSprite()
 {

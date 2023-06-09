@@ -35,11 +35,11 @@ void BoomEffect::Start()
 {
 	MakeSprite();
 	Explode = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
-	Explode->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "shmup_super_boom",.FrameInter = 0.02f, .Loop = false , .ScaleToTexture = true });
+	Explode->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "shmup_super_boom",.FrameInter = 0.03f, .Loop = false , .ScaleToTexture = true });
 	Explode->ChangeAnimation("Idle");
 
 	Boom = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
-	Boom->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "shmup_super_explode", .FrameInter = 0.06f, .Loop = false , .ScaleToTexture = true });
+	Boom->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "shmup_super_explode", .FrameInter = 0.09f, .Loop = false , .ScaleToTexture = true });
 	Boom->ChangeAnimation("Idle");
 }
 
@@ -53,7 +53,7 @@ void BoomEffect::Update(float _DeltaTime)
 	{
 		Boom->Off();
 	}
-	if ((false == Explode->IsUpdate() && false == Boom->IsUpdate()) || GetLiveTime() > 3.0f)
+	if ((false == Explode->IsUpdate() && false == Boom->IsUpdate()) || GetLiveTime() > 4.0f)
 	{
 		Death();
 	}

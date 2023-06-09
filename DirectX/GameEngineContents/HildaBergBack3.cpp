@@ -38,7 +38,7 @@ void HildaBergBack3::Start()
 
 	}
 
-	GetTransform()->AddLocalPosition(float4(0, 0, 200));
+	GetTransform()->AddLocalPosition(float4(0, 0, 700));
 }
 
 void HildaBergBack3::Update(float _DeltaTime)

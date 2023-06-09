@@ -79,6 +79,7 @@ void Sagittarius::Start()
 	UpdateFuncPtr[static_cast<int>(SagittariusState::ATTACK)] = std::bind(&Sagittarius::Attack_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(SagittariusState::ATTACK)] = std::bind(&Sagittarius::Attack_End, this);
 
+	GetTransform()->SetLocalPosition(float4(0, 0, 600));
 
 }
 
@@ -127,7 +128,7 @@ void Sagittarius::Idle_Update(float _DeltaTime)
 	{
 		NextState = SagittariusState::ATTACK;
 	}
-	GetTransform()->SetLocalPosition(GetHildaMove(_DeltaTime) + float4(300.0f, 0));
+	GetTransform()->SetLocalPosition(GetHildaMove(_DeltaTime) + float4(300.0f, 0 , 600));
 }
 
 void Sagittarius::Idle_End()
@@ -147,14 +148,14 @@ void Sagittarius::Attack_Update(float _DeltaTime)
 	if (false == isShoot && GetLiveTime() > 0.5f)
 	{
 		isShoot = true;
-		std::shared_ptr<SagittariusArrow> Arrow = GetLevel()->CreateActor<SagittariusArrow>(CupHeadActorOrder::Enemy);
-		Arrow->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0,30));
+		std::shared_ptr<SagittariusArrow> Arrow = GetLevel()->CreateActor<SagittariusArrow>(CupHeadActorOrder::EnemyWeapon);
+		Arrow->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0,30, -100));
 
-		std::shared_ptr<SagittariusStar> Star1 = GetLevel()->CreateActor<SagittariusStar>(CupHeadActorOrder::Enemy);
-		Star1->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0, 60));
+		std::shared_ptr<SagittariusStar> Star1 = GetLevel()->CreateActor<SagittariusStar>(CupHeadActorOrder::EnemyWeapon);
+		Star1->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0, 60, -90));
 
-		std::shared_ptr<SagittariusStar> Star2 = GetLevel()->CreateActor<SagittariusStar>(CupHeadActorOrder::Enemy);
-		Star2->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0, 0));
+		std::shared_ptr<SagittariusStar> Star2 = GetLevel()->CreateActor<SagittariusStar>(CupHeadActorOrder::EnemyWeapon);
+		Star2->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0, 0 , -90));
 	}
 	if (true == Upper->IsAnimationEnd())
 	{

@@ -99,7 +99,7 @@ void Moon::Start()
 	EndFuncPtr[static_cast<int>(MoonState::DEATH)] = std::bind(&Moon::Death_End, this);
 
 
-
+	GetTransform()->SetLocalPosition(float4(0, 0, 600));
 	//test
 
 	if (false == GameEngineInput::IsKey("SpaceBar"))
@@ -146,7 +146,7 @@ void Moon::MakeStar(float _DeltaTime)
 	StarInterval -= _DeltaTime;
 	if (StarInterval < 0)
 	{
-		GetLevel()->CreateActor<MoonStar>(CupHeadActorOrder::Enemy);
+		GetLevel()->CreateActor<MoonStar>(CupHeadActorOrder::EnemyWeapon);
 		StarInterval = 1.0f;
 	}
 }
@@ -233,7 +233,7 @@ void Moon::Idle_Start()
 	BossRender->ChangeAnimation("Idle");
 	IntervalTimer = 3.0f;
 	StartPos = GetTransform()->GetLocalPosition();
-	DestPos = float4(320, -20);
+	DestPos = float4(320, -20, 600);
 	ResetLiveTime();
 	BossCollision->GetTransform()->SetLocalPosition(float4(130, 0));
 }
@@ -262,7 +262,7 @@ void Moon::Attack_Start()
 	isAttackIntroDone = false;
 	isAttackDone = false;
 	StartPos = GetTransform()->GetLocalPosition();
-	DestPos = float4(240, -20);
+	DestPos = float4(240, -20, 600);
 	BossCollision->GetTransform()->SetLocalPosition(float4(-100, 0));
 	ResetLiveTime();
 }
@@ -288,7 +288,7 @@ void Moon::Attack_Update(float _DeltaTime)
 				isAttackDone = true;
 				BossRender->ChangeAnimation("Attack_Outtro");
 				StartPos = GetTransform()->GetLocalPosition();
-				DestPos = float4(320, -20);
+				DestPos = float4(320, -20, 600);
 				ResetLiveTime();
 
 			}
@@ -302,7 +302,7 @@ void Moon::Attack_Update(float _DeltaTime)
 }
 void Moon::Attack_End()
 {
-	DestPos = float4(320, -20);
+	DestPos = float4(320, -20, 600);
 }
 
 void Moon::Death_Start()
@@ -311,7 +311,7 @@ void Moon::Death_Start()
 }
 void Moon::Death_Update(float _DeltaTime)
 {
-	GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(GetTransform()->GetLocalPosition(), DestPos, GetLiveTime()));
+	//GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(GetTransform()->GetLocalPosition(), DestPos, GetLiveTime()));
 }
 void Moon::Death_End()
 {

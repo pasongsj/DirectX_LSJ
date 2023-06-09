@@ -34,14 +34,19 @@ void Zeppling::Shoot_Start()
 {
 	EnemyRender->ChangeAnimation(Mode + "Attack");
 	BulletDir = PlayerAirPlaneMode::MainPlayer->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();// 플레이어 위치 - Zeppling의 위치
+	BulletDir.z = 0;
 	BulletDir.Normalize();
 }
 void Zeppling::Shoot_Update(float _DeltaTime)
 {
 	if (true == EnemyRender->IsAnimationEnd())
 	{
-		std::shared_ptr<ZepplingBullet> Bullet = GetLevel()->CreateActor<ZepplingBullet>(CupHeadActorOrder::Enemy);
-		Bullet->GetTransform()->SetWorldPosition(EnemyRender->GetTransform()->GetWorldPosition() - float4(EnemyRender->GetTransform()->GetLocalScale().hx(),0));
+		std::shared_ptr<ZepplingBullet> Bullet = GetLevel()->CreateActor<ZepplingBullet>(CupHeadActorOrder::EnemyWeapon);
+		float4 Pos = EnemyRender->GetTransform()->GetWorldPosition();
+		Pos.x -= EnemyRender->GetTransform()->GetLocalScale().hx();
+		Pos.z = 490;
+
+		Bullet->GetTransform()->SetLocalPosition(Pos);
 		Bullet->SetBulletDir(BulletDir);
 		if ("Purple_" == Mode)
 		{
@@ -67,8 +72,6 @@ void Zeppling::Turn_Update(float _DeltaTime)
 
 	if (true == EnemyRender->IsAnimationEnd())
 	{
-		TransformData Tmp = EnemyRender->GetTransform()->GetTransDataRef();
-
 		NextState = ZepplingState::BACK;
 	}
 	CheckDeath();
@@ -85,7 +88,9 @@ void Zeppling::Dead_Start()
 {
 	std::shared_ptr< ZepplingBroken> Pieces = GetLevel()->CreateActor< ZepplingBroken>(CupHeadActorOrder::Enemy);
 	Pieces->SetColor(Mode);
-	Pieces->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+	float4 Pos = GetTransform()->GetWorldPosition();
+	Pos.z = 600;
+	Pieces->GetTransform()->SetLocalPosition(Pos);
 	Death();
 
 }

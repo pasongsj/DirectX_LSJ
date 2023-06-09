@@ -17,15 +17,15 @@ void ZepplingBroken::Start()
 	MakeSprite();
 
 
-	A = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
-	B = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
-	C = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
-	D = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
-	E = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
-	F = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
+	A = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BossBack);
+	B = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BossBack);
+	C = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BossBack);
+	D = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BossBack);
+	E = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BossBack);
+	F = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BossBack);
 
-	Spark = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
-	Explode = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
+	Spark = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
+	Explode = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 
 	A->CreateAnimation({ .AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_A", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	B->CreateAnimation({ .AnimationName = "Green_",  .SpriteName = "BlimpEnemy_Green_Death_B", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
@@ -41,8 +41,18 @@ void ZepplingBroken::Start()
 	E->CreateAnimation({ .AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_E", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	F->CreateAnimation({ .AnimationName = "Purple_",  .SpriteName = "BlimpEnemy_Purple_Death_F", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 
+	A->GetTransform()->SetLocalPosition(float4(0,0,10));
+	B->GetTransform()->SetLocalPosition(float4(0,0,10));
+	C->GetTransform()->SetLocalPosition(float4(0,0,10));
+	D->GetTransform()->SetLocalPosition(float4(0,0,10));
+	E->GetTransform()->SetLocalPosition(float4(0,0,10));
+	F->GetTransform()->SetLocalPosition(float4(0,0,10));
+
 	Spark->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "BlimpEnemy_Spark", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	Explode->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "BlimpEnemy_Explode", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+
+	Spark 	->GetTransform()->SetLocalPosition(float4(0,0,-120));
+	Explode ->GetTransform()->SetLocalPosition(float4(0,0,-120));
 	MakePiecesDir();
 }
 

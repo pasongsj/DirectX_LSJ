@@ -63,6 +63,8 @@ void Taurus::Start()
 	StartFuncPtr[static_cast<int>(TaurusState::ATTACK)] = std::bind(&Taurus::Attack_Start, this);
 	UpdateFuncPtr[static_cast<int>(TaurusState::ATTACK)] = std::bind(&Taurus::Attack_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(TaurusState::ATTACK)] = std::bind(&Taurus::Attack_End, this);
+
+	GetTransform()->SetLocalPosition(float4(0, 0, 600));
 }
 
 void Taurus::Update(float _DeltaTime)
@@ -110,7 +112,7 @@ void Taurus::Idle_Update(float _DeltaTime)
 		NextState = TaurusState::ATTACK;
 	}
 
-	GetTransform()->SetLocalPosition(GetHildaMove(_DeltaTime) + float4(300.0f, 0));
+	GetTransform()->SetLocalPosition(GetHildaMove(_DeltaTime) + float4(300.0f, 0, 600));
 }
 void Taurus::Idle_End()
 {

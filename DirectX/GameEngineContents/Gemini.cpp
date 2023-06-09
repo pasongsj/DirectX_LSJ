@@ -31,7 +31,7 @@ void Gemini::Start()
 	Orb->CreateAnimation({ .AnimationName = "IdleLoop",  .SpriteName = "Orb_Idle_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	Orb->CreateAnimation({ .AnimationName = "IdleLeave",  .SpriteName = "Orb_Idle_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	Orb->ChangeAnimation("IdleIntro");
-	Orb->GetTransform()->SetLocalPosition(float4(0, -45,-1));
+	Orb->GetTransform()->SetLocalPosition(float4(0, -45, 0));
 	
 	BossB = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	BossB->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
@@ -65,6 +65,9 @@ void Gemini::Start()
 	UpdateFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(GeminiState::ATTACK)] = std::bind(&Gemini::Attack_End, this);
 
+
+
+	GetTransform()->SetLocalPosition(float4(0, 0, 600));
 
 }
 
@@ -110,7 +113,7 @@ void Gemini::Idle_Start()
 void Gemini::Idle_Update(float _DeltaTime)
 {
 
-	float4 MoveVec = GetHildaMove(_DeltaTime) + float4(300.0f, 0);
+	float4 MoveVec = GetHildaMove(_DeltaTime) + float4(300.0f, 0, 600);
 	GetTransform()->SetLocalPosition(MoveVec);
 	
 	//y축 회전 + y축 진동
@@ -118,11 +121,11 @@ void Gemini::Idle_Update(float _DeltaTime)
 
 	float SpinTime = -GetLiveTime() * 4;
 
-	BossA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -1-sinf(SpinTime)));
-	BossCollisionA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -1 - sinf(SpinTime)));
+	BossA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -sinf(SpinTime)));
+	BossCollisionA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), - sinf(SpinTime)));
 
-	BossB->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), -1+sinf(SpinTime)));
-	BossCollisionB->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), -1 + sinf(SpinTime)));
+	BossB->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), sinf(SpinTime)));
+	BossCollisionB->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), sinf(SpinTime)));
 
 	if (false == isOrbIntroEnd && Orb->IsAnimationEnd())
 	{
@@ -164,8 +167,8 @@ void Gemini::Attack_Update(float _DeltaTime)
 
 void Gemini::Attack_End()
 {
-		std::shared_ptr<GeminiOrb> AttackOrb = GetLevel()->CreateActor<GeminiOrb>(CupHeadActorOrder::Enemy);
-		AttackOrb->GetTransform()->SetLocalPosition(float4(-300, 0));
+	std::shared_ptr<GeminiOrb> AttackOrb = GetLevel()->CreateActor<GeminiOrb>(CupHeadActorOrder::EnemyWeapon);
+	AttackOrb->GetTransform()->SetLocalPosition(float4(-300, 0, 500));
 
 }
 

@@ -17,10 +17,6 @@ private:
 
 	void Reset();
 
-	void Update(float _DeltaTime);
-
-	const SpriteInfo& CurSpriteInfo();
-
 	inline void PauseOn()
 	{
 		IsPauseValue = true;
@@ -32,6 +28,10 @@ private:
 	}
 
 public:
+	void Update(float _DeltaTime);
+
+	const SpriteInfo& CurSpriteInfo();
+
 	size_t CurFrame = 0;
 	size_t StartFrame = -1;
 	size_t EndFrame = -1;
@@ -78,7 +78,7 @@ public:
 	GameEngineSpriteRenderer(GameEngineSpriteRenderer&& _Other) noexcept = delete;
 	GameEngineSpriteRenderer& operator=(const GameEngineSpriteRenderer& _Other) = delete;
 	GameEngineSpriteRenderer& operator=(GameEngineSpriteRenderer&& _Other) noexcept = delete;
-
+	
 	void SetScaleToTexture(const std::string_view& _Name);
 	void SetScaleToTexture(std::shared_ptr<GameEngineTexture> _Texture);
 

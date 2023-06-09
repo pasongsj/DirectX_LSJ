@@ -27,7 +27,7 @@ void HildaBergBack1::Start()
 	SubBack->GetTransform()->SetLocalPosition(float4(MainBack->GetTransform()->GetLocalScale().x , MainBack->GetTransform()->GetLocalPosition().y));
 
 
-	GetTransform()->AddLocalPosition(float4(0, 0, 400));
+	GetTransform()->AddLocalPosition(float4(0, 0, 900));
 
 	Interval = 0.0f;
 	BackGroundMoveSpeed = 100.0f;

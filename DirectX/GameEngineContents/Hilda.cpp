@@ -116,21 +116,25 @@ void Hilda::Start()
 
 		BossRender->SetAnimationStartEvent("Summon", i, [this]
 			{
+				float4 Pos = GetTransform()->GetWorldPosition();
+				Pos.z = 450;
 				std::shared_ptr<HildaDashBackExplodeFX> ExplodeGx0 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
-				ExplodeGx0->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(100, 0, - 50));
+				ExplodeGx0->GetTransform()->SetLocalPosition(Pos + float4(100, 0));
 
 				std::shared_ptr<HildaDashBackExplodeFX> ExplodeGx1 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
-				ExplodeGx1->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(150, GameEngineRandom::MainRandom.RandomFloat(20,200), -50));
+				ExplodeGx1->GetTransform()->SetLocalPosition(Pos + float4(150, GameEngineRandom::MainRandom.RandomFloat(20,200)));
 
 				std::shared_ptr<HildaDashBackExplodeFX> ExplodeGx2 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
-				ExplodeGx2->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(200, GameEngineRandom::MainRandom.RandomFloat(-200, -20), -50));
+				ExplodeGx2->GetTransform()->SetLocalPosition(Pos + float4(200, GameEngineRandom::MainRandom.RandomFloat(-200, -20)));
 			});
 	}
 
 	BossSmokeRender->SetAnimationStartEvent("DashSmoke", 5, [this]
 		{
 			std::shared_ptr< HildaDashExplodeFX> ExplodeGx = GetLevel()->CreateActor< HildaDashExplodeFX>(CupHeadActorOrder::EnemyEffect);
-			ExplodeGx->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+			float4 Pos = GetTransform()->GetWorldPosition();
+			Pos.z = 450;
+			ExplodeGx->GetTransform()->SetLocalPosition(Pos);
 		});
 	//FSM
 
@@ -160,7 +164,7 @@ void Hilda::Start()
 	EndFuncPtr[static_cast<int>(HildaState::TORNADO)] = std::bind(&Hilda::Tornado_End, this);
 	
 
-	GetTransform()->SetLocalPosition(float4(300.0f,0));							
+	GetTransform()->SetLocalPosition(float4(300.0f, 0, 600));
 
 	// TestCode
 	if (false == GameEngineInput::IsKey("TestT"))

@@ -77,9 +77,9 @@ void PlayerUI::Start()
 	UIPos += float4(120, 20);
 	for (int i = 0; i < 5; i++)
 	{
-		std::shared_ptr<GameContentsUIRenderer> tmp = CreateComponent< GameContentsUIRenderer>();
+		std::shared_ptr<GameContentsUIRenderer> tmp = CreateComponent< GameContentsUIRenderer>(CupHeadRendererOrder::UI);
 		tmp->CreateAnimation({ .AnimationName = "RotateCard",  .SpriteName = "CharacterRotateCard", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-		tmp->CreateAnimation({ .AnimationName = "BackCard",  .SpriteName = "CharacterBackCard" , .FrameInter = 0.05f, .Loop = true  });
+		tmp->CreateAnimation({ .AnimationName = "BackCard",  .SpriteName = "CharacterBackCard" , .FrameInter = 0.05f, .Loop = true  , .ScaleToTexture = true });
 		tmp->CreateAnimation({ .AnimationName = "FrontCard",  .SpriteName = "CharacterFrontCard", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 		tmp->CreateAnimation({ .AnimationName = "FlipCard",  .SpriteName = "CharacterFlipCard" , .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 
@@ -123,6 +123,7 @@ void PlayerUI::CardUIUpdate()
 			if (500 == Energy)
 			{
 				SuperModeCard[i]->ChangeAnimation("RotateCard");
+				SuperModeCard[i]->SetAtlasData(0, 0, 1, 1);
 				SuperModeCard[i]->GetTransform()->SetLocalPosition(CardPos[i] + CardYSize.half());
 				SuperModeCard[i]->On();
 				continue;
@@ -130,6 +131,7 @@ void PlayerUI::CardUIUpdate()
 			if (i < FullCardCount)
 			{
 				SuperModeCard[i]->ChangeAnimation("FrontCard");
+				SuperModeCard[i]->SetAtlasData(0, 0, 1, 1);
 				SuperModeCard[i]->GetTransform()->SetLocalPosition(CardPos[i] + CardYSize.half());
 				SuperModeCard[i]->On();
 			}
@@ -137,10 +139,6 @@ void PlayerUI::CardUIUpdate()
 			{
 				SuperModeCard[i]->ChangeAnimation("BackCard");
 				SuperModeCard[i]->SetAtlasData(0, 0, 1, LastEnergy);
-				//SuperModeCard[i]->SetScaleToCutTexture("hud_ch_card_flip_0000.png", 0, 0, 1, LastEnergy);
-				float4 Size = CardSize;
-				Size.y *= LastEnergy;
-				SuperModeCard[i]->GetTransform()->SetLocalScale(Size);
 				SuperModeCard[i]->GetTransform()->SetLocalPosition(CardPos[i] + CardYSize.half() * LastEnergy);
 				SuperModeCard[i]->On();
 			}
