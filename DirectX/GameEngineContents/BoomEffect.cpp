@@ -16,9 +16,7 @@ void BoomEffect::MakeSprite()
 
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("Cuphead_AirPlane\\effect");
+		NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane\\effect");
 
 
 

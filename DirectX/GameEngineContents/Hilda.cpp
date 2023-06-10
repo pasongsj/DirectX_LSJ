@@ -226,7 +226,11 @@ void Hilda::UpdateState(float _DeltaTime)
 }
 
 void Hilda::Attack(int _Dmg)
-{
+{ 
+	if (HildaState::CHANGEPHASE == CurState)
+	{
+		return;
+	}
 	BossRender->MakeBright();
 	GameEnemy::Attack(_Dmg);
 }

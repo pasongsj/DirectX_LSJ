@@ -98,7 +98,7 @@ public:
 
 		if (nullptr == NewTexture)
 		{
-			MsgAssert("존재하지 않는 텍스처를 언로드 하려고 했습니다.");
+			MsgAssert(std::string(_Name) + "존재하지 않는 텍스처를 언로드 하려고 했습니다.");
 		}
 
 		NewTexture->Release();

@@ -78,7 +78,7 @@ void SagittariusStar::Update(float _DeltaTime)
 
 void SagittariusStar::CheckDir()
 {
-	float4 Dir = Player::MainPlayer->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+	Dir = Player::MainPlayer->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
 	Dir.z = 0;
 	Dir.Normalize();
 

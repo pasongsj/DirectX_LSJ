@@ -21,8 +21,6 @@ void GameContentsEnemyRenderer::Start()
 	AtlasData.z = 1.0f;
 	AtlasData.w = 1.0f;
 
-	ColorOptionValue.MulColor = float4::One;
-	ColorOptionValue.PlusColor = float4::Null;
 
 	BrightOptionValue.x = 0.0f;
 

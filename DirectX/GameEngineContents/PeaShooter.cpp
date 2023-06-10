@@ -22,9 +22,7 @@ void PeaShooter::MakeSprite()
 
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("Cuphead_AirPlane\\bullet");
+		NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane\\bullet");
 
 
 

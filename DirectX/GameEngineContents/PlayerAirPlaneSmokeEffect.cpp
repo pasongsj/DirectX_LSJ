@@ -17,9 +17,7 @@ void PlayerAirPlaneSmokeEffect::MakeSprite()
 
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("Cuphead_AirPlane");
+		NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane");
 
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Smoke_Idle", NewDir.GetPlusFileName("effect\\PlaneSmoke").GetFullPath());
 	}

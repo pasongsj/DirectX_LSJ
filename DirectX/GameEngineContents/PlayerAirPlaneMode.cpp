@@ -94,9 +94,7 @@ void PlayerAirPlaneMode::MakeSprite()
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("Cuphead_AirPlane\\effect");
+		NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane\\effect");
 
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Spark", NewDir.GetPlusFileName("Spark").GetFullPath());
 	}

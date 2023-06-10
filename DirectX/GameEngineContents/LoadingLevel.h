@@ -17,6 +17,16 @@ public:
 
 	std::shared_ptr<class FadeEffect> FEffect;
 
+	void LoadHildaSprite();
+
+	void SetLevel(CupheadLevel _Level)
+	{
+		Phase = 0;
+		isEnd = false;
+		Level = _Level;
+	}
+
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
@@ -25,7 +35,10 @@ protected:
 	void LevelChangeEnd() override;
 
 private:
-	int Phase = 0;
-	void LoadHildaSprite();
+	CupheadLevel Level = CupheadLevel::HILDA;
 	GameEngineDirectory Dir;
+
+
+	int Phase = 0;
+	bool isEnd = false;
 };

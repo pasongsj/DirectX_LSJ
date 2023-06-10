@@ -20,13 +20,24 @@ void LoadingLevel::Start()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
-	FEffect = GetLastTarget()->CreateEffect<FadeEffect>();
+	
+	if (nullptr == FEffect)
+	{
+		FEffect = GetLastTarget()->CreateEffect<FadeEffect>();
+	}
 
 }
 
 void LoadingLevel::Update(float _DeltaTime)
 {
-	LoadHildaSprite();
+	if (true == isEnd)
+	{
+		return;
+	}
+	if (CupheadLevel::HILDA == Level)
+	{
+		LoadHildaSprite();
+	}
 }
 
 void LoadingLevel::LevelChangeStart()
@@ -39,7 +50,7 @@ void LoadingLevel::LevelChangeStart()
 
 void LoadingLevel::LevelChangeEnd()
 {
-
+	
 }
 
 void LoadingLevel::LoadHildaSprite()
@@ -47,18 +58,14 @@ void LoadingLevel::LoadHildaSprite()
 	switch (Phase)
 	{
 	case 0:
-		// intro
 		GameEngineSprite::LoadFolder("Hilda_Intro", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Intro\\Hilda").GetFullPath());
 		++Phase;
 		break;
 	case 1:
-		// idle
 		GameEngineSprite::LoadFolder("Hilda_Idle", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Idle").GetFullPath());
-
 		++Phase;
 		break;
 	case 2:
-		// shoot
 		GameEngineSprite::LoadFolder("Hilda_Shoot", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Laugh\\Hilda").GetFullPath());
 		++Phase;
 		break;
@@ -67,24 +74,18 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 4:
-		// Dash
 		GameEngineSprite::LoadFolder("Hilda_Dash", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\Dash\\Dash").GetFullPath());
 		++Phase;
 		break;
 	case 5:
-
-
-		// DashBack
 		GameEngineSprite::LoadFolder("Hilda_DashBack", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\Dash\\DashBack").GetFullPath());
 		++Phase;
 		break;
 	case 6:
-		// Summon
 		GameEngineSprite::LoadFolder("Hilda_Summon", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\Summon").GetFullPath());
 		++Phase;
 		break;
 	case 7:
-		// Tornato
 		GameEngineSprite::LoadFolder("Hilda_Tornado", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Tornado\\Hilda").GetFullPath());
 		++Phase;
 		break;
@@ -97,9 +98,6 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 10:
-
-
-
 		GameEngineSprite::LoadFolder("Taurus_Idle", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Taurus\\Idle").GetFullPath());
 		++Phase;
 		break;
@@ -108,18 +106,14 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 12:
-
 		GameEngineSprite::LoadFolder("Taurus_Attack", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Taurus\\Attack\\Attack").GetFullPath());
 		++Phase;
 		break;
 	case 13:
 		GameEngineSprite::LoadFolder("Taurus_Constellation", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Taurus\\Constellation").GetFullPath());
-
 		++Phase;
 		break;
 	case 14:
-
-
 		GameEngineSprite::LoadFolder("Sagittarius_Lower_Idle", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Sagittarius\\Lower\\Idle").GetFullPath());
 		++Phase;
 		break;
@@ -132,8 +126,6 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 17:
-
-
 		GameEngineSprite::LoadFolder("Sagittarius_Arrow", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\Arrow").GetFullPath());
 		++Phase;
 		break;
@@ -146,7 +138,6 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 20:
-
 		GameEngineSprite::LoadFolder("Gemini_Idle", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Idle").GetFullPath());
 		++Phase;
 		break;
@@ -155,7 +146,6 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 22:
-
 		GameEngineSprite::LoadFolder("Gemini_AttackB", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Attack (B)").GetFullPath());
 		++Phase;
 		break;
@@ -164,9 +154,6 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 24:
-
-
-		// idle
 		GameEngineSprite::LoadFolder("Orb_Idle_Intro", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Idle\\Intro").GetFullPath());
 		++Phase;
 		break;
@@ -178,9 +165,7 @@ void LoadingLevel::LoadHildaSprite()
 		GameEngineSprite::LoadFolder("Orb_Idle_Leave", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Idle\\Leave").GetFullPath());
 		++Phase;
 		break;
-	case 27:
-
-		// attack																											
+	case 27:																									
 		GameEngineSprite::LoadFolder("Orb_Attack_Intro", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Attack\\Intro").GetFullPath());
 		++Phase;
 		break;
@@ -192,23 +177,15 @@ void LoadingLevel::LoadHildaSprite()
 		GameEngineSprite::LoadFolder("Orb_Attack_Leave", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Attack\\Leave").GetFullPath());
 		++Phase;
 		break;
-	case 30:
-
-		// scatter																										 
+	case 30:																									 
 		GameEngineSprite::LoadFolder("Orb_Attack_Scatter", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Attack\\FX\\Large").GetFullPath());
 		++Phase;
 		break;
 	case 31:
-
-
-
 		GameEngineSprite::LoadFolder("Orb_Bullet", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Attack\\BulletStream").GetFullPath());
-
 		++Phase;
 		break;
 	case 32:
-
-
 		GameEngineSprite::LoadFolder("Moon_Intro0", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\TransitionToMoon\\Start").GetFullPath());
 		++Phase;
 		break;
@@ -226,11 +203,9 @@ void LoadingLevel::LoadHildaSprite()
 		break;
 	case 36:
 		GameEngineSprite::LoadFolder("Moon_Intro4", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\TransitionToMoon\\End").GetFullPath());
-
 		++Phase;
 		break;
 	case 37:
-
 		GameEngineSprite::LoadFolder("Moon_Idle", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Idle").GetFullPath());
 		++Phase;
 		break;
@@ -251,8 +226,6 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 42:
-
-
 		GameEngineSprite::LoadFolder("Hilda_UFO_Red", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\UFO\\Red").GetFullPath());
 		++Phase;
 		break;
@@ -265,12 +238,6 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 45:
-
-
-
-		// Origin
-		// idle
-
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Origin_Idle", Dir.GetPlusFileName("Cuphead_AirPlane\\Idle\\Idle").GetFullPath());
 		++Phase;
 		break;
@@ -283,16 +250,10 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 48:
-
-
-		// intro
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Origin_intro", Dir.GetPlusFileName("Cuphead_AirPlane\\Intros\\Regular").GetFullPath());
 		++Phase;
 		break;
 	case 49:
-
-		// trans
-		//Dir.Move("..\\Transicion");
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Origin_transup", Dir.GetPlusFileName("Cuphead_AirPlane\\Transicion\\transup").GetFullPath());
 		++Phase;
 		break;
@@ -301,12 +262,6 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 51:
-
-
-
-		// Super
-		// idle
-		//Dir.Move("..\\Super\\Idle");
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Super_Idle", Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\Idle\\Idle").GetFullPath());
 		++Phase;
 		break;
@@ -319,15 +274,10 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 54:
-		// intro
-		//Dir.MoveParent();
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Super_intro", Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\intro").GetFullPath());
-
 		++Phase;
 		break;
 	case 55:
-		// trans
-		//Dir.Move("trans");
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Super_transup", Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\trans\\up").GetFullPath());
 		++Phase;
 		break;
@@ -336,12 +286,6 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 57:
-
-
-
-		// Shrink
-		// idle
-		//Dir.Move("..\\..\\Shrink\\idle");
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Shrink_Idle", Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\idle\\Idle").GetFullPath());
 		++Phase;
 		break;
@@ -354,15 +298,10 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 60:
-
-		// intro
-		//Dir.MoveParent();
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Shrink_intro", Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\morph").GetFullPath());
 		++Phase;
 		break;
 	case 61:
-		// trans
-		//Dir.Move("trans");
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Shrink_transup", Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\trans\\up").GetFullPath());
 		++Phase;
 		break;
@@ -371,16 +310,10 @@ void LoadingLevel::LoadHildaSprite()
 		++Phase;
 		break;
 	case 63:
-
-
-		//parry
-		//Dir.Move("..\\..\\");
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Parry", Dir.GetPlusFileName("Cuphead_AirPlane\\Parry").GetFullPath());
 		++Phase;
 		break;
 	case 64:
-
-
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Spark", Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Spark").GetFullPath());
 		++Phase;
 		break;
@@ -532,13 +465,120 @@ void LoadingLevel::LoadHildaSprite()
 
 	case 98:
 		GameEngineSprite::LoadFolder("HildaChangePhaseDashExplode", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\DashExplodeFX").GetFullPath()); ++Phase;
+		++Phase;
 		break;
 
 	case 99:
 		GameEngineSprite::LoadFolder("HildaChangeFX", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\HildaChangeFX").GetFullPath()); ++Phase;
+		++Phase;
+		break;
+	case 100:
+	{
+		if (nullptr == GameEngineTexture::Find("blimp_clouds_0001.png"))
+		{
+			GameEngineDirectory NewDir;
+			NewDir.MoveParentToDirectory("ContentResources");
+			NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Level");
+			std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+			for (size_t i = 0; i < File.size(); i++)
+			{
+				GameEngineTexture::Load(File[i].GetFullPath());
+			}
+		}
+		++Phase;
+		break;
+	}
+	case 101:
+	{
+		if (nullptr == GameEngineTexture::Find("hud_hp_1.png"))
+		{
+			GameEngineDirectory NewDir;
+			NewDir.MoveParentToDirectory("ContentResources");
+			NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
+
+			std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+			for (size_t i = 0; i < File.size(); i++)
+			{
+				GameEngineTexture::Load(File[i].GetFullPath());
+			}
+		}
+		++Phase;
+		break;
+	}
+	case 102:
+		GameEngineSprite::LoadFolder("BlimpEnemy_BulletA", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\A\\Bullet").GetFullPath());
+		++Phase;
+		break;
+	case 103:
+		GameEngineSprite::LoadFolder("BlimpEnemy_BulletB", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\B\\Bullet").GetFullPath());
+		++Phase;
+		break;
+	case 104:
+		GameEngineSprite::LoadFolder("BlimpEnemy_BulletC", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\C\\Bullet").GetFullPath());
+		++Phase;
+		break;
+	case 105:
+		GameEngineSprite::LoadFolder("BlimpEnemy_BulletPinkA", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\Pink\\A").GetFullPath());
+		++Phase;
+		break;
+	case 106:
+		GameEngineSprite::LoadFolder("BlimpEnemy_BulletPinkB", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\Pink\\B").GetFullPath());
+		++Phase;
+		break;
+	case 107:
+		GameEngineSprite::LoadFolder("shmup_super_boom", Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Boom").GetFullPath());
+		++Phase;
+		break;
+	case 108:
+		GameEngineSprite::LoadFolder("shmup_super_explode", Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Explode").GetFullPath());
+		++Phase;
 		break;
 
-	case 100:
+	case 109:
+		GameEngineSprite::LoadFolder("Super_FX", Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Super_FX").GetFullPath());
+		++Phase;
+		break;
+
+	case 110:
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Smoke_Idle", Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\PlaneSmoke").GetFullPath());
+		++Phase;
+		break;
+
+	case 111:
+		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Bullet", Dir.GetPlusFileName("Cuphead_AirPlane\\bullet\\peashot").GetFullPath());
+		++Phase;
+		break;
+
+	case 112:
+	{
+		if (nullptr == GameEngineTexture::Find("BlackBack.png"))
+		{
+			GameEngineDirectory NewDir;
+			NewDir.MoveParentToDirectory("ContentResources");
+			NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane\\effect");
+			GameEngineTexture::Load(NewDir.GetPlusFileName("BlackBack.png").GetFullPath());
+		}
+		++Phase;
+		break;
+	}
+
+	case 113:
+		++Phase;
+		break;
+
+	case 114:
+		++Phase;
+		break;
+
+	case 115:
+		++Phase;
+		break;
+
+	case 116:
+		++Phase;
+		break;
+
+	case 117:
 		FEffect->FadeIn();
 		++Phase;
 		break;
@@ -549,9 +589,9 @@ void LoadingLevel::LoadHildaSprite()
 
 
 
-	
 
 
 
 
 }
+

@@ -43,3 +43,11 @@ enum class CupHeadCollisionOrder
 	UI,
 	MAX,
 };
+
+enum class CupheadLevel
+{
+	NONE,
+	STORY,
+	HILDA,
+	MAX
+};
