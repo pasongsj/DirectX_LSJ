@@ -223,7 +223,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 void HildaBergLevel::LevelChangeStart()
 {
 	ResetLiveTime();
-	//ReLoadSprite();
+	ReLoadSprite();
 	if (nullptr == FEffect)
 	{
 		FEffect = GetLastTarget()->CreateEffect<FadeEffect>();
@@ -289,7 +289,7 @@ void HildaBergLevel::ReLoadSprite()
 	GameEngineSprite::ReLoad("Hilda_Summon");
 	GameEngineSprite::ReLoad("Hilda_Tornado");
 	GameEngineSprite::ReLoad("Hilda_Tornado_Attack");
-	GameEngineSprite::ReLoad("Hilda_Tornado_Intro");
+	GameEngineSprite::ReLoad("Hilda_Tornado_Intro");;
 	GameEngineSprite::ReLoad("Taurus_Idle");
 	GameEngineSprite::ReLoad("Taurus_Charge");
 	GameEngineSprite::ReLoad("Taurus_Attack");
@@ -388,7 +388,7 @@ void HildaBergLevel::ReLoadSprite()
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
 		{
-			GameEngineTexture::ReLoad(File[i].GetFileName());
+			GameEngineTexture::ReLoad(File[i].GetFullPath());
 		}
 	}
 	if (nullptr != GameEngineTexture::Find("hud_hp_1.png"))
@@ -400,7 +400,7 @@ void HildaBergLevel::ReLoadSprite()
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
 		{
-			GameEngineTexture::ReLoad(File[i].GetFileName());
+			GameEngineTexture::ReLoad(File[i].GetFullPath());
 		}
 	}
 	GameEngineSprite::ReLoad("BlimpEnemy_BulletA");
@@ -415,7 +415,7 @@ void HildaBergLevel::ReLoadSprite()
 	GameEngineSprite::ReLoad("Cuphead_AirPlane_Bullet");
 	if (nullptr != GameEngineTexture::Find("BlackBack.png"))
 	{
-		GameEngineTexture::ReLoad("BlackBack.png");
+		GameEngineTexture::ReLoad(GameEngineTexture::Find("BlackBack.png")->GetPath());
 	}
 }
 

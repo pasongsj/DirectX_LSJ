@@ -42,7 +42,10 @@ void LoadingLevel::Update(float _DeltaTime)
 
 void LoadingLevel::LevelChangeStart()
 {
-	CreateActor<LoadingBackGround>(CupHeadActorOrder::BackGround);
+	if (nullptr == BackGround)
+	{
+		BackGround = CreateActor<LoadingBackGround>(CupHeadActorOrder::BackGround);
+	}
 
 	Dir.MoveParentToDirectory("ContentResources");
 	Dir.Move("ContentResources\\Texture");
@@ -50,7 +53,8 @@ void LoadingLevel::LevelChangeStart()
 
 void LoadingLevel::LevelChangeEnd()
 {
-	
+	BackGround->Death();
+	BackGround = nullptr;
 }
 
 void LoadingLevel::LoadHildaSprite()
@@ -464,12 +468,12 @@ void LoadingLevel::LoadHildaSprite()
 		break;
 
 	case 98:
-		GameEngineSprite::LoadFolder("HildaChangePhaseDashExplode", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\DashExplodeFX").GetFullPath()); ++Phase;
+		GameEngineSprite::LoadFolder("HildaChangePhaseDashExplode", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\DashExplodeFX").GetFullPath());
 		++Phase;
 		break;
 
 	case 99:
-		GameEngineSprite::LoadFolder("HildaChangeFX", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\HildaChangeFX").GetFullPath()); ++Phase;
+		GameEngineSprite::LoadFolder("HildaChangeFX", Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\HildaChangeFX").GetFullPath());
 		++Phase;
 		break;
 	case 100:

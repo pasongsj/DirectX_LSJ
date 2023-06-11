@@ -35,6 +35,8 @@ protected:
 	void LevelChangeEnd() override;
 
 private:
+
+	std::shared_ptr<class GameEngineActor> BackGround = nullptr;
 	CupheadLevel Level = CupheadLevel::HILDA;
 	GameEngineDirectory Dir;
 

@@ -11,8 +11,8 @@ GameEngineSprite::~GameEngineSprite()
 
 void GameEngineSprite::ResLoadFolder(const std::string_view& _Path)
 {
+	SetPath(_Path);
 	GameEngineDirectory Dir = _Path;
-
 	if (false == Dir.GetPath().IsDirectory())
 	{
 		MsgAssert("디렉토리가 아닌 경로입니다." + std::string(_Path));
