@@ -68,12 +68,12 @@ public:
 	bool IsDeath() override;
 	bool IsUpdate() override;
 
-	void Death() override;
 
 protected:
 	virtual void Start() {}
 	virtual void Update(float _DeltaTime) {}
 	virtual void Render(float _DeltaTime) {}
+	virtual void Destroy() {}
 	virtual void Release();
 	virtual void LevelChangeStart() {}
 	virtual void LevelChangeEnd() {}
@@ -94,6 +94,7 @@ private:
 	void AllAccTime(float _DeltaTime);
 	void AllUpdate(float _DeltaTime);
 	void AllRender(float _DeltaTime);
+	void AllDestroy();
 	void AllRelease();
 	void AllLevelChangeStart();
 	void AllLevelChangeEnd();

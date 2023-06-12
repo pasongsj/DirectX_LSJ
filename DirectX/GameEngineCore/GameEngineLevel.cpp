@@ -266,7 +266,7 @@ void GameEngineLevel::ActorRelease()
 					++ActorStart;
 					continue;
 				}
-
+				RelaseActor->AllDestroy();
 				RelaseActor->Release();
 				ActorStart = ActorList.erase(ActorStart);
 			}
