@@ -23,7 +23,7 @@ public:
 	{
 		Phase = 0;
 		isEnd = false;
-		Level = _Level;
+		NextLevel = _Level;
 	}
 
 
@@ -37,7 +37,7 @@ protected:
 private:
 
 	std::shared_ptr<class GameEngineActor> BackGround = nullptr;
-	CupheadLevel Level = CupheadLevel::HILDA;
+	CupheadLevel NextLevel = CupheadLevel::HILDA;
 	GameEngineDirectory Dir;
 
 
