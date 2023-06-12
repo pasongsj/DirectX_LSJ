@@ -74,6 +74,10 @@ void HildaBergLevel::Start()
 	{
 		GameEngineInput::CreateKey("DebugRender", VK_F3);
 	}
+	if (false == GameEngineInput::IsKey("ChangeLevel"))
+	{
+		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
+	}
 
 }
 
@@ -82,6 +86,10 @@ void HildaBergLevel::Update(float _DeltaTime)
 	if (true == GameEngineInput::IsDown("DebugRender"))
 	{
 		GameEngineLevel::IsDebugSwitch();
+	}
+	if (true == GameEngineInput::IsDown("ChangeLevel"))
+	{
+		GameEngineCore::ChangeLevel("IntroStoryLevel");
 	}
 
 	// ÀÜÃ¬ÀÌ ¼ÒÈ¯
@@ -223,7 +231,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 void HildaBergLevel::LevelChangeStart()
 {
 	ResetLiveTime();
-	ReLoadSprite();
+	//ReLoadSprite();
 	if (nullptr == FEffect)
 	{
 		FEffect = GetLastTarget()->CreateEffect<FadeEffect>();
@@ -275,6 +283,16 @@ void HildaBergLevel::LevelChangeStart()
 void HildaBergLevel::LevelChangeEnd()
 {
 	UnLoadSprite();
+	Player::MainPlayer->Death();
+	Player::MainPlayer = nullptr;
+	Boss->Death();
+	Boss = nullptr;
+	for (std::shared_ptr<HildaBergBack> _BG : HildaBG)
+	{
+		_BG->Death();
+	}
+	HildaBG.clear();
+	
 }
 
 
