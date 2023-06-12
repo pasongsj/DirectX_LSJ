@@ -19,12 +19,9 @@ void GameEngineCollision::Start()
 }
 
 
-void GameEngineCollision::Update(float _Delta)
+
+void GameEngineCollision::DebugRender(float _Delta)
 {
-	//if (false == IsDebug())
-	//{
-	//	return;
-	//}
 	switch (Type)
 	{
 	case ColType::SPHERE2D:

@@ -88,6 +88,17 @@ public:
 		return LastTarget;
 	}
 
+	template<typename EnumType>
+	std::list<std::shared_ptr<GameEngineActor>> GetActorGroup(EnumType _Index)
+	{
+		return GetActorGroup(static_cast<int>(_Index));
+	}
+
+	std::list<std::shared_ptr<GameEngineActor>> GetActorGroup(int _Index)
+	{
+		return Actors[_Index];
+	}
+
 
 protected:
 	// 레벨이 바뀌어서 시작할때
@@ -130,6 +141,12 @@ private:
 	void ActorRelease();
 	void ActorLevelChangeStart();
 	void ActorLevelChangeEnd();
+
+
+	void LevelCameraInit();
+
+	void AllActorDestroy();
+
 
 	void TextureUnLoad(GameEngineLevel* _NextLevel);
 
