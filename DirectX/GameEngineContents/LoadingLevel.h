@@ -17,9 +17,8 @@ public:
 
 	std::shared_ptr<class FadeEffect> FEffect;
 
-	void LoadHildaSprite();
 
-	void SetLevel(CupheadLevel _Level)
+	static void SetLevel(CupheadLevel _Level)
 	{
 		Phase = 0;
 		isEnd = false;
@@ -37,10 +36,13 @@ protected:
 private:
 
 	std::shared_ptr<class GameEngineActor> BackGround = nullptr;
-	CupheadLevel NextLevel = CupheadLevel::HILDA;
 	GameEngineDirectory Dir;
 
 
-	int Phase = 0;
-	bool isEnd = false;
+	static CupheadLevel NextLevel;
+	static int Phase;
+	static bool isEnd;
+
+	void LoadHildaSprite();
+	void LoadStorySprite();
 };

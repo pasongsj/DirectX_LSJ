@@ -108,6 +108,7 @@ protected:
 	virtual void Start() = 0;
 	void Update(float _DeltaTime);
 	void Render(float _DeltaTime);
+	void AllActorDestroy();
 
 private:
 	static bool IsDebugRender;
@@ -145,7 +146,7 @@ private:
 
 	void LevelCameraInit();
 
-	void AllActorDestroy();
+	void DestroyCamera();
 
 
 	void TextureUnLoad(GameEngineLevel* _NextLevel);

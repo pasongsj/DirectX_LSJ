@@ -88,7 +88,7 @@ public:
 	}
 
 
-	static std::shared_ptr<GameEngineSprite> ReLoad(const std::string_view& _Name, const std::string_view& _Path)
+	static std::shared_ptr<GameEngineSprite> ReLoad(const std::string_view& _Path, const std::string_view& _Name)
 	{
 		std::shared_ptr<GameEngineSprite> NewTexture = GameEngineResource<GameEngineSprite>::Find(_Name);
 
@@ -96,7 +96,6 @@ public:
 		{
 			return LoadFolder(_Name.data(), _Path);
 		}
-		//LoadFolder(std::string _Spritename, const std::string_view& _Path)
 		NewTexture->ReLoad();
 		return NewTexture;
 	}

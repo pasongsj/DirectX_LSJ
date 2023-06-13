@@ -12,7 +12,7 @@
 #include <GameEngineCore/GameEngineSprite.h>
 
 
-
+#include "LoadingLevel.h"
 // BackGround
 #include "HildaBergBack.h"
 #include "HildaBergBack0.h"
@@ -61,23 +61,23 @@ HildaBergLevel::~HildaBergLevel()
 void HildaBergLevel::Start()
 {
 
-	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
-	//GetMainCamera()->SetProjectionType(CameraType::Perspective);
-	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-	GetMainCamera()->SetSortType(CupHeadRendererOrder::Boss, SortType::ZSort);
+	//GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
+	////GetMainCamera()->SetProjectionType(CameraType::Perspective);
+	//GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+	//GetMainCamera()->SetSortType(CupHeadRendererOrder::Boss, SortType::ZSort);
 
-	if (false == GameEngineInput::IsKey("NextBoss"))
-	{
-		GameEngineInput::CreateKey("NextBoss", VK_F2);
-	}
-	if (false == GameEngineInput::IsKey("DebugRender"))
-	{
-		GameEngineInput::CreateKey("DebugRender", VK_F3);
-	}
-	if (false == GameEngineInput::IsKey("ChangeLevel"))
-	{
-		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
-	}
+	//if (false == GameEngineInput::IsKey("NextBoss"))
+	//{
+	//	GameEngineInput::CreateKey("NextBoss", VK_F2);
+	//}
+	//if (false == GameEngineInput::IsKey("DebugRender"))
+	//{
+	//	GameEngineInput::CreateKey("DebugRender", VK_F3);
+	//}
+	//if (false == GameEngineInput::IsKey("ChangeLevel"))
+	//{
+	//	GameEngineInput::CreateKey("ChangeLevel", VK_F4);
+	//}
 
 }
 
@@ -89,7 +89,8 @@ void HildaBergLevel::Update(float _DeltaTime)
 	}
 	if (true == GameEngineInput::IsDown("ChangeLevel"))
 	{
-		GameEngineCore::ChangeLevel("IntroStoryLevel");
+		GameEngineCore::ChangeLevel("LoadingLevel");
+		LoadingLevel::SetLevel(CupheadLevel::STORY);
 	}
 
 	// ¿‹√¨¿Ã º“»Ø
@@ -231,40 +232,34 @@ void HildaBergLevel::Update(float _DeltaTime)
 void HildaBergLevel::LevelChangeStart()
 {
 	ResetLiveTime();
+	Phase = 1;
+	IsConstell = false;
+	IsGemini = false;
+
 	//ReLoadSprite();
 	if (nullptr == FEffect)
 	{
 		FEffect = GetLastTarget()->CreateEffect<FadeEffect>();
 	}
 
-	// BackGround ¿ÃπÃ¡ˆ ∑ŒµÂ
-	//if (nullptr == GameEngineTexture::Find("blimp_clouds_0001.png"))
-	//{
-	//	GameEngineDirectory NewDir;
-	//	NewDir.MoveParentToDirectory("ContentResources");
-	//	NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Level");
-	//	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-	//	for (size_t i = 0; i < File.size(); i++)
-	//	{
-	//		GameEngineTexture::Load(File[i].GetFullPath());
-	//	}
-	//}
 
-	//if (nullptr == GameEngineTexture::Find("hud_hp_1.png"))
-	//{
-	//	GameEngineDirectory NewDir;
-	//	NewDir.MoveParentToDirectory("ContentResources");
-	//	NewDir.Move("ContentResources\\Texture\\PlayerUI");
+	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
+	//GetMainCamera()->SetProjectionType(CameraType::Perspective);
+	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+	GetMainCamera()->SetSortType(CupHeadRendererOrder::Boss, SortType::ZSort);
 
-	//	NewDir.Move("HPBar");
-
-	//	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-	//	for (size_t i = 0; i < File.size(); i++)
-	//	{
-	//		GameEngineTexture::Load(File[i].GetFullPath());
-	//	}
-	//}
-
+	if (false == GameEngineInput::IsKey("NextBoss"))
+	{
+		GameEngineInput::CreateKey("NextBoss", VK_F2);
+	}
+	if (false == GameEngineInput::IsKey("DebugRender"))
+	{
+		GameEngineInput::CreateKey("DebugRender", VK_F3);
+	}
+	if (false == GameEngineInput::IsKey("ChangeLevel"))
+	{
+		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
+	}
 
 	std::shared_ptr<HildaBergBack> BG0 = CreateActor<HildaBergBack0>(CupHeadActorOrder::BackGround);
 	HildaBG.push_back(BG0);
@@ -292,149 +287,7 @@ void HildaBergLevel::LevelChangeEnd()
 		_BG->Death();
 	}
 	HildaBG.clear();
-	
-}
-
-
-void HildaBergLevel::ReLoadSprite()
-{
-	GameEngineSprite::ReLoad("Hilda_Intro");
-	GameEngineSprite::ReLoad("Hilda_Idle");
-	GameEngineSprite::ReLoad("Hilda_Shoot");
-	GameEngineSprite::ReLoad("Hilda_Ha");
-	GameEngineSprite::ReLoad("Hilda_Dash");
-	GameEngineSprite::ReLoad("Hilda_DashBack");
-	GameEngineSprite::ReLoad("Hilda_Summon");
-	GameEngineSprite::ReLoad("Hilda_Tornado");
-	GameEngineSprite::ReLoad("Hilda_Tornado_Attack");
-	GameEngineSprite::ReLoad("Hilda_Tornado_Intro");;
-	GameEngineSprite::ReLoad("Taurus_Idle");
-	GameEngineSprite::ReLoad("Taurus_Charge");
-	GameEngineSprite::ReLoad("Taurus_Attack");
-	GameEngineSprite::ReLoad("Taurus_Constellation");
-	GameEngineSprite::ReLoad("Sagittarius_Lower_Idle");
-	GameEngineSprite::ReLoad("Sagittarius_Upper_Idle");
-	GameEngineSprite::ReLoad("Sagittarius_Upper_Attack");
-	GameEngineSprite::ReLoad("Sagittarius_Arrow");
-	GameEngineSprite::ReLoad("Sagittarius_AppearFX");
-	GameEngineSprite::ReLoad("Sagittarius_Constellation");
-	GameEngineSprite::ReLoad("Gemini_Idle");
-	GameEngineSprite::ReLoad("Gemini_AttackA");
-	GameEngineSprite::ReLoad("Gemini_AttackB");
-	GameEngineSprite::ReLoad("Gemini_Constellation");
-	GameEngineSprite::ReLoad("Orb_Idle_Intro");
-	GameEngineSprite::ReLoad("Orb_Idle_Loop");
-	GameEngineSprite::ReLoad("Orb_Idle_Leave");
-	GameEngineSprite::ReLoad("Orb_Attack_Intro");
-	GameEngineSprite::ReLoad("Orb_Attack_Loop");
-	GameEngineSprite::ReLoad("Orb_Attack_Leave");
-	GameEngineSprite::ReLoad("Orb_Attack_Scatter");
-	GameEngineSprite::ReLoad("Orb_Bullet");
-	GameEngineSprite::ReLoad("Moon_Intro0");
-	GameEngineSprite::ReLoad("Moon_Intro1");
-	GameEngineSprite::ReLoad("Moon_Intro2");
-	GameEngineSprite::ReLoad("Moon_Intro3");
-	GameEngineSprite::ReLoad("Moon_Intro4");
-	GameEngineSprite::ReLoad("Moon_Idle");
-	GameEngineSprite::ReLoad("Moon_Attack_Intro");
-	GameEngineSprite::ReLoad("Moon_Attack");
-	GameEngineSprite::ReLoad("Moon_Attack_Outtro");
-	GameEngineSprite::ReLoad("Moon_Death");
-	GameEngineSprite::ReLoad("Hilda_UFO_Red");
-	GameEngineSprite::ReLoad("Hilda_UFO_Bronze");
-	GameEngineSprite::ReLoad("Hilda_UFO_Beam");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Origin_Idle");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Origin_Idleup");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Origin_Idledown");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Origin_intro");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Origin_transup");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Origin_transdown");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Super_Idle");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Super_Idleup");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Super_Idledown");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Super_intro");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Super_transup");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Super_transdown");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Shrink_Idle");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Shrink_Idleup");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Shrink_Idledown");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Shrink_intro");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Shrink_transup");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Shrink_transdown");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Parry");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Spark");
-	GameEngineSprite::ReLoad("BlimpEnemy_PurPle_Idle");
-	GameEngineSprite::ReLoad("BlimpEnemy_Green_Idle");
-	GameEngineSprite::ReLoad("BlimpEnemy_Purple_Attack");
-	GameEngineSprite::ReLoad("BlimpEnemy_Green_Attack");
-	GameEngineSprite::ReLoad("BlimpEnemy_Purple_Turn");
-	GameEngineSprite::ReLoad("BlimpEnemy_Green_Turn");
-	GameEngineSprite::ReLoad("BlimpEnemy_Green_Death_A");
-	GameEngineSprite::ReLoad("BlimpEnemy_Green_Death_B");
-	GameEngineSprite::ReLoad("BlimpEnemy_Green_Death_C");
-	GameEngineSprite::ReLoad("BlimpEnemy_Green_Death_D");
-	GameEngineSprite::ReLoad("BlimpEnemy_Green_Death_E");
-	GameEngineSprite::ReLoad("BlimpEnemy_Green_Death_F");
-	GameEngineSprite::ReLoad("BlimpEnemy_Purple_Death_A");
-	GameEngineSprite::ReLoad("BlimpEnemy_Purple_Death_B");
-	GameEngineSprite::ReLoad("BlimpEnemy_Purple_Death_C");
-	GameEngineSprite::ReLoad("BlimpEnemy_Purple_Death_D");
-	GameEngineSprite::ReLoad("BlimpEnemy_Purple_Death_E");
-	GameEngineSprite::ReLoad("BlimpEnemy_Purple_Death_F");
-	GameEngineSprite::ReLoad("BlimpEnemy_Explode");
-	GameEngineSprite::ReLoad("BlimpEnemy_Spark");
-	GameEngineSprite::ReLoad("Sagittarius_Star_Idle");
-	GameEngineSprite::ReLoad("Sagittarius_Star_Trail");
-	GameEngineSprite::ReLoad("Sagittarius_Star_Death");
-	GameEngineSprite::ReLoad("Moon_Star_A");
-	GameEngineSprite::ReLoad("Moon_Star_B");
-	GameEngineSprite::ReLoad("Moon_Star_C");
-	GameEngineSprite::ReLoad("Moon_Star_Pink");
-	GameEngineSprite::ReLoad("Moon_Star_IdleFX");
-	GameEngineSprite::ReLoad("Moon_Star_PinkFX");
-	GameEngineSprite::ReLoad("Hilda_ChangeBack");
-	GameEngineSprite::ReLoad("HildaChangePhaseDashSmoke");
-	GameEngineSprite::ReLoad("peashotFX");
-	GameEngineSprite::ReLoad("HildaChangePhaseDashBackExplode");
-	GameEngineSprite::ReLoad("HildaChangePhaseDashExplode");
-	GameEngineSprite::ReLoad("HildaChangeFX");
-	if (nullptr != GameEngineTexture::Find("blimp_clouds_0001.png"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Level");
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
-		{
-			GameEngineTexture::ReLoad(File[i].GetFullPath());
-		}
-	}
-	if (nullptr != GameEngineTexture::Find("hud_hp_1.png"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
-
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
-		{
-			GameEngineTexture::ReLoad(File[i].GetFullPath());
-		}
-	}
-	GameEngineSprite::ReLoad("BlimpEnemy_BulletA");
-	GameEngineSprite::ReLoad("BlimpEnemy_BulletB");
-	GameEngineSprite::ReLoad("BlimpEnemy_BulletC");
-	GameEngineSprite::ReLoad("BlimpEnemy_BulletPinkA");
-	GameEngineSprite::ReLoad("BlimpEnemy_BulletPinkB");
-	GameEngineSprite::ReLoad("shmup_super_boom");
-	GameEngineSprite::ReLoad("shmup_super_explode");
-	GameEngineSprite::ReLoad("Super_FX");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Smoke_Idle");
-	GameEngineSprite::ReLoad("Cuphead_AirPlane_Bullet");
-	if (nullptr != GameEngineTexture::Find("BlackBack.png"))
-	{
-		GameEngineTexture::ReLoad(GameEngineTexture::Find("BlackBack.png")->GetPath());
-	}
+	AllActorDestroy();
 }
 
 void HildaBergLevel::UnLoadSprite()

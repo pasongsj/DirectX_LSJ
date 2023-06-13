@@ -17,9 +17,7 @@ void StoryObject::MakeSprite()
 
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources");
-		NewDir.Move("Texture");
-		NewDir.Move("story\\before");
+		NewDir.Move("ContentResources\\Texture\\story\\before");
 
 	
 		GameEngineSprite::LoadFolder("story1" , NewDir.GetPlusFileName("Page 01-02").GetFullPath());
