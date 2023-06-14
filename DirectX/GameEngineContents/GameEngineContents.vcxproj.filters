@@ -21,9 +21,6 @@
     <ClInclude Include="HildaBergLevel.h">
       <Filter>Levels</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerAirPlaneMode.h">
-      <Filter>Object\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Gemini.h">
       <Filter>Object\HildaBerg\Boss\Gemini</Filter>
     </ClInclude>
@@ -125,7 +122,7 @@
       <Filter>Object\Player\PlayerFX</Filter>
     </ClInclude>
     <ClInclude Include="PeaShooter.h">
-      <Filter>Object\Player\PlayerWeapon</Filter>
+      <Filter>Object\Player\AirPlane\PlayerWeapon</Filter>
     </ClInclude>
     <ClInclude Include="HildaDashExplodeFX.h">
       <Filter>Object\HildaBerg\HildaFX</Filter>
@@ -137,7 +134,7 @@
       <Filter>Object\HildaBerg\HildaFX</Filter>
     </ClInclude>
     <ClInclude Include="PeashotFX.h">
-      <Filter>Object\Player\PlayerWeapon</Filter>
+      <Filter>Object\Player\AirPlane\PlayerWeapon</Filter>
     </ClInclude>
     <ClInclude Include="GameContentsEnemyRenderer.h" />
     <ClInclude Include="GetReadyUI.h">
@@ -157,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="TutorialBackGround.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAirPlaneMode.h">
+      <Filter>Object\Player\AirPlane</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,12 +182,6 @@
     </ClCompile>
     <ClCompile Include="HildaBergLevel.cpp">
       <Filter>Levels</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerAirPlaneMode.cpp">
-      <Filter>Object\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerAirPlaneModeFSM.cpp">
-      <Filter>Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="Gemini.cpp">
       <Filter>Object\HildaBerg\Boss\Gemini</Filter>
@@ -290,7 +284,7 @@
       <Filter>Object\Player\PlayerFX</Filter>
     </ClCompile>
     <ClCompile Include="PeaShooter.cpp">
-      <Filter>Object\Player\PlayerWeapon</Filter>
+      <Filter>Object\Player\AirPlane\PlayerWeapon</Filter>
     </ClCompile>
     <ClCompile Include="HildaDashExplodeFX.cpp">
       <Filter>Object\HildaBerg\HildaFX</Filter>
@@ -302,7 +296,7 @@
       <Filter>Object\HildaBerg\HildaFX</Filter>
     </ClCompile>
     <ClCompile Include="PeashotFX.cpp">
-      <Filter>Object\Player\PlayerWeapon</Filter>
+      <Filter>Object\Player\AirPlane\PlayerWeapon</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Object\Player</Filter>
@@ -325,6 +319,12 @@
     </ClCompile>
     <ClCompile Include="TutorialBackGround.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAirPlaneMode.cpp">
+      <Filter>Object\Player\AirPlane</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAirPlaneModeFSM.cpp">
+      <Filter>Object\Player\AirPlane</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -376,14 +376,17 @@
     <Filter Include="Object\Enermy">
       <UniqueIdentifier>{38a85205-c060-4ebf-a603-11b466ada88a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\HildaBerg\HildaFX">
+      <UniqueIdentifier>{39a0df52-ad1c-47d3-b07d-41cf61496ab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player\AirPlane">
+      <UniqueIdentifier>{af8d013d-92f5-450b-b47f-826f3a4f7b1b}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Object\Player\PlayerFX">
       <UniqueIdentifier>{c18bd24c-73e4-4bf7-8a20-648459c99a07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Player\PlayerWeapon">
+    <Filter Include="Object\Player\AirPlane\PlayerWeapon">
       <UniqueIdentifier>{ddd14ce1-bd03-40ca-ab60-75b279f5d4a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\HildaBerg\HildaFX">
-      <UniqueIdentifier>{39a0df52-ad1c-47d3-b07d-41cf61496ab1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

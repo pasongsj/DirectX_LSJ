@@ -66,3 +66,15 @@ void GameEngineButton::Update(float _Delta)
 }
 
 
+void GameEngineButton::SetButtonRender(const std::string_view& _Name, bool _ScaleToTexture)
+{
+	if (true == _ScaleToTexture)
+	{
+		Render->SetScaleToTexture(_Name);
+	}
+	else
+	{
+		Render->SetTexture(_Name);
+
+	}
+}

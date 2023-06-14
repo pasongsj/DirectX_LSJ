@@ -16,15 +16,15 @@ public:
 	TutorialLevel& operator=(TutorialLevel&& _Other) noexcept = delete;
 
 protected:
-
-	void Start() override;
-	void Update(float _DeltaTime) override;
+	void Start() override {};
 
 	void LevelChangeStart() override;
 	void LevelChangeEnd() override;
 
 private:
 
+	void LoadSprite();
+	void UnLoadSprite();
 
 };
 

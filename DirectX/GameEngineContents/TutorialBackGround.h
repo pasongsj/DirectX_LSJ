@@ -3,6 +3,7 @@
 // Ό³Έν :
 class TutorialBackGround : public GameEngineActor
 {
+	friend class TutorialLevel;
 public:
 	// constrcuter destructer
 	TutorialBackGround();

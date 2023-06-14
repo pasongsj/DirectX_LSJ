@@ -1,6 +1,11 @@
 #include "PrecompileHeader.h"
 #include "TutorialBackGround.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineButton.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include "LoadingLevel.h"
+
+
 
 TutorialBackGround::TutorialBackGround() 
 {
@@ -11,7 +16,7 @@ TutorialBackGround::~TutorialBackGround()
 }
 void TutorialBackGround::MakeSprite()
 {
-	if (nullptr == GameEngineSprite::Find("story1"))
+	if (nullptr == GameEngineSprite::Find("shmup_tutorial_BG"))
 	{
 
 		GameEngineDirectory Dir;
@@ -21,6 +26,8 @@ void TutorialBackGround::MakeSprite()
 
 		GameEngineSprite::LoadFolder("shmup_tutorial_BG", Dir.GetPlusFileName("shmup_tutorial_BG").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("shmup_tutorial_linework.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("tutorial_pink_sphere_1.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("exit.png").GetFullPath());
 	}
 }
 
@@ -39,8 +46,23 @@ void TutorialBackGround::Update(float _DeltaTime)
 	if (false == isBGAnimationEnd && true == BackGround->IsAnimationEnd())
 	{
 		isBGAnimationEnd = true;
+		std::shared_ptr<GameEngineButton> ExitBtn = GetLevel()->CreateActor<GameEngineButton>(CupHeadActorOrder::UI);
+		ExitBtn->SetButtonRender("exit.png", true);
+		ExitBtn->GetTransform()->SetLocalPosition(float4(447, -287));
+		ExitBtn->SetEvent([]
+			{
+				GameEngineCore::ChangeLevel("LoadingLevel");
+				LoadingLevel::SetLevel(CupheadLevel::HILDA);
+			});
+
 		std::shared_ptr<GameEngineSpriteRenderer> shmup_tutorial_linework = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 		shmup_tutorial_linework->SetScaleToTexture("shmup_tutorial_linework.png");
 		shmup_tutorial_linework->GetTransform()->SetLocalPosition(float4(0, 0, 900));
+
+		std::shared_ptr<GameEngineSpriteRenderer> pink_shpere = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
+		pink_shpere->SetScaleToTexture("tutorial_pink_sphere_1.png");
+		pink_shpere->GetTransform()->SetLocalPosition(float4(386, -46, 890));
+
+
 	}
 }

@@ -121,7 +121,7 @@ void PlayerAirPlaneMode::Start()
 		GameEngineInput::CreateKey("PlayerShmUpModeSwitch", VK_SPACE);
 		GameEngineInput::CreateKey("PlayerOriginMode", VK_NUMPAD1);
 		GameEngineInput::CreateKey("PlayerShmUpMode", VK_NUMPAD2);
-		GameEngineInput::CreateKey("PlayerShrinkMode", VK_NUMPAD3);
+		GameEngineInput::CreateKey("PlayerShrinkMode", VK_SHIFT);
 	}
 
 	MakeSprite();
@@ -152,7 +152,7 @@ void PlayerAirPlaneMode::Start()
 	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveDownTrans",  .SpriteName = "Cuphead_AirPlane_Super_transdown",.FrameInter = 0.01f, .Loop = false, .ScaleToTexture = true });
 
 	// shrink mode
-	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkIntro",  .SpriteName = "Cuphead_AirPlane_Shrink_intro",.FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkIntro",  .SpriteName = "Cuphead_AirPlane_Shrink_intro",.FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkIdle",  .SpriteName = "Cuphead_AirPlane_Shrink_Idle",  .Loop = true, .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveUp",  .SpriteName = "Cuphead_AirPlane_Shrink_Idleup",.FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveUpTrans",  .SpriteName = "Cuphead_AirPlane_Shrink_transup",.FrameInter = 0.01f, .Loop = false, .ScaleToTexture = true });
@@ -313,12 +313,22 @@ void PlayerAirPlaneMode::CheckInput()
 			NextState = PlayerAirPlaneModeState::MOVE_DOWN;
 			isPressKey = true;
 		}
-		else
-		{
-			NextState = PlayerAirPlaneModeState::IDLE;
-		}
 
 	}
+	if ("Origin" == CurMode && true == GameEngineInput::IsPress("PlayerShrinkMode"))
+	{
+
+		ChangeMode("Shrink");
+		return;
+
+	}
+	else if ("Shrink" == CurMode && false == GameEngineInput::IsPress("PlayerShrinkMode"))
+	{
+
+		ChangeMode("Origin");
+		return;
+	}
+
 	if(false == isPressKey)
 	{
 		NextState = PlayerAirPlaneModeState::IDLE;
@@ -383,9 +393,9 @@ void PlayerAirPlaneMode::ChangeMode(const std::string_view& _Mode)
 		Pos.z = 300;
 		Effect->GetTransform()->SetLocalPosition(Pos);
 		CurMode = _Mode.data();
-		ChangePlayerAnimation("Idle");
 	}
 	CurMode = _Mode.data();
+	ChangePlayerAnimation("Idle");
 }
 
 void PlayerAirPlaneMode::MakeSmoke(float _DeltaTime)

@@ -44,7 +44,7 @@ void ContentsCore::GameStart()
 	GameEngineCore::CreateLevel<LoadingLevel>();
 	GameEngineCore::CreateLevel<TutorialLevel>();
 
-	GameEngineCore::ChangeLevel("LoadingLevel");
+	GameEngineCore::ChangeLevel("TutorialLevel");
 }
 
 void ContentsCore::GameEnd() 
