@@ -158,6 +158,9 @@
     <ClInclude Include="PlayerAirPlaneMode.h">
       <Filter>Object\Player\AirPlane</Filter>
     </ClInclude>
+    <ClInclude Include="ResultLevel.h">
+      <Filter>Levels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -325,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="PlayerAirPlaneModeFSM.cpp">
       <Filter>Object\Player\AirPlane</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultLevel.cpp">
+      <Filter>Levels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

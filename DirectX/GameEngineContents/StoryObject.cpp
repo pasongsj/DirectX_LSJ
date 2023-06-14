@@ -12,7 +12,7 @@ StoryObject::~StoryObject()
 }
 void StoryObject::MakeSprite()
 {
-	if (nullptr == GameEngineSprite::Find("story1"))
+	if (nullptr == GameEngineSprite::Find("story0"))
 	{
 
 		GameEngineDirectory NewDir;
@@ -20,6 +20,7 @@ void StoryObject::MakeSprite()
 		NewDir.Move("ContentResources\\Texture\\story\\before");
 
 	
+		GameEngineSprite::LoadFolder("story0" , NewDir.GetPlusFileName("Page 00-01").GetFullPath());
 		GameEngineSprite::LoadFolder("story1" , NewDir.GetPlusFileName("Page 01-02").GetFullPath());
 		GameEngineSprite::LoadFolder("story2" , NewDir.GetPlusFileName("Page 02-03").GetFullPath());
 		GameEngineSprite::LoadFolder("story3" , NewDir.GetPlusFileName("Page 03-04").GetFullPath());
@@ -38,6 +39,7 @@ void StoryObject::Start()
 {
 	MakeSprite();
 	BackGround = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
+	BackGround->CreateAnimation({ .AnimationName = "0",  .SpriteName = "story0", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
 	BackGround->CreateAnimation({ .AnimationName = "1",  .SpriteName = "story1", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
 	BackGround->CreateAnimation({ .AnimationName = "2",  .SpriteName = "story2", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
 	BackGround->CreateAnimation({ .AnimationName = "3",  .SpriteName = "story3", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
@@ -48,7 +50,7 @@ void StoryObject::Start()
 	BackGround->CreateAnimation({ .AnimationName = "8",  .SpriteName = "story8", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
 	BackGround->CreateAnimation({ .AnimationName = "9",  .SpriteName = "story9", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture  = true });
 	BackGround->CreateAnimation({ .AnimationName = "10",  .SpriteName = "story10", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
-	BackGround->ChangeAnimation("1");
+	BackGround->ChangeAnimation("0");
 
 	if (false == GameEngineInput::IsKey("SpaceBar"))
 	{
@@ -74,12 +76,11 @@ void StoryObject::Update(float _DeltaTime)
 
 void StoryObject::NextPage()
 {
-	++Page;
 	if (Page > 10)
 	{
 		isEndStory = true;
 		return;
 	}
 	WaitingTime = 10.0f;
-	BackGround->ChangeAnimation(std::to_string(Page));
+	BackGround->ChangeAnimation(std::to_string(Page++));
 }

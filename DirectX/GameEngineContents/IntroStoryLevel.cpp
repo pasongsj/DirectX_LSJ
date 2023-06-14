@@ -17,8 +17,8 @@ IntroStoryLevel::~IntroStoryLevel()
 
 void IntroStoryLevel::Start()
 {
-	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
-	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+	//GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
+	//GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	if (false == GameEngineInput::IsKey("ChangeLevel"))
 	{
 		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
@@ -39,8 +39,10 @@ void IntroStoryLevel::Update(float _DeltaTime)
 	
 void IntroStoryLevel::LevelChangeStart()
 {
+	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
+	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
-	if (nullptr == GameEngineSprite::Find("story1"))
+	if (nullptr == GameEngineSprite::Find("story0"))
 	{
 
 		GameEngineDirectory NewDir;
@@ -48,6 +50,7 @@ void IntroStoryLevel::LevelChangeStart()
 		NewDir.Move("ContentResources\\Texture\\story\\before");
 
 
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("Page 00-01").GetFullPath(),"story0");
 		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("Page 01-02").GetFullPath(),"story1");
 		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("Page 02-03").GetFullPath(),"story2");
 		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("Page 03-04").GetFullPath(),"story3");
@@ -66,6 +69,7 @@ void IntroStoryLevel::LevelChangeStart()
 }
 void IntroStoryLevel::LevelChangeEnd()
 {
+	GameEngineSprite::UnLoad("story0");
 	GameEngineSprite::UnLoad("story1");
 	GameEngineSprite::UnLoad("story2");
 	GameEngineSprite::UnLoad("story3");

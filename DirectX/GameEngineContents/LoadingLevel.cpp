@@ -682,6 +682,10 @@ void LoadingLevel::LoadStorySprite()
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 10-11").GetFullPath(), "story10");
 		++Phase;
 		break;
+	case 10:
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 00-01").GetFullPath(), "story0");
+		++Phase;
+		break;
 	default:
 		GameEngineCore::ChangeLevel("IntroStoryLevel");
 		NextLevel = CupheadLevel::NONE;

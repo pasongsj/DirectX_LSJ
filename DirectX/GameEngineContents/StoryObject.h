@@ -27,7 +27,7 @@ protected:
 private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> BackGround = nullptr;
-	int Page = 1;
+	int Page = 0;
 	float WaitingTime = 5.0f;
 
 	bool isEndStory = false;
