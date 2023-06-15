@@ -66,6 +66,13 @@ public:
 	std::vector<float> FrameTime = std::vector<float>();
 };
 
+enum ImagePivot
+{
+	Left,
+	Right,
+	Top,
+	Bot,
+};
 
 // Ό³Έν :
 class GameEngineSpriteRenderer : public GameEngineRenderer
@@ -120,6 +127,40 @@ public:
 		return AtlasData;
 	}
 
+	void ImageClipping(float _Ratio, ImagePivot _ScalePivot = ImagePivot::Bot, ImagePivot _PosPivot = ImagePivot::Bot)
+	{
+		ClippingPercent = _Ratio;
+
+		if (0.0f >= ClippingPercent)
+		{
+			ClippingPercent = 0.0f;
+		}
+
+
+		ScalePivot = _ScalePivot;
+		PosPivot = _PosPivot;
+
+		AtlasData = float4(0, 0, 1, 1);
+		switch (ScalePivot)
+		{
+		case Left:
+			AtlasData.PosX += (AtlasData.SizeX * (1 - ClippingPercent));
+			break;
+		case Right:
+			AtlasData.SizeX *= ClippingPercent;
+			break;
+		case Top:
+			AtlasData.PosY += (AtlasData.SizeY * (1 - ClippingPercent));
+			break;
+		case Bot:
+			AtlasData.SizeY *= ClippingPercent;
+			break;
+		default:
+			break;
+		}
+	}
+
+
 	inline float GetScaleRatio() const
 	{
 		return ScaleRatio;
@@ -161,6 +202,11 @@ private:
 
 	std::map<std::string, std::shared_ptr<AnimationInfo>> Animations;
 
+	float ClippingPercent = 1.0f;
+	float4 OriginAtlasData;
+	ImagePivot ScalePivot = ImagePivot::Bot;
+	ImagePivot PosPivot = ImagePivot::Bot;
+	std::shared_ptr<GameEngineTexture> CurTexture;
 
 
 

@@ -321,16 +321,37 @@ void GameEngineSpriteRenderer::Update(float _Delta)
 		const SpriteInfo& Info = CurAnimation->CurSpriteInfo();
 
 		GetShaderResHelper().SetTexture("DiffuseTex", Info.Texture);
+
 		AtlasData = Info.CutData;
+		if (ClippingPercent != 1.0f)
+		{
+			switch (ScalePivot)
+			{
+			case Left:
+				AtlasData.PosX += (AtlasData.SizeX * (1 - ClippingPercent));
+				break;
+			case Right:
+				AtlasData.SizeX *= ClippingPercent;
+				break;
+			case Top:
+				AtlasData.PosY += (AtlasData.SizeY * (1 - ClippingPercent));
+				break;
+			case Bot:
+				AtlasData.SizeY *= ClippingPercent;
+				break;
+			default:
+				break;
+			}
+		}
 
 		if (true == CurAnimation->ScaleToTexture)
 		{
 			std::shared_ptr<GameEngineTexture> Texture = Info.Texture;
-
+			CurTexture = Texture;
 			float4 Scale = Texture->GetScale();
 
-			Scale.x *= Info.CutData.SizeX;
-			Scale.y *= Info.CutData.SizeY;
+			Scale.x *= AtlasData.SizeX;
+			Scale.y *= AtlasData.SizeY;
 			Scale.z = 1.0f;
 
 			Scale *= ScaleRatio;
@@ -339,11 +360,13 @@ void GameEngineSpriteRenderer::Update(float _Delta)
 		}
 	}
 }
+
 void GameEngineSpriteRenderer::Render(float _Delta)
 {
 
 	GameEngineRenderer::Render(_Delta);
 }
+
 
 void GameEngineSpriteRenderer::SetAnimationUpdateEvent(const std::string_view& _AnimationName, size_t _Frame, std::function<void()> _Event) 
 {
