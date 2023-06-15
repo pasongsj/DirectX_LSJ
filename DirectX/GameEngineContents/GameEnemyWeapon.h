@@ -15,6 +15,7 @@ public:
 	GameEnemyWeapon& operator=(const GameEnemyWeapon& _Other) = delete;
 	GameEnemyWeapon& operator=(GameEnemyWeapon&& _Other) noexcept = delete;
 
+	// 플레이어를 공격
 	bool CollisionPlayer(std::shared_ptr<class GameEngineCollision> _EnermyCol);
 
 	bool IsPink()

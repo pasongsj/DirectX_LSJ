@@ -48,17 +48,17 @@ void HildaHA::Update(float _DeltaTime)
 		MsgAssert("Ha 랜더러 또는 콜리전이 제대로 생성되지 않았습니다.");
 		return;
 	}
-	HaCollision->SetRenderScaleToCollision(HaRender);
 
-
-	float4 ScreenSize = GameEngineWindow::GetScreenSize();
-	if (GetTransform()->GetWorldPosition().x < -ScreenSize.hx())
+	float4 Screen = GameEngineWindow::GetScreenSize();
+	float4 Cam = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
+	float4 LocalPos = GetTransform()->GetWorldPosition();
+	if (abs(Cam.x - LocalPos.x) > Screen.hx() || abs(Cam.y - LocalPos.y) > Screen.hy())
 	{
 		Death();
 		return;
 	}
-	// 플레이어와 충돌 함
-	CollisionPlayer(HaCollision);
-	
+
 	GetTransform()->AddLocalPosition(float4(-800 * _DeltaTime, 0));
+	HaCollision->SetRenderScaleToCollision(HaRender);
+	CollisionPlayer(HaCollision); // 플레이어와 충돌 체크
 }

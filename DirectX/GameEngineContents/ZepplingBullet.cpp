@@ -55,12 +55,14 @@ void ZepplingBullet::Start()
 	//Bullet->Off();
 
 	BulletCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BulletCollision->GetTransform()->SetLocalScale({ 40,0,0 });
+	BulletCollision->SetColType(ColType::SPHERE2D);
 }
 
 
 void ZepplingBullet::Update(float _DeltaTime)
 {
-	BulletCollision->SetRenderScaleToCollision(BulletRender);
+	//BulletCollision->SetRenderScaleToCollision(BulletRender);
 
 	//if ()// 화면밖으로 나갔다던가, 플레이어를 때렸다던가
 	if (false == GetLevel()->GetMainCamera()->IsView(GetTransform()->GetTransDataRef()))

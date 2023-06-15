@@ -38,21 +38,14 @@ void GeminiOrbScatter::Start()
 
 void GeminiOrbScatter::Update(float _DeltaTime)
 {
-	ScatterCollsion->GetTransform()->SetTransformData(ScatterRender->GetTransform()->GetTransDataRef());
-	GetTransform()->AddLocalPosition(Dir*ShootSpeed*_DeltaTime);
-
 	if (true == ScatterRender->IsAnimationEnd())
 	{
 		Death();
+		return;
 	}
-
-	std::shared_ptr<GameEngineCollision> Col = ScatterCollsion->Collision(CupHeadCollisionOrder::Player, ColType::OBBBOX2D, ColType::SPHERE2D);
-	if (nullptr != Col) // 플레이어와 충돌 함
-	{
-		int a = 0;
-
-	}
-
+	ScatterCollsion->GetTransform()->SetTransformData(ScatterRender->GetTransform()->GetTransDataRef());
+	GetTransform()->AddLocalPosition(Dir*ShootSpeed*_DeltaTime);
+	// 플레이어와 충돌 함
 	CollisionPlayer(ScatterCollsion);
 }
 

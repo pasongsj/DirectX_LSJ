@@ -15,6 +15,7 @@ public:
 	GameEnemy& operator=(const GameEnemy& _Other) = delete;
 	GameEnemy& operator=(GameEnemy&& _Other) noexcept = delete;
 
+	// 플레이어로부터 공격을 받음
 	virtual void Attack(int _Dmg)
 	{
 		HP -= _Dmg;

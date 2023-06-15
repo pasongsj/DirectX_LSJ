@@ -44,7 +44,6 @@ void Sagittarius::Start()
 {			
 	SetPhase(4);
 	MakeSprite();
-	//GetTransform()->SetLocalPosition(float4(300.0f, 0));
 
 
 	Upper = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
@@ -52,20 +51,23 @@ void Sagittarius::Start()
 	Upper->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Sagittarius_Upper_Attack",.FrameInter = 0.07f, .Loop = false , .ScaleToTexture = true });
 
 	Upper->ChangeAnimation("Idle");
-	//Upper->SetScaleToTexture("sagg_idle_0001.png");
 	Upper->GetTransform()->SetLocalPosition(float4(0, 100));
 
 	Lower = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	Lower->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Lower_Idle",  .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	//Lower->SetScaleToTexture("sagg_cloud_top_0003.png");
 	Lower->ChangeAnimation("Idle");
 	Lower->GetTransform()->SetLocalPosition(float4(160, -55));
 
-	//BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 
 	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
-	BossCollision->GetTransform()->SetLocalScale(float4(450.0f,450.0f,0));
-	BossCollision->SetColType(ColType::SPHERE2D);
+	BossCollision->GetTransform()->SetLocalScale(float4(200.0f,440,0));
+	BossCollision->GetTransform()->SetLocalPosition(float4(80, 40, 0));
+	BossCollision->SetColType(ColType::AABBBOX2D);
+
+	std::shared_ptr<GameEngineCollision> Arm = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	Arm->GetTransform()->SetLocalScale(float4(120, 50, 0));
+	Arm->GetTransform()->SetLocalPosition(float4(-80, 90, 0));
+	Arm->SetColType(ColType::AABBBOX2D);
 																						
 	//FSM																				
 

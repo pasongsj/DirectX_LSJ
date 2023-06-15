@@ -5,6 +5,7 @@
 #include "Player.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include "GameEnemy.h"
 
 SagittariusStar::SagittariusStar() 
 {
@@ -19,7 +20,7 @@ void SagittariusStar::Start()
 	MakeSprite();
 
 	StarRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
-	StarCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	StarCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	StarRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Star_Idle",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	StarRender->CreateAnimation({ .AnimationName = "Death", .SpriteName = "Sagittarius_Star_Death",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
 	StarRender->ChangeAnimation("Idle");
@@ -47,7 +48,7 @@ void SagittariusStar::Update(float _DeltaTime)
 		}
 		return;
 	}
-	if (true == CollisionPlayer(StarCollision))
+	if (true == CollisionPlayer(StarCollision) || GetHP() < 0)
 	{
 		StarCollision->Death();
 		isStarDeath = true;
@@ -67,7 +68,7 @@ void SagittariusStar::Update(float _DeltaTime)
 	}
 
 	// Collision Scale
-	StarCollision->SetRenderScaleToCollision(StarRender);
+	StarCollision->GetTransform()->SetLocalScale(StarRender->GetTransform()->GetLocalScale() * 0.55f);
 	// 별의 방향 설정
 	CheckDir();
 	//이동

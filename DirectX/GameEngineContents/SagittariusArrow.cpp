@@ -32,9 +32,9 @@ void SagittariusArrow::Start()
 	ArrowRender->CreateAnimation({ .AnimationName = "Shoot", .SpriteName = "Sagittarius_Arrow", .FrameInter = 0.05f, .ScaleToTexture = true });
 	ArrowRender->ChangeAnimation("Shoot");
 
-	ArrowCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	ArrowCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
 	ArrowCollision->GetTransform()->SetLocalScale(float4(324, 18, 1));
-	ArrowCollision->GetTransform()->AddLocalPosition(float4(0,-50, 500));
+	ArrowCollision->GetTransform()->AddLocalPosition(float4::Left * 35);
 	ArrowCollision->SetColType(ColType::AABBBOX2D);
 
 }

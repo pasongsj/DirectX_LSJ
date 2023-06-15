@@ -86,7 +86,7 @@ void Hilda::ChangePhase_Start()
 	WaitingTime = 0.0f;
 
 	BossRender->ChangeAnimation("Dash");
-	BossBodyCollision->Off();
+	//BossBodyCollision->Off();
 	BossLegCollision->Off();
 }
 void Hilda::ChangePhase_Update(float _DeltaTime)

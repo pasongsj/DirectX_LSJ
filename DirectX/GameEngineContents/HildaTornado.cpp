@@ -2,6 +2,8 @@
 #include "HildaTornado.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineLevel.h>
 
 HildaTornado::HildaTornado() 
 {
@@ -49,6 +51,16 @@ void HildaTornado::Update(float _DeltaTime)
 		MsgAssert("토네이도 랜더러또는 콜리전이 제대로 생성되지 않았습니다");
 		return;
 	}
+	float4 Screen = GameEngineWindow::GetScreenSize();
+	float4 Cam = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
+	float4 LocalPos = GetTransform()->GetWorldPosition();
+	if (abs(Cam.x- LocalPos.x)> Screen.hx() || abs(Cam.y - LocalPos.y) > Screen.hy())
+	{
+		Death();
+		return;
+	}
+
+
 	if (true == isIntro && GetLiveTime() > 1.6f)
 	{
 		isIntro = false;
@@ -59,13 +71,7 @@ void HildaTornado::Update(float _DeltaTime)
 	{
 		TornatoCollision->GetTransform()->SetLocalScale(TornatoRender->GetTransform()->GetLocalScale());
 		GetTransform()->AddLocalPosition(TornadoDir * TornadoSpeed * _DeltaTime);
+		CollisionPlayer(TornatoCollision);
 	}
 
-	float4 Screen = GameEngineWindow::GetScreenSize();
-	if (GetTransform()->GetWorldPosition().x< -Screen.hx() || GetTransform()->GetWorldPosition().x > Screen.hx())
-	{
-		Death();
-	}
-
-	CollisionPlayer(TornatoCollision);
 }

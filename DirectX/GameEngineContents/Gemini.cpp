@@ -79,6 +79,9 @@ void Gemini::Update(float _DeltaTime)
 		return;
 	}
 	UpdateState(_DeltaTime);
+	CollisionPlayer(BossCollisionA);
+	CollisionPlayer(BossCollisionB);
+
 }
 
 

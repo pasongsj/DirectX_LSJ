@@ -54,7 +54,7 @@ void HIldaMoonUFO::Start()
 	Point[3] = float4(-GameEngineWindow::GetScreenSize().hx(), GameEngineWindow::GetScreenSize().hy() - 50);
 
 
-	UFOBeamCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	UFOBeamCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
 	//UFOBeamCollision->SetRenderScaleToCollision(UFOBeamRender);
 	UFOBeamCollision->SetColType(ColType::AABBBOX2D);
 	UFOBeamCollision->Off();
@@ -84,7 +84,16 @@ void HIldaMoonUFO::Update(float _DeltaTime)
 		UFOBeamRender->GetTransform()->SetLocalPosition(float4(0,-UFOBeamRender->GetTransform()->GetLocalScale().hy()));
 		GameEngineTransform* RenderData = UFOBeamRender->GetTransform();
 		UFOBeamCollision->GetTransform()->SetLocalPosition(RenderData->GetLocalPosition());
-		UFOBeamCollision->GetTransform()->SetLocalScale(RenderData->GetLocalScale().half()+ float4(0,40));
+		if (UFOBeamRender->GetCurrentFrame() < 5 || true == UFOBeamRender->IsAnimationEnd())
+		{
+			UFOBeamCollision->GetTransform()->SetLocalScale(RenderData->GetLocalScale() * 0.6f);
+
+		}
+		else
+		{
+			UFOBeamCollision->GetTransform()->SetLocalScale(RenderData->GetLocalScale() * 0.6f + float4(0, 200));
+
+		}
 		break;
 	}
 	case 4:
