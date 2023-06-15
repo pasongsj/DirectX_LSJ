@@ -32,16 +32,13 @@ enum class CupHeadActorOrder
 };
 enum class CupHeadCollisionOrder
 {
-	BackGround,
-	Boss,
 	Enemy,
 	EnemyWeapon,
-	EnemyEffect,
 	Player,
 	PlayerWepaon,
-	PlayerEffect,
 	UI,
 	MAX,
+
 };
 
 enum class CupheadLevel

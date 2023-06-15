@@ -1,5 +1,5 @@
 #include "PrecompileHeader.h"
-#include "IntroStoryLevel.h"
+#include "StoryLevel.h"
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -7,15 +7,15 @@
 
 #include "StoryObject.h"
 #include "LoadingLevel.h"
-IntroStoryLevel::IntroStoryLevel() 
+StoryLevel::StoryLevel() 
 {
 }
 
-IntroStoryLevel::~IntroStoryLevel() 
+StoryLevel::~StoryLevel() 
 {
 }
 
-void IntroStoryLevel::Start()
+void StoryLevel::Start()
 {
 	//GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	//GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
@@ -24,7 +24,7 @@ void IntroStoryLevel::Start()
 		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
 	}
 }
-void IntroStoryLevel::Update(float _DeltaTime) 
+void StoryLevel::Update(float _DeltaTime) 
 {
 	if (true == Story->isEnd()) 
 	{
@@ -37,7 +37,7 @@ void IntroStoryLevel::Update(float _DeltaTime)
 	}
 }
 	
-void IntroStoryLevel::LevelChangeStart()
+void StoryLevel::LevelChangeStart()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
@@ -67,7 +67,7 @@ void IntroStoryLevel::LevelChangeStart()
 
 	Story = CreateActor<StoryObject>(CupHeadActorOrder::BackGround);
 }
-void IntroStoryLevel::LevelChangeEnd()
+void StoryLevel::LevelChangeEnd()
 {
 	GameEngineSprite::UnLoad("story0");
 	GameEngineSprite::UnLoad("story1");

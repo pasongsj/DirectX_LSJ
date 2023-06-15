@@ -32,7 +32,7 @@ void GameEngineCollision::DebugRender(float _Delta)
 		break;
 	case ColType::OBBBOX2D:
 	{
-		GameEngineDebug::DrawSphere(DebugCamera, GetTransform());
+		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
 		break;
 	}
 	case ColType::SPHERE3D:

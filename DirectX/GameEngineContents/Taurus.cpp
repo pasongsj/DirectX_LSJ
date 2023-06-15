@@ -50,8 +50,8 @@ void Taurus::Start()
 
 	//GetTransform()->SetLocalPosition(float4(300.0f, 0));					
 	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
-	BossCollision->SetColType(ColType::SPHERE2D);
-																			
+	BossCollision->SetColType(ColType::AABBBOX2D);
+	BossCollision->GetTransform()->SetLocalPosition(float4(10, 40));
 																							
 	//FSM																							
 	//INTRO
@@ -73,7 +73,8 @@ void Taurus::Update(float _DeltaTime)
 	{
 		MsgAssert("보스렌더 혹은 보스 콜리전이 생성되지 않았습니다");
 	}
-	BossCollision->SetRenderScaleToCollision(BossRender);
+	float4 Size = BossRender->GetTransform()->GetLocalScale();
+	BossCollision->GetTransform()->SetLocalScale(float4(Size.x * 0.8f, Size.y * 0.6f, 1));
 	UpdateState(_DeltaTime);
 
 }

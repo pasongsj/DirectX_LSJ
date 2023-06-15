@@ -61,24 +61,6 @@ HildaBergLevel::~HildaBergLevel()
 void HildaBergLevel::Start()
 {
 
-	//GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
-	////GetMainCamera()->SetProjectionType(CameraType::Perspective);
-	//GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-	//GetMainCamera()->SetSortType(CupHeadRendererOrder::Boss, SortType::ZSort);
-
-	//if (false == GameEngineInput::IsKey("NextBoss"))
-	//{
-	//	GameEngineInput::CreateKey("NextBoss", VK_F2);
-	//}
-	//if (false == GameEngineInput::IsKey("DebugRender"))
-	//{
-	//	GameEngineInput::CreateKey("DebugRender", VK_F3);
-	//}
-	//if (false == GameEngineInput::IsKey("ChangeLevel"))
-	//{
-	//	GameEngineInput::CreateKey("ChangeLevel", VK_F4);
-	//}
-
 }
 
 void HildaBergLevel::Update(float _DeltaTime)
@@ -107,7 +89,6 @@ void HildaBergLevel::Update(float _DeltaTime)
 		NextSponeTime += 5.0f;
 	}
 
-	float4 LastBossPos = float4::Zero;
 	if (nullptr != Boss)
 	{
 		if (true == Boss->IsDeath())
@@ -158,9 +139,16 @@ void HildaBergLevel::Update(float _DeltaTime)
 	}
 	else if (EndTime < 0.0f && true == FEffect->IsEnd())
 	{
-		GameEngineCore::ChangeLevel("IntroStoryLevel");
+		GameEngineCore::ChangeLevel("StoryLevel");
+		return;
 	}
+	
 
+	BossSetting();
+
+}
+void HildaBergLevel::BossSetting()
+{
 	if (nullptr == Boss)
 	{
 		switch (Phase)
@@ -225,7 +213,6 @@ void HildaBergLevel::Update(float _DeltaTime)
 			break;
 		}
 	}
-
 }
 
 

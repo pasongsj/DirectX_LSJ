@@ -41,13 +41,13 @@ void Gemini::Start()
 
 	BossCollisionA = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	BossCollisionA->SetColType(ColType::AABBBOX2D);
-	BossCollisionA->GetTransform()->SetLocalScale(float4(220, 560, 1));
+	BossCollisionA->GetTransform()->SetLocalScale(float4(220, 520, 1));
 	BossCollisionA->SetName("GeminiCollisionA");
 
 
 	BossCollisionB = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	BossCollisionB->SetColType(ColType::AABBBOX2D);
-	BossCollisionB->GetTransform()->SetLocalScale(float4(220, 560, 1));
+	BossCollisionB->GetTransform()->SetLocalScale(float4(220, 520, 1));
 	BossCollisionB->SetName("GeminiCollisionA");
 
 

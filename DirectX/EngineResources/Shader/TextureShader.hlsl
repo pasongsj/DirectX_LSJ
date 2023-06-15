@@ -98,6 +98,7 @@ float4 Texture_PS(OutPut _Value) : SV_Target0
 
     Color *= MulColor;
     Color += PlusColor;
+    Color.a = saturate(Color.a);
 
     return Color;
 }

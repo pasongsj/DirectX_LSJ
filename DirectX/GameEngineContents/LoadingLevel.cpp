@@ -687,7 +687,7 @@ void LoadingLevel::LoadStorySprite()
 		++Phase;
 		break;
 	default:
-		GameEngineCore::ChangeLevel("IntroStoryLevel");
+		GameEngineCore::ChangeLevel("StoryLevel");
 		NextLevel = CupheadLevel::NONE;
 		break;
 	}

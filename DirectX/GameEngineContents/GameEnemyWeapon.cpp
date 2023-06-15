@@ -1,17 +1,17 @@
 #include "PrecompileHeader.h"
-#include "GameEnemyAttack.h"
+#include "GameEnemyWeapon.h"
 #include <GameEngineCore/GameEngineCollision.h>
 #include "Player.h"
 
-GameEnemyAttack::GameEnemyAttack() 
+GameEnemyWeapon::GameEnemyWeapon() 
 {
 }
 
-GameEnemyAttack::~GameEnemyAttack() 
+GameEnemyWeapon::~GameEnemyWeapon() 
 {
 }
 
-bool GameEnemyAttack::CollisionPlayer(std::shared_ptr<class GameEngineCollision> _EnermyCol)
+bool GameEnemyWeapon::CollisionPlayer(std::shared_ptr<class GameEngineCollision> _EnermyCol)
 {
 	std::shared_ptr<GameEngineCollision> Col = nullptr;
 	if (nullptr != (Col = _EnermyCol->Collision(CupHeadCollisionOrder::Player)))

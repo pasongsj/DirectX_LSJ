@@ -4,6 +4,9 @@
 #include "TutorialBackGround.h"
 #include "PlayerAirPlaneMode.h"
 
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineActor.h>
+
 TutorialLevel::TutorialLevel()
 {
 }
@@ -59,6 +62,9 @@ void TutorialLevel::LevelChangeStart()
 
 	CreateActor<TutorialBackGround>(CupHeadActorOrder::BackGround);
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer7 = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
+
+
+
 
 
 }

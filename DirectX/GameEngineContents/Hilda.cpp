@@ -11,13 +11,13 @@
 #include "HildaDashBackExplodeFX.h"
 #include "GameContentsEnemyRenderer.h"
 
-Hilda::Hilda() 
+Hilda::Hilda()
 {
-}																				 
-																				 
-Hilda::~Hilda() 																 
+}
+
+Hilda::~Hilda()
 {
-}		
+}
 
 void Hilda::MakeSprite()
 {
@@ -28,9 +28,9 @@ void Hilda::MakeSprite()
 		NewDir.MoveParentToDirectory("ContentResources");
 		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\HildaBerg\\Normal");
 
-		
+
 		// intro
-		GameEngineSprite::LoadFolder("Hilda_Intro",NewDir.GetPlusFileName("Intro\\Hilda").GetFullPath());
+		GameEngineSprite::LoadFolder("Hilda_Intro", NewDir.GetPlusFileName("Intro\\Hilda").GetFullPath());
 		// idle
 		GameEngineSprite::LoadFolder("Hilda_Idle", NewDir.GetPlusFileName("Idle").GetFullPath());
 		// shoot
@@ -66,7 +66,7 @@ void Hilda::HildaDeath()
 	{
 		NextState = HildaState::CHANGEPHASE;
 	}
-	else if(5 == GetPhase())
+	else if (5 == GetPhase())
 	{
 		Death();
 	}
@@ -74,7 +74,7 @@ void Hilda::HildaDeath()
 }
 
 
-void Hilda::Start()																
+void Hilda::Start()
 {
 	SetPhase(1);
 	MakeSprite();
@@ -98,12 +98,20 @@ void Hilda::Start()
 	//		GetLevel()->CreateActor<Constellation>(CupHeadActorOrder::UI);
 	//	});
 
-	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
-	BossCollision->SetRenderScaleToCollision(BossRender);
-	BossCollision->SetColType(ColType::SPHERE2D);
-	BossCollision->SetName("HildaCollision");
+	BossBodyCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BossBodyCollision->SetRenderScaleToCollision(BossRender);
+	BossBodyCollision->SetColType(ColType::SPHERE2D);
+	BossBodyCollision->SetName("HildaCollision");
+	BossBodyCollision->GetTransform()->SetLocalPosition(float4(-10, 20));
 
-																				
+
+	BossLegCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BossLegCollision->SetRenderScaleToCollision(BossRender);
+	BossLegCollision->SetColType(ColType::AABBBOX2D);
+	BossLegCollision->SetName("HildaCollision");
+	BossLegCollision->GetTransform()->SetLocalPosition(float4(-25, -120));
+	BossLegCollision->GetTransform()->SetLocalScale(float4(100, 150));
+
 	BossSmokeRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	BossSmokeRender->CreateAnimation({ .AnimationName = "DashSmoke",  .SpriteName = "HildaChangePhaseDashSmoke",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	BossSmokeRender->GetTransform()->SetLocalPosition(float4(570, -30));
@@ -111,7 +119,7 @@ void Hilda::Start()
 
 
 
-	for (int i = 12; i < 16; i+=3)
+	for (int i = 12; i < 16; i += 3)
 	{
 
 		BossRender->SetAnimationStartEvent("Summon", i, [this]
@@ -122,7 +130,7 @@ void Hilda::Start()
 				ExplodeGx0->GetTransform()->SetLocalPosition(Pos + float4(100, 0));
 
 				std::shared_ptr<HildaDashBackExplodeFX> ExplodeGx1 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
-				ExplodeGx1->GetTransform()->SetLocalPosition(Pos + float4(150, GameEngineRandom::MainRandom.RandomFloat(20,200)));
+				ExplodeGx1->GetTransform()->SetLocalPosition(Pos + float4(150, GameEngineRandom::MainRandom.RandomFloat(20, 200)));
 
 				std::shared_ptr<HildaDashBackExplodeFX> ExplodeGx2 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
 				ExplodeGx2->GetTransform()->SetLocalPosition(Pos + float4(200, GameEngineRandom::MainRandom.RandomFloat(-200, -20)));
@@ -162,7 +170,7 @@ void Hilda::Start()
 	StartFuncPtr[static_cast<int>(HildaState::TORNADO)] = std::bind(&Hilda::Tornado_Start, this);
 	UpdateFuncPtr[static_cast<int>(HildaState::TORNADO)] = std::bind(&Hilda::Tornado_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(HildaState::TORNADO)] = std::bind(&Hilda::Tornado_End, this);
-	
+
 
 	GetTransform()->SetLocalPosition(float4(300.0f, 0, 600));
 
@@ -195,12 +203,12 @@ void Hilda::Update(float _DeltaTime)
 
 
 
-	if (nullptr == BossRender || nullptr == BossCollision)
+	if (nullptr == BossRender || nullptr == BossBodyCollision)
 	{
 		MsgAssert("Hilda 랜더러 또는 콜리전이 제대로 생성되지 않았습니다.");
 		return;
 	}
-	BossCollision->SetRenderScaleToCollision(BossRender);
+	BossBodyCollision->GetTransform()->SetLocalScale(BossRender->GetTransform()->GetLocalScale().half());
 	UpdateState(_DeltaTime);
 
 }
@@ -226,7 +234,7 @@ void Hilda::UpdateState(float _DeltaTime)
 }
 
 void Hilda::Attack(int _Dmg)
-{ 
+{
 	if (HildaState::CHANGEPHASE == CurState)
 	{
 		return;

@@ -31,6 +31,7 @@ private:
 	int Phase = 1;
 	bool IsConstell = false;
 	bool IsGemini = false;
+	float4 LastBossPos = float4::Zero;
 
 	// ¹è°æ
 	std::vector<std::shared_ptr<class HildaBergBack>> HildaBG;
@@ -39,9 +40,11 @@ private:
 	std::shared_ptr<class FadeEffect> FEffect = nullptr;
 	float EndTime = 0.0f;
 
-	void ReLoadSprite();
+	//void ReLoadSprite();
 
 	void UnLoadSprite();
+
+	void BossSetting();
 
 };
 

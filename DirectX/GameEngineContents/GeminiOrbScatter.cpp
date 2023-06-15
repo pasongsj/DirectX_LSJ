@@ -38,7 +38,7 @@ void GeminiOrbScatter::Start()
 
 void GeminiOrbScatter::Update(float _DeltaTime)
 {
-	ScatterCollsion->GetTransform()->SetLocalScale(ScatterRender->GetTransform()->GetLocalScale().half());
+	ScatterCollsion->GetTransform()->SetTransformData(ScatterRender->GetTransform()->GetTransDataRef());
 	GetTransform()->AddLocalPosition(Dir*ShootSpeed*_DeltaTime);
 
 	if (true == ScatterRender->IsAnimationEnd())

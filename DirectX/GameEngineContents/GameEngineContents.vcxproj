@@ -200,7 +200,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="GameEnemyAttack.h">
+    <ClInclude Include="GameEnemyWeapon.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -296,7 +296,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="IntroStoryLevel.h">
+    <ClInclude Include="StoryLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -480,7 +480,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GameEnemyAttack.cpp">
+    <ClCompile Include="GameEnemyWeapon.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -582,7 +582,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="IntroStoryLevel.cpp">
+    <ClCompile Include="StoryLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>

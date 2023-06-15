@@ -3,6 +3,7 @@
 
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 //#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include "GameContentsEnemyRenderer.h"
 
@@ -79,13 +80,14 @@ void Hilda::Shoot_End()
 
 void Hilda::ChangePhase_Start()
 {
-	//bool isDashBackTurn = false;
-	//bool isBackTurn = false;
 	isDashBackTurn = false;
 	isBackTurn = false;
 
 	WaitingTime = 0.0f;
+
 	BossRender->ChangeAnimation("Dash");
+	BossBodyCollision->Off();
+	BossLegCollision->Off();
 }
 void Hilda::ChangePhase_Update(float _DeltaTime)
 {

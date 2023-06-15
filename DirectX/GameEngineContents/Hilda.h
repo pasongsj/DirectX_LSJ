@@ -42,9 +42,10 @@ protected:
 private:
 	std::shared_ptr<class GameContentsEnemyRenderer> BossRender = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> BossSmokeRender = nullptr;
-	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
+	std::shared_ptr<class GameEngineCollision> BossBodyCollision = nullptr;
+	std::shared_ptr<class GameEngineCollision> BossLegCollision = nullptr;
 
-
+	
 	// idle
 	
 	// attack
