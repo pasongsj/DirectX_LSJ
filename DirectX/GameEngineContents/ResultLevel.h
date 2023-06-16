@@ -16,12 +16,13 @@ public:
 	ResultLevel& operator=(ResultLevel&& _Other) noexcept = delete;
 
 protected:
-	void Start() override;
+	void Start() override {};
 
 	void LevelChangeStart() override;
 	void LevelChangeEnd() override;
 
 private:
 
+	void MakeSprite();
 };
 

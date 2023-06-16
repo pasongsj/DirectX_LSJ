@@ -110,6 +110,7 @@ void GameEngineSpriteRenderer::Start()
 
 void GameEngineSpriteRenderer::SetTexture(const std::string_view& _Name)
 {
+	CurAnimation = nullptr;
 	GetShaderResHelper().SetTexture("DiffuseTex", _Name);
 }
 
@@ -129,7 +130,7 @@ void GameEngineSpriteRenderer::SetFlipY()
 
 void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name)
 {
-	GetShaderResHelper().SetTexture("DiffuseTex", _Name);
+	SetTexture(_Name);
 	std::shared_ptr<GameEngineTexture> FindTex = GameEngineTexture::Find(_Name);
 
 	if (nullptr == FindTex)
@@ -144,6 +145,7 @@ void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name)
 
 void GameEngineSpriteRenderer::SetScaleToTexture(std::shared_ptr<GameEngineTexture> _Texture)
 {
+	CurAnimation = nullptr;
 	if (nullptr == _Texture)
 	{
 		MsgAssert("nullptr인 텍스쳐를 사용하려 했습니다");

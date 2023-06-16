@@ -30,9 +30,6 @@
     <ClInclude Include="StoryLevel.h">
       <Filter>Levels</Filter>
     </ClInclude>
-    <ClInclude Include="StoryObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="CupheadEnum.h" />
     <ClInclude Include="GeminiOrbScatter.h">
       <Filter>Object\HildaBerg\Boss\Gemini</Filter>
@@ -136,7 +133,6 @@
     <ClInclude Include="PeashotFX.h">
       <Filter>Object\Player\AirPlane\PlayerWeapon</Filter>
     </ClInclude>
-    <ClInclude Include="GameContentsEnemyRenderer.h" />
     <ClInclude Include="GetReadyUI.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
@@ -152,14 +148,26 @@
     <ClInclude Include="TutorialLevel.h">
       <Filter>Levels</Filter>
     </ClInclude>
-    <ClInclude Include="TutorialBackGround.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerAirPlaneMode.h">
       <Filter>Object\Player\AirPlane</Filter>
     </ClInclude>
     <ClInclude Include="ResultLevel.h">
       <Filter>Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="GameContentsEnemyRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="StoryObject.h">
+      <Filter>Object\Story</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialBackGround.h">
+      <Filter>Object\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultBackGround.h">
+      <Filter>Object\ResultPage</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultBoard.h">
+      <Filter>Object\ResultPage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -194,9 +202,6 @@
     </ClCompile>
     <ClCompile Include="StoryLevel.cpp">
       <Filter>Levels</Filter>
-    </ClCompile>
-    <ClCompile Include="StoryObject.cpp">
-      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GeminiOrbScatter.cpp">
       <Filter>Object\HildaBerg\Boss\Gemini</Filter>
@@ -304,7 +309,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Object\Player</Filter>
     </ClCompile>
-    <ClCompile Include="GameContentsEnemyRenderer.cpp" />
     <ClCompile Include="GetReadyUI.cpp">
       <Filter>Object\UI</Filter>
     </ClCompile>
@@ -320,9 +324,6 @@
     <ClCompile Include="TutorialLevel.cpp">
       <Filter>Levels</Filter>
     </ClCompile>
-    <ClCompile Include="TutorialBackGround.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerAirPlaneMode.cpp">
       <Filter>Object\Player\AirPlane</Filter>
     </ClCompile>
@@ -331,6 +332,21 @@
     </ClCompile>
     <ClCompile Include="ResultLevel.cpp">
       <Filter>Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="GameContentsEnemyRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryObject.cpp">
+      <Filter>Object\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialBackGround.cpp">
+      <Filter>Object\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultBackGround.cpp">
+      <Filter>Object\ResultPage</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultBoard.cpp">
+      <Filter>Object\ResultPage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +409,15 @@
     </Filter>
     <Filter Include="Object\Player\AirPlane\PlayerWeapon">
       <UniqueIdentifier>{ddd14ce1-bd03-40ca-ab60-75b279f5d4a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Story">
+      <UniqueIdentifier>{c1fe4847-88d5-4c7f-a1e9-41ff87b4d197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Tutorial">
+      <UniqueIdentifier>{de2086d0-e01b-443d-be37-27e18dcd7f97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\ResultPage">
+      <UniqueIdentifier>{a2424ace-ec0c-446b-8592-65e41c4f55a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
