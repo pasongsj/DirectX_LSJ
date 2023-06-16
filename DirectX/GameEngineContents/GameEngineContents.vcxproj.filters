@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="ContentsCore.h" />
-    <ClInclude Include="TitleLevel.h">
-      <Filter>Levels</Filter>
-    </ClInclude>
     <ClInclude Include="PlayLevel.h">
       <Filter>Levels</Filter>
     </ClInclude>
@@ -169,12 +166,12 @@
     <ClInclude Include="ResultBoard.h">
       <Filter>Object\ResultPage</Filter>
     </ClInclude>
+    <ClInclude Include="TitleLevel.h">
+      <Filter>Levels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
-    <ClCompile Include="TitleLevel.cpp">
-      <Filter>Levels</Filter>
-    </ClCompile>
     <ClCompile Include="PlayLevel.cpp">
       <Filter>Levels</Filter>
     </ClCompile>
@@ -347,6 +344,9 @@
     </ClCompile>
     <ClCompile Include="ResultBoard.cpp">
       <Filter>Object\ResultPage</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleLevel.cpp">
+      <Filter>Levels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

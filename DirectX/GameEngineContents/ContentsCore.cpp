@@ -15,6 +15,7 @@
 #include "LoadingLevel.h"
 #include "TutorialLevel.h"
 #include "ResultLevel.h"
+#include "TitleLevel.h"
 
 ContentsCore::ContentsCore() 
 {
@@ -37,13 +38,13 @@ void ContentsCore::GameStart()
 
 
 
-	GameEngineCore::CreateLevel<TitleLevel>();
 	GameEngineCore::CreateLevel<PlayLevel>();
 	GameEngineCore::CreateLevel<HildaBergLevel>();
 	GameEngineCore::CreateLevel<StoryLevel>();
 	GameEngineCore::CreateLevel<LoadingLevel>();
 	GameEngineCore::CreateLevel<TutorialLevel>();
 	GameEngineCore::CreateLevel<ResultLevel>();
+	GameEngineCore::CreateLevel<TitleLevel>();
 
 	GameEngineCore::ChangeLevel("LoadingLevel");
 }

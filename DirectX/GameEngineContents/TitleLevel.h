@@ -1,6 +1,5 @@
 #pragma once
-#include <GameEngineCore\GameEngineLevel.h>
-
+#include <GameEngineCore/GameEngineLevel.h>
 // Ό³Έν :
 class TitleLevel : public GameEngineLevel
 {
@@ -16,8 +15,19 @@ public:
 	TitleLevel& operator=(TitleLevel&& _Other) noexcept = delete;
 
 protected:
-	void Start() override;
+	void Start() override {};
+	void Update(float _DeltaTime) override;
+
+	void LevelChangeStart() override;
+	void LevelChangeEnd() override;
 
 private:
+
+	std::shared_ptr<class GameEngineSpriteRenderer> BackGround = nullptr;
+	std::shared_ptr<GameEngineActor> CharUI = nullptr;
+
+	bool isPressAnyKey = false;
+
+	void MakeSprite();
 };
 

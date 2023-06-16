@@ -131,7 +131,6 @@ void PlayerAirPlaneMode::Start()
 	// 
 	// idle mode
 	PlayerRender->CreateAnimation({ .AnimationName = "OriginIntro", .SpriteName = "Cuphead_AirPlane_Origin_intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-									
 	PlayerRender->CreateAnimation({ .AnimationName = "OriginIdle",  .SpriteName = "Cuphead_AirPlane_Origin_Idle", .FrameInter = 0.05f,.Loop = true , .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveUp",  .SpriteName = "Cuphead_AirPlane_Origin_Idleup", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "OriginMoveUpTrans",  .SpriteName = "Cuphead_AirPlane_Origin_transup", .FrameInter = 0.01f, .Loop = false , .ScaleToTexture = true });
@@ -178,12 +177,11 @@ void PlayerAirPlaneMode::Start()
 	
 	PlayerCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Player);
 	PlayerCollision->SetColType(ColType::SPHERE2D);
-	/*PlayerCollsion->GetTransform()->SetLocalScale(PlayerRender->GetTransform()->GetLocalScale());*/
-	//PlayerCollsion->SetOrder(CupHeadCollisionOrder::Player);
 
 
 
 	GetTransform()->SetLocalPosition(float4( -500, 0, 400));
+
 
 
 	CurState = PlayerAirPlaneModeState::INTRO;
