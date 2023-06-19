@@ -169,6 +169,9 @@
     <ClInclude Include="TitleLevel.h">
       <Filter>Levels</Filter>
     </ClInclude>
+    <ClInclude Include="CardUI.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -347,6 +350,9 @@
     </ClCompile>
     <ClCompile Include="TitleLevel.cpp">
       <Filter>Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="CardUI.cpp">
+      <Filter>Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

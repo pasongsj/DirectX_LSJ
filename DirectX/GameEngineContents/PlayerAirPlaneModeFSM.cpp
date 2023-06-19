@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "PlayerAirPlaneMode.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 
 void PlayerAirPlaneMode::Intro_Start()
@@ -93,6 +94,8 @@ void PlayerAirPlaneMode::MoveDown_End()
 void PlayerAirPlaneMode::Parry_Start()
 {
 	PlayerRender->ChangeAnimation("Parry");
+	PlayerCollision->Off();
+	ParryCollision->On();
 }
 void PlayerAirPlaneMode::Parry_Update(float _DeltaTime)
 {
@@ -100,8 +103,11 @@ void PlayerAirPlaneMode::Parry_Update(float _DeltaTime)
 	{
 		NextState = PlayerAirPlaneModeState::IDLE;
 	}
+	CheckPink();
 }
 void PlayerAirPlaneMode::Parry_End()
 {
+	ParryCollision->Off();
+	PlayerCollision->On();
 }
 

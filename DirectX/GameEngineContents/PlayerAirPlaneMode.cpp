@@ -14,6 +14,7 @@
 #include "PlayerAirPlaneSmokeEffect.h"
 #include "ChangeSuperModeEffect.h"
 #include "SupermodeShadowEffect.h"
+#include "GameEnemyWeapon.h"
 
 
 PlayerAirPlaneMode::PlayerAirPlaneMode() 
@@ -178,6 +179,10 @@ void PlayerAirPlaneMode::Start()
 	PlayerCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Player);
 	PlayerCollision->SetColType(ColType::SPHERE2D);
 
+	ParryCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::PlayerWepaon);
+	ParryCollision->SetColType(ColType::SPHERE2D);
+	ParryCollision->GetTransform()->SetLocalScale(float4(170, 170, 1));
+	ParryCollision->Off();
 
 
 	GetTransform()->SetLocalPosition(float4( -500, 0, 400));
@@ -264,6 +269,26 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 	// state
 	UpdateState(_DeltaTime);
 	MoveUpdate(_DeltaTime);
+}
+
+void PlayerAirPlaneMode::CheckPink()
+{
+
+	std::vector<std::shared_ptr<GameEngineCollision>> Cols;
+	if (true == ParryCollision->CollisionAll(CupHeadCollisionOrder::EnemyWeapon, Cols))
+	{
+		for (std::shared_ptr<GameEngineCollision> _Col : Cols)
+		{
+			std::shared_ptr<GameEnemyWeapon> ColActor = _Col->GetActor()->DynamicThis<GameEnemyWeapon>();
+			if (true == ColActor->IsPink())
+			{
+				_Col->GetActor()->Death();
+				SuperModeEnergy += 100;
+
+			}
+		}
+	}
+	
 }
 
 void PlayerAirPlaneMode::MoveUpdate(float _DeltaTime)

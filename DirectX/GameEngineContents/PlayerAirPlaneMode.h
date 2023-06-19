@@ -44,6 +44,7 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Spark = nullptr;
 
 	std::shared_ptr<class GameEngineCollision> PlayerCollision = nullptr;
+	std::shared_ptr<class GameEngineCollision> ParryCollision = nullptr;
 
 
 	PlayerAirPlaneModeState CurState = PlayerAirPlaneModeState::INTRO;
@@ -77,6 +78,8 @@ private:
 	void MakeSmoke(float _DeltaTime);
 
 	std::shared_ptr<class GameEngineActor> ShadowEffect = nullptr;
+
+	void CheckPink();
 
 	// fsm 에 대한 함수
 

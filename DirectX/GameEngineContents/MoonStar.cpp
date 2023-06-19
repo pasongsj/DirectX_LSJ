@@ -55,6 +55,7 @@ void MoonStar::SettingType()
 	else
 	{
 		FxRender->ChangeAnimation("PinkFX");
+		Pink = true;
 	}
 }
 

@@ -54,7 +54,7 @@ void ZepplingBullet::Start()
 	//Bullet->GetTransform()->SetLocalScale(float4(46, 33) * 0.8f);
 	//Bullet->Off();
 
-	BulletCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BulletCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
 	BulletCollision->GetTransform()->SetLocalScale({ 40,0,0 });
 	BulletCollision->SetColType(ColType::SPHERE2D);
 }
@@ -90,6 +90,7 @@ void ZepplingBullet::SetPurpleBullet()
 	int RandomNumber = GameEngineRandom::MainRandom.RandomInt(0, 4);
 	if (3 < RandomNumber)
 	{
+		Pink = true;
 		BulletRender->ChangeAnimation("BulletPinkA");
 	}
 }
