@@ -251,6 +251,7 @@ void GameEngineCamera::PushRenderer(std::shared_ptr<GameEngineRenderer> _Render)
 		MsgAssert("랜더러가 nullptr 입니다");
 		return;
 	}
+	_Render->RenderCamera = this;
 
 	Renderers[_Render->GetOrder()].push_back(_Render);
 }
