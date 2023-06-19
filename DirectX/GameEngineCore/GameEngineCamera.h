@@ -75,14 +75,19 @@ public:
 		SetSortType(static_cast<int>(_Index), _Sort);
 	}
 
-	void SetSortType(int _Index, SortType _Sort)
+	inline void SetSortType(int _Index, SortType _Sort)
 	{
 		SortValues[_Index] = _Sort;
 	}
 
-	void AddZoomRatio(float _Value)
+	inline void AddZoomRatio(float _Value)
 	{
 		ZoomRatio -= _Value;
+	}
+
+	inline float GetZoomRatio() const
+	{
+		return ZoomRatio;
 	}
 
 protected:

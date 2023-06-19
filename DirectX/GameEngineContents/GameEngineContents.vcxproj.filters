@@ -172,6 +172,9 @@
     <ClInclude Include="CardUI.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="OverWorldLevel.h">
+      <Filter>Levels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -353,6 +356,9 @@
     </ClCompile>
     <ClCompile Include="CardUI.cpp">
       <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="OverWorldLevel.cpp">
+      <Filter>Levels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
