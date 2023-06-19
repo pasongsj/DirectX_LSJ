@@ -175,6 +175,12 @@
     <ClInclude Include="OverWorldLevel.h">
       <Filter>Levels</Filter>
     </ClInclude>
+    <ClInclude Include="HildaBergBack4.h">
+      <Filter>Object\HildaBerg\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaBergBack5.h">
+      <Filter>Object\HildaBerg\BackGround</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -359,6 +365,12 @@
     </ClCompile>
     <ClCompile Include="OverWorldLevel.cpp">
       <Filter>Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBergBack4.cpp">
+      <Filter>Object\HildaBerg\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBergBack5.cpp">
+      <Filter>Object\HildaBerg\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

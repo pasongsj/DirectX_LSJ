@@ -19,6 +19,8 @@
 #include "HildaBergBack1.h"
 #include "HildaBergBack2.h"
 #include "HildaBergBack3.h"
+#include "HildaBergBack4.h"
+#include "HildaBergBack5.h"
 
 // Player
 #include "PlayerAirPlaneMode.h"
@@ -256,6 +258,10 @@ void HildaBergLevel::LevelChangeStart()
 	HildaBG.push_back(BG2);
 	std::shared_ptr<HildaBergBack> BG3 = CreateActor<HildaBergBack3>(CupHeadActorOrder::BackGround);
 	HildaBG.push_back(BG3);
+	std::shared_ptr<HildaBergBack> BG4 = CreateActor<HildaBergBack4>(CupHeadActorOrder::BackGround);
+	HildaBG.push_back(BG4);
+	std::shared_ptr<HildaBergBack> BG5 = CreateActor<HildaBergBack5>(CupHeadActorOrder::BackGround);
+	HildaBG.push_back(BG5);
 
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer7 = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 	std::shared_ptr<PlayerUI> UI = CreateActor<PlayerUI>(CupHeadActorOrder::UI);
