@@ -1,5 +1,3 @@
-
-
 #pragma once
 #include "GameEngineRenderer.h"
 #include "GameEngineSprite.h"
@@ -66,10 +64,14 @@ public:
 	std::vector<float> FrameTime = std::vector<float>();
 };
 
-enum ImagePivot
+enum class ClipXDir
 {
 	Left,
 	Right,
+};
+
+enum class ClipYDir
+{
 	Top,
 	Bot,
 };
@@ -127,38 +129,8 @@ public:
 		return AtlasData;
 	}
 
-	void ImageClipping(float _Ratio, ImagePivot _ScalePivot = ImagePivot::Bot, ImagePivot _PosPivot = ImagePivot::Bot)
-	{
-		ClippingPercent = _Ratio;
-
-		if (0.0f >= ClippingPercent)
-		{
-			ClippingPercent = 0.0f;
-		}
-
-
-		ScalePivot = _ScalePivot;
-		PosPivot = _PosPivot;
-
-		AtlasData = float4(0, 0, 1, 1);
-		switch (ScalePivot)
-		{
-		case Left:
-			AtlasData.PosX += (AtlasData.SizeX * (1 - ClippingPercent));
-			break;
-		case Right:
-			AtlasData.SizeX *= ClippingPercent;
-			break;
-		case Top:
-			AtlasData.PosY += (AtlasData.SizeY * (1 - ClippingPercent));
-			break;
-		case Bot:
-			AtlasData.SizeY *= ClippingPercent;
-			break;
-		default:
-			break;
-		}
-	}
+	void ImageClippingX(float _Ratio, ClipXDir _Dir);
+	void ImageClippingY(float _Ratio, ClipYDir _Dir);
 
 
 	inline float GetScaleRatio() const
@@ -193,6 +165,7 @@ public:
 protected:
 	void SpriteRenderInit();
 	float4 AtlasData;
+	float4 Clip = float4::One;
 
 	void Update(float _Delta) override;
 	std::shared_ptr<AnimationInfo> CurAnimation;
@@ -203,16 +176,10 @@ private:
 	std::map<std::string, std::shared_ptr<AnimationInfo>> Animations;
 
 	float ClippingPercent = 1.0f;
-	float4 OriginAtlasData;
-	ImagePivot ScalePivot = ImagePivot::Bot;
-	ImagePivot PosPivot = ImagePivot::Bot;
-	std::shared_ptr<GameEngineTexture> CurTexture;
-
-
 
 	std::shared_ptr<GameEngineSprite> Sprite = nullptr;
-	size_t Frame = -1;
 
+	size_t Frame = -1;
 
 	float ScaleRatio = 1.0f;
 

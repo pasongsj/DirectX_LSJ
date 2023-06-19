@@ -325,31 +325,10 @@ void GameEngineSpriteRenderer::Update(float _Delta)
 		GetShaderResHelper().SetTexture("DiffuseTex", Info.Texture);
 
 		AtlasData = Info.CutData;
-		if (ClippingPercent != 1.0f)
-		{
-			switch (ScalePivot)
-			{
-			case Left:
-				AtlasData.PosX += (AtlasData.SizeX * (1 - ClippingPercent));
-				break;
-			case Right:
-				AtlasData.SizeX *= ClippingPercent;
-				break;
-			case Top:
-				AtlasData.PosY += (AtlasData.SizeY * (1 - ClippingPercent));
-				break;
-			case Bot:
-				AtlasData.SizeY *= ClippingPercent;
-				break;
-			default:
-				break;
-			}
-		}
 
 		if (true == CurAnimation->ScaleToTexture)
 		{
 			std::shared_ptr<GameEngineTexture> Texture = Info.Texture;
-			CurTexture = Texture;
 			float4 Scale = Texture->GetScale();
 
 			Scale.x *= AtlasData.SizeX;
@@ -416,4 +395,46 @@ void GameEngineSpriteRenderer::SpriteRenderInit()
 
 	GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
 	GetShaderResHelper().SetConstantBufferLink("ColorOption", ColorOptionValue);
+	GetShaderResHelper().SetConstantBufferLink("ClipData", Clip);
+
+}
+
+
+// 내 눈에 보이는 이미지에서 0.1;
+void GameEngineSpriteRenderer::ImageClippingX(float _Ratio, ClipXDir _Dir)
+{
+	Clip.x = _Ratio;
+
+	if (_Dir == ClipXDir::Left)
+	{
+		Clip.z = 0;
+	}
+	else {
+		Clip.z = 1;
+	}
+
+	if (0.0f >= Clip.x)
+	{
+		Clip.x = 0.0f;
+	}
+}
+
+
+void GameEngineSpriteRenderer::ImageClippingY(float _Ratio, ClipYDir _Dir)
+{
+	Clip.y = _Ratio;
+
+	if (_Dir == ClipYDir::Top)
+	{
+		Clip.w = 0;
+	}
+	else {
+		Clip.w = 1;
+	}
+
+
+	if (0.0f >= Clip.y)
+	{
+		Clip.y = 0.0f;
+	}
 }
