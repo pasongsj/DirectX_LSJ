@@ -103,6 +103,8 @@ void PlayerAirPlaneMode::MakeSprite()
 
 void PlayerAirPlaneMode::Start()
 {
+	Player::Start();
+
 	if (nullptr != Player::MainPlayer)
 	{
 		MsgAssert("플레이어는 한개만 생성할 수 있습니다.");
@@ -110,20 +112,6 @@ void PlayerAirPlaneMode::Start()
 
 	Player::MainPlayer = DynamicThis<PlayerAirPlaneMode>().get();
 
-	if (false == GameEngineInput::IsKey("PlayerAirPlaneMoveLeft"))
-	{
-		GameEngineInput::CreateKey("PlayerAirPlaneMoveLeft", VK_LEFT);
-		GameEngineInput::CreateKey("PlayerAirPlaneMoveRight", VK_RIGHT);
-		GameEngineInput::CreateKey("PlayerAirPlaneMoveUp", VK_UP);
-		GameEngineInput::CreateKey("PlayerAirPlaneMoveDown", VK_DOWN);
-		GameEngineInput::CreateKey("PlayerAirPlaneParry", 'Z');
-		GameEngineInput::CreateKey("PlayerShmupSkill", 'V');
-		GameEngineInput::CreateKey("PlayerAttack", 'X');
-		GameEngineInput::CreateKey("PlayerShmUpModeSwitch", VK_SPACE);
-		GameEngineInput::CreateKey("PlayerOriginMode", VK_NUMPAD1);
-		GameEngineInput::CreateKey("PlayerShmUpMode", VK_NUMPAD2);
-		GameEngineInput::CreateKey("PlayerShrinkMode", VK_SHIFT);
-	}
 
 	MakeSprite();
 

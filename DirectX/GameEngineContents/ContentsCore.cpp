@@ -16,6 +16,7 @@
 #include "TutorialLevel.h"
 #include "ResultLevel.h"
 #include "TitleLevel.h"
+#include "OverWorldLevel.h"
 
 ContentsCore::ContentsCore() 
 {
@@ -45,8 +46,9 @@ void ContentsCore::GameStart()
 	GameEngineCore::CreateLevel<TutorialLevel>();
 	GameEngineCore::CreateLevel<ResultLevel>();
 	GameEngineCore::CreateLevel<TitleLevel>();
+	GameEngineCore::CreateLevel<OverWorldLevel>();
 
-	GameEngineCore::ChangeLevel("TitleLevel");
+	GameEngineCore::ChangeLevel("OverWorldLevel");
 }
 
 void ContentsCore::GameEnd() 
