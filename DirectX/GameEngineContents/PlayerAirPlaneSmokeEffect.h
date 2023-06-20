@@ -22,7 +22,7 @@ protected:
 private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> Smoke = nullptr;
-	float MoveSpeed = 100;
+	float MoveSpeed = 200;
 
 	void MakeSprite();
 

@@ -48,7 +48,7 @@ void TutorialBackGround::Update(float _DeltaTime)
 		isBGAnimationEnd = true;
 		std::shared_ptr<GameEngineButton> ExitBtn = GetLevel()->CreateActor<GameEngineButton>(CupHeadActorOrder::UI);
 		ExitBtn->SetButtonRender("exit.png", true);
-		ExitBtn->GetTransform()->SetLocalPosition(float4(447, -287));
+		ExitBtn->GetTransform()->SetLocalPosition(float4(438, -288));
 		ExitBtn->SetEvent([]
 			{
 				GameEngineCore::ChangeLevel("LoadingLevel");

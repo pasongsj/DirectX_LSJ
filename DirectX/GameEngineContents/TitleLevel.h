@@ -25,7 +25,9 @@ private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> BackGround = nullptr;
 	std::shared_ptr<GameEngineActor> CharUI = nullptr;
+	std::shared_ptr<GameEngineActor> BtnUI = nullptr;
 
+	bool isLogoDone = false;
 	bool isPressAnyKey = false;
 
 	void MakeSprite();

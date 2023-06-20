@@ -431,6 +431,7 @@ void PlayerAirPlaneMode::MakeSmoke(float _DeltaTime)
 		std::shared_ptr< PlayerAirPlaneSmokeEffect> Smoke = GetLevel()->CreateActor< PlayerAirPlaneSmokeEffect>(CupHeadActorOrder::PlayerEffect);
 		float4 Pos = GetTransform()->GetWorldPosition();
 		Pos.x -= PlayerRender->GetTransform()->GetLocalScale().hx();
+		Pos.y -= 15;
 		Pos.z = 310;
 		Smoke->GetTransform()->SetLocalPosition(Pos);
 	}

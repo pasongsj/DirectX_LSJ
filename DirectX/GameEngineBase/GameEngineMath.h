@@ -747,6 +747,12 @@ public:
 		Arr2D[3][2] = _ZMax != 0.0f ? 0.0f : _ZMin / _ZMax;
 		Arr2D[3][3] = 1.0f;
 	}
+	void Compose(const float4& _Scale, const float4& _RotQuaternion, const float4& _Pos)
+	{
+		float4 _Rot = _RotQuaternion;
+		_Rot.QuaternionToEulerDeg();
+		*this =  DirectX::XMMatrixAffineTransformation(_Scale.DirectVector, _Rot.DirectVector, _RotQuaternion.DirectVector, _Pos.DirectVector);
+	}
 
 	void Decompose(float4& _Scale, float4& _RotQuaternion, float4& _Pos) const
 	{

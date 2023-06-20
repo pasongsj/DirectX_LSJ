@@ -27,7 +27,7 @@ void PlayerAirPlaneSmokeEffect::Start()
 {
 	MakeSprite();
 	Smoke = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
-	Smoke->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Cuphead_AirPlane_Smoke_Idle", .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
+	Smoke->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Cuphead_AirPlane_Smoke_Idle", .FrameInter = 0.03f, .Loop = false, .ScaleToTexture = true });
 	Smoke->ChangeAnimation("Idle");
 
 }
