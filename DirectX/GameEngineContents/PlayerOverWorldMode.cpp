@@ -43,7 +43,7 @@ void PlayerOverWorldMode::Start()
 	PlayerRender->CreateAnimation({ .AnimationName = "Left_Idle", .SpriteName = "Side_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "Left_Move", .SpriteName = "Side_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 
-	PlayerRender->CreateAnimation({ .AnimationName = "InterAction_Win", .SpriteName = "InterAction_Win", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "InterAction_Win", .SpriteName = "InterAction_Win", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 
 	PlayerRender->ChangeAnimation("Down_Right_Idle");
 	//PlayerRender->SetAnimationStartEvent()
@@ -67,14 +67,20 @@ void PlayerOverWorldMode::Start()
 	UpdateFuncPtr[static_cast<int>(PlayerOverWorldModeState::WIN)] = std::bind(&PlayerOverWorldMode::Win_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(PlayerOverWorldModeState::WIN)] = std::bind(&PlayerOverWorldMode::Win_End, this);
 
-
+	if (false == GameEngineInput::IsKey("Press_I"))
+	{
+		GameEngineInput::CreateKey("Press_I", 'I');
+	}
 }
 
 void PlayerOverWorldMode::Update(float _DeltaTime)
 {
-	CheckInput();
-	MoveUpdate(_DeltaTime);
-	MainCameraMove(_DeltaTime);
+	UpdateState(_DeltaTime);
+
+	if (true == GameEngineInput::IsPress("Press_I"))
+	{
+		NextState = PlayerOverWorldModeState::WIN;
+	}
 }
 
 void PlayerOverWorldMode::Render(float _DeltaTime)
@@ -85,6 +91,7 @@ void PlayerOverWorldMode::MoveUpdate(float _DeltaTime)
 {
 	GetTransform()->AddLocalPosition(MoveVec * MoveSpeed * _DeltaTime);
 	MoveVec = float4::Zero;
+	MainCameraMove(_DeltaTime);
 }
 
 void PlayerOverWorldMode::UpdateState(float _DeltaTime)
