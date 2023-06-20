@@ -51,6 +51,40 @@ public:
 	static const float4 White;
 	static const float4 Black;
 
+	static float4 GetSafeScaleReciprocal(const float4& _InScale, float _Tolerance)
+	{
+		float4 SafeReciprocalScale;
+
+		if (std::fabsf(_InScale.x) <= _Tolerance)
+		{
+			SafeReciprocalScale.x = 0.f;
+		}
+		else
+		{
+			SafeReciprocalScale.x = 1 / _InScale.x;
+		}
+
+		if (std::fabsf(_InScale.y) <= _Tolerance)
+		{
+			SafeReciprocalScale.y = 0.f;
+		}
+		else
+		{
+			SafeReciprocalScale.y = 1 / _InScale.y;
+		}
+
+		if (std::fabsf(_InScale.z) <= _Tolerance)
+		{
+			SafeReciprocalScale.z = 0.f;
+		}
+		else
+		{
+			SafeReciprocalScale.z = 1 / _InScale.z;
+		}
+
+		return SafeReciprocalScale;
+	}
+
 	static float4 AngleToDirection2DToDeg(float _Deg)
 	{
 		return AngleToDirection2DToRad(_Deg * GameEngineMath::DegToRad);

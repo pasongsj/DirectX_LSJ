@@ -588,6 +588,7 @@ void GameEngineCore::CoreResourcesEnd()
 {
 	GameEngineMesh::ResourcesClear();
 	GameEngineBlend::ResourcesClear();
+	GameEngineSound::ResourcesClear();
 	GameEngineTexture::ResourcesClear();
 	GameEngineRasterizer::ResourcesClear();
 	GameEngineIndexBuffer::ResourcesClear();
