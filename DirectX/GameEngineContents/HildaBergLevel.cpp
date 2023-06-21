@@ -71,11 +71,6 @@ void HildaBergLevel::Update(float _DeltaTime)
 	{
 		GameEngineLevel::IsDebugSwitch();
 	}
-	if (true == GameEngineInput::IsDown("ChangeLevel"))
-	{
-		GameEngineCore::ChangeLevel("LoadingLevel");
-		LoadingLevel::SetLevel(CupheadLevel::STORY);
-	}
 
 	// ÀÜÃ¬ÀÌ ¼ÒÈ¯
 	if (GetLiveTime() > NextSponeTime)
@@ -139,12 +134,11 @@ void HildaBergLevel::Update(float _DeltaTime)
 		FEffect->FadeIn();
 		EndTime = -1;
 	}
-	else if (EndTime < 0.0f && true == FEffect->IsEnd())
+	else if (EndTime < 0.0f && true == FEffect->IsEnd() || true == GameEngineInput::IsDown("ChangeLevel"))
 	{
-		GameEngineCore::ChangeLevel("StoryLevel");
+		GameEngineCore::ChangeLevel("OverWorldLevel");
 		return;
 	}
-	
 
 	BossSetting();
 
@@ -271,8 +265,11 @@ void HildaBergLevel::LevelChangeStart()
 void HildaBergLevel::LevelChangeEnd()
 {
 	UnLoadSprite();
-	Player::MainPlayer->Death();
-	Player::MainPlayer = nullptr;
+	if(nullptr != Player::MainPlayer)
+	{
+		Player::MainPlayer->Death();
+		Player::MainPlayer = nullptr;
+	}
 	Boss->Death();
 	Boss = nullptr;
 	for (std::shared_ptr<HildaBergBack> _BG : HildaBG)

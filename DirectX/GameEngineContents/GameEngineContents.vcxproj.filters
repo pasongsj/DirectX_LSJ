@@ -187,6 +187,9 @@
     <ClInclude Include="PlayerOverWorldMode.h">
       <Filter>Object\Player\OverWorld</Filter>
     </ClInclude>
+    <ClInclude Include="postitionkit.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -387,6 +390,9 @@
     <ClCompile Include="PlayerOverWorldModeFSM.cpp">
       <Filter>Object\Player\OverWorld</Filter>
     </ClCompile>
+    <ClCompile Include="postitionkit.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -466,6 +472,9 @@
     </Filter>
     <Filter Include="Object\Player\OverWorld">
       <UniqueIdentifier>{f23ee28a-7c32-4e33-91c4-dfa04cb3ce76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IMGUI">
+      <UniqueIdentifier>{8353a534-8ec0-47de-9782-0be3be228fcb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

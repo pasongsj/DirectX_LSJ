@@ -14,7 +14,9 @@ void OverWorldBack::Start()
 {
 	std::shared_ptr<GameEngineSpriteRenderer> BG = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	BG->SetScaleToTexture("Overworld_Map.png");
-	GetTransform()->SetLocalPosition(float4(0, 0, 900));
+	float4 Pos = BG->GetTransform()->GetLocalScale().half();
+	GetTransform()->SetLocalPosition(float4(Pos.x, -Pos.y, 900));
+
 }
 void OverWorldBack::Update(float _DeltaTiime)
 {

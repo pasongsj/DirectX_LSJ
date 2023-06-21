@@ -4,6 +4,9 @@
 #include "OverWorldBack.h"
 #include "PlayerOverWorldMode.h"
 #include <GameEngineCore/GameEngineSprite.h>
+#include <GameEnginePlatform/GameEngineInput.h>
+
+#include "LoadingLevel.h"
 
 OverWorldLevel::OverWorldLevel() 
 {
@@ -68,7 +71,11 @@ void OverWorldLevel::Start()
 
 void OverWorldLevel::Update(float _DeltaTime)
 {
-
+	if (true == GameEngineInput::IsDown("ChangeLevel"))
+	{
+		LoadingLevel::SetLevel(CupheadLevel::HILDA);
+		GameEngineCore::ChangeLevel("LoadingLevel");
+	}
 }
 
 void OverWorldLevel::LevelChangeStart()
@@ -78,9 +85,20 @@ void OverWorldLevel::LevelChangeStart()
 	MakeSprite();
 	CreateActor<OverWorldBack>(CupHeadActorOrder::BackGround);
 	CreateActor<PlayerOverWorldMode>(CupHeadActorOrder::Player);
+
+	if (false == GameEngineInput::IsKey("ChangeLevel"))
+	{
+		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
+	}
 }
 void OverWorldLevel::LevelChangeEnd()
 {
+	if (nullptr != Player::MainPlayer)
+	{
+		Player::MainPlayer->Death();
+		Player::MainPlayer = nullptr;
+	}
+
 	AllActorDestroy();
 
 	GameEngineTexture::UnLoad("Overworld_Map.png");

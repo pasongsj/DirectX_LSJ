@@ -16,7 +16,13 @@ PlayerOverWorldMode::~PlayerOverWorldMode()
 void PlayerOverWorldMode::Start()
 {
 	Player::Start();
+	if (nullptr != Player::MainPlayer)
+	{
+		MsgAssert("플레이어는 한개만 생성할 수 있습니다.");
+	}
 
+	Player::MainPlayer = DynamicThis<PlayerOverWorldMode>().get();
+	
 	PlayerRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Player);
 	PlayerRender->CreateAnimation({ .AnimationName = "Down_Right_Idle", .SpriteName = "Diag_Down_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "Down_Right_Move", .SpriteName = "Diag_Down_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
@@ -48,7 +54,7 @@ void PlayerOverWorldMode::Start()
 	PlayerRender->ChangeAnimation("Down_Right_Idle");
 	//PlayerRender->SetAnimationStartEvent()
 
-
+	GetTransform()->SetLocalPosition(float4(880, -1000));
 
 	// FSM 실행함수 포인터
 
@@ -71,6 +77,8 @@ void PlayerOverWorldMode::Start()
 	{
 		GameEngineInput::CreateKey("Press_I", 'I');
 	}
+
+	ColMapTexture = GameEngineTexture::Find("Overworld_ColMap.png");
 }
 
 void PlayerOverWorldMode::Update(float _DeltaTime)
@@ -89,6 +97,15 @@ void PlayerOverWorldMode::Render(float _DeltaTime)
 
 void PlayerOverWorldMode::MoveUpdate(float _DeltaTime)
 {
+	float4 PlayerPos = GetTransform()->GetLocalPosition() + MoveVec * MoveSpeed * _DeltaTime;
+	GameEnginePixelColor Color = ColMapTexture->GetPixel(PlayerPos.ix(), -(PlayerPos.iy()));
+	if (GameEnginePixelColor(0,0,0,1) != ColMapTexture->GetPixel(PlayerPos.ix(), -(PlayerPos.iy()), GameEnginePixelColor(0, 0, 0, 1)))
+	{
+	}
+	else
+	{
+		int a = 0;
+	}
 	GetTransform()->AddLocalPosition(MoveVec * MoveSpeed * _DeltaTime);
 	MoveVec = float4::Zero;
 	MainCameraMove(_DeltaTime);

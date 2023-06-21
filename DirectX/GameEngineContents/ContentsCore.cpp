@@ -17,6 +17,7 @@
 #include "ResultLevel.h"
 #include "TitleLevel.h"
 #include "OverWorldLevel.h"
+#include "postitionkit.h"
 
 ContentsCore::ContentsCore() 
 {
@@ -36,6 +37,7 @@ void ContentsCore::GameStart()
 	ContentsResourcesCreate();
 
 	//GameEngineGUI::GUIWindowCreate<GameEngineCoreWindow>("Controller");
+	GameEngineGUI::GUIWindowCreate<postitionkit>("Controller");
 
 
 
@@ -48,7 +50,7 @@ void ContentsCore::GameStart()
 	GameEngineCore::CreateLevel<TitleLevel>();
 	GameEngineCore::CreateLevel<OverWorldLevel>();
 
-	GameEngineCore::ChangeLevel("OverWorldLevel");
+	GameEngineCore::ChangeLevel("TitleLevel");
 }
 
 void ContentsCore::GameEnd() 

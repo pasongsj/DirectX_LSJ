@@ -4,6 +4,8 @@
 #include <GameEngineCore/GameEngineSprite.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
+#include "LoadingLevel.h"
+
 TitleLevel::TitleLevel() 
 {
 }
@@ -62,6 +64,11 @@ void TitleLevel::Update(float _DeltaTime)
 		BackGround->SetScaleToTexture("cuphead_secondary_title_screen.png");
 		isPressAnyKey = true;
 	}
+	if (true == isLogoDone && true == isPressAnyKey  && true == GameEngineInput::IsDown("ChangeLevel"))
+	{
+		LoadingLevel::SetLevel(CupheadLevel::STORY);
+		GameEngineCore::ChangeLevel("LoadingLevel");
+	}
 }
 
 
@@ -70,6 +77,12 @@ void TitleLevel::LevelChangeStart()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+
+
+	if (false == GameEngineInput::IsKey("ChangeLevel"))
+	{
+		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
+	}
 
 	MakeSprite();
 	isLogoDone = false;

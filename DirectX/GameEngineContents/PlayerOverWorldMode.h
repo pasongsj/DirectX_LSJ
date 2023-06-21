@@ -31,7 +31,10 @@ protected:
 
 private:
 
+	int Stage = 1; 
+
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerRender = nullptr;
+	std::shared_ptr<class GameEngineTexture> ColMapTexture = nullptr;
 
 
 	float  MoveSpeed = 500.0f;

@@ -6,7 +6,7 @@
 #include <GameEngineCore/GameEngineSprite.h>
 
 #include "StoryObject.h"
-#include "LoadingLevel.h"
+
 StoryLevel::StoryLevel() 
 {
 }
@@ -26,14 +26,9 @@ void StoryLevel::Start()
 }
 void StoryLevel::Update(float _DeltaTime) 
 {
-	if (true == Story->isEnd()) 
+	if (true == Story->isEnd() || true == GameEngineInput::IsDown("ChangeLevel"))
 	{
-		GameEngineCore::ChangeLevel("LoadingLevel");
-	}
-	if (true == GameEngineInput::IsDown("ChangeLevel"))
-	{
-		GameEngineCore::ChangeLevel("LoadingLevel");
-		LoadingLevel::SetLevel(CupheadLevel::HILDA);
+		GameEngineCore::ChangeLevel("OverWorldLevel");
 	}
 }
 	
