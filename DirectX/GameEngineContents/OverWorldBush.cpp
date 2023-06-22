@@ -22,7 +22,7 @@ void OverWorldBush::Start()
 	std::shared_ptr<GameEngineSpriteRenderer> RightBush = CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::ForeGround);
 	RightBush->SetScaleToTexture("Overworld_Bush_Right.png");
 	float4 RScale = RightBush->GetTransform()->GetLocalScale();
-	RightBush->GetTransform()->SetLocalPosition(float4(RScale.hx(), -21));
+	RightBush->GetTransform()->SetLocalPosition(float4(RScale.hx()-1, -21));
 
 	GetTransform()->SetLocalPosition(float4(2139, -1084, 300));
 }

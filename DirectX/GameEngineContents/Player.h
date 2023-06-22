@@ -29,7 +29,7 @@ public:
 	{
 		return (SuperModeEnergy > 500 ? 500 : SuperModeEnergy);
 	}
-	inline void Attack(int _Dmg)
+	virtual void Attack(int _Dmg)
 	{
 		if (InvincibleTime < 0)
 		{

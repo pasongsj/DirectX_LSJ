@@ -54,7 +54,7 @@ void PlayerOverWorldMode::Start()
 	PlayerRender->ChangeAnimation("Down_Right_Idle");
 	//PlayerRender->SetAnimationStartEvent()
 
-	GetTransform()->SetLocalPosition(float4(880, -1000, 400));
+	GetTransform()->SetLocalPosition(float4(830, -830, 400));
 
 	// FSM 실행함수 포인터
 
@@ -102,12 +102,8 @@ void PlayerOverWorldMode::MoveUpdate(float _DeltaTime)
 	GameEnginePixelColor BC(static_cast<char>(0), static_cast<char>(0), static_cast<char>(0), static_cast<char>(255));
 	if (BC != ColMapTexture->GetPixel(PlayerPos.ix(), -(PlayerPos.iy()), GameEnginePixelColor(0, 0, 0, 255)))
 	{
+		MoveVec.Normalize();
 		GetTransform()->AddLocalPosition(MoveVec * MoveSpeed * _DeltaTime);
-		int a = 0;
-	}
-	else
-	{
-		int a = 0;
 	}
 	MoveVec = float4::Zero;
 	MainCameraMove(_DeltaTime);

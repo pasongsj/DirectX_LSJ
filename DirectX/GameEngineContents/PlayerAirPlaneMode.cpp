@@ -403,6 +403,7 @@ void PlayerAirPlaneMode::ChangeMode(const std::string_view& _Mode)
 		float4 Pos = GetTransform()->GetWorldPosition();
 		Pos.z = 300;
 		Effect->GetTransform()->SetLocalPosition(Pos);
+		SuperModeBoomAttack();
 		CurMode = _Mode.data();
 	}
 	CurMode = _Mode.data();
@@ -443,4 +444,31 @@ void PlayerAirPlaneMode::TimePlay()
 {
 	GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(1.0f);
 	GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(1.0f);
+}
+
+void PlayerAirPlaneMode::Attack(int _Dmg)
+{
+	if ("Super" == CurMode)
+	{
+		ChangeMode("Origin");
+		NextState = PlayerAirPlaneModeState::IDLE;
+	}
+	else
+	{
+		Player::Attack(_Dmg);
+	}
+}
+
+
+void PlayerAirPlaneMode::SuperModeBoomAttack()
+{
+	float4 PlayerPos = GetTransform()->GetWorldPosition();
+	for (std::shared_ptr<GameEngineCollision> _Col : GetLevel()->GetCollisionGroup(CupHeadCollisionOrder::Enemy))
+	{
+		std::shared_ptr<GameEnemy> ColActor = _Col->GetActor()->DynamicThis<GameEnemy>();
+		if (PlayerPos.XYDistance(ColActor->GetTransform()->GetWorldPosition()) < 640.0f)
+		{
+			ColActor->Attack(20);
+		}
+	}
 }

@@ -136,7 +136,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 	}
 	else if (EndTime < 0.0f && true == FEffect->IsEnd() || true == GameEngineInput::IsDown("ChangeLevel"))
 	{
-		GameEngineCore::ChangeLevel("OverWorldLevel");
+		GameEngineCore::ChangeLevel("ResultLevel");
 		return;
 	}
 

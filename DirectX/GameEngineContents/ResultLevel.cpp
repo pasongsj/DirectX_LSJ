@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "ResultLevel.h"
+#include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineSprite.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
@@ -44,6 +45,13 @@ void ResultLevel::MakeSprite()
 
 }
 
+void ResultLevel::Update(float _DeltaTime)
+{
+	if (true == GameEngineInput::IsDown("ChangeLevel"))
+	{
+		GameEngineCore::ChangeLevel("OverWorldLevel");
+	}
+}
 
 void ResultLevel::LevelChangeStart()
 {
@@ -71,6 +79,11 @@ void ResultLevel::LevelChangeStart()
 	}
 	// Board
 	CreateActor<ResultBoard>(CupHeadActorOrder::UI);
+
+	if (false == GameEngineInput::IsKey("ChangeLevel"))
+	{
+		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
+	}
 
 }
 

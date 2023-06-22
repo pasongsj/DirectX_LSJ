@@ -100,6 +100,18 @@ public:
 	}
 
 
+	template<typename EnumType>
+	std::list<std::shared_ptr<GameEngineCollision>> GetCollisionGroup(EnumType _Index)
+	{
+		return GetCollisionGroup(static_cast<int>(_Index));
+	}
+
+	std::list<std::shared_ptr<GameEngineCollision>> GetCollisionGroup(int _Index)
+	{
+		return Collisions[_Index];
+	}
+
+
 protected:
 	// 레벨이 바뀌어서 시작할때
 	virtual void LevelChangeStart();

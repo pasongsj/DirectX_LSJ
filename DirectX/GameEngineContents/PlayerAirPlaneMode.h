@@ -28,6 +28,7 @@ public:
 	PlayerAirPlaneMode& operator=(const PlayerAirPlaneMode& _Other) = delete;
 	PlayerAirPlaneMode& operator=(PlayerAirPlaneMode&& _Other) noexcept = delete;
 
+	void Attack(int _Dmg) override;
 
 protected:
 	void Start() override;
@@ -113,5 +114,7 @@ private:
 
 	void TimeStop();
 	void TimePlay();
+
+	void SuperModeBoomAttack();
 };
 

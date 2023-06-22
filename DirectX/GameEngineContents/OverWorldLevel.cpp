@@ -94,12 +94,8 @@ void OverWorldLevel::LevelChangeStart()
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	MakeSprite();
 
-	std::shared_ptr<GameEngineActor> OVBG = CreateActor<OverWorldBack>(CupHeadActorOrder::BackGround);
-	//float4 OVBGPos = OVBG->GetTransform()->GetWorldPosition().half();
-	//OVBGPos.z = 0;
-
-	std::shared_ptr<GameEngineActor> OVFG = CreateActor<OverWorldBush>(CupHeadActorOrder::BackGround);
-	//OVFG->GetTransform()->AddLocalPosition(OVBGPos);
+	CreateActor<OverWorldBack>(CupHeadActorOrder::BackGround);
+	CreateActor<OverWorldBush>(CupHeadActorOrder::BackGround);
 
 	CreateActor<PlayerOverWorldMode>(CupHeadActorOrder::Player);
 
@@ -120,4 +116,6 @@ void OverWorldLevel::LevelChangeEnd()
 
 	GameEngineTexture::UnLoad("Overworld_Map.png");
 	GameEngineTexture::UnLoad("Overworld_ColMap.png");
+	GameEngineTexture::UnLoad("Overworld_Bush_Left.png");
+	GameEngineTexture::UnLoad("Overworld_Bush_Right.png");
 }
