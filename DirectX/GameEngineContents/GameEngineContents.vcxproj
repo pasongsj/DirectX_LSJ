@@ -465,6 +465,18 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Wally1.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="WallyBoss.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="WallyLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Zeppling.h">
       <SubType>
       </SubType>
@@ -795,6 +807,19 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TutorialLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Wally1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Wally1FSM.cpp" />
+    <ClCompile Include="WallyBoss.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="WallyLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -193,6 +193,15 @@
     <ClInclude Include="OverWorldBush.h">
       <Filter>Object\OverWrold</Filter>
     </ClInclude>
+    <ClInclude Include="WallyLevel.h">
+      <Filter>Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="WallyBoss.h">
+      <Filter>Object\Wally\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally1.h">
+      <Filter>Object\Wally\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -399,6 +408,18 @@
     <ClCompile Include="OverWorldBush.cpp">
       <Filter>Object\OverWrold</Filter>
     </ClCompile>
+    <ClCompile Include="WallyLevel.cpp">
+      <Filter>Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="WallyBoss.cpp">
+      <Filter>Object\Wally\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally1.cpp">
+      <Filter>Object\Wally\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally1FSM.cpp">
+      <Filter>Object\Wally\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -481,6 +502,12 @@
     </Filter>
     <Filter Include="IMGUI">
       <UniqueIdentifier>{8353a534-8ec0-47de-9782-0be3be228fcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Wally">
+      <UniqueIdentifier>{950055ab-d38c-44c1-8058-28bfcc6b9a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Wally\Boss">
+      <UniqueIdentifier>{e39d270a-1c22-49c0-a1df-10717ff466aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
