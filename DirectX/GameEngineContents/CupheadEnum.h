@@ -11,6 +11,7 @@ enum class CupHeadRendererOrder
 	Player,
 	PlayerWepaon,
 	PlayerEffect,
+	ForeGround,
 	UI,
 	MAX,
 };

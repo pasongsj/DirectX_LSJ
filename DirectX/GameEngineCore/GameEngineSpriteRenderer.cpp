@@ -111,6 +111,7 @@ void GameEngineSpriteRenderer::Start()
 void GameEngineSpriteRenderer::SetTexture(const std::string_view& _Name)
 {
 	CurAnimation = nullptr;
+	AtlasData = float4{ 0.0f, 0.0f, 1.0f, 1.0f };
 	GetShaderResHelper().SetTexture("DiffuseTex", _Name);
 }
 
@@ -146,6 +147,7 @@ void GameEngineSpriteRenderer::SetScaleToTexture(const std::string_view& _Name)
 void GameEngineSpriteRenderer::SetScaleToTexture(std::shared_ptr<GameEngineTexture> _Texture)
 {
 	CurAnimation = nullptr;
+	AtlasData = float4{ 0.0f, 0.0f, 1.0f, 1.0f };
 	if (nullptr == _Texture)
 	{
 		MsgAssert("nullptr인 텍스쳐를 사용하려 했습니다");

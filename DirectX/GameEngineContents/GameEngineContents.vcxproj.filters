@@ -190,6 +190,9 @@
     <ClInclude Include="postitionkit.h">
       <Filter>IMGUI</Filter>
     </ClInclude>
+    <ClInclude Include="OverWorldBush.h">
+      <Filter>Object\OverWrold</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -392,6 +395,9 @@
     </ClCompile>
     <ClCompile Include="postitionkit.cpp">
       <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="OverWorldBush.cpp">
+      <Filter>Object\OverWrold</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

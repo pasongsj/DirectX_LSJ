@@ -50,7 +50,7 @@ void ContentsCore::GameStart()
 	GameEngineCore::CreateLevel<TitleLevel>();
 	GameEngineCore::CreateLevel<OverWorldLevel>();
 
-	GameEngineCore::ChangeLevel("TitleLevel");
+	GameEngineCore::ChangeLevel("OverWorldLevel");
 }
 
 void ContentsCore::GameEnd() 

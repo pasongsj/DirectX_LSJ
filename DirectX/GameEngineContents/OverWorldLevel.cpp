@@ -1,12 +1,15 @@
 #include "PrecompileHeader.h"
 #include "OverWorldLevel.h"
 
-#include "OverWorldBack.h"
-#include "PlayerOverWorldMode.h"
 #include <GameEngineCore/GameEngineSprite.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
 #include "LoadingLevel.h"
+
+#include "OverWorldBack.h"
+#include "OverWorldBush.h"
+#include "PlayerOverWorldMode.h"
+
 
 OverWorldLevel::OverWorldLevel() 
 {
@@ -28,14 +31,21 @@ void OverWorldLevel::MakeSprite()
 		{
 			GameEngineTexture::Load(Dir.GetPlusFileName("Overworld_Map.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("Overworld_ColMap.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("Upper\\Bush\\Overworld_Bush_Left.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("Upper\\Bush\\Overworld_Bush_Right.png").GetFullPath());
 		}
 		else
 		{
 			GameEngineTexture::ReLoad("Overworld_Map.png");
 			GameEngineTexture::ReLoad("Overworld_ColMap.png");
+			GameEngineTexture::ReLoad("Overworld_Bush_Left.png");
+			GameEngineTexture::ReLoad("Overworld_Bush_Right.png");
 		}
 
 		// Sprite
+	}
+	{
+
 	}
 	{
 		GameEngineDirectory Dir;
@@ -83,7 +93,14 @@ void OverWorldLevel::LevelChangeStart()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	MakeSprite();
-	CreateActor<OverWorldBack>(CupHeadActorOrder::BackGround);
+
+	std::shared_ptr<GameEngineActor> OVBG = CreateActor<OverWorldBack>(CupHeadActorOrder::BackGround);
+	//float4 OVBGPos = OVBG->GetTransform()->GetWorldPosition().half();
+	//OVBGPos.z = 0;
+
+	std::shared_ptr<GameEngineActor> OVFG = CreateActor<OverWorldBush>(CupHeadActorOrder::BackGround);
+	//OVFG->GetTransform()->AddLocalPosition(OVBGPos);
+
 	CreateActor<PlayerOverWorldMode>(CupHeadActorOrder::Player);
 
 	if (false == GameEngineInput::IsKey("ChangeLevel"))
