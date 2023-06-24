@@ -253,7 +253,20 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 
 	//defeat interval
 	InvincibleTime -= _DeltaTime;
+	BlinkInterval -= _DeltaTime;
+	if (InvincibleTime > 0)
+	{
+		if (BlinkInterval < 0)
+		{
+			BlinkInterval = 0.1f;
+			PlayerRender->ColorOptionValue.MulColor = float4(1, 1, 1, 0.1f);
+		}
+		else
+		{
+			PlayerRender->ColorOptionValue.MulColor = float4(1, 1, 1, 1);
 
+		}
+	}
 	// state
 	UpdateState(_DeltaTime);
 	MoveUpdate(_DeltaTime);
@@ -452,6 +465,7 @@ void PlayerAirPlaneMode::Attack(int _Dmg)
 	{
 		ChangeMode("Origin");
 		NextState = PlayerAirPlaneModeState::IDLE;
+		InvincibleTime = 2.0f;
 	}
 	else
 	{

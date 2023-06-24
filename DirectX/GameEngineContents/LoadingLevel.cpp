@@ -643,47 +643,47 @@ void LoadingLevel::LoadStorySprite()
 	switch (Phase)
 	{
 	case 0:
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 01-02").GetFullPath(), "story1");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page1").GetFullPath(), "story1");
 		++Phase;
 		break;
 	case 1:
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 02-03").GetFullPath(), "story2");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page2").GetFullPath(), "story2");
 		++Phase;
 		break;
 	case 2:
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 03-04").GetFullPath(), "story3");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page3").GetFullPath(), "story3");
 		++Phase;
 		break;
 	case 3:
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 04-05").GetFullPath(), "story4");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page4").GetFullPath(), "story4");
 		++Phase;
 		break;
 	case 4:
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 05-06").GetFullPath(), "story5");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page5").GetFullPath(), "story5");
 		++Phase;
 		break;
 	case 5:
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 06-07").GetFullPath(), "story6");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page6").GetFullPath(), "story6");
 		++Phase;
 		break;
 	case 6:
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 07-08").GetFullPath(), "story7");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page7").GetFullPath(), "story7");
 		++Phase;
 		break;
 	case 7:
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 08-09").GetFullPath(), "story8");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page8").GetFullPath(), "story8");
 		++Phase;
 		break;
 	case 8:
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 09-10").GetFullPath(), "story9");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page9").GetFullPath(), "story9");
 		++Phase;
 		break;
 	case 9:
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 10-11").GetFullPath(), "story10");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page10").GetFullPath(), "story10");
 		++Phase;
 		break;
 	case 10:
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page 00-01").GetFullPath(), "story0");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("story\\before\\Page0").GetFullPath(), "story0");
 		++Phase;
 		break;
 	default:

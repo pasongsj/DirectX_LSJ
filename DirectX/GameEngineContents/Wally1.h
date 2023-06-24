@@ -30,7 +30,9 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameContentsEnemyRenderer> BossRender = nullptr;
+	std::shared_ptr<class GameContentsEnemyRenderer> HouseRender = nullptr;
+	std::shared_ptr<class GameContentsEnemyRenderer> FeetRender = nullptr;
+	std::shared_ptr<class GameContentsEnemyRenderer> HeadRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
 
 
@@ -57,6 +59,8 @@ private:
 	std::function<void()> StartFuncPtr[static_cast<int>(Wally1State::MAX)];
 	std::function<void(float)> UpdateFuncPtr[static_cast<int>(Wally1State::MAX)];
 	std::function<void()> EndFuncPtr[static_cast<int>(Wally1State::MAX)];
+
+	void MakeSprite();
 
 };
 

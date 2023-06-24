@@ -85,14 +85,14 @@ float4 BrightShader_PS(OutPut _Value) : SV_Target0
 
     if(BrightOptionValue.x > 0)
     {
-        float r =  Color.r * 0.55;
-        float g =  Color.g * 0.55;
-        float b =  Color.b * 0.55;
+        float r =  Color.r * 0.35;
+        float g =  Color.g * 0.35;
+        float b =  Color.b * 0.35;
 
         
-        r  += 0.45;
-        g  += 0.45;
-        b  += 0.45;
+        r  += 0.65;
+        g  += 0.65;
+        b  += 0.65;
 
         Color.r = r;
         Color.g = g;

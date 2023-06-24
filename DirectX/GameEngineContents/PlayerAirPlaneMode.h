@@ -61,6 +61,7 @@ private:
 	
 	// Effect Interval
 	float SmokeInterval = 0.3f;
+	float BlinkInterval = 0.1f;
 
 	void MoveUpdate(float _DeltaTime);
 
