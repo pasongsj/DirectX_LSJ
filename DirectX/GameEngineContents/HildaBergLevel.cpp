@@ -47,6 +47,7 @@
 #include "PlayerUI.h"
 #include "GetReadyUI.h"
 #include "KnockOutUI.h"
+#include "YouDieUI.h"
 
 //Effect
 #include "FadeEffect.h"
@@ -71,6 +72,33 @@ void HildaBergLevel::Update(float _DeltaTime)
 	{
 		GameEngineLevel::IsDebugSwitch();
 	}
+	if (0.0f < EndTime) // ³¡³²
+	{
+		if (EndTime < GetLiveTime())
+		{
+			if (false == isEffectOn)
+			{
+				FEffect->SetTakesTime(3.0f);
+				FEffect->FadeIn();
+				isEffectOn = true;
+			}
+			else if (true == FEffect->IsEnd())
+			{
+				GameEngineCore::ChangeLevel("ResultLevel");
+			}
+
+		}
+		return;
+	}
+
+
+	if (Player::MainPlayer->GetHP() <= 0)
+	{
+		CreateActor<YouDieUI>(CupHeadActorOrder::UI);
+		EndTime = GetLiveTime() + 5.0f;
+		return;
+
+	}
 
 	// ÀÜÃ¬ÀÌ ¼ÒÈ¯
 	if (GetLiveTime() > NextSponeTime)
@@ -83,7 +111,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 		{
 			CreateActor<HIldaMoonUFO>(CupHeadActorOrder::Enemy);
 		}
-		NextSponeTime += 5.0f;
+		NextSponeTime += GameEngineRandom::MainRandom.RandomFloat(1.0f,5.0f);
 	}
 
 	if (nullptr != Boss)
@@ -128,17 +156,6 @@ void HildaBergLevel::Update(float _DeltaTime)
 
 	}
 
-	if (0.0f < EndTime && EndTime < GetLiveTime())
-	{
-		FEffect->SetTakesTime(3.0f);
-		FEffect->FadeIn();
-		EndTime = -1;
-	}
-	else if (EndTime < 0.0f && true == FEffect->IsEnd() || true == GameEngineInput::IsDown("ChangeLevel"))
-	{
-		GameEngineCore::ChangeLevel("ResultLevel");
-		return;
-	}
 
 	BossSetting();
 
@@ -218,8 +235,9 @@ void HildaBergLevel::LevelChangeStart()
 	Phase = 1;
 	IsConstell = false;
 	IsGemini = false;
+	EndTime = -1;
+	isEffectOn = false;
 
-	//ReLoadSprite();
 	if (nullptr == FEffect)
 	{
 		FEffect = GetLastTarget()->CreateEffect<FadeEffect>();
@@ -227,7 +245,6 @@ void HildaBergLevel::LevelChangeStart()
 
 
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
-	//GetMainCamera()->SetProjectionType(CameraType::Perspective);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	GetMainCamera()->SetSortType(CupHeadRendererOrder::Boss, SortType::ZSort);
 
@@ -419,4 +436,8 @@ void HildaBergLevel::UnLoadSprite()
 		{
 			GameEngineTexture::UnLoad("BlackBack.png");
 		}
+		GameEngineSprite::UnLoad("Cuphead_AirPlane_Ghost");
+		GameEngineSprite::UnLoad("Text_YouDied");
+		GameEngineSprite::UnLoad("Text_KO");
+
 }

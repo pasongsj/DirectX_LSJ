@@ -89,6 +89,9 @@ void PlayerAirPlaneMode::MakeSprite()
 		//parry
 		//NewDir.Move("..\\..\\");
 		GameEngineSprite::LoadFolder( "Cuphead_AirPlane_Parry", NewDir.GetPlusFileName("Parry").GetFullPath());
+
+		//dead
+		GameEngineSprite::LoadFolder( "Cuphead_AirPlane_Ghost", NewDir.GetPlusFileName("Ghost").GetFullPath());
 	}
 
 	if (nullptr == GameEngineSprite::Find("Cuphead_AirPlane_Spark"))
@@ -147,6 +150,8 @@ void PlayerAirPlaneMode::Start()
 												
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDown",  .SpriteName = "Cuphead_AirPlane_Shrink_Idledown", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDownTrans",  .SpriteName = "Cuphead_AirPlane_Shrink_transdown", .FrameInter = 0.01f, .Loop = false, .ScaleToTexture = true });
+	//
+	PlayerRender->CreateAnimation({ .AnimationName = "Dead",  .SpriteName = "Cuphead_AirPlane_Ghost", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 
 	PlayerRender->SetAnimationStartEvent("SuperIntro", 1, [this] {
 		std::shared_ptr< ChangeSuperModeEffect> effect = GetLevel()->CreateActor< ChangeSuperModeEffect>(CupHeadActorOrder::PlayerBackGround);
@@ -209,6 +214,11 @@ void PlayerAirPlaneMode::Start()
 	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::PARRY)] = std::bind(&PlayerAirPlaneMode::Parry_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::PARRY)]	= std::bind(&PlayerAirPlaneMode::Parry_End, this);
 
+	//DEAD
+	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::DEAD)] = std::bind(&PlayerAirPlaneMode::Dead_Start, this);
+	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::DEAD)] = std::bind(&PlayerAirPlaneMode::Dead_Update, this, std::placeholders::_1);
+	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::DEAD)] = std::bind(&PlayerAirPlaneMode::Dead_End, this);
+
 }
 
 
@@ -216,6 +226,7 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 {
 	PlayerCollision->SetRenderScaleToCollision(PlayerRender);
 	//SuperModeEnergy += _DeltaTime*10;
+
 
 	// 임시 체크용
 	if (SuperModeEnergy >= 500 && true == GameEngineInput::IsDown("PlayerShmUpModeSwitch")) // VK_SPACE
@@ -266,6 +277,16 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 			PlayerRender->ColorOptionValue.MulColor = float4(1, 1, 1, 1);
 
 		}
+	}
+	else
+	{
+		PlayerRender->ColorOptionValue.MulColor = float4(1, 1, 1, 1);
+
+	}
+
+	if (GetHP() <= 0)
+	{
+		NextState = PlayerAirPlaneModeState::DEAD;
 	}
 	// state
 	UpdateState(_DeltaTime);

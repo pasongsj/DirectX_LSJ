@@ -23,7 +23,7 @@ void PlayerAirPlaneMode::Intro_Update(float _DeltaTime)
 }
 void PlayerAirPlaneMode::Intro_End()
 {
- 	TimePlay();
+	TimePlay();
 	ShadowEffect->Off();
 }
 
@@ -111,3 +111,19 @@ void PlayerAirPlaneMode::Parry_End()
 	PlayerCollision->On();
 }
 
+
+
+
+void PlayerAirPlaneMode::Dead_Start()
+{
+	PlayerCollision->Death();
+	PlayerRender->ChangeAnimation("Dead");
+}
+
+void PlayerAirPlaneMode::Dead_Update(float _DeltaTime)
+{
+}
+
+void PlayerAirPlaneMode::Dead_End()
+{
+}

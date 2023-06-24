@@ -9,6 +9,7 @@ enum class PlayerAirPlaneModeState
 	MOVE_UP,
 	MOVE_DOWN,
 	PARRY,
+	DEAD,
 	MAX,
 };
 
@@ -106,6 +107,9 @@ private:
 	void Parry_Update	(float _DeltaTime);
 	void Parry_End		();
 
+	void Dead_Start		();
+	void Dead_Update	(float _DeltaTime);
+	void Dead_End		();
 
 	std::function<void()> StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MAX)];
 	std::function<void(float)> UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MAX)];

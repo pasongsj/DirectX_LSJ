@@ -610,14 +610,17 @@ void LoadingLevel::LoadHildaSprite()
 	}
 
 	case 113:
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Ghost").GetFullPath(), "Cuphead_AirPlane_Ghost");
 		++Phase;
 		break;
 
 	case 114:
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_YouDied").GetFullPath(), "Text_YouDied");
 		++Phase;
 		break;
 
 	case 115:
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_KO").GetFullPath(), "Text_KO");
 		++Phase;
 		break;
 

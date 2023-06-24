@@ -202,6 +202,9 @@
     <ClInclude Include="Wally1.h">
       <Filter>Object\Wally\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="YouDieUI.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -419,6 +422,9 @@
     </ClCompile>
     <ClCompile Include="Wally1FSM.cpp">
       <Filter>Object\Wally\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="YouDieUI.cpp">
+      <Filter>Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
