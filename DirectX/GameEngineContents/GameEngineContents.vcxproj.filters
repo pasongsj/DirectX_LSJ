@@ -205,6 +205,9 @@
     <ClInclude Include="YouDieUI.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="WallyBack.h">
+      <Filter>Object\Wally\BackGround</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -426,6 +429,9 @@
     <ClCompile Include="YouDieUI.cpp">
       <Filter>Object\UI</Filter>
     </ClCompile>
+    <ClCompile Include="WallyBack.cpp">
+      <Filter>Object\Wally\BackGround</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -514,6 +520,9 @@
     </Filter>
     <Filter Include="Object\Wally\Boss">
       <UniqueIdentifier>{e39d270a-1c22-49c0-a1df-10717ff466aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Wally\BackGround">
+      <UniqueIdentifier>{646c7f75-64cd-4504-b7b8-4cd6a72062cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
