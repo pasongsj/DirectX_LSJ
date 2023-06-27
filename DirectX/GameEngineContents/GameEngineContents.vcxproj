@@ -167,6 +167,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ContentsSortRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BoomEffect.h">
       <SubType>
       </SubType>
@@ -504,6 +508,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ContentsSortRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BoomEffect.cpp">
       <SubType>
       </SubType>

@@ -3,10 +3,14 @@
 
 enum class Wally1State
 {
+	CUCKOOINTRO,
 	INTRO,
 	IDLE,
-	SHOOT, //egg,  handgun, 
-	STEAM,
+	BARF, //egg,  handgun, 
+	HANDGUN,
+	STEAM, 
+	FLAP,
+	PANT,
 	CHANGEPHASE,
 	MAX,
 };
@@ -30,11 +34,34 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameContentsEnemyRenderer> HouseRender = nullptr;
-	std::shared_ptr<class GameContentsEnemyRenderer> FeetRender = nullptr;
-	std::shared_ptr<class GameContentsEnemyRenderer> HeadRender = nullptr;
+	// cuckoo intro
+	int IntroCount = 0;
+	bool isFeetIntroEnd = false;
+
+	// flap intro
+	bool isFlapIntroDone = false;
+	int FlapLoopCout = 0;
+	bool isFlapLoopDone = false;
+
+	// pant
+	int PantLoopCount = 0;
+
+
+
+	Wally1State CurState = Wally1State::CUCKOOINTRO;
+	Wally1State NextState = Wally1State::CUCKOOINTRO;
+
+	std::shared_ptr<class ContentsSortRenderer> HouseRender = nullptr;
+	std::shared_ptr<class ContentsSortRenderer> FeetRender = nullptr;
+	std::shared_ptr<class ContentsSortRenderer> HeadRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
 
+	void UpdateState(float _DeltaTime);
+
+
+	void CuckooIntro_Start();
+	void CuckooIntro_Update(float _DeltaTime);
+	void CuckooIntro_End();
 
 	void Intro_Start();
 	void Intro_Update(float _DeltaTime);
@@ -44,13 +71,25 @@ private:
 	void Idle_Update(float _DeltaTime);
 	void Idle_End();
 
-	void Shoot_Start();
-	void Shoot_Update(float _DeltaTime);
-	void Shoot_End();
+	void Barf_Start();
+	void Barf_Update(float _DeltaTime);
+	void Barf_End();
+
+	void HandGun_Start();
+	void HandGun_Update(float _DeltaTime);
+	void HandGun_End();
 
 	void Steam_Start();
 	void Steam_Update(float _DeltaTime);
 	void Steam_End();
+
+	void Flap_Start();
+	void Flap_Update(float _DeltaTime);
+	void Flap_End();
+	
+	void Pant_Start();
+	void Pant_Update(float _DeltaTime);
+	void Pant_End();
 
 	void ChangePhase_Start();
 	void ChangePhase_Update(float _DeltaTime);

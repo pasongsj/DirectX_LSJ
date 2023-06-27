@@ -208,6 +208,9 @@
     <ClInclude Include="WallyBack.h">
       <Filter>Object\Wally\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsSortRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -431,6 +434,9 @@
     </ClCompile>
     <ClCompile Include="WallyBack.cpp">
       <Filter>Object\Wally\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentsSortRenderer.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

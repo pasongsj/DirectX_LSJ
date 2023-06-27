@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "WallyLevel.h"
 
+#include "PlayerAirPlaneMode.h"
 #include "Wally1.h"
 #include "WallyBack.h"
 
@@ -17,7 +18,6 @@ void WallyLevel::Start()
 
 void WallyLevel::Update(float _DeltaTime)
 {
-
 }
 
 void WallyLevel::LevelChangeStart()
@@ -60,7 +60,8 @@ void WallyLevel::LevelChangeStart()
 
 
 
-	CreateActor< Wally1>(CupHeadActorOrder::Boss);
+	CreateActor<Wally1>(CupHeadActorOrder::Boss);
+	CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 }
 
 void WallyLevel::LevelChangeEnd()

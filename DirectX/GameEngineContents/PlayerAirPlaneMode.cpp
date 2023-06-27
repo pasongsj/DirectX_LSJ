@@ -463,11 +463,9 @@ void PlayerAirPlaneMode::MakeSmoke(float _DeltaTime)
 
 void PlayerAirPlaneMode::TimeStop()
 {
-	for (int i = 0; i < static_cast<int>(CupHeadActorOrder::MAX); i++)
-	{
-		GameEngineTime::GlobalTime.SetUpdateOrderTimeScale(i,0.0f);
-		GameEngineTime::GlobalTime.SetRenderOrderTimeScale(i,0.0f);
-	}
+	GameEngineTime::GlobalTime.SetAllUpdateOrderTimeScale(0.0f);
+	GameEngineTime::GlobalTime.SetAllRenderOrderTimeScale(0.0f);
+
 	GameEngineTime::GlobalTime.SetUpdateOrderTimeScale(CupHeadActorOrder::Player, 1.0f);
 	GameEngineTime::GlobalTime.SetRenderOrderTimeScale(CupHeadActorOrder::Player, 1.0f);
 	GameEngineTime::GlobalTime.SetUpdateOrderTimeScale(CupHeadActorOrder::PlayerBackGround, 1.0f);
