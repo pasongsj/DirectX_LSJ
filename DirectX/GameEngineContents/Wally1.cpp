@@ -10,6 +10,7 @@
 #include "Wally1_Egg_Spin.h"
 #include "Wally1_Bullet.h"
 #include "Wally1_Feather.h"
+#include "FlappyBird.h"
 
 Wally1::Wally1()
 {
@@ -212,5 +213,24 @@ void Wally1::MakeFeather()
 		Pos.RotaitonZDeg(static_cast<float>(i * 40 + degree));
 		Feat->SetDir(static_cast<float>(i * 40 + degree));
 		Feat->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + Pos);
+	}
+}
+
+void Wally1::FlappyBirdSpone(float _DeltaTime)
+{
+	if (FlappyCount > 0)
+	{
+		FlappySponeInterval -= _DeltaTime;
+		if(FlappySponeInterval < 0.0f)
+		{
+			std::shared_ptr< FlappyBird> Bird = GetLevel()->CreateActor< FlappyBird>(CupHeadActorOrder::EnemyWeapon);
+			Bird->GetTransform()->SetLocalPosition(FlappyPos);
+			if (1 == FlappyCount)
+			{
+				Bird->SetPink();
+			}
+			FlappySponeInterval = 0.8f;
+			--FlappyCount;
+		}
 	}
 }

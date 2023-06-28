@@ -35,6 +35,7 @@ protected:
 
 private:
 
+	// idle Move
 	float MoveDuration = 0.0f;
 	float MoveRange = 200.0f;
 	// cuckoo intro
@@ -54,6 +55,13 @@ private:
 	// state
 	Wally1State CurState = Wally1State::CUCKOOINTRO;
 	Wally1State NextState = Wally1State::CUCKOOINTRO;
+
+	// flappy
+	float4 FlappyPos = float4(640, 200);
+	float FlappyPatternInterval = 5.0f;
+	int FlappyCount = 4;
+	float FlappySponeInterval = 0.0f;
+
 
 	std::shared_ptr<class ContentsSortRenderer> HouseRender = nullptr;
 	std::shared_ptr<class ContentsSortRenderer> FeetRender = nullptr;
@@ -105,6 +113,8 @@ private:
 
 	void MakeSprite();
 	void MakeFeather();
+
+	void FlappyBirdSpone(float _DeltaTime);
 
 };
 

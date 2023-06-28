@@ -24,7 +24,10 @@ protected:
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BirdRender = nullptr;
 
+	bool isDeathAnimation = false;
+	float MoveSpeed = 300;
 	void MakeSprite();
+
 
 };
 

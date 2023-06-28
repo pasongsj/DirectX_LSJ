@@ -2,6 +2,7 @@
 #include "Wally1.h"
 #include "ContentsSortRenderer.h"
 
+#include <GameEngineBase/GameEngineRandom.h>
 
 
 void Wally1::CuckooIntro_Start()
@@ -82,6 +83,17 @@ void Wally1::Idle_Start()
 void Wally1::Idle_Update(float _DeltaTime)
 {
 	MoveUpdate(_DeltaTime);
+	FlappyBirdSpone(_DeltaTime);
+	if (FlappyCount == 0)
+	{
+		FlappyPatternInterval -= _DeltaTime;
+		if (FlappyPatternInterval < 0)
+		{
+			FlappyPatternInterval = 5.0f;
+			FlappyCount = 4;
+			FlappyPos.y = GameEngineRandom::MainRandom.RandomFloat(-300, 300);
+		}
+	}
 }
 
 void Wally1::Idle_End()
@@ -193,8 +205,8 @@ void Wally1::Flap_Update(float _DeltaTime)
 				HouseRender->ChangeAnimation("Flap_Outro");
 				isFlapLoopDone = true;
 			}
-		}																									//float FeatherInterval = 0.1f;
-		else																								//float FeatherDegree = 0.0f;
+		}																						
+		else																					
 		{
 			if (true == HouseRender->IsAnimationEnd())
 			{
