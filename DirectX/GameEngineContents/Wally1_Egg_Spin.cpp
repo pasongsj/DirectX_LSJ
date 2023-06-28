@@ -1,18 +1,18 @@
 #include "PrecompileHeader.h"
-#include "WallyEggSpin.h"
+#include "Wally1_Egg_Spin.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
-#include "Wally_Egg_Pieces.h"
-WallyEggSpin::WallyEggSpin()
+#include "Wally1_Egg_Pieces.h"
+Wally1_Egg_Spin::Wally1_Egg_Spin()
 {
 }
 
-WallyEggSpin::~WallyEggSpin()
+Wally1_Egg_Spin::~Wally1_Egg_Spin()
 {
 }
-void WallyEggSpin::MakeSprite()
+void Wally1_Egg_Spin::MakeSprite()
 {
 	GameEngineDirectory Dir;
 	Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
@@ -25,7 +25,7 @@ void WallyEggSpin::MakeSprite()
 }
 
 
-void WallyEggSpin::Start()
+void Wally1_Egg_Spin::Start()
 {
 	MakeSprite();
 	EggRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
@@ -36,7 +36,7 @@ void WallyEggSpin::Start()
 	isDeadAnimation = false;
 }
 
-void WallyEggSpin::Update(float _DeltaTime)
+void Wally1_Egg_Spin::Update(float _DeltaTime)
 {
 	if (nullptr == EggRender)
 	{
@@ -50,15 +50,15 @@ void WallyEggSpin::Update(float _DeltaTime)
 			isDeadAnimation = true;
 			EggRender->ChangeAnimation("Dead");
 
-			std::shared_ptr< Wally_Egg_Pieces> Piece1 = GetLevel()->CreateActor< Wally_Egg_Pieces>(CupHeadActorOrder::EnemyWeapon);
+			std::shared_ptr< Wally1_Egg_Pieces> Piece1 = GetLevel()->CreateActor< Wally1_Egg_Pieces>(CupHeadActorOrder::EnemyWeapon);
 			Piece1->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
 			Piece1->SetDir(EggPiecesPos::Top);
 
-			std::shared_ptr< Wally_Egg_Pieces> Piece2 = GetLevel()->CreateActor< Wally_Egg_Pieces>(CupHeadActorOrder::EnemyWeapon);
+			std::shared_ptr< Wally1_Egg_Pieces> Piece2 = GetLevel()->CreateActor< Wally1_Egg_Pieces>(CupHeadActorOrder::EnemyWeapon);
 			Piece2->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
 			Piece2->SetDir(EggPiecesPos::Mid);
 
-			std::shared_ptr< Wally_Egg_Pieces> Piece3 = GetLevel()->CreateActor< Wally_Egg_Pieces>(CupHeadActorOrder::EnemyWeapon);
+			std::shared_ptr< Wally1_Egg_Pieces> Piece3 = GetLevel()->CreateActor< Wally1_Egg_Pieces>(CupHeadActorOrder::EnemyWeapon);
 			Piece3->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
 			Piece3->SetDir(EggPiecesPos::Bot);
 		}

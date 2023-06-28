@@ -182,13 +182,19 @@ void Wally1::Flap_Update(float _DeltaTime)
 	{
 		if (false == isFlapLoopDone)
 		{
+			FeatherInterval -= _DeltaTime;
+			if (FeatherInterval < 0)
+			{
+				FeatherInterval = 0.25f;
+				MakeFeather();
+			}
 			if (FlapLoopCout >= 19)
 			{
 				HouseRender->ChangeAnimation("Flap_Outro");
 				isFlapLoopDone = true;
 			}
-		}
-		else
+		}																									//float FeatherInterval = 0.1f;
+		else																								//float FeatherDegree = 0.0f;
 		{
 			if (true == HouseRender->IsAnimationEnd())
 			{

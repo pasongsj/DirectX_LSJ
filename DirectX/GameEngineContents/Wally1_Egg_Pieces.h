@@ -10,19 +10,19 @@ enum class EggPiecesPos
 };
 
 // Ό³Έν :
-class Wally_Egg_Pieces : public GameEnemyWeapon
+class Wally1_Egg_Pieces : public GameEnemyWeapon
 {
-	friend class WallyEggSpin;
+	friend class Wally1_Egg_Spin;
 public:
 	// constrcuter destructer
-	Wally_Egg_Pieces();
-	~Wally_Egg_Pieces();
+	Wally1_Egg_Pieces();
+	~Wally1_Egg_Pieces();
 
 	// delete Function
-	Wally_Egg_Pieces(const Wally_Egg_Pieces& _Other) = delete;
-	Wally_Egg_Pieces(Wally_Egg_Pieces&& _Other) noexcept = delete;
-	Wally_Egg_Pieces& operator=(const Wally_Egg_Pieces& _Other) = delete;
-	Wally_Egg_Pieces& operator=(Wally_Egg_Pieces&& _Other) noexcept = delete;
+	Wally1_Egg_Pieces(const Wally1_Egg_Pieces& _Other) = delete;
+	Wally1_Egg_Pieces(Wally1_Egg_Pieces&& _Other) noexcept = delete;
+	Wally1_Egg_Pieces& operator=(const Wally1_Egg_Pieces& _Other) = delete;
+	Wally1_Egg_Pieces& operator=(Wally1_Egg_Pieces&& _Other) noexcept = delete;
 
 protected:
 	void Start();

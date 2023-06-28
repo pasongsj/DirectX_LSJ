@@ -7,8 +7,9 @@
 #include "GameContentsEnemyRenderer.h"
 #include "ContentsSortRenderer.h"
 
-#include "WallyEggSpin.h"
-
+#include "Wally1_Egg_Spin.h"
+#include "Wally1_Bullet.h"
+#include "Wally1_Feather.h"
 
 Wally1::Wally1()
 {
@@ -38,13 +39,13 @@ void Wally1::MakeSprite()
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Barf\\bird_barf_head").GetFullPath(), "Wally1_Head_Barf");
 	// handgun
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Handgun\\bird_handgun_head").GetFullPath(), "Wally1_Head_HandGun");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Feather Attack\\Steam").GetFullPath(), "Wally1_Head_Steam");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Steam").GetFullPath(), "Wally1_Head_Steam");
 	// flap
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Feather Attack\\Flap\\Intro").GetFullPath(), "Wally1_Flap_Intro");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Feather Attack\\Flap\\Loop").GetFullPath(), "Wally1_Flap_Loop");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Feather Attack\\Flap\\Outro").GetFullPath(), "Wally1_Flap_Outro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Flap\\Intro").GetFullPath(), "Wally1_Flap_Intro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Flap\\Loop").GetFullPath(), "Wally1_Flap_Loop");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Flap\\Outro").GetFullPath(), "Wally1_Flap_Outro");
 	// pant
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Feather Attack\\Pant").GetFullPath(), "Wally1_Head_Pant");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Pant").GetFullPath(), "Wally1_Head_Pant");
 	// change phase - death
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death\\bird_large_death").GetFullPath(), "Wally1_Dead");
 
@@ -79,10 +80,24 @@ void Wally1::Start()
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Idle",.SpriteName = "Wally1_Head_Idle",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Barf",.SpriteName = "Wally1_Head_Barf",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	HeadRender->SetAnimationStartEvent("Head_Barf", 7, [this] {
-		std::shared_ptr<GameEngineActor> Egg = GetLevel()->CreateActor< WallyEggSpin>(CupHeadActorOrder::EnemyWeapon);
+		std::shared_ptr<GameEngineActor> Egg = GetLevel()->CreateActor< Wally1_Egg_Spin>(CupHeadActorOrder::EnemyWeapon);
 		Egg->GetTransform()->SetLocalPosition(HeadRender->GetTransform()->GetWorldPosition() + float4(-120, -30));
 		});
 	HeadRender->CreateAnimation({ .AnimationName = "Head_HandGun",.SpriteName = "Wally1_Head_HandGun",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
+	HeadRender->SetAnimationStartEvent("Head_HandGun", 10, [this]
+		{
+			std::shared_ptr< Wally1_Bullet> Bullet1 = GetLevel()->CreateActor< Wally1_Bullet>(CupHeadActorOrder::EnemyWeapon);
+			Bullet1->GetTransform()->SetLocalPosition(HeadRender->GetTransform()->GetWorldPosition() + float4(-150, 20));
+
+			std::shared_ptr< Wally1_Bullet> Bullet2 = GetLevel()->CreateActor< Wally1_Bullet>(CupHeadActorOrder::EnemyWeapon);
+			Bullet2->GetTransform()->SetLocalPosition(HeadRender->GetTransform()->GetWorldPosition() + float4(-130, 120));
+			Bullet2->SetDir(Wally1BulletPos::Top);
+
+			std::shared_ptr< Wally1_Bullet> Bullet3 = GetLevel()->CreateActor< Wally1_Bullet>(CupHeadActorOrder::EnemyWeapon);
+			Bullet3->GetTransform()->SetLocalPosition(HeadRender->GetTransform()->GetWorldPosition() + float4(-130, -80));
+			Bullet3->SetDir(Wally1BulletPos::Bot);
+
+		});
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Steam",.SpriteName = "Wally1_Head_Steam",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Pant",.SpriteName = "Wally1_Head_Pant",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
 	HeadRender->SetAnimationStartEvent("Head_Pant", 11, [this] {PantLoopCount++; });
@@ -149,7 +164,7 @@ void Wally1::Update(float _DeltaTime)
 {
 	if (GameEngineInput::IsPress("PressF"))
 	{
-		NextState = Wally1State::BARF;
+		NextState = Wally1State::FLAP;
 	}
 	UpdateState(_DeltaTime);
 }
@@ -178,4 +193,24 @@ void Wally1::MoveUpdate(float _DeltaTime)
 	MoveDuration += _DeltaTime;
 	float4 ReturnValue = float4(420, sinf(MoveDuration * 2.5f) * MoveRange);
 	GetTransform()->SetLocalPosition(ReturnValue);
+}
+
+void Wally1::MakeFeather()
+{
+	FeatherDegree = !FeatherDegree;
+	int degree = 0;
+	if (false == FeatherDegree)
+	{
+		degree = 20;
+	}
+
+
+	for (int i = 0; i < 10; ++i) // 0 40 80 120 160 200 240 280 320 360
+	{
+		std::shared_ptr< Wally1_Feather> Feat = GetLevel()->CreateActor< Wally1_Feather>(CupHeadActorOrder::EnemyWeapon);
+		float4 Pos = float4(-100, 0, 0);
+		Pos.RotaitonZDeg(static_cast<float>(i * 40 + degree));
+		Feat->SetDir(static_cast<float>(i * 40 + degree));
+		Feat->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + Pos);
+	}
 }

@@ -211,14 +211,23 @@
     <ClInclude Include="Wally1.h">
       <Filter>Object\Wally\Boss\Phase1</Filter>
     </ClInclude>
-    <ClInclude Include="WallyEggSpin.h">
+    <ClInclude Include="Wally1_Egg_Spin.h">
       <Filter>Object\Wally\Boss\Phase1</Filter>
     </ClInclude>
-    <ClInclude Include="Wally_Egg_Pieces.h">
+    <ClInclude Include="Wally1_Egg_Pieces.h">
       <Filter>Object\Wally\Boss\Phase1</Filter>
     </ClInclude>
     <ClInclude Include="OldFilmEffect.h">
       <Filter>PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally1_Bullet.h">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally1_Feather.h">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
+    </ClInclude>
+    <ClInclude Include="FlappyBird.h">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -447,14 +456,23 @@
     <ClCompile Include="Wally1FSM.cpp">
       <Filter>Object\Wally\Boss\Phase1</Filter>
     </ClCompile>
-    <ClCompile Include="WallyEggSpin.cpp">
+    <ClCompile Include="Wally1_Egg_Spin.cpp">
       <Filter>Object\Wally\Boss\Phase1</Filter>
     </ClCompile>
-    <ClCompile Include="Wally_Egg_Pieces.cpp">
+    <ClCompile Include="Wally1_Egg_Pieces.cpp">
       <Filter>Object\Wally\Boss\Phase1</Filter>
     </ClCompile>
     <ClCompile Include="OldFilmEffect.cpp">
       <Filter>PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally1_Bullet.cpp">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally1_Feather.cpp">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
+    </ClCompile>
+    <ClCompile Include="FlappyBird.cpp">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

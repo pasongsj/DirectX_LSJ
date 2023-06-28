@@ -1,18 +1,18 @@
 #include "PrecompileHeader.h"
-#include "Wally_Egg_Pieces.h"
+#include "Wally1_Egg_Pieces.h"
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineLevel.h>
 
-Wally_Egg_Pieces::Wally_Egg_Pieces() 
+Wally1_Egg_Pieces::Wally1_Egg_Pieces() 
 {
 }
 
-Wally_Egg_Pieces::~Wally_Egg_Pieces() 
+Wally1_Egg_Pieces::~Wally1_Egg_Pieces() 
 {
 }
-void Wally_Egg_Pieces::MakeSprite()
+void Wally1_Egg_Pieces::MakeSprite()
 {
 	GameEngineDirectory Dir;
 	Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
@@ -27,7 +27,7 @@ void Wally_Egg_Pieces::MakeSprite()
 }
 
 
-void Wally_Egg_Pieces::Start()
+void Wally1_Egg_Pieces::Start()
 {
 	MakeSprite();
 	PiecesRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
@@ -37,7 +37,7 @@ void Wally_Egg_Pieces::Start()
 	PiecesRender->ChangeAnimation(AnimationMap[GameEngineRandom::MainRandom.RandomInt(1, 3)]);
 	
 }
-void Wally_Egg_Pieces::Update(float _DeltaTime)
+void Wally1_Egg_Pieces::Update(float _DeltaTime)
 {
 	GetTransform()->AddLocalPosition(Dir * _DeltaTime * MoveSpeed);
 	if (false == GetLevel()->GetMainCamera()->IsView(GetTransform()->GetTransDataRef()))

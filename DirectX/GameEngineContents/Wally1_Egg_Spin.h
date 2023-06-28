@@ -2,18 +2,18 @@
 #include "GameEnemyWeapon.h"
 
 // Ό³Έν :
-class WallyEggSpin : public GameEnemyWeapon
+class Wally1_Egg_Spin : public GameEnemyWeapon
 {
 public:
 	// constrcuter destructer
-	WallyEggSpin();
-	~WallyEggSpin();
+	Wally1_Egg_Spin();
+	~Wally1_Egg_Spin();
 
 	// delete Function
-	WallyEggSpin(const WallyEggSpin& _Other) = delete;
-	WallyEggSpin(WallyEggSpin&& _Other) noexcept = delete;
-	WallyEggSpin& operator=(const WallyEggSpin& _Other) = delete;
-	WallyEggSpin& operator=(WallyEggSpin&& _Other) noexcept = delete;
+	Wally1_Egg_Spin(const Wally1_Egg_Spin& _Other) = delete;
+	Wally1_Egg_Spin(Wally1_Egg_Spin&& _Other) noexcept = delete;
+	Wally1_Egg_Spin& operator=(const Wally1_Egg_Spin& _Other) = delete;
+	Wally1_Egg_Spin& operator=(Wally1_Egg_Spin&& _Other) noexcept = delete;
 
 protected:
 	void Start() override;

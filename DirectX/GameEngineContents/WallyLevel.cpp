@@ -19,7 +19,7 @@ WallyLevel::~WallyLevel()
 }
 void WallyLevel::Start()
 {
-	GetLastTarget()->CreateEffect<OldFilmEffect>();
+	//GetLastTarget()->CreateEffect<OldFilmEffect>();
 }
 
 void WallyLevel::Update(float _DeltaTime)

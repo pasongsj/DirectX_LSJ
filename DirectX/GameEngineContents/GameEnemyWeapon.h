@@ -20,12 +20,12 @@ public:
 
 	bool IsPink()
 	{
-		return Pink;
+		return PinkObject;
 	}
 
 protected:
 
-	bool Pink = false; // 패리가능 개체
+	bool PinkObject = false; // 패리가능 개체
 private:
 
 };

@@ -90,7 +90,7 @@ void ZepplingBullet::SetPurpleBullet()
 	int RandomNumber = GameEngineRandom::MainRandom.RandomInt(0, 4);
 	if (3 < RandomNumber)
 	{
-		Pink = true;
+		PinkObject = true;
 		BulletRender->ChangeAnimation("BulletPinkA");
 	}
 }

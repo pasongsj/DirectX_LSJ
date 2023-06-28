@@ -45,6 +45,8 @@ private:
 	bool isFlapIntroDone = false;
 	int FlapLoopCout = 0;
 	bool isFlapLoopDone = false;
+	float FeatherInterval = 0.1f;
+	bool FeatherDegree = true;
 
 	// pant
 	int PantLoopCount = 0;
@@ -102,6 +104,7 @@ private:
 	std::function<void()> EndFuncPtr[static_cast<int>(Wally1State::MAX)];
 
 	void MakeSprite();
+	void MakeFeather();
 
 };
 
