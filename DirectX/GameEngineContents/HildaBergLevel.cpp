@@ -72,6 +72,11 @@ void HildaBergLevel::Update(float _DeltaTime)
 	{
 		GameEngineLevel::IsDebugSwitch();
 	}
+	if (true == GameEngineInput::IsDown("ChangeLevel"))
+	{
+		GameEngineCore::ChangeLevel("ResultLevel");
+		return;
+	}
 	if (0.0f < EndTime) // ³¡³²
 	{
 		if (EndTime < GetLiveTime())

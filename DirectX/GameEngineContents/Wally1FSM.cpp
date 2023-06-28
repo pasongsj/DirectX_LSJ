@@ -18,9 +18,9 @@ void Wally1::CuckooIntro_Start()
 
 void Wally1::CuckooIntro_Update(float _DeltaTime)
 {
-	if (IntroCount >= 1)
+	if (IntroCount >= 3)
 	{
-		NextState = Wally1State::IDLE;
+		NextState = Wally1State::INTRO;
 	}
 }
 
@@ -81,6 +81,7 @@ void Wally1::Idle_Start()
 
 void Wally1::Idle_Update(float _DeltaTime)
 {
+	MoveUpdate(_DeltaTime);
 }
 
 void Wally1::Idle_End()

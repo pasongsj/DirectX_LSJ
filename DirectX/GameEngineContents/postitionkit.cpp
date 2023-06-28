@@ -25,4 +25,5 @@ void postitionkit::OnGUI(std::shared_ptr<GameEngineLevel> Level, float _DeltaTim
 		GameEnginePixelColor Color = ColMapTexture->GetPixel(Pos.ix(), -Pos.iy());
 		ImGui::Text("Pixel Color - r : %f, g : %f, b : %f, a : %f", Color.r, Color.g, Color.b, Color.a);
 	}
+	ImGui::Text("ReloadCount : %d",static_cast<int>(GameEngineTexture::TextureReLoadCount));
 }

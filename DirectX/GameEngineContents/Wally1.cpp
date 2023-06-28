@@ -3,6 +3,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 
 
+
 #include "GameContentsEnemyRenderer.h"
 #include "ContentsSortRenderer.h"
 
@@ -66,7 +67,7 @@ void Wally1::Start()
 	HouseRender->SetAnimationStartEvent("Flap_Loop", 7, [this] {FlapLoopCout++; });
 	HouseRender->CreateAnimation({ .AnimationName = "Flap_Outro",.SpriteName = "Wally1_Flap_Outro",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	HouseRender->CreateAnimation({ .AnimationName = "Dead",.SpriteName = "Wally1_Dead",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
-	
+
 
 	//Head
 	HeadRender = CreateComponent< ContentsSortRenderer>(CupHeadRendererOrder::Boss);
@@ -130,6 +131,8 @@ void Wally1::Start()
 	UpdateFuncPtr[static_cast<int>(Wally1State::PANT)] = std::bind(&Wally1::Pant_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(Wally1State::PANT)] = std::bind(&Wally1::Pant_End, this);
 
+	GetTransform()->SetLocalPosition({ 420, 0 });
+
 	if (false == GameEngineInput::IsKey("PressF"))
 	{
 		GameEngineInput::CreateKey("PressF", 'F');
@@ -162,4 +165,11 @@ void Wally1::UpdateState(float _DeltaTime)
 
 	UpdateFuncPtr[static_cast<int>(CurState)](_DeltaTime);
 
+}
+
+void Wally1::MoveUpdate(float _DeltaTime)
+{
+	MoveDuration += _DeltaTime;
+	float4 ReturnValue = float4(420, sinf(MoveDuration * 2.5f) * MoveRange);
+	GetTransform()->SetLocalPosition(ReturnValue);
 }

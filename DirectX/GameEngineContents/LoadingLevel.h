@@ -20,14 +20,14 @@ public:
 
 	static void SetLevel(CupheadLevel _Level)
 	{
-		Phase = 0;
-		isEnd = false;
+		//Phase = 0;
+		//isEnd = false;
 		NextLevel = _Level;
 	}
 
 
 protected:
-	void Start() override;
+	void Start() override {};
 	void Update(float _DeltaTime) override;
 
 	void LevelChangeStart() override;
@@ -40,8 +40,8 @@ private:
 
 
 	static CupheadLevel NextLevel;
-	static int Phase;
-	static bool isEnd;
+	//static int Phase;
+	//static bool isEnd;
 
 	void LoadHildaSprite();
 	void LoadStorySprite();

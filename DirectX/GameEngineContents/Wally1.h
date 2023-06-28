@@ -34,6 +34,9 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+
+	float MoveDuration = 0.0f;
+	float MoveRange = 200.0f;
 	// cuckoo intro
 	int IntroCount = 0;
 	bool isFeetIntroEnd = false;
@@ -46,8 +49,7 @@ private:
 	// pant
 	int PantLoopCount = 0;
 
-
-
+	// state
 	Wally1State CurState = Wally1State::CUCKOOINTRO;
 	Wally1State NextState = Wally1State::CUCKOOINTRO;
 
@@ -57,7 +59,7 @@ private:
 	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
 
 	void UpdateState(float _DeltaTime);
-
+	void MoveUpdate(float _DeltaTime);
 
 	void CuckooIntro_Start();
 	void CuckooIntro_Update(float _DeltaTime);
