@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineVertexShader.h>
 #include <GameEngineCore/GameEnginePixelShader.h>
 #include <GameEngineCore/GameEngineRenderingPipeLine.h>
+#include <GameEngineCore/GameEngineBlend.h>
 
 void ContentsCore::ContentsResourcesCreate()
 {
@@ -25,7 +26,22 @@ void ContentsCore::ContentsResourcesCreate()
 		//GameEngineVertexShader::Load(Files[0].GetFullPath(), "MyShader_VS");
 		//GameEnginePixelShader::Load(Files[0].GetFullPath(), "MyShader_PS");
 	}
+	{
+		D3D11_SAMPLER_DESC SamperData = {};
+		SamperData.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+		SamperData.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+		SamperData.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+		SamperData.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+		// ≈ÿΩ∫√≥∞° ∏÷∏Æ¿÷¿ª∂ß π∂∞∂≤®≥ƒ
+		// æ»π∂∞µ¥Ÿ.
+		SamperData.MipLODBias = 0.0f;
+		SamperData.MaxAnisotropy = 1;
+		SamperData.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+		SamperData.MinLOD = -FLT_MAX;
+		SamperData.MaxLOD = FLT_MAX;
 
+		GameEngineSampler::ReSetting("ENGINEBASE", SamperData);
+	}
 	{
 		std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("My2DTexture");
 
