@@ -2,6 +2,9 @@
 #include "Wally2.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineLevel.h>
+
+#include "Wally2_Bullet.h"
 
 Wally2::Wally2()
 {
@@ -41,6 +44,11 @@ void Wally2::Start()
 	BossRender->CreateAnimation({ .AnimationName = "Blink",.SpriteName = "Wally2_Blink" , .FrameInter = 0.05f, .Loop = true,.ScaleToTexture = true });
 
 	BossRender->CreateAnimation({ .AnimationName = "Shoot",.SpriteName = "Wally2_Shoot" , .FrameInter = 0.05f, .Loop = false,.ScaleToTexture = true });
+	BossRender->SetAnimationStartEvent("Shoot", 12, [this]
+		{
+			std::shared_ptr< Wally2_Bullet> Bullet = GetLevel()->CreateActor< Wally2_Bullet>(CupHeadActorOrder::EnemyWeapon);
+			Bullet->SetPos(GetTransform()->GetWorldPosition());
+		});
 
 	BossRender->CreateAnimation({ .AnimationName = "Death_Trans",.SpriteName = "Wally2_Death_Trans" , .FrameInter = 0.05f, .Loop = false,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Death_Loop",.SpriteName = "Wally2_Death_Loop" , .FrameInter = 0.05f, .Loop = true,.ScaleToTexture = true });

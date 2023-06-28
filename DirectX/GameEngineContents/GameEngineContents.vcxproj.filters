@@ -232,6 +232,9 @@
     <ClInclude Include="Wally2.h">
       <Filter>Object\Wally\Boss\Phase2</Filter>
     </ClInclude>
+    <ClInclude Include="Wally2_Bullet.h">
+      <Filter>Object\Wally\Boss\Phase2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -481,6 +484,9 @@
       <Filter>Object\Wally\Boss\Phase2</Filter>
     </ClCompile>
     <ClCompile Include="Wally2FSM.cpp">
+      <Filter>Object\Wally\Boss\Phase2</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally2_Bullet.cpp">
       <Filter>Object\Wally\Boss\Phase2</Filter>
     </ClCompile>
   </ItemGroup>
