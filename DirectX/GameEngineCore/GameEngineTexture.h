@@ -43,7 +43,6 @@ public:
 
 	}
 };
-
 // Ό³Έν :
 class GameEngineTexture : public GameEngineResource<GameEngineTexture>
 {
@@ -51,6 +50,7 @@ class GameEngineTexture : public GameEngineResource<GameEngineTexture>
 	friend class GameEngineTextureSetter;
 
 public:
+	static std::atomic_int TextureReLoadCount;
 	// constrcuter destructer
 	GameEngineTexture();
 	~GameEngineTexture();
@@ -190,6 +190,9 @@ private:
 
 	void VSReset(UINT _Slot);
 	void PSReset(UINT _Slot);
+
+
+	static std::mutex PathLock;
 
 };
 

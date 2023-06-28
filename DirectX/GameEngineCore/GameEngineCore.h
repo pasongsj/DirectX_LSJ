@@ -74,7 +74,8 @@ public:
 protected:
 
 private:
-	static class GameEngineLevel* CurLoadLevel;
+	//static std::mutex LevelLoadLocak;
+	static class std::shared_ptr<GameEngineLevel> CurLoadLevel;
 
 	static void CoreResourcesInit();
 	static void CoreResourcesEnd();

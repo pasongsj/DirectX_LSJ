@@ -11,6 +11,8 @@
 // #pragma comment(lib, "DirectXTex.lib")
 
 GameEnginePixelColor GameEnginePixelColor::Black = {0, 0, 0, 0};
+std::atomic_int GameEngineTexture::TextureReLoadCount = 0;
+std::mutex GameEngineTexture::PathLock;
 
 GameEngineTexture::GameEngineTexture() 
 {
@@ -120,6 +122,7 @@ void GameEngineTexture::ResLoad(const std::string_view& _Path)
 	{
 		MsgAssert("쉐이더 리소스 뷰 생성에 실패했습니다." + std::string(_Path.data()));
 	}
+	++TextureReLoadCount;
 
 	Desc.Width = static_cast<UINT>(Data.width);
 	Desc.Height = static_cast<UINT>(Data.height);
@@ -507,10 +510,14 @@ GameEnginePixelColor GameEngineTexture::GetPixel(int _X, int _Y, GameEnginePixel
 
 void GameEngineTexture::PathCheck(const std::string_view& _Path, const std::string_view& _Name)
 {
+	std::lock_guard<std::mutex> Lock(PathLock);
+	//std::lock_guard<std::mutex> Lock2(GameEngineCore::LevelLoadLocak);
+
 	if (nullptr == GameEngineCore::CurLoadLevel)
 	{
 		return;
 	}
+
 	GameEngineCore::CurLoadLevel->TexturePath[_Name.data()] = _Path.data();
 }
 
@@ -559,6 +566,5 @@ void GameEngineTexture::ReLoad()
 	{
 		return;
 	}
-
 	ResLoad(GetPath());
 }
