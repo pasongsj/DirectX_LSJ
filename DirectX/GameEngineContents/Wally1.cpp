@@ -1,11 +1,13 @@
 #include "PrecompileHeader.h"
 #include "Wally1.h"
 #include <GameEnginePlatform/GameEngineInput.h>
-
+#include <GameEngineCore/GameEngineLevel.h>
 
 
 #include "GameContentsEnemyRenderer.h"
 #include "ContentsSortRenderer.h"
+
+#include "WallyEggSpin.h"
 
 
 Wally1::Wally1()
@@ -76,6 +78,10 @@ void Wally1::Start()
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Intro",.SpriteName = "Wally1_Head_Intro",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Idle",.SpriteName = "Wally1_Head_Idle",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Barf",.SpriteName = "Wally1_Head_Barf",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
+	HeadRender->SetAnimationStartEvent("Head_Barf", 7, [this] {
+		std::shared_ptr<GameEngineActor> Egg = GetLevel()->CreateActor< WallyEggSpin>(CupHeadActorOrder::EnemyWeapon);
+		Egg->GetTransform()->SetLocalPosition(HeadRender->GetTransform()->GetWorldPosition() + float4(-120, -30));
+		});
 	HeadRender->CreateAnimation({ .AnimationName = "Head_HandGun",.SpriteName = "Wally1_Head_HandGun",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Steam",.SpriteName = "Wally1_Head_Steam",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Pant",.SpriteName = "Wally1_Head_Pant",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
@@ -143,7 +149,7 @@ void Wally1::Update(float _DeltaTime)
 {
 	if (GameEngineInput::IsPress("PressF"))
 	{
-		NextState = Wally1State::CHANGEPHASE;
+		NextState = Wally1State::BARF;
 	}
 	UpdateState(_DeltaTime);
 }

@@ -248,6 +248,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="WallyEggSpin.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="WallyBack.h" />
     <ClInclude Include="HildaBergBack.h">
       <SubType>
@@ -482,6 +486,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Wally_Egg_Pieces.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="YouDieUI.h">
       <SubType>
       </SubType>
@@ -588,6 +596,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="WallyEggSpin.cpp">
+      <SubType>
+      </SubType>
     </ClCompile>
     <ClCompile Include="WallyBack.cpp" />
     <ClCompile Include="HildaBergBack.cpp">
@@ -834,6 +846,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="WallyLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Wally_Egg_Pieces.cpp">
       <SubType>
       </SubType>
     </ClCompile>

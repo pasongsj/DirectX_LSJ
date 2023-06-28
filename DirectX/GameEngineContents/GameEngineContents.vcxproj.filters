@@ -199,9 +199,6 @@
     <ClInclude Include="WallyBoss.h">
       <Filter>Object\Wally\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="Wally1.h">
-      <Filter>Object\Wally\Boss</Filter>
-    </ClInclude>
     <ClInclude Include="YouDieUI.h">
       <Filter>Object\UI</Filter>
     </ClInclude>
@@ -210,6 +207,15 @@
     </ClInclude>
     <ClInclude Include="ContentsSortRenderer.h">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally1.h">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
+    </ClInclude>
+    <ClInclude Include="WallyEggSpin.h">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally_Egg_Pieces.h">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -423,12 +429,6 @@
     <ClCompile Include="WallyBoss.cpp">
       <Filter>Object\Wally\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="Wally1.cpp">
-      <Filter>Object\Wally\Boss</Filter>
-    </ClCompile>
-    <ClCompile Include="Wally1FSM.cpp">
-      <Filter>Object\Wally\Boss</Filter>
-    </ClCompile>
     <ClCompile Include="YouDieUI.cpp">
       <Filter>Object\UI</Filter>
     </ClCompile>
@@ -437,6 +437,18 @@
     </ClCompile>
     <ClCompile Include="ContentsSortRenderer.cpp">
       <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally1.cpp">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally1FSM.cpp">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
+    </ClCompile>
+    <ClCompile Include="WallyEggSpin.cpp">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally_Egg_Pieces.cpp">
+      <Filter>Object\Wally\Boss\Phase1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -529,6 +541,9 @@
     </Filter>
     <Filter Include="Object\Wally\BackGround">
       <UniqueIdentifier>{646c7f75-64cd-4504-b7b8-4cd6a72062cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Wally\Boss\Phase1">
+      <UniqueIdentifier>{23be4837-dfb1-46cc-90a0-0b64dd71bfb0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
