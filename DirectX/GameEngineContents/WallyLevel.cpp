@@ -1,9 +1,14 @@
 #include "PrecompileHeader.h"
 #include "WallyLevel.h"
 
+#include "OldFilmEffect.h"
+
+
+
 #include "PlayerAirPlaneMode.h"
 #include "Wally1.h"
 #include "WallyBack.h"
+
 
 WallyLevel::WallyLevel()
 {
@@ -14,6 +19,7 @@ WallyLevel::~WallyLevel()
 }
 void WallyLevel::Start()
 {
+	GetLastTarget()->CreateEffect<OldFilmEffect>();
 }
 
 void WallyLevel::Update(float _DeltaTime)

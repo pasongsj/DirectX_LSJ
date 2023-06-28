@@ -248,6 +248,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="OldFilmEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="WallyEggSpin.h">
       <SubType>
       </SubType>
@@ -596,6 +600,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="OldFilmEffect.cpp">
+      <SubType>
+      </SubType>
     </ClCompile>
     <ClCompile Include="WallyEggSpin.cpp">
       <SubType>

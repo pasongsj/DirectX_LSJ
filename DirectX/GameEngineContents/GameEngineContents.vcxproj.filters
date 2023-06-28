@@ -217,6 +217,9 @@
     <ClInclude Include="Wally_Egg_Pieces.h">
       <Filter>Object\Wally\Boss\Phase1</Filter>
     </ClInclude>
+    <ClInclude Include="OldFilmEffect.h">
+      <Filter>PostEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -449,6 +452,9 @@
     </ClCompile>
     <ClCompile Include="Wally_Egg_Pieces.cpp">
       <Filter>Object\Wally\Boss\Phase1</Filter>
+    </ClCompile>
+    <ClCompile Include="OldFilmEffect.cpp">
+      <Filter>PostEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
