@@ -157,6 +157,9 @@
     <ClInclude Include="ThirdParty\FW1Font\Inc\FW1FontWrapper.h">
       <Filter>ThirdParty\Fw1Font\Header</Filter>
     </ClInclude>
+    <ClInclude Include="BlurEffect.h">
+      <Filter>Contents\PostEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineCore.cpp" />
@@ -308,6 +311,9 @@
     <ClCompile Include="GameEngineFontRenderer.cpp">
       <Filter>Object\Rendering\Component</Filter>
     </ClCompile>
+    <ClCompile Include="BlurEffect.cpp">
+      <Filter>Contents\PostEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -405,6 +411,9 @@
     </Filter>
     <Filter Include="ThirdParty\Fw1Font\bin\Release">
       <UniqueIdentifier>{ab47e27d-33ba-4936-9430-ab6e55d147fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\PostEffect">
+      <UniqueIdentifier>{35846f48-7f2f-4054-9d31-9809cbcc19e9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
