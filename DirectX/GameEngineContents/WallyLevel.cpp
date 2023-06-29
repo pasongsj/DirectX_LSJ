@@ -8,6 +8,7 @@
 #include "PlayerAirPlaneMode.h"
 #include "Wally1.h"
 #include "Wally2.h"
+#include "Wally3.h"
 #include "WallyBack.h"
 
 
@@ -68,7 +69,8 @@ void WallyLevel::LevelChangeStart()
 
 
 	//CreateActor<Wally1>(CupHeadActorOrder::Boss);
-	CreateActor<Wally2>(CupHeadActorOrder::Boss);
+	//CreateActor<Wally2>(CupHeadActorOrder::Boss);
+	CreateActor<Wally3>(CupHeadActorOrder::Boss);
 	CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 }
 

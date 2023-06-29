@@ -235,6 +235,27 @@
     <ClInclude Include="Wally2_Bullet.h">
       <Filter>Object\Wally\Boss\Phase2</Filter>
     </ClInclude>
+    <ClInclude Include="Wally2_Egg.h">
+      <Filter>Object\Wally\Boss\Phase2</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally1_House_Death.h">
+      <Filter>Object\Wally\Boss\Phase2</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3.h">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_LeftBird.h">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_RightBird.h">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_Salt.h">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_Pepper.h">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -489,6 +510,30 @@
     <ClCompile Include="Wally2_Bullet.cpp">
       <Filter>Object\Wally\Boss\Phase2</Filter>
     </ClCompile>
+    <ClCompile Include="Wally2_Egg.cpp">
+      <Filter>Object\Wally\Boss\Phase2</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally1_House_Death.cpp">
+      <Filter>Object\Wally\Boss\Phase2</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3.cpp">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3FSM.cpp">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_LeftBird.cpp">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_RightBird.cpp">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_Salt.cpp">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_Pepper.cpp">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -586,6 +631,9 @@
     </Filter>
     <Filter Include="Object\Wally\Boss\Phase2">
       <UniqueIdentifier>{5fdbc924-3722-47a9-924c-577d18c7ee69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Wally\Boss\Phase3">
+      <UniqueIdentifier>{64c5eb40-2f13-4c9f-a36f-c975d3dec4d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

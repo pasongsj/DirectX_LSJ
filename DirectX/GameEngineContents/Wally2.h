@@ -31,6 +31,8 @@ protected:
 private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> BossRender = nullptr;
+	std::shared_ptr<GameEngineActor> EggController = nullptr;
+	std::vector < std::shared_ptr<GameEngineActor>> Eggs;
 
 	// idle
 	bool isTransAnimatioin = false;
@@ -74,5 +76,6 @@ private:
 	std::function<void()> EndFuncPtr[static_cast<int>(Wally2State::MAX)];
 
 	void MakeSprite();
+	void SettingEggs();
 };
 

@@ -5,6 +5,8 @@
 #include <GameEngineCore/GameEngineLevel.h>
 
 #include "Wally2_Bullet.h"
+#include "Wally1_House_Death.h"
+#include "Wally2_Egg.h"
 
 Wally2::Wally2()
 {
@@ -56,7 +58,6 @@ void Wally2::Start()
 
 	BossRender->CreateAnimation({ .AnimationName = "TurnRight",.SpriteName = "Wally2_Turn_Right" , .FrameInter = 0.05f, .Loop = false,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "TurnLeft",.SpriteName = "Wally2_Turn_Left" , .FrameInter = 0.05f, .Loop = false,.ScaleToTexture = true });
-	Intro_Start();
 
 	//INTRO
 	StartFuncPtr[static_cast<int>(Wally2State::INTRO)] = std::bind(&Wally2::Intro_Start, this);
@@ -80,10 +81,33 @@ void Wally2::Start()
 
 	GetTransform()->SetLocalPosition(float4(100, 0));
 
+
+	std::shared_ptr<GameEngineActor> House = GetLevel()->CreateActor< Wally1_House_Death>(CupHeadActorOrder::EnemyEffect);
+	House->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+	Intro_Start();
 	if (false == GameEngineInput::IsKey("PressF"))
 	{
 		GameEngineInput::CreateKey("PressF", 'F');
 	}
+	SettingEggs();
+}
+
+void Wally2::SettingEggs()
+{
+	EggController = GetLevel()->CreateActor<GameEngineActor>();
+	EggController->GetTransform()->SetParent(GetTransform());
+	EggController->GetTransform()->SetLocalPosition(float4::Zero);
+	EggController->GetTransform()->SetWorldScale(float4::One);
+	float4 Pos = float4::Right * 100;
+	for (int i = 0; i < 5; ++i)
+	{
+		std::shared_ptr<GameEngineActor> Egg = GetLevel()->CreateActor<Wally2_Egg>();
+		Egg->GetTransform()->SetParent(EggController->GetTransform());
+		Egg->GetTransform()->SetLocalPosition(Pos.RotaitonZDegReturn(static_cast<float>(72*i)));
+		Eggs.push_back(Egg);
+	}
+
+
 }
 
 void Wally2::Update(float _DeltaTime)
@@ -92,6 +116,15 @@ void Wally2::Update(float _DeltaTime)
 	{
 		NextState = Wally2State::SHOOT;
 	}
+	EggController->GetTransform()->AddWorldRotation(float4(0, 0, _DeltaTime * 100));
+
+
+	float4 Pos = float4::Right * 250 + float4::Right * 150 * sinf(EggController->GetLiveTime());
+	for (int i = 0; i < 5; ++i)
+	{
+		Eggs[i]->GetTransform()->SetLocalPosition(Pos.RotaitonZDegReturn(static_cast<float>(72 * i)));
+	}
+	
 	UpdateState(_DeltaTime);
 }
 

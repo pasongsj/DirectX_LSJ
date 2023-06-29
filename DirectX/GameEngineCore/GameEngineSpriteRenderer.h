@@ -112,7 +112,7 @@ public:
 		ChangeAnimation(_Name, _Frame, _Force);
 	}
 
-	void ChangeAnimation(const std::string_view& _Name, size_t _Frame = -1, bool _Force = true);
+	void ChangeAnimation(const std::string_view& _Name, size_t _Frame = -1, bool _Force = true); // 무의미함
 
 	bool IsAnimationEnd()
 	{

@@ -268,11 +268,39 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Wally1_House_Death.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Wally2.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Wally2_Bullet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Wally2_Egg.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Wally3.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Wally3_LeftBird.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Wally3_Pepper.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Wally3_RightBird.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Wally3_Salt.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -641,12 +669,41 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Wally1_House_Death.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Wally2.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Wally2FSM.cpp" />
     <ClCompile Include="Wally2_Bullet.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Wally2_Egg.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Wally3.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Wally3FSM.cpp" />
+    <ClCompile Include="Wally3_LeftBird.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Wally3_Pepper.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Wally3_RightBird.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Wally3_Salt.cpp">
       <SubType>
       </SubType>
     </ClCompile>

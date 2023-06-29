@@ -69,16 +69,16 @@ void AnimationInfo::Update(float _DeltaTime)
 		}
 
 		//다음프레임이 존재하면서
-		else
-		{
-			CurFrameIndex = FrameIndex[CurFrame];
+		//else
+		//{
+		CurFrameIndex = FrameIndex[CurFrame];
 
-			//Start콜백이 있다면 콜백을 호출
-			if (StartEventFunction.end() != StartEventFunction.find(CurFrameIndex))
-			{
-				StartEventFunction[CurFrameIndex]();
-			}
+		//Start콜백이 있다면 콜백을 호출
+		if (StartEventFunction.end() != StartEventFunction.find(CurFrameIndex))
+		{
+			StartEventFunction[CurFrameIndex]();
 		}
+		//}
 
 
 		CurTime += FrameTime[CurFrame];
