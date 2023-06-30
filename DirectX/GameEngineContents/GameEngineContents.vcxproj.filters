@@ -265,6 +265,9 @@
     <ClInclude Include="Wally3_Garbages.h">
       <Filter>Object\Wally\Boss\Phase3</Filter>
     </ClInclude>
+    <ClInclude Include="Wally3_Heart.h">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -550,6 +553,9 @@
       <Filter>Object\Wally\Boss\Phase3</Filter>
     </ClCompile>
     <ClCompile Include="Wally3_Garbages.cpp">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_Heart.cpp">
       <Filter>Object\Wally\Boss\Phase3</Filter>
     </ClCompile>
   </ItemGroup>
