@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "Wally3.h"
+#include <GameEngineBase/GameEngineRandom.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include "GameContentsEnemyRenderer.h"
@@ -8,7 +9,7 @@
 
 #include "Wally3_Salt.h"
 #include "Wally3_Pepper.h"
-
+#include "Wally3_Garbages.h"
 
 Wally3::Wally3()
 {
@@ -39,17 +40,6 @@ void Wally3::MakeSprite()
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Regurgitate\\Intro").GetFullPath(), "Wally3_Regurgitate_Intro");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Regurgitate\\Loop").GetFullPath(), "Wally3_Regurgitate_Loop");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Regurgitate\\Outro").GetFullPath(), "Wally3_Regurgitate_Outro");
-		//// Regurgitate Heart
-		//GameEngineSprite::ReLoad(Dir.GetPlusFileName("Regurgitate\\Heart\\Hearts").GetFullPath(), "Wally3_Regurgitate_Hearts_Idle");
-		//GameEngineSprite::ReLoad(Dir.GetPlusFileName("Regurgitate\\Heart\\Mouse_Attack").GetFullPath(), "Wally3_Regurgitate_Hearts_Mouse_Attack");
-		//GameEngineSprite::ReLoad(Dir.GetPlusFileName("Regurgitate\\Heart\\Mouse_Idle").GetFullPath(), "Wally3_Regurgitate_Hearts_Mouse_Idle");
-
-
-		//// Bird
-		//GameEngineSprite::ReLoad(Dir.GetPlusFileName("Birds\\Bird A\\Idle").GetFullPath(), "Wally3_LeftBird_Idle");
-		//GameEngineSprite::ReLoad(Dir.GetPlusFileName("Birds\\Bird A\\Attack").GetFullPath(), "Wally3_LeftBird_Attack");
-		//GameEngineSprite::ReLoad(Dir.GetPlusFileName("Birds\\Bird B\\Idle").GetFullPath(), "Wally3_RightBird_Idle");
-		//GameEngineSprite::ReLoad(Dir.GetPlusFileName("Birds\\Bird B\\Attack").GetFullPath(), "Wally3_RightBird_Attack");
 	}
 
 }
@@ -64,6 +54,15 @@ void Wally3::Start()
 	BossRender->CreateAnimation({ .AnimationName = "Garbage_Intro", .SpriteName = "Wally3_Garbage_Intro",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Garbage_Loop", .SpriteName = "Wally3_Garbage_Loop",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BossRender->SetAnimationStartEvent("Garbage_Loop", 15, [this] {++GarbageCount; });
+	BossRender->SetAnimationStartEvent("Garbage_Loop", 10, [this] {
+		std::shared_ptr< Wally3_Garbages> Garbage = GetLevel()->CreateActor< Wally3_Garbages>(CupHeadActorOrder::EnemyWeapon);
+		Garbage->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(200, 150));
+		Garbage->Setting(GameEngineRandom::MainRandom.RandomInt(1,3));
+		if (2 == GarbageCount)
+		{
+			Garbage->Setting(0);
+		}
+		});
 	BossRender->CreateAnimation({ .AnimationName = "Garbage_Outro", .SpriteName = "Wally3_Garbage_Outro",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
 
 	BossRender->CreateAnimation({ .AnimationName = "Regurgitate_Intro", .SpriteName = "Wally3_Regurgitate_Intro",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
@@ -113,13 +112,6 @@ void Wally3::Start()
 	StartFuncPtr[static_cast<int>(Wally3State::DEATH)] = std::bind(&Wally3::Death_Start, this);
 	UpdateFuncPtr[static_cast<int>(Wally3State::DEATH)] = std::bind(&Wally3::Death_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(Wally3State::DEATH)] = std::bind(&Wally3::Death_End, this);
-
-	//LeftBird = GetLevel()->CreateActor<Wally3_LeftBird>(CupHeadRendererOrder::Boss);
-	//RightBird = GetLevel()->CreateActor<Wally3_RightBird>(CupHeadRendererOrder::Boss);
-	//LeftBird->GetTransform()->SetParent(GetTransform());
-	//RightBird->GetTransform()->SetParent(GetTransform());
-	//LeftBird->GetTransform()->SetLocalPosition(float4(-379, 127));
-	//RightBird->GetTransform()->SetLocalPosition(float4(383, 131));
 
 	GetTransform()->SetLocalPosition(float4(100, 0));
 

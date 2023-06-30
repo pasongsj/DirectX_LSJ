@@ -256,6 +256,15 @@
     <ClInclude Include="Wally3_Pepper.h">
       <Filter>Object\Wally\Boss\Phase3</Filter>
     </ClInclude>
+    <ClInclude Include="Wally3_Pill.h">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_Pill_Piece.h">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_Garbages.h">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -532,6 +541,15 @@
       <Filter>Object\Wally\Boss\Phase3</Filter>
     </ClCompile>
     <ClCompile Include="Wally3_Pepper.cpp">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_Pill.cpp">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_Pill_Piece.cpp">
+      <Filter>Object\Wally\Boss\Phase3</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_Garbages.cpp">
       <Filter>Object\Wally\Boss\Phase3</Filter>
     </ClCompile>
   </ItemGroup>

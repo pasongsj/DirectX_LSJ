@@ -52,6 +52,8 @@ void Wally3::Garbage_Start()
 
 void Wally3::Garbage_Update(float _DeltaTime)
 {
+	MoveUpdate(_DeltaTime);
+
 	if (false == isGarbageIntroDone && true == BossRender->IsAnimationEnd())
 	{
 		BossRender->ChangeAnimation("Garbage_Loop");

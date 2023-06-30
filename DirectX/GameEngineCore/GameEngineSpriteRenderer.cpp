@@ -19,6 +19,10 @@ void AnimationInfo::Reset()
 	CurTime = FrameTime[0];
 	IsEndValue = false;
 	IsPauseValue = false;
+	for (std::pair<const size_t, AnimationStartEvent>& Pair : StartEventFunction)
+	{
+		Pair.second.IsEvent = false;
+	}
 }
 
 void AnimationInfo::Update(float _DeltaTime)
@@ -78,14 +82,7 @@ void AnimationInfo::Update(float _DeltaTime)
 			}
 		}
 
-		
-
-
 		CurTime += FrameTime[CurFrame];
-
-		// 0 ~ 9
-
-		// 9
 	}
 }
 

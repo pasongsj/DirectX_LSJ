@@ -288,11 +288,23 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Wally3_Garbages.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Wally3_LeftBird.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Wally3_Pepper.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Wally3_Pill.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Wally3_Pill_Piece.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -691,11 +703,23 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Wally3FSM.cpp" />
+    <ClCompile Include="Wally3_Garbages.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Wally3_LeftBird.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Wally3_Pepper.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Wally3_Pill.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Wally3_Pill_Piece.cpp">
       <SubType>
       </SubType>
     </ClCompile>
