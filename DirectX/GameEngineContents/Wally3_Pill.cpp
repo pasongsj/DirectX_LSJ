@@ -1,0 +1,79 @@
+#include "PrecompileHeader.h"
+#include "Wally3_Pill.h"
+#include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCamera.h>
+
+#include "Wally3_Pill_Piece.h"
+
+Wally3_Pill::Wally3_Pill()
+{
+}
+
+Wally3_Pill::~Wally3_Pill()
+{
+}
+void Wally3_Pill::MakeSprite()
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentResources");
+	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
+
+
+	if (nullptr == GameEngineSprite::Find("Wally3_Pill_Blue"))
+	{
+		// Bird
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Birds\\Pills\\Normal\\Whole").GetFullPath(), "Wally3_Pill_Blue");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Birds\\Pills\\Pink\\Whole").GetFullPath(), "Wally3_Pill_Pink");
+	}
+}
+
+void Wally3_Pill::Start()
+{
+	MakeSprite();
+	PillRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
+	PillRender->CreateAnimation({ .AnimationName = "Blue",.SpriteName = "Wally3_Pill_Blue",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
+	PillRender->CreateAnimation({ .AnimationName = "Pink",.SpriteName = "Wally3_Pill_Pink",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
+	if (true == static_cast<bool>(GameEngineRandom::MainRandom.RandomInt(0, 5)))
+	{
+		PillRender->ChangeAnimation("Blue");
+	}
+	else
+	{
+		PillRender->ChangeAnimation("Pink");
+		PinkObject = true;
+	}
+
+}
+
+void Wally3_Pill::Update(float _DeltaTime)
+{
+	GetTransform()->AddLocalPosition(float4::Up * MoveSpeed * _DeltaTime);
+	MoveSpeed -= _DeltaTime * 500;
+	//if (false == GetLevel()->GetMainCamera()->IsView(PillRender->GetTransform()->GetTransDataRef()))
+	//{
+	//	Death();
+	//	return;
+	//}
+	if (MoveSpeed < 0)
+	{
+		float RandomRot = GameEngineRandom::MainRandom.RandomFloat(0, 360);
+		std::shared_ptr< Wally3_Pill_Piece> Piece1 = GetLevel()->CreateActor< Wally3_Pill_Piece>(CupHeadActorOrder::EnemyWeapon);
+		Piece1->GetTransform()->SetLocalPosition(PillRender->GetTransform()->GetWorldPosition());
+		std::shared_ptr< Wally3_Pill_Piece> Piece2 = GetLevel()->CreateActor< Wally3_Pill_Piece>(CupHeadActorOrder::EnemyWeapon);
+		Piece2->GetTransform()->SetLocalPosition(PillRender->GetTransform()->GetWorldPosition());
+		if (true == IsPink())
+		{
+			Piece1->Setting(RandomRot, 2);
+			Piece2->Setting(RandomRot + 180.0f, 3);
+		}
+		else
+		{
+			Piece1->Setting(RandomRot, 0);
+			Piece2->Setting(RandomRot + 180.0f, 1);
+		}
+		Death();
+		return;
+	}
+}

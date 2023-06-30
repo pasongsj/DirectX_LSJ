@@ -34,6 +34,8 @@ private:
 	std::shared_ptr<GameEngineActor> RightBird = nullptr;
 	std::shared_ptr<GameEngineActor> LeftBird = nullptr;
 
+	// Move
+	float MoveDuration = 0.0f;
 	//Garbage
 	bool isGarbageIntroDone = false;
 	bool isGarbageLoopDone = false;
@@ -78,6 +80,9 @@ private:
 	std::function<void()> EndFuncPtr[static_cast<int>(Wally3State::MAX)];
 
 	void MakeSprite();
+
+	void MakeBirds();
+
 
 };
 

@@ -21,13 +21,9 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> BirdRender = nullptr;
-	bool AvailableAttack = false;
-
+	std::shared_ptr<class ContentsSortRenderer> BirdRender = nullptr;
+	float AttackInterval = 12.5f;
+	bool isAttackAnimation = false;
 	void MakeSprite();
-	inline void SetAvailable(bool _Avail)
-	{
-		AvailableAttack = _Avail;
-	}
 };
 

@@ -114,12 +114,12 @@ void Wally3::Start()
 	UpdateFuncPtr[static_cast<int>(Wally3State::DEATH)] = std::bind(&Wally3::Death_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(Wally3State::DEATH)] = std::bind(&Wally3::Death_End, this);
 
-	LeftBird = GetLevel()->CreateActor<Wally3_LeftBird>(CupHeadRendererOrder::Boss);
-	RightBird = GetLevel()->CreateActor<Wally3_RightBird>(CupHeadRendererOrder::Boss);
-	LeftBird->GetTransform()->SetParent(GetTransform());
-	RightBird->GetTransform()->SetParent(GetTransform());
-	LeftBird->GetTransform()->SetLocalPosition(float4(-379, 127));
-	RightBird->GetTransform()->SetLocalPosition(float4(383, 131));
+	//LeftBird = GetLevel()->CreateActor<Wally3_LeftBird>(CupHeadRendererOrder::Boss);
+	//RightBird = GetLevel()->CreateActor<Wally3_RightBird>(CupHeadRendererOrder::Boss);
+	//LeftBird->GetTransform()->SetParent(GetTransform());
+	//RightBird->GetTransform()->SetParent(GetTransform());
+	//LeftBird->GetTransform()->SetLocalPosition(float4(-379, 127));
+	//RightBird->GetTransform()->SetLocalPosition(float4(383, 131));
 
 	GetTransform()->SetLocalPosition(float4(100, 0));
 
@@ -131,19 +131,20 @@ void Wally3::Start()
 
 void Wally3::Update(float _DeltaTime)
 {
-	if (true == GameEngineInput::IsPress("PressF"))
+	if (true == GameEngineInput::IsDown("PressF"))
 	{
-		NextState = Wally3State::DEATH;
+		if(Wally3State::IDLE == CurState)
+		{
+			NextState = Wally3State::GARBAGE;
+		}
+		else
+		{
+			NextState = Wally3State::IDLE;
+		}
 	}
 	UpdateState(_DeltaTime);
 }
 
-
-
-void Wally3::MoveUpdate(float _DeltaTime)
-{
-
-}
 
 void Wally3::UpdateState(float _DeltaTime)
 {
@@ -160,4 +161,29 @@ void Wally3::UpdateState(float _DeltaTime)
 	}
 
 	UpdateFuncPtr[static_cast<int>(CurState)](_DeltaTime);
+}
+
+void Wally3::MakeBirds()
+{
+	if (nullptr == LeftBird)
+	{
+		LeftBird = GetLevel()->CreateActor<Wally3_LeftBird>(CupHeadRendererOrder::Boss);
+		LeftBird->GetTransform()->SetParent(GetTransform());
+		LeftBird->GetTransform()->SetLocalPosition(float4(-385, 125));
+
+	}
+	if (nullptr == RightBird)
+	{
+		RightBird = GetLevel()->CreateActor<Wally3_RightBird>(CupHeadRendererOrder::Boss);
+		RightBird->GetTransform()->SetParent(GetTransform());
+		RightBird->GetTransform()->SetLocalPosition(float4(390, 130));
+
+	}
+}
+
+
+void Wally3::MoveUpdate(float _DeltaTime)
+{
+	GetTransform()->SetLocalPosition(float4(sinf(MoveDuration / 2) * 250, -210, 0));
+	MoveDuration += _DeltaTime;
 }

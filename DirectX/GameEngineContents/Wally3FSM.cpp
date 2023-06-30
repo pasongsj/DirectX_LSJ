@@ -2,15 +2,20 @@
 #include "Wally3.h"
 #include "GameContentsEnemyRenderer.h"
 
+
 //fsm
 void Wally3::Intro_Start()
 {
 	BossRender->ChangeAnimation("Idle");
+	MakeBirds();
 }
 
 void Wally3::Intro_Update(float _DeltaTime)
 {
-
+	if (GetLiveTime() > 2.0f)
+	{
+		NextState = Wally3State::IDLE;
+	}
 }
 
 void Wally3::Intro_End()
@@ -23,11 +28,12 @@ void Wally3::Intro_End()
 void Wally3::Idle_Start()
 {
 	BossRender->ChangeAnimation("Idle");
+	MakeBirds();
 }
 
 void Wally3::Idle_Update(float _DeltaTime)
 {
-
+	MoveUpdate(_DeltaTime);
 }
 
 void Wally3::Idle_End()
