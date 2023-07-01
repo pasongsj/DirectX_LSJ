@@ -2,7 +2,6 @@
 #include "Wally3.h"
 #include "GameContentsEnemyRenderer.h"
 
-
 //fsm
 void Wally3::Intro_Start()
 {
@@ -92,7 +91,7 @@ void Wally3::Regurgitate_Update(float _DeltaTime)
 		BossRender->ChangeAnimation("Regurgitate_Loop");
 		isRegurgitateIntroDone = true;
 	}
-	else if (true == isRegurgitateIntroDone && false == isRegurgitateLoopDone && RegurgitateCount >= 20)
+	else if (true == isRegurgitateIntroDone && false == isRegurgitateLoopDone && RegurgitateCount >= 7)
 	{
 		BossRender->ChangeAnimation("Regurgitate_Outro");
 		isRegurgitateLoopDone = true;

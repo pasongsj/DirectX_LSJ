@@ -10,6 +10,7 @@
 #include "Wally3_Salt.h"
 #include "Wally3_Pepper.h"
 #include "Wally3_Garbages.h"
+#include "Wally3_Heart.h"
 
 Wally3::Wally3()
 {
@@ -66,6 +67,11 @@ void Wally3::Start()
 	BossRender->CreateAnimation({ .AnimationName = "Garbage_Outro", .SpriteName = "Wally3_Garbage_Outro",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
 
 	BossRender->CreateAnimation({ .AnimationName = "Regurgitate_Intro", .SpriteName = "Wally3_Regurgitate_Intro",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
+	BossRender->SetAnimationStartEvent("Regurgitate_Intro", 17, [this]
+		{
+			std::shared_ptr< Wally3_Heart> Heart = GetLevel()->CreateActor< Wally3_Heart>(CupHeadActorOrder::EnemyWeapon);
+			Heart->SetStartPosition(GetTransform()->GetWorldPosition()+ float4(200, 150));
+		});
 	BossRender->CreateAnimation({ .AnimationName = "Regurgitate_Loop", .SpriteName = "Wally3_Regurgitate_Loop",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BossRender->SetAnimationStartEvent("Regurgitate_Loop", 4, [this] {++RegurgitateCount; });
 	BossRender->CreateAnimation({ .AnimationName = "Regurgitate_Outro", .SpriteName = "Wally3_Regurgitate_Outro",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
@@ -127,7 +133,7 @@ void Wally3::Update(float _DeltaTime)
 	{
 		if(Wally3State::IDLE == CurState)
 		{
-			NextState = Wally3State::GARBAGE;
+			NextState = Wally3State::REGURGITATE;
 		}
 		else
 		{

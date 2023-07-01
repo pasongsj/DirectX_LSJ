@@ -4,6 +4,7 @@
 // Ό³Έν :
 class Wally3_Heart : public GameEnemyWeapon
 {
+	friend class Wally3;
 public:
 	// constrcuter destructer
 	Wally3_Heart();
@@ -20,8 +21,24 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+	
 	std::shared_ptr<class GameEngineSpriteRenderer> HeartRender = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> MouseRender = nullptr;
+
+	float4 Dir = float4::Up;
+	float MoveSpeed = 600;
+	bool isAttack = false;
+	float AttackInterval = 0.0f;
+
+	float4 StartPoint = float4::Zero;
+
 	void MakeSprite();
 
+	void SetStartPosition(const float4& _Pos)
+	{
+		StartPoint = _Pos;
+		GetTransform()->SetLocalPosition(_Pos);
+	}
+	void ControlAnimation();
 };
 

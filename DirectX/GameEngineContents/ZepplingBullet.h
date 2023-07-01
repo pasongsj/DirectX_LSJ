@@ -4,6 +4,7 @@
 class ZepplingBullet : public GameEnemyWeapon
 {
 	friend class Zeppling;
+	friend class Wally3_Heart;
 public:
 	// constrcuter destructer
 	ZepplingBullet();
@@ -26,6 +27,7 @@ private:
 	void SetBulletDir(const float4& _Dir)
 	{
 		Dir = _Dir;
+		Dir.Normalize();
 	}
 
 	void SetPurpleBullet();
