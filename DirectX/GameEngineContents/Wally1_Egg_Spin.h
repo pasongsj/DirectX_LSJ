@@ -20,6 +20,7 @@ protected:
 	void Update(float _DeltaTime) override;
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> EggRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> EggCollision = nullptr;
 	float MoveSpeed = 800;
 	float4 ScreenSize = float4::Zero;
 	bool isDeadAnimation = false;

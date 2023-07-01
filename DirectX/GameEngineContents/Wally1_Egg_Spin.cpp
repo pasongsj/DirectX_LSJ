@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "Wally1_Egg_Pieces.h"
 Wally1_Egg_Spin::Wally1_Egg_Spin()
@@ -34,6 +35,11 @@ void Wally1_Egg_Spin::Start()
 	EggRender->ChangeAnimation("Idle");
 	ScreenSize = GameEngineWindow::GetScreenSize();
 	isDeadAnimation = false;
+
+	EggCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	EggCollision->SetColType(ColType::SPHERE2D);
+	EggCollision->GetTransform()->SetLocalScale(float4(120, 0));
+	//EggCollision->GetTransform()->SetLocalPosition(float4(-25, 0));
 }
 
 void Wally1_Egg_Spin::Update(float _DeltaTime)
@@ -47,6 +53,7 @@ void Wally1_Egg_Spin::Update(float _DeltaTime)
 	{
 		if (ScreenSize.hx() - 5 < abs(GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition().x - GetTransform()->GetWorldPosition().x))
 		{
+			EggCollision->Death();
 			isDeadAnimation = true;
 			EggRender->ChangeAnimation("Dead");
 			float4 EggPos = GetTransform()->GetWorldPosition();

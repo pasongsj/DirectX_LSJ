@@ -29,6 +29,14 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+	std::shared_ptr<class GameEngineSpriteRenderer> BulletRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> BulletCollision = nullptr;
+
+	void MakeSprite();
+	Wally1BulletPos CurPos = Wally1BulletPos::Mid;
+	float4 Dir = float4::Left;
+	float MoveSpeed = 800;
+	bool isShooted = false;
 
 	inline void SetDir(Wally1BulletPos _Pos)
 	{
@@ -47,13 +55,6 @@ private:
 		CurPos = _Pos;
 	}
 
-	std::shared_ptr<class GameEngineSpriteRenderer> BulletRender = nullptr;
-
-	void MakeSprite();
-	Wally1BulletPos CurPos = Wally1BulletPos::Mid;
-	float4 Dir = float4::Left;
-	float MoveSpeed = 800;
-	bool isShooted = false;
 
 
 };

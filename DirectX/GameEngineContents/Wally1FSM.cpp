@@ -3,6 +3,7 @@
 #include "ContentsSortRenderer.h"
 
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 
 void Wally1::CuckooIntro_Start()
@@ -15,6 +16,8 @@ void Wally1::CuckooIntro_Start()
 
 	HeadRender->ChangeAnimation("Head_Cuckoo_Intro");
 	HeadRender->SetLocalSortPosition(float4(-45, 35), SortRenderer::RIGHT);
+
+	HeadCollision->Off();
 }
 
 void Wally1::CuckooIntro_Update(float _DeltaTime)
@@ -27,6 +30,7 @@ void Wally1::CuckooIntro_Update(float _DeltaTime)
 
 void Wally1::CuckooIntro_End()
 {
+	HeadCollision->On();
 }
 
 
@@ -41,6 +45,7 @@ void Wally1::Intro_Start()
 	HeadRender->ChangeAnimation("Head_Intro");
 	HeadRender->SetLocalSortPosition(float4(-57, 0), SortRenderer::RIGHT);
 
+	HeadCollision->GetTransform()->SetLocalPosition(float4(-200, 0));
 	isFeetIntroEnd = false;
 
 }
@@ -77,7 +82,7 @@ void Wally1::Idle_Start()
 	HeadRender->SetLocalSortPosition(float4(-80, -10), SortRenderer::RIGHT);
 
 
-
+	HeadCollision->GetTransform()->SetLocalPosition(float4(-200, 0));
 }
 
 void Wally1::Idle_Update(float _DeltaTime)
@@ -116,6 +121,9 @@ void Wally1::Barf_Start()
 	HouseRender->ChangeAnimation("House_Intro", false);
 	HeadRender->ChangeAnimation("Head_Barf");
 	HeadRender->SetLocalSortPosition(float4(-80, -5), SortRenderer::RIGHT);
+
+	HeadCollision->GetTransform()->SetLocalPosition(float4(-300, 0));
+
 }
 
 void Wally1::Barf_Update(float _DeltaTime)

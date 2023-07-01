@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 FlappyBird::FlappyBird()
 {
@@ -35,6 +36,12 @@ void FlappyBird::Start()
 	BirdRender->CreateAnimation({ .AnimationName = "Pink_Idle",.SpriteName = "FlapyBird_Pink_Idle",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BirdRender->CreateAnimation({ .AnimationName = "Pink_Death",.SpriteName = "FlapyBird_Pink_Death",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
 	BirdRender->ChangeAnimation("Yellow_Idle");
+
+
+	BirdCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BirdCollision->SetColType(ColType::SPHERE2D);
+	BirdCollision->GetTransform()->SetLocalScale(float4(80,0));
+	BirdCollision->GetTransform()->SetLocalPosition(float4(10, -10));
 	isDeathAnimation = false;
 }
 

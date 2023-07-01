@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 Wally1_Egg_Pieces::Wally1_Egg_Pieces() 
 {
@@ -35,6 +36,11 @@ void Wally1_Egg_Pieces::Start()
 	PiecesRender->CreateAnimation({ .AnimationName = "B",.SpriteName = "Wally_Egg_Piece_B",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	PiecesRender->CreateAnimation({ .AnimationName = "C",.SpriteName = "Wally_Egg_Piece_C",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	PiecesRender->ChangeAnimation(AnimationMap[GameEngineRandom::MainRandom.RandomInt(1, 3)]);
+
+	PiecesCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	PiecesCollision->SetColType(ColType::SPHERE2D);
+	PiecesCollision->GetTransform()->SetLocalScale(float4(55, 0));
+	//EggCollision->GetTransform()->SetLocalPosition(float4(-25, 0));
 	
 }
 void Wally1_Egg_Pieces::Update(float _DeltaTime)

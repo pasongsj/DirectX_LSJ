@@ -67,7 +67,8 @@ private:
 	std::shared_ptr<class ContentsSortRenderer> HouseRender = nullptr;
 	std::shared_ptr<class ContentsSortRenderer> FeetRender = nullptr;
 	std::shared_ptr<class ContentsSortRenderer> HeadRender = nullptr;
-	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
+	std::shared_ptr<class GameEngineCollision> HeadCollision = nullptr;
+	std::shared_ptr<class GameEngineCollision> BodyCollision = nullptr;
 
 	void UpdateState(float _DeltaTime);
 	void MoveUpdate(float _DeltaTime);

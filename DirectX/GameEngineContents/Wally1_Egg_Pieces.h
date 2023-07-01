@@ -35,18 +35,21 @@ private:
 		{
 			GetTransform()->AddLocalRotation(float4(0, 0, 30));
 			Dir.RotaitonZDeg(30);
+			Dir.z = 0;
 			//Dir = float4(1, 1).NormalizeReturn();
 		}
 		else if (EggPiecesPos::Bot == _Pos)
 		{
 			Dir.RotaitonZDeg(-30);
 			GetTransform()->AddLocalRotation(float4(0, 0, -30));
+			Dir.z = 0;
 			//Dir = float4(1, -1).NormalizeReturn();
 		}
 		CurPos = _Pos;
 	}
 
 	std::shared_ptr<class GameEngineSpriteRenderer> PiecesRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> PiecesCollision = nullptr;
 	float MoveSpeed = 800;
 	float4 Dir = float4::Right;
 	EggPiecesPos CurPos = EggPiecesPos::Mid;

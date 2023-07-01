@@ -23,6 +23,7 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BirdRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> BirdCollision = nullptr;
 
 	bool isDeathAnimation = false;
 	float MoveSpeed = 300;

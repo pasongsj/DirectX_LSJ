@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 Wally1_Bullet::Wally1_Bullet()
 {
@@ -30,6 +31,12 @@ void Wally1_Bullet::Start()
 	BulletRender->CreateAnimation({ .AnimationName = "Pre",.SpriteName = "Wally1_Bullet_Pre",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
 	BulletRender->CreateAnimation({ .AnimationName = "Shoot",.SpriteName = "Wally1_Bullet_Shoot",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BulletRender->ChangeAnimation("Pre");
+
+	BulletCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	BulletCollision->SetColType(ColType::OBBBOX2D);
+	BulletCollision->GetTransform()->SetLocalScale(float4(80, 50));
+	BulletCollision->GetTransform()->SetLocalPosition(float4(-25, 0));
+
 	isShooted = false;
 
 }

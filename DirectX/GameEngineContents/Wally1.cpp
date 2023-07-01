@@ -3,6 +3,7 @@
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 
 #include "GameContentsEnemyRenderer.h"
@@ -56,6 +57,7 @@ void Wally1::MakeSprite()
 void Wally1::Start()
 {
 	MakeSprite();
+	// 랜더
 	// feet
 	FeetRender = CreateComponent< ContentsSortRenderer>(CupHeadRendererOrder::Boss);
 	FeetRender->CreateAnimation({ .AnimationName = "Feet_Pendulum_Intro",.SpriteName = "Wally1_Feet_Pendulum",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
@@ -108,6 +110,17 @@ void Wally1::Start()
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Pant",.SpriteName = "Wally1_Head_Pant",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
 	HeadRender->SetAnimationStartEvent("Head_Pant", 11, [this] {PantLoopCount++; });
 
+
+	//콜리전
+
+	BodyCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BodyCollision->SetColType(ColType::SPHERE2D);
+	BodyCollision->GetTransform()->SetLocalScale(float4(300, 0, 0));
+	BodyCollision->GetTransform()->SetLocalPosition(float4(0, 50));
+
+	HeadCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	HeadCollision->SetColType(ColType::SPHERE2D);
+	HeadCollision->GetTransform()->SetLocalScale(float4(200, 0, 0));
 
 
 	CuckooIntro_Start();
@@ -170,7 +183,7 @@ void Wally1::Update(float _DeltaTime)
 {
 	if (GameEngineInput::IsPress("PressF"))
 	{
-		NextState = Wally1State::FLAP;
+		NextState = Wally1State::BARF;
 	}
 	UpdateState(_DeltaTime);
 }
@@ -210,13 +223,13 @@ void Wally1::MakeFeather()
 		degree = 20;
 	}
 
-
 	for (int i = 0; i < 10; ++i) // 0 40 80 120 160 200 240 280 320 360
 	{
 		std::shared_ptr< Wally1_Feather> Feat = GetLevel()->CreateActor< Wally1_Feather>(CupHeadActorOrder::EnemyWeapon);
-		float4 Pos = GetTransform()->GetWorldPosition() + float4(-100, 0, 0);
+		float4 Pos = float4(-100, 0, 0);
 		Pos.RotaitonZDeg(static_cast<float>(i * 40 + degree));
 		Feat->SetDir(static_cast<float>(i * 40 + degree));
+		Pos += GetTransform()->GetWorldPosition();
 		Pos.z = 550;
 		Feat->GetTransform()->SetLocalPosition(Pos);
 	}
