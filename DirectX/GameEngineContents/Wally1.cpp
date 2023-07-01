@@ -82,21 +82,25 @@ void Wally1::Start()
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Idle",.SpriteName = "Wally1_Head_Idle",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Barf",.SpriteName = "Wally1_Head_Barf",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	HeadRender->SetAnimationStartEvent("Head_Barf", 7, [this] {
+		float4 HeadRenderPos = HeadRender->GetTransform()->GetWorldPosition();
+		HeadRenderPos.z = 550;
 		std::shared_ptr<GameEngineActor> Egg = GetLevel()->CreateActor< Wally1_Egg_Spin>(CupHeadActorOrder::EnemyWeapon);
-		Egg->GetTransform()->SetLocalPosition(HeadRender->GetTransform()->GetWorldPosition() + float4(-120, -30));
+		Egg->GetTransform()->SetLocalPosition(HeadRenderPos + float4(-120, -30));
 		});
 	HeadRender->CreateAnimation({ .AnimationName = "Head_HandGun",.SpriteName = "Wally1_Head_HandGun",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	HeadRender->SetAnimationStartEvent("Head_HandGun", 10, [this]
 		{
+			float4 HeadRenderPos = HeadRender->GetTransform()->GetWorldPosition();
+			HeadRenderPos.z = 550;
 			std::shared_ptr< Wally1_Bullet> Bullet1 = GetLevel()->CreateActor< Wally1_Bullet>(CupHeadActorOrder::EnemyWeapon);
-			Bullet1->GetTransform()->SetLocalPosition(HeadRender->GetTransform()->GetWorldPosition() + float4(-150, 20));
+			Bullet1->GetTransform()->SetLocalPosition(HeadRenderPos + float4(-150, 20));
 
 			std::shared_ptr< Wally1_Bullet> Bullet2 = GetLevel()->CreateActor< Wally1_Bullet>(CupHeadActorOrder::EnemyWeapon);
-			Bullet2->GetTransform()->SetLocalPosition(HeadRender->GetTransform()->GetWorldPosition() + float4(-130, 120));
+			Bullet2->GetTransform()->SetLocalPosition(HeadRenderPos + float4(-130, 120));
 			Bullet2->SetDir(Wally1BulletPos::Top);
 
 			std::shared_ptr< Wally1_Bullet> Bullet3 = GetLevel()->CreateActor< Wally1_Bullet>(CupHeadActorOrder::EnemyWeapon);
-			Bullet3->GetTransform()->SetLocalPosition(HeadRender->GetTransform()->GetWorldPosition() + float4(-130, -80));
+			Bullet3->GetTransform()->SetLocalPosition(HeadRenderPos + float4(-130, -80));
 			Bullet3->SetDir(Wally1BulletPos::Bot);
 
 		});
@@ -154,7 +158,7 @@ void Wally1::Start()
 	UpdateFuncPtr[static_cast<int>(Wally1State::PANT)] = std::bind(&Wally1::Pant_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(Wally1State::PANT)] = std::bind(&Wally1::Pant_End, this);
 
-	GetTransform()->SetLocalPosition({ 420, 0 });
+	GetTransform()->SetLocalPosition({ 420, 0, 600 });
 
 	if (false == GameEngineInput::IsKey("PressF"))
 	{
@@ -193,7 +197,7 @@ void Wally1::UpdateState(float _DeltaTime)
 void Wally1::MoveUpdate(float _DeltaTime)
 {
 	MoveDuration += _DeltaTime;
-	float4 ReturnValue = float4(420, sinf(MoveDuration * 2.5f) * MoveRange);
+	float4 ReturnValue = float4(420, sinf(MoveDuration * 2.5f) * MoveRange, 600);
 	GetTransform()->SetLocalPosition(ReturnValue);
 }
 
@@ -210,10 +214,11 @@ void Wally1::MakeFeather()
 	for (int i = 0; i < 10; ++i) // 0 40 80 120 160 200 240 280 320 360
 	{
 		std::shared_ptr< Wally1_Feather> Feat = GetLevel()->CreateActor< Wally1_Feather>(CupHeadActorOrder::EnemyWeapon);
-		float4 Pos = float4(-100, 0, 0);
+		float4 Pos = GetTransform()->GetWorldPosition() + float4(-100, 0, 0);
 		Pos.RotaitonZDeg(static_cast<float>(i * 40 + degree));
 		Feat->SetDir(static_cast<float>(i * 40 + degree));
-		Feat->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + Pos);
+		Pos.z = 550;
+		Feat->GetTransform()->SetLocalPosition(Pos);
 	}
 }
 

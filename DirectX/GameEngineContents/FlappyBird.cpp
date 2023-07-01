@@ -63,7 +63,9 @@ void FlappyBird::Update(float _DeltaTime)
 		}
 		else
 		{
-			GetTransform()->SetLocalPosition(StartPoint + float4(-1 * MoveDuration * MoveSpeed, 20 * sinf(MoveDuration*10)));
+			float4 NextPos = StartPoint + float4(-1 * MoveDuration * MoveSpeed, 20 * sinf(MoveDuration * 10));
+			NextPos.z = 550;
+			GetTransform()->SetLocalPosition(NextPos);
 			MoveDuration += _DeltaTime;
 		}
 

@@ -49,17 +49,19 @@ void Wally1_Egg_Spin::Update(float _DeltaTime)
 		{
 			isDeadAnimation = true;
 			EggRender->ChangeAnimation("Dead");
+			float4 EggPos = GetTransform()->GetWorldPosition();
+			EggPos.z = 540;
 
 			std::shared_ptr< Wally1_Egg_Pieces> Piece1 = GetLevel()->CreateActor< Wally1_Egg_Pieces>(CupHeadActorOrder::EnemyWeapon);
-			Piece1->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+			Piece1->GetTransform()->SetLocalPosition(EggPos);
 			Piece1->SetDir(EggPiecesPos::Top);
 
 			std::shared_ptr< Wally1_Egg_Pieces> Piece2 = GetLevel()->CreateActor< Wally1_Egg_Pieces>(CupHeadActorOrder::EnemyWeapon);
-			Piece2->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+			Piece2->GetTransform()->SetLocalPosition(EggPos);
 			Piece2->SetDir(EggPiecesPos::Mid);
 
 			std::shared_ptr< Wally1_Egg_Pieces> Piece3 = GetLevel()->CreateActor< Wally1_Egg_Pieces>(CupHeadActorOrder::EnemyWeapon);
-			Piece3->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+			Piece3->GetTransform()->SetLocalPosition(EggPos);
 			Piece3->SetDir(EggPiecesPos::Bot);
 		}
 		else
