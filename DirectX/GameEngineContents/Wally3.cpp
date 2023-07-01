@@ -57,7 +57,9 @@ void Wally3::Start()
 	BossRender->SetAnimationStartEvent("Garbage_Loop", 15, [this] {++GarbageCount; });
 	BossRender->SetAnimationStartEvent("Garbage_Loop", 10, [this] {
 		std::shared_ptr< Wally3_Garbages> Garbage = GetLevel()->CreateActor< Wally3_Garbages>(CupHeadActorOrder::EnemyWeapon);
-		Garbage->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(200, 150));
+		float4 BossPos = GetTransform()->GetWorldPosition();
+		BossPos.z = 500;
+		Garbage->GetTransform()->SetLocalPosition(BossPos + float4(200, 150));
 		Garbage->Setting(GameEngineRandom::MainRandom.RandomInt(1,3));
 		if (2 == GarbageCount)
 		{
@@ -70,7 +72,9 @@ void Wally3::Start()
 	BossRender->SetAnimationStartEvent("Regurgitate_Intro", 17, [this]
 		{
 			std::shared_ptr< Wally3_Heart> Heart = GetLevel()->CreateActor< Wally3_Heart>(CupHeadActorOrder::EnemyWeapon);
-			Heart->SetStartPosition(GetTransform()->GetWorldPosition()+ float4(200, 150));
+			float4 BossPos = GetTransform()->GetWorldPosition();
+			BossPos.z = 550;
+			Heart->SetStartPosition(BossPos + float4(200, 150));
 		});
 	BossRender->CreateAnimation({ .AnimationName = "Regurgitate_Loop", .SpriteName = "Wally3_Regurgitate_Loop",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BossRender->SetAnimationStartEvent("Regurgitate_Loop", 4, [this] {++RegurgitateCount; });
@@ -79,18 +83,22 @@ void Wally3::Start()
 	BossRender->CreateAnimation({ .AnimationName = "Death", .SpriteName = "Wally3_Death",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BossRender->SetAnimationStartEvent("Death", 8, [this]
 		{
+			float4 EffectPos = GetTransform()->GetWorldPosition();
+			EffectPos.z = 450;
 			std::shared_ptr<GameEngineActor> salt = GetLevel()->CreateActor< Wally3_Salt>(CupHeadActorOrder::EnemyEffect);
-			salt->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(-230,90));
+			salt->GetTransform()->SetLocalPosition(EffectPos + float4(-230, 90));
 			std::shared_ptr<GameEngineActor> pepper = GetLevel()->CreateActor< Wally3_Pepper>(CupHeadActorOrder::EnemyEffect);
-			pepper->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(200, 90));
+			pepper->GetTransform()->SetLocalPosition(EffectPos + float4(200, 90));
 
 		});	
 	BossRender->SetAnimationStartEvent("Death", 0, [this]
 		{
+			float4 EffectPos = GetTransform()->GetWorldPosition();
+			EffectPos.z = 450;
 			std::shared_ptr<GameEngineActor> salt = GetLevel()->CreateActor< Wally3_Salt>(CupHeadActorOrder::EnemyEffect);
-			salt->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(-230,90));
+			salt->GetTransform()->SetLocalPosition(EffectPos + float4(-230,90));
 			std::shared_ptr<GameEngineActor> pepper = GetLevel()->CreateActor< Wally3_Pepper>(CupHeadActorOrder::EnemyEffect);
-			pepper->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(200, 90));
+			pepper->GetTransform()->SetLocalPosition(EffectPos + float4(200, 90));
 
 		});
 	Intro_Start();
@@ -166,14 +174,14 @@ void Wally3::MakeBirds()
 	{
 		LeftBird = GetLevel()->CreateActor<Wally3_LeftBird>(CupHeadRendererOrder::Boss);
 		LeftBird->GetTransform()->SetParent(GetTransform());
-		LeftBird->GetTransform()->SetLocalPosition(float4(-385, 125));
+		LeftBird->GetTransform()->SetLocalPosition(float4(-385, 125, -10));
 
 	}
 	if (nullptr == RightBird)
 	{
 		RightBird = GetLevel()->CreateActor<Wally3_RightBird>(CupHeadRendererOrder::Boss);
 		RightBird->GetTransform()->SetParent(GetTransform());
-		RightBird->GetTransform()->SetLocalPosition(float4(390, 130));
+		RightBird->GetTransform()->SetLocalPosition(float4(390, 130, -10));
 
 	}
 }
@@ -181,6 +189,6 @@ void Wally3::MakeBirds()
 
 void Wally3::MoveUpdate(float _DeltaTime)
 {
-	GetTransform()->SetLocalPosition(float4(sinf(MoveDuration / 2) * 250, -210, 0));
+	GetTransform()->SetLocalPosition(float4(sinf(MoveDuration / 2) * 250, -210, 600));
 	MoveDuration += _DeltaTime;
 }

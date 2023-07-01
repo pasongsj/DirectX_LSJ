@@ -36,14 +36,16 @@ void Wally3_Heart::Start()
 	MouseRender->CreateAnimation({ .AnimationName = "Attack",.SpriteName = "Wally3_Mouse_Attack",.FrameInter = 0.05f, .Loop = false,.ScaleToTexture = true });
 	MouseRender->SetAnimationStartEvent("Attack", 6, [this]
 		{
+			float4 MousePos = GetTransform()->GetWorldPosition();
+			MousePos.z = 500;
 			std::shared_ptr< ZepplingBullet> Bullet0 = GetLevel()->CreateActor< ZepplingBullet>(CupHeadActorOrder::EnemyWeapon);
-			Bullet0->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(-60, 0));
+			Bullet0->GetTransform()->SetLocalPosition(MousePos + float4(-60, 0));
 			Bullet0->SetBulletDir(float4::Left);
 			std::shared_ptr< ZepplingBullet> Bullet1 = GetLevel()->CreateActor< ZepplingBullet>(CupHeadActorOrder::EnemyWeapon);
-			Bullet1->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(-60, 0));
+			Bullet1->GetTransform()->SetLocalPosition(MousePos + float4(-60, 0));
 			Bullet1->SetBulletDir(float4(-3,1));
 			std::shared_ptr< ZepplingBullet> Bullet2 = GetLevel()->CreateActor< ZepplingBullet>(CupHeadActorOrder::EnemyWeapon);
-			Bullet2->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(-60, 0));
+			Bullet2->GetTransform()->SetLocalPosition(MousePos + float4(-60, 0));
 			Bullet2->SetBulletDir(float4(-3, -1));
 		});
 	MouseRender->CreateAnimation({ .AnimationName = "Idle",.SpriteName = "Wally3_Mouse_Idle",.FrameInter = 0.05f, .Loop = true,.ScaleToTexture = true });

@@ -14,7 +14,7 @@ void Wally3::Intro_Start()
 void Wally3::Intro_Update(float _DeltaTime)
 {
 	StartDuration += _DeltaTime;
-	GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(StartPos, float4(0, -210), StartDuration/2));
+	GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(StartPos, float4(0, -210, 600), StartDuration/2));
 	if (GetLiveTime() > 2.0f)
 	{
 		NextState = Wally3State::IDLE;

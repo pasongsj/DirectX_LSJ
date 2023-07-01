@@ -72,19 +72,19 @@ void WallyLevel::LevelChangeStart()
 	BG4->Setting("birdhouse_bg_0004.png", 800, 0.0f, 250.0f, WallyBackGroundSort::BOT);
 
 	std::shared_ptr<WallyFore> BG5 = CreateActor<WallyFore>(CupHeadActorOrder::BackGround);
-	BG5->Setting("birdhouse_bg_0003.png", 100, 0.0f, 300.0f, WallyForeGroundSort::BOT);
+	BG5->Setting("birdhouse_bg_0003.png", 300, 0.0f, 300.0f, WallyForeGroundSort::BOT);
 	 
 	std::shared_ptr<WallyFore> BG6 = CreateActor<WallyFore>(CupHeadActorOrder::BackGround);
-	BG6->Setting("birdhouse_bg_0002.png", 50, 0.0f, 350.0f, WallyForeGroundSort::BOT);
+	BG6->Setting("birdhouse_bg_0002.png", 250, 0.0f, 350.0f, WallyForeGroundSort::BOT);
 
 	std::shared_ptr<WallyFore> BG7 = CreateActor<WallyFore>(CupHeadActorOrder::BackGround);
-	BG7->Setting("birdhouse_bg_0001.png", 0, 0.0f, 400.0f, WallyForeGroundSort::BOT);
+	BG7->Setting("birdhouse_bg_0001.png", 200, 0.0f, 400.0f, WallyForeGroundSort::BOT);
 
 
 
 	//CreateActor<Wally1>(CupHeadActorOrder::Boss);
-	CreateActor<Wally2>(CupHeadActorOrder::Boss);
-	//CreateActor<Wally3>(CupHeadActorOrder::Boss);
+	//CreateActor<Wally2>(CupHeadActorOrder::Boss);
+	CreateActor<Wally3>(CupHeadActorOrder::Boss);
 	CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 }
 

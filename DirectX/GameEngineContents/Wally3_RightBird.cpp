@@ -35,8 +35,10 @@ void Wally3_RightBird::Start()
 	BirdRender->CreateAnimation({ .AnimationName = "Attack",.SpriteName = "Wally3_RightBird_Attack",.FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	BirdRender->SetAnimationStartEvent("Attack", 16, [this]
 		{
+			float4 BirdPos = GetTransform()->GetWorldPosition();
+			BirdPos.z = 500;
 			std::shared_ptr<GameEngineActor>Pill = GetLevel()->CreateActor<Wally3_Pill>(CupHeadActorOrder::EnemyWeapon);
-			Pill->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(0, 100));
+			Pill->GetTransform()->SetLocalPosition(BirdPos + float4(0, 100));
 		});
 	BirdRender->ChangeAnimation("Idle");
 	BirdRender->SetLocalSortPosition(float4(0, -100), SortRenderer::BOT);

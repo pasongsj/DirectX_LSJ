@@ -59,10 +59,11 @@ void Wally3_Pill::Update(float _DeltaTime)
 	if (MoveSpeed < 0)
 	{
 		float RandomRot = GameEngineRandom::MainRandom.RandomFloat(0, 360);
+		float4 PillRenderPos = PillRender->GetTransform()->GetWorldPosition();
 		std::shared_ptr< Wally3_Pill_Piece> Piece1 = GetLevel()->CreateActor< Wally3_Pill_Piece>(CupHeadActorOrder::EnemyWeapon);
-		Piece1->GetTransform()->SetLocalPosition(PillRender->GetTransform()->GetWorldPosition());
+		Piece1->GetTransform()->SetLocalPosition(PillRenderPos);
 		std::shared_ptr< Wally3_Pill_Piece> Piece2 = GetLevel()->CreateActor< Wally3_Pill_Piece>(CupHeadActorOrder::EnemyWeapon);
-		Piece2->GetTransform()->SetLocalPosition(PillRender->GetTransform()->GetWorldPosition());
+		Piece2->GetTransform()->SetLocalPosition(PillRenderPos);
 		if (true == IsPink())
 		{
 			Piece1->Setting(RandomRot, 2);
