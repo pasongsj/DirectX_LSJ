@@ -1,7 +1,10 @@
 #include "PrecompileHeader.h"
 #include "Wally2.h"
+#include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
-
+#include "Wally2_Egg.h"
 
 
 void Wally2::Intro_Start()
@@ -33,11 +36,24 @@ void Wally2::Idle_Start()
 void Wally2::Idle_Update(float _DeltaTime)
 {
 	MoveUpdate(_DeltaTime);
+	
+	if (GetHP() < 0)
+	{
+		NextState = Wally2State::DEATH;
+		return;
+	}
 	if (true == isTransAnimatioin && true == BossRender->IsAnimationEnd())
 	{
 		BossRender->ChangeAnimation("Idle",false);
 
 		isTransAnimatioin = false;
+	}
+	AttackInterval -= _DeltaTime;
+	if (AttackInterval < 0)
+	{
+		NextState = Wally2State::SHOOT;
+		AttackInterval = GameEngineRandom::MainRandom.RandomFloat(8.0f, 10.0f);
+		return;
 	}
 }
 
@@ -70,6 +86,11 @@ void Wally2::Death_Start()
 	BossRender->ChangeAnimation("Death_Trans");
 	isDeathLoop = false;
 	DeathLoopCount = 0;
+	for (std::shared_ptr<Wally2_Egg> _Egg : Eggs)
+	{
+		_Egg->MakeDeath();
+	}
+	std::vector < std::shared_ptr<GameEngineActor>> Eggs;
 }
 
 void Wally2::Death_Update(float _DeltaTime)
@@ -81,7 +102,12 @@ void Wally2::Death_Update(float _DeltaTime)
 	}
 	else if (true == isDeathLoop && DeathLoopCount > 5)
 	{
-		NextState = Wally2State::IDLE;
+		GetTransform()->AddLocalPosition(float4::Right * _DeltaTime * 500.0f);
+	}
+	if (false == GetLevel()->GetMainCamera()->IsView(BossRender->GetTransform()->GetTransDataRef()))
+	{
+		Death();
+		return;
 	}
 }
 

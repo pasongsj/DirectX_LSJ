@@ -1,16 +1,20 @@
 #include "PrecompileHeader.h"
 #include "Wally3.h"
 #include "GameContentsEnemyRenderer.h"
+#include <GameEngineBase/GameEngineRandom.h>
 
 //fsm
 void Wally3::Intro_Start()
 {
 	BossRender->ChangeAnimation("Idle");
 	MakeBirds();
+	StartDuration = 0.0f;
 }
 
 void Wally3::Intro_Update(float _DeltaTime)
 {
+	StartDuration += _DeltaTime;
+	GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(StartPos, float4(0, -210), StartDuration/2));
 	if (GetLiveTime() > 2.0f)
 	{
 		NextState = Wally3State::IDLE;
@@ -33,6 +37,19 @@ void Wally3::Idle_Start()
 void Wally3::Idle_Update(float _DeltaTime)
 {
 	MoveUpdate(_DeltaTime);
+	AttackInterval -= _DeltaTime;
+	if (AttackInterval < 0)
+	{
+		if (false == static_cast<bool>(GameEngineRandom::MainRandom.RandomInt(0, 2)))
+		{
+			NextState = Wally3State::REGURGITATE;
+		}
+		else
+		{ 
+			NextState = Wally3State::GARBAGE;
+		}
+		AttackInterval = GameEngineRandom::MainRandom.RandomFloat(8.0f, 10.0f);
+	}
 }
 
 void Wally3::Idle_End()

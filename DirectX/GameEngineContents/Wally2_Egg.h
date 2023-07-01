@@ -4,6 +4,7 @@
 // Ό³Έν :
 class Wally2_Egg : public GameEnemyWeapon
 {
+	friend class Wally2;
 public:
 	// constrcuter destructer
 	Wally2_Egg();
@@ -21,7 +22,9 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> EggRender = nullptr;
+	bool isDeathAnimation = false;
 	void MakeSprite();
+	void MakeDeath();
 
 };
 

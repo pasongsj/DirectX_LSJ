@@ -4,6 +4,7 @@
 // Ό³Έν :
 class FlappyBird : public GameEnemyWeapon
 {
+	friend class Wally1;
 public:
 	// constrcuter destructer
 	FlappyBird();
@@ -15,7 +16,6 @@ public:
 	FlappyBird& operator=(const FlappyBird& _Other) = delete;
 	FlappyBird& operator=(FlappyBird&& _Other) noexcept = delete;
 
-	void SetPink();
 
 protected:
 	void Start() override;
@@ -26,7 +26,15 @@ private:
 
 	bool isDeathAnimation = false;
 	float MoveSpeed = 300;
+	float4 StartPoint = float4::Zero;
+	float MoveDuration = 0.0f;
 	void MakeSprite();
+	void SetPink();
+	void SetStartPosition(const float4& _Pos)
+	{
+		StartPoint = _Pos;
+		GetTransform()->SetLocalPosition(_Pos);
+	}
 
 
 };

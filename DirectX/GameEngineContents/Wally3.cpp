@@ -119,7 +119,6 @@ void Wally3::Start()
 	UpdateFuncPtr[static_cast<int>(Wally3State::DEATH)] = std::bind(&Wally3::Death_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(Wally3State::DEATH)] = std::bind(&Wally3::Death_End, this);
 
-	GetTransform()->SetLocalPosition(float4(100, 0));
 
 	if (false == GameEngineInput::IsKey("PressF"))
 	{
@@ -133,7 +132,7 @@ void Wally3::Update(float _DeltaTime)
 	{
 		if(Wally3State::IDLE == CurState)
 		{
-			NextState = Wally3State::REGURGITATE;
+			NextState = Wally3State::DEATH;
 		}
 		else
 		{

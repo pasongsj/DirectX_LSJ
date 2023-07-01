@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "Wally1.h"
+#include <GameEngineBase/GameEngineRandom.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
 
@@ -224,13 +225,23 @@ void Wally1::FlappyBirdSpone(float _DeltaTime)
 		if(FlappySponeInterval < 0.0f)
 		{
 			std::shared_ptr< FlappyBird> Bird = GetLevel()->CreateActor< FlappyBird>(CupHeadActorOrder::EnemyWeapon);
-			Bird->GetTransform()->SetLocalPosition(FlappyPos);
+			Bird->SetStartPosition(FlappyPos);
 			if (1 == FlappyCount)
 			{
 				Bird->SetPink();
 			}
 			FlappySponeInterval = 0.8f;
 			--FlappyCount;
+		}
+	}
+	else if (FlappyCount == 0)
+	{
+		FlappyPatternInterval -= _DeltaTime;
+		if (FlappyPatternInterval < 0)
+		{
+			FlappyPatternInterval = 5.0f;
+			FlappyCount = 4;
+			FlappyPos.y = GameEngineRandom::MainRandom.RandomFloat(-300, 300);
 		}
 	}
 }

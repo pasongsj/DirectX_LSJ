@@ -101,7 +101,7 @@ void Wally2::SettingEggs()
 	float4 Pos = float4::Right * 100;
 	for (int i = 0; i < 5; ++i)
 	{
-		std::shared_ptr<GameEngineActor> Egg = GetLevel()->CreateActor<Wally2_Egg>();
+		std::shared_ptr<Wally2_Egg> Egg = GetLevel()->CreateActor<Wally2_Egg>();
 		Egg->GetTransform()->SetParent(EggController->GetTransform());
 		Egg->GetTransform()->SetLocalPosition(Pos.RotaitonZDegReturn(static_cast<float>(72*i)));
 		Eggs.push_back(Egg);
@@ -114,7 +114,7 @@ void Wally2::Update(float _DeltaTime)
 {
 	if (GameEngineInput::IsPress("PressF"))
 	{
-		NextState = Wally2State::SHOOT;
+		NextState = Wally2State::DEATH;
 	}
 	EggController->GetTransform()->AddWorldRotation(float4(0, 0, _DeltaTime * 100));
 

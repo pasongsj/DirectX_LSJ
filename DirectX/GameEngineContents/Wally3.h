@@ -34,8 +34,12 @@ private:
 	std::shared_ptr<GameEngineActor> RightBird = nullptr;
 	std::shared_ptr<GameEngineActor> LeftBird = nullptr;
 
-	// Move
+	float4 StartPos = float4(100, -500);
+	float StartDuration = 0.0f;
+	// Idle
+	float AttackInterval = 1.0f;
 	float MoveDuration = 0.0f;
+
 	//Garbage
 	bool isGarbageIntroDone = false;
 	bool isGarbageLoopDone = false;

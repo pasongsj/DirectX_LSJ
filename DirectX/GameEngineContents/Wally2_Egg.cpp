@@ -34,4 +34,16 @@ void Wally2_Egg::Start()
 
 void Wally2_Egg::Update(float _DeltaTime)
 {
+	if (true == isDeathAnimation && true == EggRender->IsAnimationEnd())
+	{
+		Death();
+		return;
+	}
+}
+
+
+void Wally2_Egg::MakeDeath()
+{
+	EggRender->ChangeAnimation("Death");
+	isDeathAnimation = true;
 }

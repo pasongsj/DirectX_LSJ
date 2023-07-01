@@ -82,17 +82,25 @@ void Wally1::Idle_Start()
 
 void Wally1::Idle_Update(float _DeltaTime)
 {
+	AttackInterval -= _DeltaTime;
 	MoveUpdate(_DeltaTime);
 	FlappyBirdSpone(_DeltaTime);
-	if (FlappyCount == 0)
+	if (GetHP() <= 0)
 	{
-		FlappyPatternInterval -= _DeltaTime;
-		if (FlappyPatternInterval < 0)
+		NextState = Wally1State::STEAM;
+	}
+	if (AttackInterval < 0)
+	{
+		if (false == static_cast<bool>(GameEngineRandom::MainRandom.RandomInt(0, 5)))
 		{
-			FlappyPatternInterval = 5.0f;
-			FlappyCount = 4;
-			FlappyPos.y = GameEngineRandom::MainRandom.RandomFloat(-300, 300);
+			NextState = Wally1State::HANDGUN;
 		}
+		else
+		{
+			NextState = Wally1State::BARF;
+		}
+		AttackInterval = GameEngineRandom::MainRandom.RandomFloat(0.5f, 1.5f);
+		return;
 	}
 }
 
@@ -112,6 +120,7 @@ void Wally1::Barf_Start()
 
 void Wally1::Barf_Update(float _DeltaTime)
 {
+	FlappyBirdSpone(_DeltaTime);
 	if (true == HeadRender->IsAnimationEnd())
 	{
 		NextState = Wally1State::IDLE;
@@ -135,6 +144,7 @@ void Wally1::HandGun_Start()
 
 void Wally1::HandGun_Update(float _DeltaTime)
 {
+	FlappyBirdSpone(_DeltaTime);
 	if (true == HeadRender->IsAnimationEnd())
 	{
 		NextState = Wally1State::IDLE;

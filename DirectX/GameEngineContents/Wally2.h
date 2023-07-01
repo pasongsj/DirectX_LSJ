@@ -32,11 +32,12 @@ private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> BossRender = nullptr;
 	std::shared_ptr<GameEngineActor> EggController = nullptr;
-	std::vector < std::shared_ptr<GameEngineActor>> Eggs;
+	std::vector < std::shared_ptr<class Wally2_Egg>> Eggs;
 
 	// idle
 	bool isTransAnimatioin = false;
 	float BeforDir = 1.0f;
+	float AttackInterval = 1.0f;
 
 	// idle Move
 	float MoveDuration = 0.0f;

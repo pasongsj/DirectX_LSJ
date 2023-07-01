@@ -38,6 +38,7 @@ private:
 	// idle Move
 	float MoveDuration = 0.0f;
 	float MoveRange = 200.0f;
+	float AttackInterval = 1.0f;
 	// cuckoo intro
 	int IntroCount = 0;
 	bool isFeetIntroEnd = false;
