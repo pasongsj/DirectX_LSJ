@@ -28,6 +28,6 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> RightRender		= nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> TopRender		= nullptr;
 	void MakeSprite();
-
+	float4 Dir[6] = {};
 };
 

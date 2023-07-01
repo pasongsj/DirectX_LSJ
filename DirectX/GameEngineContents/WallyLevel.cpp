@@ -82,8 +82,8 @@ void WallyLevel::LevelChangeStart()
 
 
 
-	CreateActor<Wally1>(CupHeadActorOrder::Boss);
-	//CreateActor<Wally2>(CupHeadActorOrder::Boss);
+	//CreateActor<Wally1>(CupHeadActorOrder::Boss);
+	CreateActor<Wally2>(CupHeadActorOrder::Boss);
 	//CreateActor<Wally3>(CupHeadActorOrder::Boss);
 	CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 }

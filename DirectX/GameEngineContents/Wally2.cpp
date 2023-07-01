@@ -79,11 +79,13 @@ void Wally2::Start()
 	UpdateFuncPtr[static_cast<int>(Wally2State::DEATH)] = std::bind(&Wally2::Death_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(Wally2State::DEATH)] = std::bind(&Wally2::Death_End, this);
 
-	GetTransform()->SetLocalPosition(float4(100, 0));
+	GetTransform()->SetLocalPosition(float4(100, 0, 600));
 
 
 	std::shared_ptr<GameEngineActor> House = GetLevel()->CreateActor< Wally1_House_Death>(CupHeadActorOrder::EnemyEffect);
-	House->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition());
+	float4 EffectPos = GetTransform()->GetWorldPosition();
+	EffectPos.z = 450;
+	House->GetTransform()->SetLocalPosition(EffectPos);
 	Intro_Start();
 	if (false == GameEngineInput::IsKey("PressF"))
 	{
@@ -98,12 +100,14 @@ void Wally2::SettingEggs()
 	EggController->GetTransform()->SetParent(GetTransform());
 	EggController->GetTransform()->SetLocalPosition(float4::Zero);
 	EggController->GetTransform()->SetWorldScale(float4::One);
+	EggController->AccLiveTime(4.57421637f);
+	//4.57421637
 	float4 Pos = float4::Right * 100;
 	for (int i = 0; i < 5; ++i)
 	{
 		std::shared_ptr<Wally2_Egg> Egg = GetLevel()->CreateActor<Wally2_Egg>();
 		Egg->GetTransform()->SetParent(EggController->GetTransform());
-		Egg->GetTransform()->SetLocalPosition(Pos.RotaitonZDegReturn(static_cast<float>(72*i)));
+		Egg->GetTransform()->SetLocalPosition(Pos.RotaitonZDegReturn(static_cast<float>(72 * i)) + float4(0, 0, -50));
 		Eggs.push_back(Egg);
 	}
 
@@ -118,11 +122,10 @@ void Wally2::Update(float _DeltaTime)
 	}
 	EggController->GetTransform()->AddWorldRotation(float4(0, 0, _DeltaTime * 100));
 
-
 	float4 Pos = float4::Right * 250 + float4::Right * 150 * sinf(EggController->GetLiveTime());
 	for (int i = 0; i < 5; ++i)
 	{
-		Eggs[i]->GetTransform()->SetLocalPosition(Pos.RotaitonZDegReturn(static_cast<float>(72 * i)));
+		Eggs[i]->GetTransform()->SetLocalPosition(Pos.RotaitonZDegReturn(static_cast<float>(72 * i))+ float4(0, 0, -50));
 	}
 	
 	UpdateState(_DeltaTime);
@@ -148,7 +151,7 @@ void Wally2::UpdateState(float _DeltaTime)
 void Wally2::MoveUpdate(float _DeltaTime)
 {
 	float4 CurPos = GetTransform()->GetLocalPosition();
-	float4 NextPos = float4(100, 0) + float4((sinf(MoveDuration * 1.0f)) * SpinSpeed * 2, -sinf(MoveDuration * 2.0f) * SpinSpeed);
+	float4 NextPos = float4(100, 0, 600) + float4((sinf(MoveDuration * 1.0f)) * SpinSpeed * 2, -sinf(MoveDuration * 2.0f) * SpinSpeed);
 
 	if (false == isTransAnimatioin && (NextPos.x - CurPos.x) * BeforDir < 0)
 	{

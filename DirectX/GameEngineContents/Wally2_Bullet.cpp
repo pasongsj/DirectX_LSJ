@@ -48,6 +48,8 @@ void Wally2_Bullet::SetPos(const float4& _Pos)
 	Dir = (PlayerPos - _Pos);
 	Dir.z = 0;
 	Dir.Normalize();
-	GetTransform()->SetLocalPosition(_Pos);
+	float4 Pos = _Pos;
+	Pos.z = 550;
+	GetTransform()->SetLocalPosition(Pos);
 	GetTransform()->SetLocalRotation(float4(0,0, GameEngineMath::PIE2 - (-Dir).GetAnagleDegZ()));
 }

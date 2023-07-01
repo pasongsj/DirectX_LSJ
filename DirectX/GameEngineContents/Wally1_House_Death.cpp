@@ -57,22 +57,24 @@ void Wally1_House_Death::Start()
 	RightRender	 ->GetTransform()->AddLocalPosition(float4(65,-89));
 	FrontRender	 ->GetTransform()->AddLocalPosition(float4(-100, -45));
 	TopRender	 ->GetTransform()->AddLocalPosition(float4(0, 45));
+
+	Dir[0] = float4::Right;
+	Dir[1] = float4::Down;
+	Dir[2] = float4(-1, 1); Dir[2].Normalize();
+	Dir[3] = float4(1, -1); Dir[3].Normalize();
+	Dir[4] = float4::Left;
+	Dir[5] = float4(1, 1); Dir[5].Normalize();
+
 }
 
 void Wally1_House_Death::Update(float _DeltaTime)
 {
-	BackRender	->GetTransform()->AddLocalPosition(float4::Right * _DeltaTime * MoveSpeed);
-	BottomRender->GetTransform()->AddLocalPosition(float4::Down * _DeltaTime * MoveSpeed);
-	float4 Dir1 = float4(-1, 1);
-	Dir1.Normalize();
-	LeftRender	->GetTransform()->AddLocalPosition(Dir1 * _DeltaTime * MoveSpeed);
-	float4 Dir2 = float4(1, -1);
-	Dir2.Normalize();
-	RightRender	->GetTransform()->AddLocalPosition(Dir2 * _DeltaTime * MoveSpeed);
-	FrontRender	->GetTransform()->AddLocalPosition(float4::Left * _DeltaTime * MoveSpeed);
-	float4 Dir3 = float4(1, 1);
-	Dir3.Normalize();
-	TopRender   ->GetTransform()->AddLocalPosition(Dir3 * _DeltaTime * MoveSpeed);
+	BackRender	->GetTransform()->AddLocalPosition(Dir[0] * _DeltaTime * MoveSpeed);
+	BottomRender->GetTransform()->AddLocalPosition(Dir[1] * _DeltaTime * MoveSpeed);
+	LeftRender	->GetTransform()->AddLocalPosition(Dir[2] * _DeltaTime * MoveSpeed);
+	RightRender	->GetTransform()->AddLocalPosition(Dir[3] * _DeltaTime * MoveSpeed);
+	FrontRender	->GetTransform()->AddLocalPosition(Dir[4] * _DeltaTime * MoveSpeed);
+	TopRender   ->GetTransform()->AddLocalPosition(Dir[5] * _DeltaTime * MoveSpeed);
 
 	if (GetLiveTime() > 2.0f)
 	{
