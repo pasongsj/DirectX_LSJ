@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "Player.h"
 Wally2_Bullet::Wally2_Bullet()
@@ -29,6 +30,11 @@ void Wally2_Bullet::Start()
 	BulletRender = CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	BulletRender->CreateAnimation({ .AnimationName = "Idle",.SpriteName = "Wally2_Bullet",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BulletRender->ChangeAnimation("Idle");
+
+	BulletCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	BulletCollision->SetColType(ColType::SPHERE2D);
+	BulletCollision->GetTransform()->SetLocalScale(float4(30, 0));
+	BulletCollision->GetTransform()->SetLocalPosition(float4(-95, 10));
 }
 
 void Wally2_Bullet::Update(float _DeltaTime)

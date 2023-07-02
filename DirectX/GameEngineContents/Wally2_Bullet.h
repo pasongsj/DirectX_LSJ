@@ -23,6 +23,7 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BulletRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> BulletCollision = nullptr;
 
 	float MoveSpeed = 800;
 	float4 Dir = float4::Left;

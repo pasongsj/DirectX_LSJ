@@ -22,6 +22,7 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> GarbageRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> GarbageCollision = nullptr;
 	float4 Dir = float4::Up;
 	float MoveSpeed = 400.0f;
 	void MakeSprite();

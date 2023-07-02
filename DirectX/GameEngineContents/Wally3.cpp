@@ -3,6 +3,7 @@
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include "GameContentsEnemyRenderer.h"
 #include "Wally3_LeftBird.h"
 #include "Wally3_RightBird.h"
@@ -102,6 +103,20 @@ void Wally3::Start()
 
 		});
 	Intro_Start();
+
+
+	BodyCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BodyCollision->SetColType(ColType::SPHERE2D);
+	BodyCollision->GetTransform()->SetLocalScale(float4(250, 0));
+	BodyCollision->GetTransform()->SetLocalPosition(float4(-90, -25));
+	
+
+
+	HeadCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	HeadCollision->SetColType(ColType::SPHERE2D);
+	HeadCollision->GetTransform()->SetLocalScale(float4(150, 0));
+	HeadCollision->GetTransform()->SetLocalPosition(float4(200, 50));
+	
 
 	//INTRO
 	StartFuncPtr[static_cast<int>(Wally3State::INTRO)] = std::bind(&Wally3::Intro_Start, this);

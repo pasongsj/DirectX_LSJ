@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 Wally3_Garbages::Wally3_Garbages()
 {
@@ -38,6 +39,9 @@ void Wally3_Garbages::Start()
 	GarbageRender->CreateAnimation({ .AnimationName = "2",.SpriteName = "Wally3_Garbage_Fish",.FrameInter = 0.05f,.Loop = true ,.ScaleToTexture = true });
 	GarbageRender->CreateAnimation({ .AnimationName = "3",.SpriteName = "Wally3_Garbage_Apple",.FrameInter = 0.05f,.Loop = true ,.ScaleToTexture = true });
 
+	GarbageCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	GarbageCollision->SetColType(ColType::SPHERE2D);
+	
 	Dir = float4(0, 3);
 	Dir.Normalize();
 }
@@ -55,8 +59,18 @@ void Wally3_Garbages::Update(float _DeltaTime)
 void Wally3_Garbages::Setting(int index)
 {
 	GarbageRender->ChangeAnimation(std::to_string(index),false, GameEngineRandom::MainRandom.RandomInt(0,7));
-	if (0 == index)
+
+	switch (index)
 	{
+	case 0:
 		PinkObject = true;
+	case 1:
+	case 2:
+	case 3:
+		GarbageCollision->SetColType(ColType::SPHERE2D);
+		GarbageCollision->GetTransform()->SetLocalScale(float4(50, 0, 0));
+		GarbageCollision->GetTransform()->SetLocalPosition(float4(0, -5, 0));
+	default:
+		break;
 	}
 }

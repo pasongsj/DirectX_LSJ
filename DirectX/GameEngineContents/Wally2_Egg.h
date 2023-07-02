@@ -22,6 +22,7 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> EggRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> EggCollision = nullptr;
 	bool isDeathAnimation = false;
 	void MakeSprite();
 	void MakeDeath();

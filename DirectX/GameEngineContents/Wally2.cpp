@@ -3,6 +3,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "Wally2_Bullet.h"
 #include "Wally1_House_Death.h"
@@ -58,6 +59,18 @@ void Wally2::Start()
 
 	BossRender->CreateAnimation({ .AnimationName = "TurnRight",.SpriteName = "Wally2_Turn_Right" , .FrameInter = 0.05f, .Loop = false,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "TurnLeft",.SpriteName = "Wally2_Turn_Left" , .FrameInter = 0.05f, .Loop = false,.ScaleToTexture = true });
+
+
+	BodyCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BodyCollision->SetColType(ColType::SPHERE2D);
+	BodyCollision->GetTransform()->SetLocalScale(float4(90, 0));
+	BodyCollision->GetTransform()->SetLocalPosition(float4(0, -35));
+
+	HeadCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	HeadCollision->SetColType(ColType::SPHERE2D);
+	HeadCollision->GetTransform()->SetLocalScale(float4(90, 0));
+	HeadCollision->GetTransform()->SetLocalPosition(float4(-30, 40));
+
 
 	//INTRO
 	StartFuncPtr[static_cast<int>(Wally2State::INTRO)] = std::bind(&Wally2::Intro_Start, this);
@@ -118,7 +131,7 @@ void Wally2::Update(float _DeltaTime)
 {
 	if (GameEngineInput::IsPress("PressF"))
 	{
-		NextState = Wally2State::DEATH;
+		NextState = Wally2State::SHOOT;
 	}
 	EggController->GetTransform()->AddWorldRotation(float4(0, 0, _DeltaTime * 100));
 

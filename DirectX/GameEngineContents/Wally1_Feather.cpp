@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 Wally1_Feather::Wally1_Feather()
 {
@@ -39,6 +40,11 @@ void Wally1_Feather::Start()
 		FeatherRender->ChangeAnimation("Pink");
 		PinkObject = true;
 	}
+
+	FeatherCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	FeatherCollision->SetColType(ColType::OBBBOX2D);
+	FeatherCollision->GetTransform()->SetLocalScale(float4(100, 20));
+	//EggCollision->GetTransform()->SetLocalPosition(float4(-25, 0));
 
 }
 

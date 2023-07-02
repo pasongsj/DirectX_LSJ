@@ -31,6 +31,8 @@ protected:
 private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> BossRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> BodyCollision = nullptr;
+	std::shared_ptr<class GameEngineCollision> HeadCollision = nullptr;
 	std::shared_ptr<GameEngineActor> EggController = nullptr;
 	std::vector < std::shared_ptr<class Wally2_Egg>> Eggs;
 

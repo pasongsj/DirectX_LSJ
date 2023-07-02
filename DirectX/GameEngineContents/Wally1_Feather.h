@@ -27,6 +27,7 @@ private:
 	}
 
 	std::shared_ptr<class GameEngineSpriteRenderer> FeatherRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> FeatherCollision = nullptr;
 
 	float4 Dir = float4::Left;
 	float MoveSpeed = 800;

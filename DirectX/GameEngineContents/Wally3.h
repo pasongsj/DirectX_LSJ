@@ -31,9 +31,11 @@ protected:
 
 private:
 	std::shared_ptr<class GameContentsEnemyRenderer> BossRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> BodyCollision = nullptr;
+	std::shared_ptr<class GameEngineCollision> HeadCollision = nullptr;
 	std::shared_ptr<GameEngineActor> RightBird = nullptr;
 	std::shared_ptr<GameEngineActor> LeftBird = nullptr;
-
+	
 	float4 StartPos = float4(100, -500, 600);
 	float StartDuration = 0.0f;
 	// Idle
