@@ -41,7 +41,7 @@ void Wally3_Garbages::Start()
 
 	GarbageCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
 	GarbageCollision->SetColType(ColType::SPHERE2D);
-	
+
 	Dir = float4(0, 3);
 	Dir.Normalize();
 }
@@ -49,7 +49,7 @@ void Wally3_Garbages::Start()
 void Wally3_Garbages::Update(float _DeltaTime)
 {
 	GetTransform()->AddLocalPosition(Dir * _DeltaTime * MoveSpeed);
-	Dir -= (float4(_DeltaTime * 0.1f, _DeltaTime * GameEngineRandom::MainRandom.RandomFloat(0.4f,0.6f)));
+	Dir -= (float4(_DeltaTime * 0.1f, _DeltaTime * GameEngineRandom::MainRandom.RandomFloat(0.4f, 0.6f)));
 	if (false == GetLevel()->GetMainCamera()->IsView(GarbageRender->GetTransform()->GetTransDataRef()))
 	{
 		Death();
@@ -58,18 +58,30 @@ void Wally3_Garbages::Update(float _DeltaTime)
 }
 void Wally3_Garbages::Setting(int index)
 {
-	GarbageRender->ChangeAnimation(std::to_string(index),false, GameEngineRandom::MainRandom.RandomInt(0,7));
+	GarbageRender->ChangeAnimation(std::to_string(index), false, GameEngineRandom::MainRandom.RandomInt(0, 7));
 
 	switch (index)
 	{
 	case 0:
+		GarbageCollision->SetColType(ColType::AABBBOX2D);
+		GarbageCollision->GetTransform()->SetLocalScale(float4(50, 50, 0));
+		GarbageCollision->GetTransform()->SetLocalPosition(float4(0, -5, 0));
 		PinkObject = true;
+		break;
 	case 1:
+		GarbageCollision->SetColType(ColType::AABBBOX2D);
+		GarbageCollision->GetTransform()->SetLocalScale(float4(50, 50, 0));
+		GarbageCollision->GetTransform()->SetLocalPosition(float4(0, -5, 0));
+		break;
 	case 2:
+		GarbageCollision->SetColType(ColType::AABBBOX2D);
+		GarbageCollision->GetTransform()->SetLocalScale(float4(80, 40, 0));
+		break;
 	case 3:
 		GarbageCollision->SetColType(ColType::SPHERE2D);
 		GarbageCollision->GetTransform()->SetLocalScale(float4(50, 0, 0));
 		GarbageCollision->GetTransform()->SetLocalPosition(float4(0, -5, 0));
+		break;
 	default:
 		break;
 	}

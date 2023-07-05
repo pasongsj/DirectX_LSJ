@@ -24,6 +24,7 @@ private:
 	
 	std::shared_ptr<class GameEngineSpriteRenderer> HeartRender = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> MouseRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> HeartCollision = nullptr;
 
 	float4 Dir = float4::Up;
 	float MoveSpeed = 600;

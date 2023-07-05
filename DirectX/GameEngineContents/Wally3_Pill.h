@@ -21,6 +21,7 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> PillRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> PillCollision = nullptr;
 	float MoveSpeed = 500;
 
 	void MakeSprite();

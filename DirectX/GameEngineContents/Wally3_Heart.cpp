@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include "ZepplingBullet.h"
 
 Wally3_Heart::Wally3_Heart()
@@ -51,6 +52,10 @@ void Wally3_Heart::Start()
 	MouseRender->CreateAnimation({ .AnimationName = "Idle",.SpriteName = "Wally3_Mouse_Idle",.FrameInter = 0.05f, .Loop = true,.ScaleToTexture = true });
 	HeartRender->ChangeAnimation("Idle");
 	MouseRender->ChangeAnimation("Idle");
+
+	HeartCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	HeartCollision->SetColType(ColType::SPHERE2D);
+	HeartCollision->GetTransform()->SetLocalScale(float4(130,1,1));
 }
 
 void Wally3_Heart::Update(float _DeltaTime)

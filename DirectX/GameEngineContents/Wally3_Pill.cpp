@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "Wally3_Pill_Piece.h"
 
@@ -45,6 +46,10 @@ void Wally3_Pill::Start()
 		PinkObject = true;
 	}
 
+
+	PillCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	PillCollision->SetColType(ColType::SPHERE2D);
+	PillCollision->GetTransform()->SetLocalScale(float4(30, 30));
 }
 
 void Wally3_Pill::Update(float _DeltaTime)

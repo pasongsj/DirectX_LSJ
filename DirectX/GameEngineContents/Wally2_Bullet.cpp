@@ -35,6 +35,8 @@ void Wally2_Bullet::Start()
 	BulletCollision->SetColType(ColType::SPHERE2D);
 	BulletCollision->GetTransform()->SetLocalScale(float4(30, 0));
 	BulletCollision->GetTransform()->SetLocalPosition(float4(-95, 10));
+
+	PinkObject = true;
 }
 
 void Wally2_Bullet::Update(float _DeltaTime)

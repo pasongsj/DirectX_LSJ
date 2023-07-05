@@ -116,6 +116,11 @@ void Wally3::Start()
 	HeadCollision->SetColType(ColType::SPHERE2D);
 	HeadCollision->GetTransform()->SetLocalScale(float4(150, 0));
 	HeadCollision->GetTransform()->SetLocalPosition(float4(200, 50));
+
+	SpineCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	SpineCollision->SetColType(ColType::AABBBOX2D);
+	SpineCollision->GetTransform()->SetLocalScale(float4(400, 20));
+	SpineCollision->GetTransform()->SetLocalPosition(float4(-60, -20));
 	
 
 	//INTRO
@@ -155,7 +160,7 @@ void Wally3::Update(float _DeltaTime)
 	{
 		if(Wally3State::IDLE == CurState)
 		{
-			NextState = Wally3State::DEATH;
+			NextState = Wally3State::REGURGITATE;
 		}
 		else
 		{

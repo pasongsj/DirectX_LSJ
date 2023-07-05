@@ -21,7 +21,8 @@ protected:
 
 private:
 	std::map<int, std::string> NextAnimation = { {0,"Blue"},{1,"Yellow"},{2,"DPink"},{3,"LPink"} };
-	std::shared_ptr<class GameEngineSpriteRenderer> PillPiece = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> PieceRender = nullptr;
+	std::shared_ptr<class GameEngineCollision> PieceCollision = nullptr;
 	float4 Dir = float4::Down;
 	float MoveSpeed = 400;
 	void Setting(float _Rot, int index);

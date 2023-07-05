@@ -33,6 +33,7 @@ private:
 	std::shared_ptr<class GameContentsEnemyRenderer> BossRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> BodyCollision = nullptr;
 	std::shared_ptr<class GameEngineCollision> HeadCollision = nullptr;
+	std::shared_ptr<class GameEngineCollision> SpineCollision = nullptr;
 	std::shared_ptr<GameEngineActor> RightBird = nullptr;
 	std::shared_ptr<GameEngineActor> LeftBird = nullptr;
 	
