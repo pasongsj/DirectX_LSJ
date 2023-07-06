@@ -256,6 +256,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="OverWorldInteractObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="OverWorldToHilda.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Wally1_Bullet.h">
       <SubType>
       </SubType>
@@ -674,6 +682,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="OldFilmEffect.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="OverWorldInteractObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="OverWorldToHilda.cpp">
       <SubType>
       </SubType>
     </ClCompile>

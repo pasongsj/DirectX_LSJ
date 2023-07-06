@@ -271,6 +271,12 @@
     <ClInclude Include="WallyFore.h">
       <Filter>Object\Wally\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="OverWorldInteractObject.h">
+      <Filter>Object\OverWrold</Filter>
+    </ClInclude>
+    <ClInclude Include="OverWorldToHilda.h">
+      <Filter>Object\OverWrold</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -563,6 +569,12 @@
     </ClCompile>
     <ClCompile Include="WallyFore.cpp">
       <Filter>Object\Wally\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="OverWorldInteractObject.cpp">
+      <Filter>Object\OverWrold</Filter>
+    </ClCompile>
+    <ClCompile Include="OverWorldToHilda.cpp">
+      <Filter>Object\OverWrold</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

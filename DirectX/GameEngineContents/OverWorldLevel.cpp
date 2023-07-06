@@ -45,30 +45,35 @@ void OverWorldLevel::MakeSprite()
 		// Sprite
 	}
 	{
-
-	}
-	{
-		GameEngineDirectory Dir;
-		Dir.MoveParentToDirectory("ContentResources");
-		Dir.Move("ContentResources\\Texture\\Cuphead_Overworld");
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToDirectory("ContentResources");
+			Dir.Move("ContentResources\\Texture\\Cuphead_Overworld");
 
 
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Idle").GetFullPath(),"Diag_Down_Idle");
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Move").GetFullPath(),"Diag_Down_Move");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Idle").GetFullPath(), "Diag_Down_Idle");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Move").GetFullPath(), "Diag_Down_Move");
 
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Idle").GetFullPath(),"Diag_Up_Idle");
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Move").GetFullPath(),"Diag_Up_Move");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Idle").GetFullPath(), "Diag_Up_Idle");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Move").GetFullPath(), "Diag_Up_Move");
 
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Down_Idle").GetFullPath(),"Down_Idle");
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Down_Move").GetFullPath(),"Down_Move");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Down_Idle").GetFullPath(), "Down_Idle");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Down_Move").GetFullPath(), "Down_Move");
 
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Side_Idle").GetFullPath(),"Side_Idle");
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Side_Move").GetFullPath(),"Side_Move");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Side_Idle").GetFullPath(), "Side_Idle");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Side_Move").GetFullPath(), "Side_Move");
 
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Up_Idle").GetFullPath(),"Up_Idle");
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Up_Move").GetFullPath(),"Up_Move");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Up_Idle").GetFullPath(), "Up_Idle");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Up_Move").GetFullPath(), "Up_Move");
 
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("InterAction_Win").GetFullPath(),"InterAction_Win");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("InterAction_Win").GetFullPath(), "InterAction_Win");
+		}
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToDirectory("ContentResources");
+			Dir.Move("ContentResources\\Texture\\stage1\\Overworld");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("blimp").GetFullPath(), "To_Hilda_OverWorld");
+		}
 	}
 
 }
@@ -99,6 +104,7 @@ void OverWorldLevel::LevelChangeStart()
 
 	CreateActor<PlayerOverWorldMode>(CupHeadActorOrder::Player);
 
+
 	if (false == GameEngineInput::IsKey("ChangeLevel"))
 	{
 		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
@@ -118,4 +124,24 @@ void OverWorldLevel::LevelChangeEnd()
 	GameEngineTexture::UnLoad("Overworld_ColMap.png");
 	GameEngineTexture::UnLoad("Overworld_Bush_Left.png");
 	GameEngineTexture::UnLoad("Overworld_Bush_Right.png");
+
+
+
+	GameEngineSprite::UnLoad("Diag_Down_Idle");
+	GameEngineSprite::UnLoad("Diag_Down_Move");
+					
+	GameEngineSprite::UnLoad("Diag_Up_Idle");
+	GameEngineSprite::UnLoad("Diag_Up_Move");
+					
+	GameEngineSprite::UnLoad("Down_Idle");
+	GameEngineSprite::UnLoad("Down_Move");
+				
+	GameEngineSprite::UnLoad("Side_Idle");
+	GameEngineSprite::UnLoad("Side_Move");
+			
+	GameEngineSprite::UnLoad("Up_Idle");
+	GameEngineSprite::UnLoad("Up_Move");
+				
+	GameEngineSprite::UnLoad("InterAction_Win");
+	GameEngineSprite::UnLoad("To_Hilda_OverWorld");
 }
