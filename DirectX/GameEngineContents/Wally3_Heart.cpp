@@ -16,11 +16,11 @@ Wally3_Heart::~Wally3_Heart()
 
 void Wally3_Heart::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
 	if (nullptr == GameEngineSprite::Find("Wally3_Heart"))
 	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Regurgitate\\Heart\\Heart").GetFullPath(), "Wally3_Heart");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Regurgitate\\Heart\\Mouse_Attack").GetFullPath(), "Wally3_Mouse_Attack");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Regurgitate\\Heart\\Mouse_Idle").GetFullPath(), "Wally3_Mouse_Idle");

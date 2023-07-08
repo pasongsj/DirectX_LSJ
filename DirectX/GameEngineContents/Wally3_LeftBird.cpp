@@ -15,13 +15,13 @@ Wally3_LeftBird::~Wally3_LeftBird()
 
 void Wally3_LeftBird::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
-
 
 	if (nullptr == GameEngineSprite::Find("Wally3_LeftBird_Idle"))
 	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
+
 		// Bird
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Birds\\Bird A\\Idle").GetFullPath(), "Wally3_LeftBird_Idle");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Birds\\Bird A\\Attack").GetFullPath(), "Wally3_LeftBird_Attack");

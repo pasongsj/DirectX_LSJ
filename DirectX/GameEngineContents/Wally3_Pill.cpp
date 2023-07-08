@@ -17,14 +17,13 @@ Wally3_Pill::~Wally3_Pill()
 }
 void Wally3_Pill::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
-
 
 	if (nullptr == GameEngineSprite::Find("Wally3_Pill_Blue"))
 	{
-		// Bird
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
+
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Birds\\Pills\\Normal\\Whole").GetFullPath(), "Wally3_Pill_Blue");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Birds\\Pills\\Pink\\Whole").GetFullPath(), "Wally3_Pill_Pink");
 	}

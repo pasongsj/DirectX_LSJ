@@ -14,11 +14,11 @@ FlappyBird::~FlappyBird()
 }
 void FlappyBird::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources"); 
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1\\FlappyBirds");
 	if (nullptr == GameEngineSprite::Find("FlapyBird_Pink_Idle"))
 	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1\\FlappyBirds");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Yellow\\Fly").GetFullPath(), "FlapyBird_Yellow_Idle");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Yellow\\Death").GetFullPath(), "FlapyBird_Yellow_Death");		
 

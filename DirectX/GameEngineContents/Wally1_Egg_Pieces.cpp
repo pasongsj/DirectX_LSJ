@@ -15,11 +15,11 @@ Wally1_Egg_Pieces::~Wally1_Egg_Pieces()
 }
 void Wally1_Egg_Pieces::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1\\Egg");
 	if (nullptr == GameEngineSprite::Find("Wally_Egg_Piece_A"))
 	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1\\Egg");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Piece\\A").GetFullPath(), "Wally_Egg_Piece_A");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Piece\\B").GetFullPath(), "Wally_Egg_Piece_B");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Piece\\C").GetFullPath(), "Wally_Egg_Piece_C");

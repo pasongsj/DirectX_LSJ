@@ -23,13 +23,13 @@ Wally3::~Wally3()
 
 void Wally3::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
 
 
 	if (nullptr == GameEngineSprite::Find("Wally3_Idle"))
 	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
 		// Garbage
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Garbage\\Intro").GetFullPath(), "Wally3_Garbage_Intro");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Garbage\\Loop").GetFullPath(), "Wally3_Garbage_Loop");

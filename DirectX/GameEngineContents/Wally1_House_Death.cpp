@@ -11,11 +11,11 @@ Wally1_House_Death::~Wally1_House_Death()
 }
 void Wally1_House_Death::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1\\Death\\House");
 	if (nullptr == GameEngineSprite::Find("Wally1_House_Back"))
 	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1\\Death\\House");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Back").GetFullPath(), "Wally1_House_Back");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Bottom").GetFullPath(), "Wally1_House_Bottom");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Front").GetFullPath(), "Wally1_House_Front");

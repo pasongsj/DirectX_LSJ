@@ -47,5 +47,6 @@ enum class CupheadLevel
 	NONE,
 	STORY,
 	HILDA,
+	WALLY,
 	MAX
 };

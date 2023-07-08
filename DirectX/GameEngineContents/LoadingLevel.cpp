@@ -11,6 +11,128 @@
 CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
 std::atomic_bool isDone = false;
 
+void LoadingWally(GameEngineThread* Thread)
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentResources");
+	Dir.Move("ContentResources\\Texture");
+
+	//flappyBird
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\FlappyBirds\\Yellow\\Fly").GetFullPath(), "FlapyBird_Yellow_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\FlappyBirds\\Yellow\\Death").GetFullPath(), "FlapyBird_Yellow_Death");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\FlappyBirds\\Pink\\Fly").GetFullPath(), "FlapyBird_Pink_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\FlappyBirds\\Pink\\Death").GetFullPath(), "FlapyBird_Pink_Death");
+	//wally1
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\House").GetFullPath(), "Wally1_House");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Intro\\Feet\\Pendulum").GetFullPath(), "Wally1_Feet_Pendulum");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Intro\\Cuckoo").GetFullPath(), "Wally1_Cuckoo");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Intro\\Head").GetFullPath(), "Wally1_Head_Intro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Intro\\Feet\\Morph").GetFullPath(), "Wally1_Feet_Morph");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Feet").GetFullPath(), "Wally1_Feet_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Head\\Idle\\Idle").GetFullPath(), "Wally1_Head_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Barf\\bird_barf_feet").GetFullPath(), "Wally1_Feet_Barf");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Barf\\bird_barf_head").GetFullPath(), "Wally1_Head_Barf");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Handgun\\bird_handgun_head").GetFullPath(), "Wally1_Head_HandGun");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\FeatherAttack\\Steam").GetFullPath(), "Wally1_Head_Steam");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\FeatherAttack\\Flap\\Intro").GetFullPath(), "Wally1_Flap_Intro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\FeatherAttack\\Flap\\Loop").GetFullPath(), "Wally1_Flap_Loop");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\FeatherAttack\\Flap\\Outro").GetFullPath(), "Wally1_Flap_Outro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\FeatherAttack\\Pant").GetFullPath(), "Wally1_Head_Pant");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Death\\bird_large_death").GetFullPath(), "Wally1_Dead");
+	//wally1 bullet
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Handgun\\Bullet\\Pre").GetFullPath(), "Wally1_Bullet_Pre");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Handgun\\Bullet\\Shoot").GetFullPath(), "Wally1_Bullet_Shoot");
+	// wally1 egg pieces
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Egg\\Piece\\A").GetFullPath(), "Wally_Egg_Piece_A");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Egg\\Piece\\B").GetFullPath(), "Wally_Egg_Piece_B");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Egg\\Piece\\C").GetFullPath(), "Wally_Egg_Piece_C");
+	// wally1 egg spin
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Egg\\Spin").GetFullPath(), "Wally_Egg_Spin");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Egg\\Dead").GetFullPath(), "Wally_Egg_Dead");
+	//wally1 feather
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\FeatherAttack\\Feathers\\Blue").GetFullPath(), "Wally1_Feather_Blue");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\FeatherAttack\\Feathers\\Pink").GetFullPath(), "Wally1_Feather_Pink");
+	//wally1 house
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Death\\House\\Back").GetFullPath(), "Wally1_House_Back");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Death\\House\\Bottom").GetFullPath(), "Wally1_House_Bottom");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Death\\House\\Front").GetFullPath(), "Wally1_House_Front");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Death\\House\\Left").GetFullPath(), "Wally1_House_Left");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Death\\House\\Right").GetFullPath(), "Wally1_House_Right");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 1\\Death\\House\\Top").GetFullPath(), "Wally1_House_Top");
+	// wally2
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 2\\Idle\\Idle").GetFullPath(), "Wally2_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 2\\Idle\\Blink").GetFullPath(), "Wally2_Blink");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 2\\Shoot").GetFullPath(), "Wally2_Shoot");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 2\\Death\\Transition").GetFullPath(), "Wally2_Death_Trans");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 2\\Death\\Loop").GetFullPath(), "Wally2_Death_Loop");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 2\\Turn\\Turn_Right").GetFullPath(), "Wally2_Turn_Right");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 2\\Turn\\Turn_Left").GetFullPath(), "Wally2_Turn_Left");
+	// wally2 bullet
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 2\\Bullet").GetFullPath(), "Wally2_Bullet");
+	// wally2 egg
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 2\\Egg\\Rotate").GetFullPath(), "Wally2_Egg_Rotate");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 2\\Egg\\Death").GetFullPath(), "Wally2_Egg_Death");
+	// wally3
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Garbage\\Intro").GetFullPath(), "Wally3_Garbage_Intro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Garbage\\Loop").GetFullPath(), "Wally3_Garbage_Loop");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Garbage\\Outro").GetFullPath(), "Wally3_Garbage_Outro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Idle").GetFullPath(), "Wally3_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Death\\Death").GetFullPath(), "Wally3_Death");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Regurgitate\\Intro").GetFullPath(), "Wally3_Regurgitate_Intro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Regurgitate\\Loop").GetFullPath(), "Wally3_Regurgitate_Loop");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Regurgitate\\Outro").GetFullPath(), "Wally3_Regurgitate_Outro");
+	// wally3 garbage
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Garbage\\Garbages\\garbage_apple").GetFullPath(), "Wally3_Garbage_Apple");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Garbage\\Garbages\\garbage_boot").GetFullPath(), "Wally3_Garbage_Boot");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Garbage\\Garbages\\garbage_fish").GetFullPath(), "Wally3_Garbage_Fish");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Garbage\\Garbages\\pink_garbage_boot").GetFullPath(), "Wally3_Garbage_Boot_Pink");
+	// wally3 hearts
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Regurgitate\\Heart\\Heart").GetFullPath(), "Wally3_Heart");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Regurgitate\\Heart\\Mouse_Attack").GetFullPath(), "Wally3_Mouse_Attack");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Regurgitate\\Heart\\Mouse_Idle").GetFullPath(), "Wally3_Mouse_Idle");
+	// wally3 leftbird
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Birds\\Bird A\\Idle").GetFullPath(), "Wally3_LeftBird_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Birds\\Bird A\\Attack").GetFullPath(), "Wally3_LeftBird_Attack");
+	// wally3 pepper
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Death\\Pepper\\A").GetFullPath(), "Wally3_Pepper_A");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Death\\Pepper\\B").GetFullPath(), "Wally3_Pepper_B");
+	// wally3 pill
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Birds\\Pills\\Normal\\Whole").GetFullPath(), "Wally3_Pill_Blue");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Birds\\Pills\\Pink\\Whole").GetFullPath(), "Wally3_Pill_Pink");
+	// wally3 piil pieces
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Birds\\Pills\\Normal\\Blue Piece").GetFullPath(), "Wally3_Pill_Blue_Piece");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Birds\\Pills\\Normal\\Yellow Piece").GetFullPath(), "Wally3_Pill_Yellow_Piece");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Birds\\Pills\\Pink\\Dark Pink Piece").GetFullPath(), "Wally3_Pill_DPink_Piece");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Birds\\Pills\\Pink\\Light Pink Piece").GetFullPath(), "Wally3_Pill_LPink_Piece");
+	// wally3 rightbird
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Birds\\Bird B\\Idle").GetFullPath(), "Wally3_RightBird_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Birds\\Bird B\\Attack").GetFullPath(), "Wally3_RightBird_Attack");
+	// wally3 salt
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Death\\Salt\\A").GetFullPath(), "Wally3_Salt_A");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Death\\Salt\\B").GetFullPath(), "Wally3_Salt_B");
+
+
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Level");
+		std::vector<GameEngineFile> AllLoadFile = NewDir.GetAllFile({ ".png" });
+		if (nullptr == GameEngineTexture::Find("birdhouse_bg_0006.png"))
+		{
+			for (size_t i = 0; i < AllLoadFile.size(); i++)
+			{
+				GameEngineTexture::Load(AllLoadFile[i].GetFullPath());
+			}
+		}
+		else
+		{
+			for (size_t i = 0; i < AllLoadFile.size(); i++)
+			{
+				GameEngineTexture::ReLoad(AllLoadFile[i].GetFullPath());
+			}
+		}
+	}
+}
 
 void LoadingStory(GameEngineThread* Thread)
 {
@@ -222,19 +344,31 @@ LoadingLevel::~LoadingLevel()
 
 void LoadingLevel::Update(float _DeltaTime)
 {
-	if (CupheadLevel::NONE == NextLevel)
+
+	switch (NextLevel)
 	{
+	case CupheadLevel::NONE:
 		return;
-	}
-	if (true == isDone)
-	{
-		GameEngineCore::ChangeLevel("StoryLevel");  
-		NextLevel = CupheadLevel::NONE;
-	}
-	if (CupheadLevel::HILDA == NextLevel && 1420 == GameEngineTexture::TextureReLoadCount)
-	{
-		GameEngineCore::ChangeLevel("HildaBergLevel");
-		NextLevel = CupheadLevel::NONE;
+	case CupheadLevel::STORY:
+		if (true == isDone)
+		{
+			GameEngineCore::ChangeLevel("StoryLevel");
+			NextLevel = CupheadLevel::NONE;
+		}
+		break;
+	case CupheadLevel::HILDA:
+		if (1420 == GameEngineTexture::TextureReLoadCount)
+		{
+			GameEngineCore::ChangeLevel("HildaBergLevel");
+			NextLevel = CupheadLevel::NONE;
+		}
+		break;
+	case CupheadLevel::WALLY:
+		break;
+	case CupheadLevel::MAX:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -242,7 +376,6 @@ void LoadingLevel::LevelChangeStart()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-	isDone = false;
 	if (nullptr == BackGround)
 	{
 		BackGround = CreateActor<LoadingBackGround>(CupHeadActorOrder::BackGround);
@@ -256,16 +389,26 @@ void LoadingLevel::LevelChangeStart()
 	Dir.MoveParentToDirectory("ContentResources");
 	Dir.Move("ContentResources\\Texture");
 
-	if (CupheadLevel::HILDA == NextLevel)
-	{
-		GameEngineTexture::TextureReLoadCount = 0;
-		GameEngineCore::JobQueue.Work(LoadingHilda);
+	isDone = false;
+	GameEngineTexture::TextureReLoadCount = 0;
 
-	}
-	else if (CupheadLevel::STORY == NextLevel)
+	switch (NextLevel)
 	{
-		GameEngineTexture::TextureReLoadCount = 0;
+	case CupheadLevel::NONE:
+		break;
+	case CupheadLevel::STORY:
 		GameEngineCore::JobQueue.Work(LoadingStory);
+		break;
+	case CupheadLevel::HILDA:
+		GameEngineCore::JobQueue.Work(LoadingHilda);
+		break;
+	case CupheadLevel::WALLY:
+		GameEngineCore::JobQueue.Work(LoadingWally);
+		break;
+	case CupheadLevel::MAX:
+		break;
+	default:
+		break;
 	}
 }
 

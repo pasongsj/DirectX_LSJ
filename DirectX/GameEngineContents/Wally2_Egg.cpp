@@ -13,11 +13,11 @@ Wally2_Egg::~Wally2_Egg()
 
 void Wally2_Egg::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 2\\Egg");
 	if (nullptr == GameEngineSprite::Find("Wally2_Egg_Rotate"))
 	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 2\\Egg");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Rotate").GetFullPath(), "Wally2_Egg_Rotate");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death").GetFullPath(), "Wally2_Egg_Death");
 	}

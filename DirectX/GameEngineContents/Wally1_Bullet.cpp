@@ -14,11 +14,11 @@ Wally1_Bullet::~Wally1_Bullet()
 }
 void Wally1_Bullet::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1\\Handgun\\Bullet");
 	if (nullptr == GameEngineSprite::Find("Wally1_Bullet_Pre"))
 	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1\\Handgun\\Bullet");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Pre").GetFullPath(), "Wally1_Bullet_Pre");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shoot").GetFullPath(), "Wally1_Bullet_Shoot");
 	}

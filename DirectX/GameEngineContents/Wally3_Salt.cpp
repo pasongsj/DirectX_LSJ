@@ -12,12 +12,11 @@ Wally3_Salt::~Wally3_Salt()
 }
 void Wally3_Salt::MakeSprtie()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
 	if (nullptr == GameEngineSprite::Find("Wally3_Salt_A"))
 	{
-		// Bird
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death\\Salt\\A").GetFullPath(), "Wally3_Salt_A");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death\\Salt\\B").GetFullPath(), "Wally3_Salt_B");
 	}

@@ -19,21 +19,24 @@ Wally2::~Wally2()
 
 void Wally2::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 2");
+	if(nullptr == GameEngineSprite::Find("Wally2_Idle"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 2");
 
-	// intro
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Idle\\Idle").GetFullPath(), "Wally2_Idle");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Idle\\Blink").GetFullPath(), "Wally2_Blink");
-	// Shoot
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shoot").GetFullPath(), "Wally2_Shoot");
-	// Dead
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death\\Transition").GetFullPath(), "Wally2_Death_Trans");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death\\Loop").GetFullPath(), "Wally2_Death_Loop");
-	//Turn
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Turn\\Turn_Right").GetFullPath(), "Wally2_Turn_Right");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Turn\\Turn_Left").GetFullPath(), "Wally2_Turn_Left");
+		// intro
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Idle\\Idle").GetFullPath(), "Wally2_Idle");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Idle\\Blink").GetFullPath(), "Wally2_Blink");
+		// Shoot
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shoot").GetFullPath(), "Wally2_Shoot");
+		// Dead
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death\\Transition").GetFullPath(), "Wally2_Death_Trans");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death\\Loop").GetFullPath(), "Wally2_Death_Loop");
+		//Turn
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Turn\\Turn_Right").GetFullPath(), "Wally2_Turn_Right");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Turn\\Turn_Left").GetFullPath(), "Wally2_Turn_Left");
+	}
 
 }
 

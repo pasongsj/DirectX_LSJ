@@ -11,13 +11,12 @@ Wally3_Pepper::~Wally3_Pepper()
 }
 void Wally3_Pepper::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
 
 	if (nullptr == GameEngineSprite::Find("Wally3_Pepper_A"))
 	{
-		// Bird
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death\\Pepper\\A").GetFullPath(), "Wally3_Pepper_A");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death\\Pepper\\B").GetFullPath(), "Wally3_Pepper_B");
 	}

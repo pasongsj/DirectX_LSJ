@@ -16,11 +16,11 @@ Wally2_Bullet::~Wally2_Bullet()
 
 void Wally2_Bullet::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 2");
 	if (nullptr == GameEngineSprite::Find("Wally2_Bullet"))
 	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 2");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Bullet").GetFullPath(), "Wally2_Bullet");
 	}
 }

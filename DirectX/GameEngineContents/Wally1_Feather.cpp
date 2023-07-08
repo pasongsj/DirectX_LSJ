@@ -16,11 +16,11 @@ Wally1_Feather::~Wally1_Feather()
 
 void Wally1_Feather::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1\\FeatherAttack\\Feathers");
 	if (nullptr == GameEngineSprite::Find("Wally1_Feather_Blue"))
 	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources"); // ContentResources\Texture\stage2\Boss\Wally\Phase 1
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1\\FeatherAttack\\Feathers");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Blue").GetFullPath(), "Wally1_Feather_Blue");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Pink").GetFullPath(), "Wally1_Feather_Pink");
 	}

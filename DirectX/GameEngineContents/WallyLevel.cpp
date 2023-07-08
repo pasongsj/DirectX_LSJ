@@ -44,6 +44,7 @@ void WallyLevel::LevelChangeStart()
 		GameEngineInput::CreateKey("DebugRender", VK_F3);
 	}
 
+	if(nullptr == GameEngineTexture::Find("birdhouse_bg_0006.png"))
 	{
 		GameEngineDirectory Dir;
 		Dir.MoveParentToDirectory("ContentResources");

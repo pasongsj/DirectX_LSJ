@@ -15,13 +15,13 @@ Wally3_Garbages::~Wally3_Garbages()
 }
 void Wally3_Garbages::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3\\Garbage\\Garbages");
 
 
 	if (nullptr == GameEngineSprite::Find("Wally3_Garbage_Apple"))
 	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 3\\Garbage\\Garbages");
 		// Bird
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("garbage_apple").GetFullPath(), "Wally3_Garbage_Apple");
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("garbage_boot").GetFullPath(), "Wally3_Garbage_Boot");

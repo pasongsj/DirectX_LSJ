@@ -23,34 +23,37 @@ Wally1::~Wally1()
 }
 void Wally1::MakeSprite()
 {
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1");
+	if(nullptr == GameEngineSprite::Find("Wally1_House"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Phase 1");
 
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("House").GetFullPath(), "Wally1_House");
-	// cuckoo intro
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Intro\\Feet\\Pendulum").GetFullPath(), "Wally1_Feet_Pendulum");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Intro\\Cuckoo").GetFullPath(), "Wally1_Cuckoo");
-	// intro
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Intro\\Head").GetFullPath(), "Wally1_Head_Intro");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Intro\\Feet\\Morph").GetFullPath(), "Wally1_Feet_Morph");
-	// idle
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Feet").GetFullPath(), "Wally1_Feet_Idle");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Head\\Idle\\Idle").GetFullPath(), "Wally1_Head_Idle");
-	// barf
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Barf\\bird_barf_feet").GetFullPath(), "Wally1_Feet_Barf");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Barf\\bird_barf_head").GetFullPath(), "Wally1_Head_Barf");
-	// handgun
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Handgun\\bird_handgun_head").GetFullPath(), "Wally1_Head_HandGun");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Steam").GetFullPath(), "Wally1_Head_Steam");
-	// flap
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Flap\\Intro").GetFullPath(), "Wally1_Flap_Intro");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Flap\\Loop").GetFullPath(), "Wally1_Flap_Loop");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Flap\\Outro").GetFullPath(), "Wally1_Flap_Outro");
-	// pant
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Pant").GetFullPath(), "Wally1_Head_Pant");
-	// change phase - death
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death\\bird_large_death").GetFullPath(), "Wally1_Dead");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("House").GetFullPath(), "Wally1_House");
+		// cuckoo intro
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Intro\\Feet\\Pendulum").GetFullPath(), "Wally1_Feet_Pendulum");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Intro\\Cuckoo").GetFullPath(), "Wally1_Cuckoo");
+		// intro
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Intro\\Head").GetFullPath(), "Wally1_Head_Intro");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Intro\\Feet\\Morph").GetFullPath(), "Wally1_Feet_Morph");
+		// idle
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Feet").GetFullPath(), "Wally1_Feet_Idle");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Head\\Idle\\Idle").GetFullPath(), "Wally1_Head_Idle");
+		// barf
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Barf\\bird_barf_feet").GetFullPath(), "Wally1_Feet_Barf");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Barf\\bird_barf_head").GetFullPath(), "Wally1_Head_Barf");
+		// handgun
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Handgun\\bird_handgun_head").GetFullPath(), "Wally1_Head_HandGun");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Steam").GetFullPath(), "Wally1_Head_Steam");
+		// flap
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Flap\\Intro").GetFullPath(), "Wally1_Flap_Intro");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Flap\\Loop").GetFullPath(), "Wally1_Flap_Loop");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Flap\\Outro").GetFullPath(), "Wally1_Flap_Outro");
+		// pant
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("FeatherAttack\\Pant").GetFullPath(), "Wally1_Head_Pant");
+		// change phase - death
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Death\\bird_large_death").GetFullPath(), "Wally1_Dead");
+	}
 
 }
 
