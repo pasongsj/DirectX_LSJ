@@ -33,5 +33,8 @@ private:
 	void BackGroundSetting();
 	void BossSetting();
 
+
+	void UnLoadSprite();
+
 };
 

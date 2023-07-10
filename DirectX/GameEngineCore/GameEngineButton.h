@@ -8,6 +8,8 @@ class GameEngineCollision;
 class GameEngineButton : public GameEngineActor
 {
 public:
+	static GameEngineButton* SelectButton;
+
 	// constrcuter destructer
 	GameEngineButton();
 	~GameEngineButton();
@@ -22,16 +24,39 @@ public:
 	{
 		Click = _Click;
 	}
-	
-	void SetButtonRender(const std::string_view& _Name, bool _ScaleToTexture = false);
+
+	std::shared_ptr<GameEngineUIRenderer> GetRender()
+	{
+		return Render;
+	}
+
+	void SetReleaseTexture(const std::string_view& _ImageName)
+	{
+		ReleaseImage = _ImageName;
+	}
+
+	void SetHoverTexture(const std::string_view& _ImageName)
+	{
+		HoverImage = _ImageName;
+	}
+
+	void SetPressTexture(const std::string_view& _ImageName)
+	{
+		PressImage = _ImageName;
+	}
 
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
 
 private:
-	std::shared_ptr<GameEngineUIRenderer> Render = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> Render;
 	std::function<void()> Click;
 
+	std::string_view ReleaseImage = "";
+	std::string_view HoverImage = "";
+	std::string_view PressImage = "";
+
+	// std::shared_ptr<GameEngineCollision> Collision;
 };
 

@@ -73,7 +73,7 @@ public:
 
 		if (nullptr == FindSprite)
 		{
-			MsgAssert("존재하지 않는 스프라이트를 언로드 하려고 했습니다.");
+			MsgAssert("존재하지 않는 스프라이트를 언로드 하려고 했습니다." + std::string(_Name.data()) );
 		}
 
 		FindSprite->Release();

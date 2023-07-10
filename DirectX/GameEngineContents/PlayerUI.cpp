@@ -30,6 +30,18 @@ void PlayerUI::MakeSprite()
 		GameEngineSprite::LoadFolder("CharacterFlipCard", NewDir.GetPlusFileName("FlipCard").GetFullPath().c_str());
 		GameEngineSprite::LoadFolder("Character1HPFlash", NewDir.GetPlusFileName("HpFlash").GetFullPath().c_str());
 	}
+	if (nullptr == GameEngineTexture::Find("hud_hp_1.png"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
+
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
+		}
+	}
 
 }
 

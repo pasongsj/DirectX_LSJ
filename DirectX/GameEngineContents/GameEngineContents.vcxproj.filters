@@ -277,6 +277,9 @@
     <ClInclude Include="OverWorldToHilda.h">
       <Filter>Object\OverWrold</Filter>
     </ClInclude>
+    <ClInclude Include="GameContentsButton.h">
+      <Filter>Object\Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -576,6 +579,9 @@
     <ClCompile Include="OverWorldToHilda.cpp">
       <Filter>Object\OverWrold</Filter>
     </ClCompile>
+    <ClCompile Include="GameContentsButton.cpp">
+      <Filter>Object\Button</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -676,6 +682,9 @@
     </Filter>
     <Filter Include="Object\Wally\Boss\Phase3">
       <UniqueIdentifier>{64c5eb40-2f13-4c9f-a36f-c975d3dec4d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Button">
+      <UniqueIdentifier>{baacf87d-5c12-4e1c-968d-c7d9574c6487}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

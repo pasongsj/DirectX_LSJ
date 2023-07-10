@@ -279,7 +279,7 @@ void HildaBergLevel::LevelChangeStart()
 	std::shared_ptr<HildaBergBack> BG5 = CreateActor<HildaBergBack5>(CupHeadActorOrder::BackGround);
 	HildaBG.push_back(BG5);
 
-	std::shared_ptr<PlayerAirPlaneMode> NewPlayer7 = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
+	std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 	std::shared_ptr<PlayerUI> UI = CreateActor<PlayerUI>(CupHeadActorOrder::UI);
 	CreateActor<GetReadyUI>(CupHeadActorOrder::UI);
 }

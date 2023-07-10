@@ -22,11 +22,13 @@ void FadeEffect::Start(GameEngineRenderTarget* _Target)
 
 void FadeEffect::Effect(GameEngineRenderTarget* _Target, float _DeltaTime)
 {
-	if (State == FadeState::None)
+	if (State == FadeState::None || true == StateEnd )
 	{
 		return;
 	}
+
 	float Delta = _DeltaTime / TimeRatio;
+
 	if (State == FadeState::FadeOut)
 	{
 		if (1.0f <= FadeData.x)
@@ -35,7 +37,6 @@ void FadeEffect::Effect(GameEngineRenderTarget* _Target, float _DeltaTime)
 			StateEnd = true;
 			return;
 		}
-		StateEnd = false;
 		FadeData.x += Delta;
 	}
 	else { // Fade In
@@ -45,7 +46,6 @@ void FadeEffect::Effect(GameEngineRenderTarget* _Target, float _DeltaTime)
 			FadeData.x = 0.0f;
 			return;
 		}
-		StateEnd = false;
 
 		FadeData.x -= Delta;
 	}

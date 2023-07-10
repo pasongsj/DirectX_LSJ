@@ -52,7 +52,7 @@ void ContentsCore::GameStart()
 	GameEngineCore::CreateLevel<OverWorldLevel>();
 	GameEngineCore::CreateLevel<WallyLevel>();
 
-	GameEngineCore::ChangeLevel("WallyLevel");
+	GameEngineCore::ChangeLevel("TitleLevel");
 }
 
 void ContentsCore::GameEnd() 

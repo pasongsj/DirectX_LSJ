@@ -5,6 +5,8 @@
 #include "GameEngineLevel.h"
 #include "GameEngineCamera.h"
 
+GameEngineButton* GameEngineButton::SelectButton = nullptr;
+
 GameEngineButton::GameEngineButton()
 {
 }
@@ -49,6 +51,19 @@ void GameEngineButton::Update(float _Delta)
 
 	if (true == GameEngineTransform::AABB2DToSpehre2D(Render->GetTransform()->GetCollisionData(), MouseData))
 	{
+		if (HoverImage != "")
+		{
+			Render->SetTexture(HoverImage);
+		}
+
+		if (true == GameEngineInput::IsPress("EngineMouseLeft"))
+		{
+			if (PressImage != "")
+			{
+				Render->SetTexture(PressImage);
+			}
+		}
+
 		if (true == GameEngineInput::IsUp("EngineMouseLeft"))
 		{
 			if (nullptr != Click)
@@ -57,24 +72,14 @@ void GameEngineButton::Update(float _Delta)
 			}
 		}
 	}
-
-	// / ;/  GameEngineTransform::sphe
-
-	// Render->GetTransform()->Collision()
-
-	// Render->GetTransform();
-}
-
-
-void GameEngineButton::SetButtonRender(const std::string_view& _Name, bool _ScaleToTexture)
-{
-	if (true == _ScaleToTexture)
-	{
-		Render->SetScaleToTexture(_Name);
-	}
 	else
 	{
-		Render->SetTexture(_Name);
-
+		if (ReleaseImage != "")
+		{
+			Render->SetTexture(ReleaseImage);
+		}
 	}
+
 }
+
+

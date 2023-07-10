@@ -1,7 +1,8 @@
 #include "PrecompileHeader.h"
 #include "TutorialBackGround.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
-#include <GameEngineCore/GameEngineButton.h>
+//#include <GameEngineCore/GameEngineButton.h>
+#include "GameContentsButton.h"
 #include <GameEngineCore/GameEngineLevel.h>
 #include "LoadingLevel.h"
 
@@ -46,8 +47,9 @@ void TutorialBackGround::Update(float _DeltaTime)
 	if (false == isBGAnimationEnd && true == BackGround->IsAnimationEnd())
 	{
 		isBGAnimationEnd = true;
-		std::shared_ptr<GameEngineButton> ExitBtn = GetLevel()->CreateActor<GameEngineButton>(CupHeadActorOrder::UI);
-		ExitBtn->SetButtonRender("exit.png", true);
+		std::shared_ptr<GameContentsButton> ExitBtn = GetLevel()->CreateActor<GameContentsButton>(CupHeadActorOrder::UI);
+		//ExitBtn->SetButtonRender("exit.png", true);
+		ExitBtn->SetAllButtionTexture({ .Release = "exit.png" , .ScaleToTexture = true });
 		ExitBtn->GetTransform()->SetLocalPosition(float4(438, -288));
 		ExitBtn->SetEvent([]
 			{

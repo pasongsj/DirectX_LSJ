@@ -83,6 +83,7 @@ void WallyLevel::LevelChangeStart()
 
 	BackGroundSetting();
 	CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
+	CreateActor<PlayerUI>(CupHeadActorOrder::UI);
 
 	CreateActor<GetReadyUI>(CupHeadActorOrder::UI);
 }
@@ -164,12 +165,129 @@ void WallyLevel::LevelChangeEnd()
 	AllActorDestroy();
 	Player::MainPlayer = nullptr;
 
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Level");
-	std::vector<GameEngineFile> AllLoadFile = Dir.GetAllFile({ ".png" });
-	for (size_t i = 0; i < AllLoadFile.size(); i++)
+	UnLoadSprite();
+}
+
+void WallyLevel::UnLoadSprite()
+{
+	GameEngineSprite::UnLoad("FlapyBird_Yellow_Idle");
+	GameEngineSprite::UnLoad("FlapyBird_Yellow_Death");
+	GameEngineSprite::UnLoad("FlapyBird_Pink_Idle");
+	GameEngineSprite::UnLoad("FlapyBird_Pink_Death");
+	//wally1
+	GameEngineSprite::UnLoad("Wally1_House");
+	GameEngineSprite::UnLoad("Wally1_Feet_Pendulum");
+	GameEngineSprite::UnLoad("Wally1_Cuckoo");
+	GameEngineSprite::UnLoad("Wally1_Head_Intro");
+	GameEngineSprite::UnLoad("Wally1_Feet_Morph");
+	GameEngineSprite::UnLoad("Wally1_Feet_Idle");
+	GameEngineSprite::UnLoad("Wally1_Head_Idle");
+	GameEngineSprite::UnLoad("Wally1_Feet_Barf");
+	GameEngineSprite::UnLoad("Wally1_Head_Barf");
+	GameEngineSprite::UnLoad("Wally1_Head_HandGun");
+	GameEngineSprite::UnLoad("Wally1_Head_Steam");
+	GameEngineSprite::UnLoad("Wally1_Flap_Intro");
+	GameEngineSprite::UnLoad("Wally1_Flap_Loop");
+	GameEngineSprite::UnLoad("Wally1_Flap_Outro");
+	GameEngineSprite::UnLoad("Wally1_Head_Pant");
+	GameEngineSprite::UnLoad("Wally1_Dead");
+	//wally1 bullet
+	GameEngineSprite::UnLoad("Wally1_Bullet_Pre");
+	GameEngineSprite::UnLoad("Wally1_Bullet_Shoot");
+	// wally1 egg pieces
+	GameEngineSprite::UnLoad("Wally_Egg_Piece_A");
+	GameEngineSprite::UnLoad("Wally_Egg_Piece_B");
+	GameEngineSprite::UnLoad("Wally_Egg_Piece_C");
+	// wally1 egg spin
+	GameEngineSprite::UnLoad("Wally_Egg_Spin");
+	GameEngineSprite::UnLoad("Wally_Egg_Dead");
+	//wally1 feather
+	GameEngineSprite::UnLoad("Wally1_Feather_Blue");
+	GameEngineSprite::UnLoad("Wally1_Feather_Pink");
+	//wally1 house
+	GameEngineSprite::UnLoad("Wally1_House_Back");
+	GameEngineSprite::UnLoad("Wally1_House_Bottom");
+	GameEngineSprite::UnLoad("Wally1_House_Front");
+	GameEngineSprite::UnLoad("Wally1_House_Left");
+	GameEngineSprite::UnLoad("Wally1_House_Right");
+	GameEngineSprite::UnLoad("Wally1_House_Top");
+	// wally2
+	GameEngineSprite::UnLoad("Wally2_Idle");
+	GameEngineSprite::UnLoad("Wally2_Blink");
+	GameEngineSprite::UnLoad("Wally2_Shoot");
+	GameEngineSprite::UnLoad("Wally2_Death_Trans");
+	GameEngineSprite::UnLoad("Wally2_Death_Loop");
+	GameEngineSprite::UnLoad("Wally2_Turn_Right");
+	GameEngineSprite::UnLoad("Wally2_Turn_Left");
+	// wally2 bullet
+	GameEngineSprite::UnLoad("Wally2_Bullet");
+	// wally2 egg
+	GameEngineSprite::UnLoad("Wally2_Egg_Rotate");
+	GameEngineSprite::UnLoad("Wally2_Egg_Death");
+	// wally3
+	GameEngineSprite::UnLoad("Wally3_Garbage_Intro");
+	GameEngineSprite::UnLoad("Wally3_Garbage_Loop");
+	GameEngineSprite::UnLoad("Wally3_Garbage_Outro");
+	GameEngineSprite::UnLoad("Wally3_Idle");
+	GameEngineSprite::UnLoad("Wally3_Death");
+	GameEngineSprite::UnLoad("Wally3_Regurgitate_Intro");
+	GameEngineSprite::UnLoad("Wally3_Regurgitate_Loop");
+	GameEngineSprite::UnLoad( "Wally3_Regurgitate_Outro");
+	// wally3 garbage
+	GameEngineSprite::UnLoad( "Wally3_Garbage_Apple");
+	GameEngineSprite::UnLoad("Wally3_Garbage_Boot");
+	GameEngineSprite::UnLoad("Wally3_Garbage_Fish");
+	GameEngineSprite::UnLoad("Wally3_Garbage_Boot_Pink");
+	// wally3 hearts
+	GameEngineSprite::UnLoad("Wally3_Heart");
+	GameEngineSprite::UnLoad("Wally3_Mouse_Attack");
+	GameEngineSprite::UnLoad("Wally3_Mouse_Idle");
+	// wally3 leftbird
+	GameEngineSprite::UnLoad("Wally3_LeftBird_Idle");
+	GameEngineSprite::UnLoad("Wally3_LeftBird_Attack");
+	// wally3 pepper
+	GameEngineSprite::UnLoad("Wally3_Pepper_A");
+	GameEngineSprite::UnLoad("Wally3_Pepper_B");
+	// wally3 pill
+	GameEngineSprite::UnLoad( "Wally3_Pill_Blue");
+	GameEngineSprite::UnLoad("Wally3_Pill_Pink");
+	// wally3 piil pieces
+	GameEngineSprite::UnLoad("Wally3_Pill_Blue_Piece");
+	GameEngineSprite::UnLoad("Wally3_Pill_Yellow_Piece");
+	GameEngineSprite::UnLoad("Wally3_Pill_DPink_Piece");
+	GameEngineSprite::UnLoad("Wally3_Pill_LPink_Piece");
+	// wally3 rightbird
+	GameEngineSprite::UnLoad("Wally3_RightBird_Idle");
+	GameEngineSprite::UnLoad("Wally3_RightBird_Attack");
+	// wally3 salt
+	GameEngineSprite::UnLoad("Wally3_Salt_B");
+	GameEngineSprite::UnLoad("Wally3_Salt_A");
+
+
 	{
-		GameEngineTexture::UnLoad(AllLoadFile[i].GetFileName());
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Level");
+		std::vector<GameEngineFile> AllLoadFile = NewDir.GetAllFile({ ".png" });
+		if (nullptr != GameEngineTexture::Find("birdhouse_bg_0006.png"))
+		{
+			for (size_t i = 0; i < AllLoadFile.size(); i++)
+			{
+				GameEngineTexture::UnLoad(AllLoadFile[i].GetFileName());
+			}
+		}
+	}
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Level");
+		std::vector<GameEngineFile> AllLoadFile = Dir.GetAllFile({ ".png" });
+		if(nullptr != GameEngineTexture::Find("birdhouse_bg_0001.png"))
+		{
+			for (size_t i = 0; i < AllLoadFile.size(); i++)
+			{
+				GameEngineTexture::UnLoad(AllLoadFile[i].GetFileName());
+			}
+		}
 	}
 }

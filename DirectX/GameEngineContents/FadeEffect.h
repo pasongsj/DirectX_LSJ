@@ -26,12 +26,14 @@ public:
 	{
 		State = FadeState::FadeIn;
 		FadeData.x = 1.0f;
+		StateEnd = false;
 	}
 
 	void FadeOut()
 	{
 		State = FadeState::FadeOut;
 		FadeData.x = 0.0f;
+		StateEnd = false;
 	}
 
 	inline bool IsEnd()

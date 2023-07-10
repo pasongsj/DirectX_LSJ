@@ -27,9 +27,19 @@ private:
 	std::shared_ptr<GameEngineActor> CharUI = nullptr;
 	std::shared_ptr<GameEngineActor> BtnUI = nullptr;
 
+
+	// Button;
+	std::shared_ptr<class GameContentsButton> StartButton = nullptr;
+	std::shared_ptr<class GameContentsButton> OptionsButton = nullptr;
+	std::shared_ptr<class GameContentsButton> ExitButton = nullptr;
+
+	// Hover Buttion
+	std::shared_ptr<class GameContentsButton> HoverButton = nullptr;
+
 	bool isLogoDone = false;
 	bool isPressAnyKey = false;
 
 	void MakeSprite();
+	void SetHoverButtion();
 };
 

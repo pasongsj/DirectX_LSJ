@@ -8,7 +8,7 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::WALLY;
 std::atomic_bool isDone = false;
 
 void LoadingWally(GameEngineThread* Thread)
