@@ -35,7 +35,7 @@ private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerRender = nullptr;
 	std::shared_ptr<class GameEngineTexture> ColMapTexture = nullptr;
-
+	std::shared_ptr<class GameEngineCollision> PlayerCollision = nullptr;
 
 	float  MoveSpeed = 500.0f;
 	std::string CurAnimation = "Down_Right_";

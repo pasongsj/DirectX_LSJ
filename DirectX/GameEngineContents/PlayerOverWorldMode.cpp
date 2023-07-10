@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 PlayerOverWorldMode::PlayerOverWorldMode()
 {
@@ -56,6 +57,9 @@ void PlayerOverWorldMode::Start()
 
 	GetTransform()->SetLocalPosition(float4(830, -830, 400));
 
+	PlayerCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Player);
+	PlayerCollision->SetColType(ColType::SPHERE2D);
+	PlayerCollision->GetTransform()->SetLocalScale(float4{ 100,0 });
 	// FSM 실행함수 포인터
 
 	//IDLE

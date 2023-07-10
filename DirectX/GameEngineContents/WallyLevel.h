@@ -22,6 +22,16 @@ protected:
 	void LevelChangeEnd() override;
 
 private:
+	//Boss
+	int Phase = 1;
+	std::shared_ptr<class WallyBoss> Boss = nullptr;
+	float4 LastPos = float4::Zero;
+
+	//Effect
+	std::shared_ptr<class FadeEffect> FEffect = nullptr;
+	bool isEffectOn = false;
+	void BackGroundSetting();
+	void BossSetting();
 
 };
 

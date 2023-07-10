@@ -364,6 +364,11 @@ void LoadingLevel::Update(float _DeltaTime)
 		}
 		break;
 	case CupheadLevel::WALLY:
+		if (935 == GameEngineTexture::TextureReLoadCount)
+		{
+			GameEngineCore::ChangeLevel("WallyLevel");
+			NextLevel = CupheadLevel::NONE;
+		}
 		break;
 	case CupheadLevel::MAX:
 		break;

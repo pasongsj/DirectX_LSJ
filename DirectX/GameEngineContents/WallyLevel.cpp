@@ -1,17 +1,29 @@
 #include "PrecompileHeader.h"
 #include "WallyLevel.h"
 #include <GameEnginePlatform/GameEngineInput.h>
+
+//Effect
 #include "OldFilmEffect.h"
+#include "FadeEffect.h"
 
 
-
+// Player
 #include "PlayerAirPlaneMode.h"
+
+//Boss 
 #include "Wally1.h"
 #include "Wally2.h"
 #include "Wally3.h"
 
+// BackGround
 #include "WallyBack.h"
 #include "WallyFore.h"
+
+// UI
+#include "PlayerUI.h"
+#include "GetReadyUI.h"
+#include "KnockOutUI.h"
+#include "YouDieUI.h"
 
 
 WallyLevel::WallyLevel()
@@ -28,6 +40,8 @@ void WallyLevel::Start()
 
 void WallyLevel::Update(float _DeltaTime)
 {
+	BossSetting();
+
 	if (true == GameEngineInput::IsDown("DebugRender"))
 	{
 		GameEngineLevel::IsDebugSwitch();
@@ -39,6 +53,15 @@ void WallyLevel::LevelChangeStart()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
+	if (nullptr == FEffect)
+	{
+		FEffect = GetLastTarget()->CreateEffect<FadeEffect>();
+	}
+
+	if (false == GameEngineInput::IsKey("NextBoss"))
+	{
+		GameEngineInput::CreateKey("NextBoss", VK_F2);
+	}
 	if (false == GameEngineInput::IsKey("DebugRender"))
 	{
 		GameEngineInput::CreateKey("DebugRender", VK_F3);
@@ -56,6 +79,16 @@ void WallyLevel::LevelChangeStart()
 		}
 	}
 
+
+
+	BackGroundSetting();
+	CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
+
+	CreateActor<GetReadyUI>(CupHeadActorOrder::UI);
+}
+
+void WallyLevel::BackGroundSetting()
+{
 	// BackGround
 	std::shared_ptr<WallyBack> BG0 = CreateActor<WallyBack>(CupHeadActorOrder::BackGround);
 	BG0->Setting("birdhouse_bg_0008.png", 1000,0.0f, 50.0f,WallyBackGroundSort::CENTER);
@@ -81,14 +114,51 @@ void WallyLevel::LevelChangeStart()
 	std::shared_ptr<WallyFore> BG7 = CreateActor<WallyFore>(CupHeadActorOrder::BackGround);
 	BG7->Setting("birdhouse_bg_0001.png", 200, 0.0f, 400.0f, WallyForeGroundSort::BOT);
 
-
-
-	//CreateActor<Wally1>(CupHeadActorOrder::Boss);
-	//CreateActor<Wally2>(CupHeadActorOrder::Boss);
-	CreateActor<Wally3>(CupHeadActorOrder::Boss);
-	CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 }
+void WallyLevel::BossSetting()
+{
+	if (nullptr != Boss && (true == Boss->IsDeath() || true == GameEngineInput::IsDown("NextBoss")))
+	{
+		LastPos = Boss->GetTransform()->GetWorldPosition();
+		Boss->Death();
+		Boss = nullptr;
+	}
 
+	if (nullptr == Boss)
+	{
+		switch (Phase)
+		{
+		case 1:
+			Boss = CreateActor<Wally1>(CupHeadActorOrder::Boss);
+			Boss->SetHP(300);
+			++Phase;
+			break;
+		case 2:
+			Boss = CreateActor<Wally2>(CupHeadActorOrder::Boss);
+			Boss->SetHP(500);
+			Boss->GetTransform()->SetLocalPosition(LastPos);
+			++Phase;
+			break;
+		case 3:
+			Boss = CreateActor<Wally3>(CupHeadActorOrder::Boss);
+			Boss->SetHP(500);
+			++Phase;
+			break;
+		default:
+			if (false == isEffectOn)
+			{
+				FEffect->SetTakesTime(3.0f);
+				FEffect->FadeIn();
+				isEffectOn = true;
+			}
+			else if (true == FEffect->IsEnd())
+			{
+				GameEngineCore::ChangeLevel("ResultLevel");
+			}
+			break;
+		}
+	}
+}
 void WallyLevel::LevelChangeEnd()
 {
 	AllActorDestroy();
@@ -100,6 +170,6 @@ void WallyLevel::LevelChangeEnd()
 	std::vector<GameEngineFile> AllLoadFile = Dir.GetAllFile({ ".png" });
 	for (size_t i = 0; i < AllLoadFile.size(); i++)
 	{
-		GameEngineTexture::UnLoad(AllLoadFile[i].GetFullPath());
+		GameEngineTexture::UnLoad(AllLoadFile[i].GetFileName());
 	}
 }

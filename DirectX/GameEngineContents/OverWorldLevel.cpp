@@ -9,6 +9,7 @@
 #include "OverWorldBack.h"
 #include "OverWorldBush.h"
 #include "PlayerOverWorldMode.h"
+#include "OverWorldToHilda.h"
 
 
 OverWorldLevel::OverWorldLevel() 
@@ -33,6 +34,7 @@ void OverWorldLevel::MakeSprite()
 			GameEngineTexture::Load(Dir.GetPlusFileName("Overworld_ColMap.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("Upper\\Bush\\Overworld_Bush_Left.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("Upper\\Bush\\Overworld_Bush_Right.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("interactionIcon.png").GetFullPath());
 		}
 		else
 		{
@@ -40,6 +42,7 @@ void OverWorldLevel::MakeSprite()
 			GameEngineTexture::ReLoad("Overworld_ColMap.png");
 			GameEngineTexture::ReLoad("Overworld_Bush_Left.png");
 			GameEngineTexture::ReLoad("Overworld_Bush_Right.png");
+			GameEngineTexture::ReLoad("interactionIcon.png");
 		}
 
 		// Sprite
@@ -91,6 +94,10 @@ void OverWorldLevel::Update(float _DeltaTime)
 		LoadingLevel::SetLevel(CupheadLevel::HILDA);
 		GameEngineCore::ChangeLevel("LoadingLevel");
 	}
+	if (true == GameEngineInput::IsDown("DebugRender"))
+	{
+		GameEngineLevel::IsDebugSwitch();
+	}
 }
 
 void OverWorldLevel::LevelChangeStart()
@@ -101,6 +108,7 @@ void OverWorldLevel::LevelChangeStart()
 
 	CreateActor<OverWorldBack>(CupHeadActorOrder::BackGround);
 	CreateActor<OverWorldBush>(CupHeadActorOrder::BackGround);
+	CreateActor<OverWorldToHilda>(CupHeadActorOrder::BackGround);
 
 	CreateActor<PlayerOverWorldMode>(CupHeadActorOrder::Player);
 
@@ -108,6 +116,10 @@ void OverWorldLevel::LevelChangeStart()
 	if (false == GameEngineInput::IsKey("ChangeLevel"))
 	{
 		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
+	}
+	if (false == GameEngineInput::IsKey("DebugRender"))
+	{
+		GameEngineInput::CreateKey("DebugRender", VK_F3);
 	}
 }
 void OverWorldLevel::LevelChangeEnd()

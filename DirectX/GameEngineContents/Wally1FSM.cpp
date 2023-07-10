@@ -179,7 +179,7 @@ void Wally1::Steam_Update(float _DeltaTime)
 {
 	if (true == HeadRender->IsAnimationEnd())
 	{
-		NextState = Wally1State::IDLE;
+		NextState = Wally1State::FLAP;
 	}
 }
 
@@ -252,13 +252,21 @@ void Wally1::Pant_Start()
 	HeadRender->ChangeAnimation("Head_Pant", false);
 	HeadRender->SetLocalSortPosition(float4(-80, 115), SortRenderer::RTOP);
 	PantLoopCount = 0;
+	++PantCount;
 }
 
 void Wally1::Pant_Update(float _DeltaTime)
 {
 	if (PantLoopCount >= 5)
 	{
-		NextState = Wally1State::FLAP;
+		if (PantCount < 2)
+		{
+			NextState = Wally1State::FLAP;
+		}
+		else
+		{
+			NextState = Wally1State::CHANGEPHASE;
+		}
 	}
 }
 
@@ -282,9 +290,9 @@ void Wally1::ChangePhase_Update(float _DeltaTime)
 {
 	if (true == HouseRender->IsAnimationEnd())
 	{
-		NextState = Wally1State::IDLE;
+		//NextState = Wally1State::IDLE;
 
-		//Death();
+		Death();
 	}
 }
 

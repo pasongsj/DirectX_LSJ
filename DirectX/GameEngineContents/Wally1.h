@@ -52,6 +52,7 @@ private:
 
 	// pant
 	int PantLoopCount = 0;
+	int PantCount = 0;
 
 	// state
 	Wally1State CurState = Wally1State::CUCKOOINTRO;

@@ -15,8 +15,12 @@ public:
 	OverWorldToHilda& operator=(OverWorldToHilda&& _Other) noexcept = delete;
 
 protected:
+	void Start() override;
+	void Update(float _DeltaTime) override;
 
 private:
-
+	std::shared_ptr<class GameEngineSpriteRenderer> BlimpRender = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> FRender = nullptr;
+	void MakeSprite();
 };
 

@@ -36,6 +36,11 @@ void Wally3::Idle_Start()
 
 void Wally3::Idle_Update(float _DeltaTime)
 {
+	if (GetHP() < 0)
+	{
+		NextState = Wally3State::DEATH;
+		return;
+	}
 	MoveUpdate(_DeltaTime);
 	AttackInterval -= _DeltaTime;
 	if (AttackInterval < 0)
