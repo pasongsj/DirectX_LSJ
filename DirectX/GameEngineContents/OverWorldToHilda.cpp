@@ -36,7 +36,7 @@ void OverWorldToHilda::Start()
 	FRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::UI);
 	FRender->SetScaleToTexture("interactionIcon.png");
 	FRender->GetTransform()->SetLocalPosition(float4{ 0,0,-100 });
-	SetInteractRange(200.0f);
+	//SetInteractRange(200.0f);
 
 	GetTransform()->SetLocalPosition(float4{ 3350,-300,500 });
 	if (false == GameEngineInput::IsKey("KeyF_Interaction"))
@@ -48,18 +48,18 @@ void OverWorldToHilda::Start()
 void OverWorldToHilda::Update(float _DeltaTime)
 {
 	OverWorldInteractObject::Update(_DeltaTime);
-	if (true == GetisInteract())
-	{
-		FRender->On();
-		if (true == GameEngineInput::IsDown("KeyF_Interaction"))
-		{
-			LoadingLevel::SetLevel(CupheadLevel::WALLY);
-			GameEngineCore::ChangeLevel("LoadingLevel");
-			return;
-		}
-	}
-	else
-	{
-		FRender->Off();
-	}
+	//if (true == GetisInteract())
+	//{
+	//	FRender->On();
+	//	if (true == GameEngineInput::IsDown("KeyF_Interaction"))
+	//	{
+	//		LoadingLevel::SetLevel(CupheadLevel::WALLY);
+	//		GameEngineCore::ChangeLevel("LoadingLevel");
+	//		return;
+	//	}
+	//}
+	//else
+	//{
+	//	FRender->Off();
+	//}
 }

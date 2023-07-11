@@ -25,6 +25,6 @@ protected:
 private:
 
 	void MakeSprite();
-
+	void MakeInteractObject();
 };
 

@@ -4,6 +4,7 @@
 // 설명 :
 class OverWorldInteractObject : public GameEngineActor
 {
+	friend class OverWorldLevel;
 public:
 	// constrcuter destructer
 	OverWorldInteractObject();
@@ -15,19 +16,22 @@ public:
 	OverWorldInteractObject& operator=(const OverWorldInteractObject& _Other) = delete;
 	OverWorldInteractObject& operator=(OverWorldInteractObject&& _Other) noexcept = delete;
 
+	void SetInteractFucntion(std::function<void()> _Func)
+	{
+		InteractFucntion = _Func;
+	}
+
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
-	void SetInteractRange(float _Range);
-	bool GetisInteract()
-	{
-		return isInteract;
-	}
-
 private:
-	std::shared_ptr<class GameEngineCollision> InteractCol = nullptr;
-	bool isInteract = false;
+	std::shared_ptr<class GameEngineSpriteRenderer> FRender = nullptr; // 상호작용 표시
+
+	std::shared_ptr<class GameEngineSpriteRenderer> InteractRender = nullptr; // 상호작용할 객체 랜더
+	std::shared_ptr<class GameEngineCollision> InteractCollision = nullptr; // 상호작용 범위용 콜리전
+	std::function<void()> InteractFucntion = nullptr;
 
 
 };

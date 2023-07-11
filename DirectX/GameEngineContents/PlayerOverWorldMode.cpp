@@ -55,7 +55,6 @@ void PlayerOverWorldMode::Start()
 	PlayerRender->ChangeAnimation("Down_Right_Idle");
 	//PlayerRender->SetAnimationStartEvent()
 
-	GetTransform()->SetLocalPosition(float4(830, -830, 400));
 
 	PlayerCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Player);
 	PlayerCollision->SetColType(ColType::SPHERE2D);
@@ -76,6 +75,11 @@ void PlayerOverWorldMode::Start()
 	StartFuncPtr[static_cast<int>(PlayerOverWorldModeState::WIN)] = std::bind(&PlayerOverWorldMode::Win_Start, this);
 	UpdateFuncPtr[static_cast<int>(PlayerOverWorldModeState::WIN)] = std::bind(&PlayerOverWorldMode::Win_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(PlayerOverWorldModeState::WIN)] = std::bind(&PlayerOverWorldMode::Win_End, this);
+
+	float4 Pos = float4{ 830, -830, 400 };
+	GetTransform()->SetLocalPosition(Pos);
+	Pos.z = -1000;
+	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(Pos);
 
 	if (false == GameEngineInput::IsKey("Press_I"))
 	{
@@ -178,6 +182,9 @@ void PlayerOverWorldMode::CheckInput()
 void PlayerOverWorldMode::MainCameraMove(float _DeltaTime)
 {
 	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
-	float4 NextPos = float4::Zero;
-	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(NextPos.LerpClamp(CamPos, GetTransform()->GetWorldPosition(), 3.0f * _DeltaTime));
+	float4 PlayerPos = GetTransform()->GetWorldPosition();
+	PlayerPos.y = PlayerPos.y > -375 ? -375 : PlayerPos.y;
+	float4 NextPos = float4::Zero.LerpClamp(CamPos, PlayerPos, 3.0f * _DeltaTime);
+	NextPos.z = -1000.0f;
+	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(NextPos);
 }

@@ -1,15 +1,16 @@
 #include "PrecompileHeader.h"
 #include "OverWorldLevel.h"
 
-#include <GameEngineCore/GameEngineSprite.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
 
 #include "LoadingLevel.h"
 
 #include "OverWorldBack.h"
 #include "OverWorldBush.h"
 #include "PlayerOverWorldMode.h"
-#include "OverWorldToHilda.h"
+#include "OverWorldInteractObject.h"
+//#include "OverWorldToHilda.h"
 
 
 OverWorldLevel::OverWorldLevel() 
@@ -75,7 +76,9 @@ void OverWorldLevel::MakeSprite()
 			GameEngineDirectory Dir;
 			Dir.MoveParentToDirectory("ContentResources");
 			Dir.Move("ContentResources\\Texture\\stage1\\Overworld");
-			GameEngineSprite::ReLoad(Dir.GetPlusFileName("blimp").GetFullPath(), "To_Hilda_OverWorld");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("blimp").GetFullPath(), "OverWorld_To_Hilda");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shmup_Tutorial").GetFullPath(), "OverWorld_To_Shmup_Tutorial");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("NPC\\Canteen").GetFullPath(), "OverWorld_NPC_Canteen");
 		}
 	}
 
@@ -84,7 +87,10 @@ void OverWorldLevel::MakeSprite()
 
 void OverWorldLevel::Start()
 {
-
+	if (false == GameEngineInput::IsKey("KeyF_Interaction"))
+	{
+		GameEngineInput::CreateKey("KeyZ_Interaction", 'Z');
+	}
 }
 
 void OverWorldLevel::Update(float _DeltaTime)
@@ -108,7 +114,8 @@ void OverWorldLevel::LevelChangeStart()
 
 	CreateActor<OverWorldBack>(CupHeadActorOrder::BackGround);
 	CreateActor<OverWorldBush>(CupHeadActorOrder::BackGround);
-	CreateActor<OverWorldToHilda>(CupHeadActorOrder::BackGround);
+	//CreateActor<OverWorldToHilda>(CupHeadActorOrder::BackGround);
+	MakeInteractObject();
 
 	CreateActor<PlayerOverWorldMode>(CupHeadActorOrder::Player);
 
@@ -155,5 +162,42 @@ void OverWorldLevel::LevelChangeEnd()
 	GameEngineSprite::UnLoad("Up_Move");
 				
 	GameEngineSprite::UnLoad("InterAction_Win");
-	GameEngineSprite::UnLoad("To_Hilda_OverWorld");
+	GameEngineSprite::UnLoad("OverWorld_To_Hilda");
+
+	GameEngineSprite::UnLoad("OverWorld_To_Shmup_Tutorial");
+	GameEngineSprite::UnLoad("OverWorld_NPC_Canteen");
+}
+
+
+void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 NPC
+{
+	std::shared_ptr<OverWorldInteractObject> ToHilda = CreateActor<OverWorldInteractObject>(CupHeadActorOrder::BackGround);
+	ToHilda->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_To_Hilda",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
+	ToHilda->InteractRender->ChangeAnimation("Idle");
+	ToHilda->GetTransform()->SetLocalPosition(float4{ 3325,-300,500 });
+	ToHilda->InteractFucntion = []{
+			if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
+			{
+				LoadingLevel::SetLevel(CupheadLevel::HILDA);
+				GameEngineCore::ChangeLevel("LoadingLevel");
+				return;
+			}};	
+	
+	std::shared_ptr<OverWorldInteractObject> Canteen = CreateActor<OverWorldInteractObject>(CupHeadActorOrder::BackGround);
+	Canteen->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_NPC_Canteen",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
+	Canteen->InteractRender->ChangeAnimation("Idle");
+	Canteen->GetTransform()->SetLocalPosition(float4{ 2620,-275,500 });
+	//Canteen->InteractFucntion = []{};
+
+	std::shared_ptr<OverWorldInteractObject> Tutorial = CreateActor<OverWorldInteractObject>(CupHeadActorOrder::BackGround);
+	Tutorial->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_To_Shmup_Tutorial",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
+	Tutorial->InteractRender->ChangeAnimation("Idle");
+	Tutorial->GetTransform()->SetLocalPosition(float4{ 2850,-230,500 });
+	Tutorial->InteractFucntion = []{
+		if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
+		{
+			GameEngineCore::ChangeLevel("TutorialLevel");
+			return;
+		}};
+
 }

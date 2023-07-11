@@ -7,11 +7,11 @@
 
 #include "GameContentsButton.h"
 
-TitleLevel::TitleLevel() 
+TitleLevel::TitleLevel()
 {
 }
 
-TitleLevel::~TitleLevel() 
+TitleLevel::~TitleLevel()
 {
 }
 
@@ -65,7 +65,7 @@ void TitleLevel::Update(float _DeltaTime)
 		Rend->GetTransform()->SetLocalPosition(float4(0, -300));
 		isLogoDone = true;
 	}
-	if (true == isLogoDone &&false == isPressAnyKey &&  true == GameEngineInput::IsAnyKey()) // Title Cuphead Animation
+	if (true == isLogoDone && false == isPressAnyKey && true == GameEngineInput::IsAnyKey()) // Title Cuphead Animation
 	{
 		if (nullptr != CharUI)
 		{
@@ -84,8 +84,8 @@ void TitleLevel::Update(float _DeltaTime)
 	if (true == isLogoDone && true == isPressAnyKey)
 	{
 		SetHoverButtion();
-		
-		if(true == GameEngineInput::IsDown("ChangeLevel"))
+
+		if (true == GameEngineInput::IsDown("ChangeLevel"))
 		{
 			LoadingLevel::SetLevel(CupheadLevel::STORY);
 			GameEngineCore::ChangeLevel("LoadingLevel");
@@ -165,7 +165,7 @@ void TitleLevel::LevelChangeStart()
 		if (false == GameEngineInput::IsKey("Up_Buttion"))
 		{
 			GameEngineInput::CreateKey("Up_Buttion", VK_UP);
-		}		
+		}
 		if (false == GameEngineInput::IsKey("Down_Buttion"))
 		{
 			GameEngineInput::CreateKey("Down_Buttion", VK_DOWN);
@@ -179,12 +179,10 @@ void TitleLevel::LevelChangeStart()
 	//BG
 	{
 		std::shared_ptr<GameEngineActor> BG = CreateActor<GameEngineActor>(CupHeadRendererOrder::BackGround);
-		BackGround = BG -> CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
-		BackGround->CreateAnimation({ .AnimationName = "Logo", .SpriteName = "Title_Logo", .FrameInter = 0.01f, .Loop = false });
+		BackGround = BG->CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
+		BackGround->CreateAnimation({ .AnimationName = "Logo", .SpriteName = "Title_Logo", .FrameInter = 0.05f, .Loop = false });
 		BackGround->GetTransform()->SetLocalScale(float4(1280, 720, 1));
 		BackGround->ChangeAnimation("Logo");
-		//BackGround->SetScaleToTexture("title_screen_background.png");
-		//BackGround->GetTransform()->SetLocalPosition(float4(0, 0, 1000));
 
 	}
 	// Char
@@ -199,28 +197,29 @@ void TitleLevel::LevelChangeStart()
 
 	// Buttion
 	{
-		 StartButton =	   CreateActor<GameContentsButton>(CupHeadRendererOrder::UI);
-		 StartButton->SetAllButtionTexture({ "Title_StartButton.png" ,"Title_StartButton_Hover.png", "",true });
-		 //StartButton->SetButtonRender("Title_StartButton.png", true);
-		 StartButton->GetTransform()->SetLocalPosition(float4{ 0,100 });
-		 StartButton->SetName("StartButton");
-		 StartButton->Off();
+		StartButton = CreateActor<GameContentsButton>(CupHeadRendererOrder::UI);
+		StartButton->SetAllButtionTexture({ "Title_StartButton.png" ,"Title_StartButton_Hover.png", "",true });
+		StartButton->GetTransform()->SetLocalPosition(float4{ 0,100 });
+		StartButton->SetName("StartButton");
+		StartButton->SetEvent({[this]
+			{
+				LoadingLevel::SetLevel(CupheadLevel::STORY);
+				GameEngineCore::ChangeLevel("LoadingLevel");
+			}});
+		StartButton->Off();
 
-		 OptionsButton =   CreateActor<GameContentsButton>(CupHeadRendererOrder::UI);
-		 OptionsButton->SetAllButtionTexture({ "Title_OptionButton.png" ,"Title_OptionButton_Hover.png", "",true });
-		 //OptionsButton->SetButtonRender("Title_OptionButton.png", true);
-		 OptionsButton->GetTransform()->SetLocalPosition(float4{ 0,50 });
-		 OptionsButton->SetName("OptionsButton");
-		 OptionsButton->Off();
+		OptionsButton = CreateActor<GameContentsButton>(CupHeadRendererOrder::UI);
+		OptionsButton->SetAllButtionTexture({ "Title_OptionButton.png" ,"Title_OptionButton_Hover.png", "",true });
+		OptionsButton->GetTransform()->SetLocalPosition(float4{ 0,50 });
+		OptionsButton->SetName("OptionsButton");
+		OptionsButton->Off();
 
 
-		 ExitButton = 	   CreateActor<GameContentsButton>(CupHeadRendererOrder::UI);
-		 ExitButton->SetAllButtionTexture({ "Title_ExitButton.png" ,"Title_ExitButton_Hover.png", "",true });
-
-		 //ExitButton->SetButtonRender("Title_ExitButton.png", true);
-		 ExitButton->GetTransform()->SetLocalPosition(float4{ 0,0 });
-		 ExitButton->SetName("ExitButton");
-		 ExitButton->Off();
+		ExitButton = CreateActor<GameContentsButton>(CupHeadRendererOrder::UI);
+		ExitButton->SetAllButtionTexture({ "Title_ExitButton.png" ,"Title_ExitButton_Hover.png", "",true });
+		ExitButton->GetTransform()->SetLocalPosition(float4{ 0,0 });
+		ExitButton->SetName("ExitButton");
+		ExitButton->Off();
 	}
 
 
