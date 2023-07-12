@@ -38,7 +38,7 @@ void FlappyBird::Start()
 	BirdRender->ChangeAnimation("Yellow_Idle");
 
 
-	BirdCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BirdCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
 	BirdCollision->SetColType(ColType::SPHERE2D);
 	BirdCollision->GetTransform()->SetLocalScale(float4(80,0));
 	BirdCollision->GetTransform()->SetLocalPosition(float4(10, -10));
@@ -82,5 +82,5 @@ void FlappyBird::Update(float _DeltaTime)
 void FlappyBird::SetPink()
 {
 	BirdRender->ChangeAnimation("Pink_Idle");
-	PinkObject = true;
+	SetPinkObject();
 }

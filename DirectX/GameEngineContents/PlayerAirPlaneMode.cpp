@@ -17,7 +17,7 @@
 #include "ChangeSuperModeEffect.h"
 #include "SupermodeShadowEffect.h"
 
-#include "GameEnemyWeapon.h"
+#include "GameEnemy.h"
 
 PlayerAirPlaneMode::PlayerAirPlaneMode() 
 {
@@ -317,7 +317,7 @@ void PlayerAirPlaneMode::CheckPink()
 	{
 		for (std::shared_ptr<GameEngineCollision> _Col : Cols)
 		{
-			std::shared_ptr<GameEnemyWeapon> ColActor = _Col->GetActor()->DynamicThis<GameEnemyWeapon>();
+			std::shared_ptr<GameEnemy> ColActor = _Col->GetActor()->DynamicThis<GameEnemy>();
 			if (true == ColActor->IsPink())
 			{
 				_Col->GetActor()->Death();

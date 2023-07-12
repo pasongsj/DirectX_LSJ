@@ -15,6 +15,14 @@ public:
 	GameEnemy& operator=(const GameEnemy& _Other) = delete;
 	GameEnemy& operator=(GameEnemy&& _Other) noexcept = delete;
 
+	// 플레이어를 공격
+	bool CollisionPlayer(std::shared_ptr<class GameEngineCollision> _EnermyCol);
+
+	bool IsPink()
+	{
+		return PinkObject;
+	}
+
 	// 플레이어로부터 공격을 받음
 	virtual void Attack(int _Dmg)
 	{
@@ -27,14 +35,18 @@ public:
 	}
 
 protected:
-	int HP = 1;
-
 	inline void SetHP(int _HP)
 	{
 		HP = _HP;
 	}
+	inline void SetPinkObject()
+	{
+		PinkObject = true;
+	}
 
 private:
+	int HP = 1;
+	bool PinkObject = false; // 패리가능 개체
 
 
 };

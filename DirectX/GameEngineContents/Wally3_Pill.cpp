@@ -42,7 +42,7 @@ void Wally3_Pill::Start()
 	else
 	{
 		PillRender->ChangeAnimation("Pink");
-		PinkObject = true;
+		SetPinkObject();
 	}
 
 

@@ -55,7 +55,7 @@ void MoonStar::SettingType()
 	else
 	{
 		FxRender->ChangeAnimation("PinkFX");
-		PinkObject = true;
+		SetPinkObject();
 	}
 }
 

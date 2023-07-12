@@ -1,8 +1,8 @@
 #pragma once
-#include "GameEnemyWeapon.h"
+#include "GameEnemy.h"
 
 // Ό³Έν :
-class Wally3_Garbages : public GameEnemyWeapon
+class Wally3_Garbages : public GameEnemy
 {
 	friend class Wally3;
 public:

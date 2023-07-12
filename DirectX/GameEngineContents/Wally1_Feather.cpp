@@ -38,7 +38,7 @@ void Wally1_Feather::Start()
 	if (false == GameEngineRandom::MainRandom.RandomInt(0, 20))
 	{
 		FeatherRender->ChangeAnimation("Pink");
-		PinkObject = true;
+		SetPinkObject();
 	}
 
 	FeatherCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);

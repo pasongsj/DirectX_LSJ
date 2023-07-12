@@ -57,7 +57,7 @@ void Wally3_Pill_Piece::Setting(float _Rot, int index)
 {
 	if (2 == index || 3 == index)
 	{
-		PinkObject = true;
+		SetPinkObject();
 	}
 	PieceRender->ChangeAnimation(NextAnimation[index]);
 	Dir.RotaitonZDeg(_Rot);

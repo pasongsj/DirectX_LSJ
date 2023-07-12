@@ -94,9 +94,6 @@
     <ClInclude Include="GameEnemy.h">
       <Filter>Object\Enermy</Filter>
     </ClInclude>
-    <ClInclude Include="GameEnemyWeapon.h">
-      <Filter>Object\Enermy</Filter>
-    </ClInclude>
     <ClInclude Include="GameContentsUIRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
@@ -379,9 +376,6 @@
     </ClCompile>
     <ClCompile Include="Contents_Resources.cpp" />
     <ClCompile Include="GameEnemy.cpp">
-      <Filter>Object\Enermy</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEnemyWeapon.cpp">
       <Filter>Object\Enermy</Filter>
     </ClCompile>
     <ClCompile Include="GameContentsUIRenderer.cpp">

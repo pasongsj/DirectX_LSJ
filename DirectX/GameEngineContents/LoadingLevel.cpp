@@ -64,7 +64,42 @@ void LoadingPlayer()
 	}
 }
 
-void LoadingWally(GameEngineThread* Thread)
+void LoadingPlayerUI()
+{
+	if (nullptr == GameEngineTexture::Find("hud_hp_1.png"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
+
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
+		}
+	}
+	else
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
+
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::ReLoad(File[i].GetFullPath());
+		}
+	}
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentResources");
+	Dir.Move("ContentResources\\Texture");
+
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_YouDied").GetFullPath(), "Text_YouDied");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_KO").GetFullPath(), "Text_KO");
+}
+
+
+void LoadingWallyLevel(GameEngineThread* Thread)
 {
 	GameEngineDirectory Dir;
 	Dir.MoveParentToDirectory("ContentResources");
@@ -186,9 +221,10 @@ void LoadingWally(GameEngineThread* Thread)
 		}
 	}
 	LoadingPlayer();
+	LoadingPlayerUI();
 }
 
-void LoadingStory(GameEngineThread* Thread)
+void LoadingStoryLevel(GameEngineThread* Thread)
 {
 	GameEngineDirectory NewDir;
 	NewDir.MoveParentToDirectory("ContentResources");
@@ -200,7 +236,7 @@ void LoadingStory(GameEngineThread* Thread)
 	isDone = true;
 }
 
-void LoadingHilda(GameEngineThread* Thread)
+void LoadingHildaLevel(GameEngineThread* Thread)
 {
 	GameEngineDirectory Dir;
 	Dir.MoveParentToDirectory("ContentResources");
@@ -289,9 +325,7 @@ void LoadingHilda(GameEngineThread* Thread)
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\C\\Bullet").GetFullPath(), "BlimpEnemy_BulletC");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\Pink\\A").GetFullPath(), "BlimpEnemy_BulletPinkA");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\Pink\\B").GetFullPath(), "BlimpEnemy_BulletPinkB");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_YouDied").GetFullPath(), "Text_YouDied");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_KO").GetFullPath(), "Text_KO");
-	LoadingPlayer();
+
 
 	if (nullptr == GameEngineTexture::Find("blimp_clouds_0001.png"))
 	{
@@ -316,33 +350,8 @@ void LoadingHilda(GameEngineThread* Thread)
 		}
 	}
 
-
-	if (nullptr == GameEngineTexture::Find("hud_hp_1.png"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
-
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
-		{
-			GameEngineTexture::Load(File[i].GetFullPath());
-		}
-	}
-	else
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
-
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
-		{
-			GameEngineTexture::ReLoad(File[i].GetFullPath());
-		}
-	}
-
-
+	LoadingPlayer();
+	LoadingPlayerUI();
 
 }
 
@@ -416,13 +425,13 @@ void LoadingLevel::LevelChangeStart()
 	case CupheadLevel::NONE:
 		break;
 	case CupheadLevel::STORY:
-		GameEngineCore::JobQueue.Work(LoadingStory);
+		GameEngineCore::JobQueue.Work(LoadingStoryLevel);
 		break;
 	case CupheadLevel::HILDA:
-		GameEngineCore::JobQueue.Work(LoadingHilda);
+		GameEngineCore::JobQueue.Work(LoadingHildaLevel);
 		break;
 	case CupheadLevel::WALLY:
-		GameEngineCore::JobQueue.Work(LoadingWally);
+		GameEngineCore::JobQueue.Work(LoadingWallyLevel);
 		break;
 	case CupheadLevel::MAX:
 		break;

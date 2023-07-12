@@ -71,13 +71,13 @@ void Zeppling::Start()
 	EnemyCollision->GetTransform()->SetLocalScale(float4(100, 100));
 	EnemyCollision->SetColType(ColType::SPHERE2D);
 	
-	HP = 10;
 
 	ScreenSize = GameEngineWindow::GetScreenSize();
 	float4 Pos = float4(ScreenSize.hx(), GameEngineRandom::MainRandom.RandomFloat(-ScreenSize.hy() / 2, ScreenSize.hy() - 50),550);
 	GetTransform()->SetLocalPosition(Pos);
 
 	SetName("Zeppling");
+	SetHP(10);
 
 	//FSM
 	
@@ -142,7 +142,7 @@ void Zeppling::UpdateState(float _DeltaTime)
 
 void Zeppling::CheckDeath()
 {
-	if (HP <= 0)
+	if (GetHP() <= 0)
 	{
 		NextState = ZepplingState::DEAD;
 	}

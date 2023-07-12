@@ -1,7 +1,7 @@
 #pragma once
-#include "GameEnemyWeapon.h"
+#include "GameEnemy.h"
 
-class WallyBoss : public GameEnemyWeapon
+class WallyBoss : public GameEnemy
 {
 	friend class WallyLevel;
 public:

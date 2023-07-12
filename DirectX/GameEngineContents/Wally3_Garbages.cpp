@@ -66,7 +66,7 @@ void Wally3_Garbages::Setting(int index)
 		GarbageCollision->SetColType(ColType::AABBBOX2D);
 		GarbageCollision->GetTransform()->SetLocalScale(float4(50, 50, 0));
 		GarbageCollision->GetTransform()->SetLocalPosition(float4(0, -5, 0));
-		PinkObject = true;
+		SetPinkObject();
 		break;
 	case 1:
 		GarbageCollision->SetColType(ColType::AABBBOX2D);

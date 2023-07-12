@@ -1,5 +1,5 @@
 #pragma once
-#include "GameEnemyWeapon.h"
+#include "GameEnemy.h"
 
 enum class Wally1BulletPos
 {
@@ -10,7 +10,7 @@ enum class Wally1BulletPos
 
 
 // Ό³Έν :
-class Wally1_Bullet : public GameEnemyWeapon
+class Wally1_Bullet : public GameEnemy
 {
 	friend class Wally1;
 public:
