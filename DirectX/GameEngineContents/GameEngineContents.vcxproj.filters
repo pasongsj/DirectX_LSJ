@@ -280,6 +280,9 @@
     <ClInclude Include="GameContentsButton.h">
       <Filter>Object\Button</Filter>
     </ClInclude>
+    <ClInclude Include="ExBullet.h">
+      <Filter>Object\Player\AirPlane\PlayerWeapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -581,6 +584,9 @@
     </ClCompile>
     <ClCompile Include="GameContentsButton.cpp">
       <Filter>Object\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="ExBullet.cpp">
+      <Filter>Object\Player\AirPlane\PlayerWeapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

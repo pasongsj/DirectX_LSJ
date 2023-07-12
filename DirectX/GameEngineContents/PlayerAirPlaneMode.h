@@ -9,6 +9,7 @@ enum class PlayerAirPlaneModeState
 	MOVE_UP,
 	MOVE_DOWN,
 	PARRY,
+	SHOOT,
 	DEAD,
 	MAX,
 };
@@ -64,6 +65,14 @@ private:
 	float SmokeInterval = 0.3f;
 	float BlinkInterval = 0.1f;
 
+	// temp point
+	float4 SortPoint = float4::Zero;
+	void MakeSprite();
+	void CreateRenderAnimation();
+	void CreateStateFunc();
+
+
+
 	void MoveUpdate(float _DeltaTime);
 
 	void UpdateState(float _DeltaTime);
@@ -76,13 +85,14 @@ private:
 
 	void ChangeMode(const std::string_view& _Mode);
 
-	void MakeSprite();
 
 	void MakeSmoke(float _DeltaTime);
 
 	std::shared_ptr<class GameEngineActor> ShadowEffect = nullptr;
 
 	void CheckPink();
+
+	void BlinkEffect(float _DeltaTime);
 
 	// fsm 에 대한 함수
 
@@ -106,6 +116,10 @@ private:
 	void Parry_Start	();
 	void Parry_Update	(float _DeltaTime);
 	void Parry_End		();
+
+	void Shoot_Start	();
+	void Shoot_Update	(float _DeltaTime);
+	void Shoot_End		();
 
 	void Dead_Start		();
 	void Dead_Update	(float _DeltaTime);

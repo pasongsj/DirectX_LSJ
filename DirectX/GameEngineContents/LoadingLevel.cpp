@@ -8,8 +8,61 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::WALLY;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
 std::atomic_bool isDone = false;
+
+void LoadingPlayer()
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentResources");
+	Dir.Move("ContentResources\\Texture");
+
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Idle\\Idle").GetFullPath(), "Cuphead_AirPlane_Origin_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Idle\\up").GetFullPath(), "Cuphead_AirPlane_Origin_Idleup");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Idle\\down").GetFullPath(), "Cuphead_AirPlane_Origin_Idledown");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Intros\\Regular").GetFullPath(), "Cuphead_AirPlane_Origin_intro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Transicion\\transup").GetFullPath(), "Cuphead_AirPlane_Origin_transup");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Transicion\\transdown").GetFullPath(), "Cuphead_AirPlane_Origin_transdown");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\Idle\\Idle").GetFullPath(), "Cuphead_AirPlane_Super_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\Idle\\up").GetFullPath(), "Cuphead_AirPlane_Super_Idleup");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\Idle\\down").GetFullPath(), "Cuphead_AirPlane_Super_Idledown");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\intro").GetFullPath(), "Cuphead_AirPlane_Super_intro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\trans\\up").GetFullPath(), "Cuphead_AirPlane_Super_transup");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\trans\\down").GetFullPath(), "Cuphead_AirPlane_Super_transdown");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\idle\\Idle").GetFullPath(), "Cuphead_AirPlane_Shrink_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\idle\\up").GetFullPath(), "Cuphead_AirPlane_Shrink_Idleup");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\idle\\down").GetFullPath(), "Cuphead_AirPlane_Shrink_Idledown");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\morph").GetFullPath(), "Cuphead_AirPlane_Shrink_intro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\trans\\up").GetFullPath(), "Cuphead_AirPlane_Shrink_transup");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\trans\\down").GetFullPath(), "Cuphead_AirPlane_Shrink_transdown");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Parry").GetFullPath(), "Cuphead_AirPlane_Parry");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shoot\\Up").GetFullPath(), "Cuphead_AirPlane_Shoot_Up");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shoot\\Down").GetFullPath(), "Cuphead_AirPlane_Shoot_Down");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Ghost").GetFullPath(), "Cuphead_AirPlane_Ghost");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Spark").GetFullPath(), "Cuphead_AirPlane_Spark");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\bullet\\peashotFX").GetFullPath(), "peashotFX");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\PlaneSmoke").GetFullPath(), "Cuphead_AirPlane_Smoke_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\bullet\\peashot").GetFullPath(), "Cuphead_AirPlane_Bullet");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Boom").GetFullPath(), "shmup_super_boom");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Explode").GetFullPath(), "shmup_super_explode");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Super_FX").GetFullPath(), "Super_FX");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\bullet\\Ex_Bullet").GetFullPath(), "Cuphead_AirPlane_ExBullet");
+
+	if (nullptr == GameEngineTexture::Find("BlackBack.png"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane\\effect");
+		GameEngineTexture::Load(NewDir.GetPlusFileName("BlackBack.png").GetFullPath());
+	}
+	else
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane\\effect");
+		GameEngineTexture::ReLoad(NewDir.GetPlusFileName("BlackBack.png").GetFullPath());
+	}
+}
 
 void LoadingWally(GameEngineThread* Thread)
 {
@@ -132,6 +185,7 @@ void LoadingWally(GameEngineThread* Thread)
 			}
 		}
 	}
+	LoadingPlayer();
 }
 
 void LoadingStory(GameEngineThread* Thread)
@@ -196,26 +250,6 @@ void LoadingHilda(GameEngineThread* Thread)
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\UFO\\Red").GetFullPath(), "Hilda_UFO_Red");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\UFO\\Bronze").GetFullPath(), "Hilda_UFO_Bronze");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\UFO\\Beam").GetFullPath(), "Hilda_UFO_Beam");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Idle\\Idle").GetFullPath(), "Cuphead_AirPlane_Origin_Idle");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Idle\\up").GetFullPath(), "Cuphead_AirPlane_Origin_Idleup");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Idle\\down").GetFullPath(), "Cuphead_AirPlane_Origin_Idledown");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Intros\\Regular").GetFullPath(), "Cuphead_AirPlane_Origin_intro");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Transicion\\transup").GetFullPath(), "Cuphead_AirPlane_Origin_transup");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Transicion\\transdown").GetFullPath(), "Cuphead_AirPlane_Origin_transdown");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\Idle\\Idle").GetFullPath(), "Cuphead_AirPlane_Super_Idle");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\Idle\\up").GetFullPath(), "Cuphead_AirPlane_Super_Idleup");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\Idle\\down").GetFullPath(), "Cuphead_AirPlane_Super_Idledown");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\intro").GetFullPath(), "Cuphead_AirPlane_Super_intro");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\trans\\up").GetFullPath(), "Cuphead_AirPlane_Super_transup");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Super\\trans\\down").GetFullPath(), "Cuphead_AirPlane_Super_transdown");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\idle\\Idle").GetFullPath(), "Cuphead_AirPlane_Shrink_Idle");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\idle\\up").GetFullPath(), "Cuphead_AirPlane_Shrink_Idleup");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\idle\\down").GetFullPath(), "Cuphead_AirPlane_Shrink_Idledown");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\morph").GetFullPath(), "Cuphead_AirPlane_Shrink_intro");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\trans\\up").GetFullPath(), "Cuphead_AirPlane_Shrink_transup");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Shrink\\trans\\down").GetFullPath(), "Cuphead_AirPlane_Shrink_transdown");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Parry").GetFullPath(), "Cuphead_AirPlane_Parry");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Spark").GetFullPath(), "Cuphead_AirPlane_Spark");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Purple\\Idle").GetFullPath(), "BlimpEnemy_PurPle_Idle");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Green\\Idle").GetFullPath(), "BlimpEnemy_Green_Idle");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Purple\\Attack").GetFullPath(), "BlimpEnemy_Purple_Attack");
@@ -247,24 +281,17 @@ void LoadingHilda(GameEngineThread* Thread)
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\PinkFX").GetFullPath(), "Moon_Star_PinkFX");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\ChangeBack").GetFullPath(), "Hilda_ChangeBack");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\SmokeFX").GetFullPath(), "HildaChangePhaseDashSmoke");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\bullet\\peashotFX").GetFullPath(), "peashotFX");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\DashBackExplodeFX").GetFullPath(), "HildaChangePhaseDashBackExplode");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\DashExplodeFX").GetFullPath(), "HildaChangePhaseDashExplode");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\HildaChangeFX").GetFullPath(), "HildaChangeFX");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\PlaneSmoke").GetFullPath(), "Cuphead_AirPlane_Smoke_Idle");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\bullet\\peashot").GetFullPath(), "Cuphead_AirPlane_Bullet");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\A\\Bullet").GetFullPath(), "BlimpEnemy_BulletA");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\B\\Bullet").GetFullPath(), "BlimpEnemy_BulletB");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\C\\Bullet").GetFullPath(), "BlimpEnemy_BulletC");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\Pink\\A").GetFullPath(), "BlimpEnemy_BulletPinkA");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\Pink\\B").GetFullPath(), "BlimpEnemy_BulletPinkB");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Boom").GetFullPath(), "shmup_super_boom");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Explode").GetFullPath(), "shmup_super_explode");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\effect\\Super_FX").GetFullPath(), "Super_FX");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Cuphead_AirPlane\\Ghost").GetFullPath(), "Cuphead_AirPlane_Ghost");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_YouDied").GetFullPath(), "Text_YouDied");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_KO").GetFullPath(), "Text_KO");
-
+	LoadingPlayer();
 
 	if (nullptr == GameEngineTexture::Find("blimp_clouds_0001.png"))
 	{
@@ -315,20 +342,7 @@ void LoadingHilda(GameEngineThread* Thread)
 		}
 	}
 
-	if (nullptr == GameEngineTexture::Find("BlackBack.png"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane\\effect");
-		GameEngineTexture::Load(NewDir.GetPlusFileName("BlackBack.png").GetFullPath());
-	}
-	else
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane\\effect");
-		GameEngineTexture::ReLoad(NewDir.GetPlusFileName("BlackBack.png").GetFullPath());
-	}
+
 
 }
 
@@ -357,7 +371,7 @@ void LoadingLevel::Update(float _DeltaTime)
 		}
 		break;
 	case CupheadLevel::HILDA:
-		if (1420 == GameEngineTexture::TextureReLoadCount)
+		if (1491 == GameEngineTexture::TextureReLoadCount)
 		{
 			GameEngineCore::ChangeLevel("HildaBergLevel");
 			NextLevel = CupheadLevel::NONE;

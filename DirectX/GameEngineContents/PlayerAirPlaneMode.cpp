@@ -8,14 +8,16 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
-
+//weapon
 #include "PeaShooter.h"
+#include "ExBullet.h"
+//effect
 #include "BoomEffect.h"
 #include "PlayerAirPlaneSmokeEffect.h"
 #include "ChangeSuperModeEffect.h"
 #include "SupermodeShadowEffect.h"
-#include "GameEnemyWeapon.h"
 
+#include "GameEnemyWeapon.h"
 
 PlayerAirPlaneMode::PlayerAirPlaneMode() 
 {
@@ -90,6 +92,10 @@ void PlayerAirPlaneMode::MakeSprite()
 		//NewDir.Move("..\\..\\");
 		GameEngineSprite::LoadFolder( "Cuphead_AirPlane_Parry", NewDir.GetPlusFileName("Parry").GetFullPath());
 
+		//shoot
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("Shoot\\Up").GetFullPath(), "Cuphead_AirPlane_Shoot_Up");
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("Shoot\\Down").GetFullPath(), "Cuphead_AirPlane_Shoot_Down");
+
 		//dead
 		GameEngineSprite::LoadFolder( "Cuphead_AirPlane_Ghost", NewDir.GetPlusFileName("Ghost").GetFullPath());
 	}
@@ -103,24 +109,9 @@ void PlayerAirPlaneMode::MakeSprite()
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Spark", NewDir.GetPlusFileName("Spark").GetFullPath());
 	}
 }
-
-void PlayerAirPlaneMode::Start()
+void PlayerAirPlaneMode::CreateRenderAnimation()
 {
-	Player::Start();
-
-	if (nullptr != Player::MainPlayer)
-	{
-		MsgAssert("플레이어는 한개만 생성할 수 있습니다.");
-	}
-
-	Player::MainPlayer = DynamicThis<PlayerAirPlaneMode>().get();
-
-
-	MakeSprite();
-
-	PlayerRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Player);
-	//----------
-	// 
+	// Player
 	// idle mode
 	PlayerRender->CreateAnimation({ .AnimationName = "OriginIntro", .SpriteName = "Cuphead_AirPlane_Origin_intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "OriginIdle",  .SpriteName = "Cuphead_AirPlane_Origin_Idle", .FrameInter = 0.05f,.Loop = true , .ScaleToTexture = true });
@@ -133,12 +124,19 @@ void PlayerAirPlaneMode::Start()
 	// parry
 	PlayerRender->CreateAnimation({ .AnimationName = "Parry",  .SpriteName = "Cuphead_AirPlane_Parry",.FrameInter = 0.03f, .Loop = false, .ScaleToTexture = true });
 
+	// shoot
+	PlayerRender->CreateAnimation({ .AnimationName = "Shoot_Up",  .SpriteName = "Cuphead_AirPlane_Shoot_Up",.FrameInter = 0.03f, .Loop = false, .ScaleToTexture = true });
+	PlayerRender->SetAnimationStartEvent("Shoot_Up", 15, [this] {
+		std::shared_ptr<GameEngineActor> Bullet = GetLevel()->CreateActor< ExBullet>(CupHeadActorOrder::PlayerWepaon);
+		float4 Pos = GetTransform()->GetWorldPosition() + float4{0, -10};
+		Bullet->GetTransform()->SetLocalPosition(Pos);
+		});
 	// shmup mode
 	PlayerRender->CreateAnimation({ .AnimationName = "SuperIntro",  .SpriteName = "Cuphead_AirPlane_Super_intro", .FrameInter = 0.1f, .Loop = false , .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "SuperIdle",  .SpriteName = "Cuphead_AirPlane_Super_Idle", .Loop = true, .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveUp",  .SpriteName = "Cuphead_AirPlane_Super_Idleup",.FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveUpTrans",  .SpriteName = "Cuphead_AirPlane_Super_transup",.FrameInter = 0.01f, .Loop = false, .ScaleToTexture = true });
-												
+
 	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveDown",  .SpriteName = "Cuphead_AirPlane_Super_Idledown",.FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "SuperMoveDownTrans",  .SpriteName = "Cuphead_AirPlane_Super_transdown",.FrameInter = 0.01f, .Loop = false, .ScaleToTexture = true });
 
@@ -147,7 +145,7 @@ void PlayerAirPlaneMode::Start()
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkIdle",  .SpriteName = "Cuphead_AirPlane_Shrink_Idle",  .Loop = true, .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveUp",  .SpriteName = "Cuphead_AirPlane_Shrink_Idleup",.FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveUpTrans",  .SpriteName = "Cuphead_AirPlane_Shrink_transup",.FrameInter = 0.01f, .Loop = false, .ScaleToTexture = true });
-												
+
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDown",  .SpriteName = "Cuphead_AirPlane_Shrink_Idledown", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "ShrinkMoveDownTrans",  .SpriteName = "Cuphead_AirPlane_Shrink_transdown", .FrameInter = 0.01f, .Loop = false, .ScaleToTexture = true });
 	//
@@ -155,23 +153,86 @@ void PlayerAirPlaneMode::Start()
 
 	PlayerRender->SetAnimationStartEvent("SuperIntro", 1, [this] {
 		std::shared_ptr< ChangeSuperModeEffect> effect = GetLevel()->CreateActor< ChangeSuperModeEffect>(CupHeadActorOrder::PlayerBackGround);
-		effect->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(0,0,1));
+		effect->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + float4(0, 0, 1));
 		});
 	PlayerRender->ChangeAnimation("OriginIntro");
 	//PlayerRender->ChangeAnimation("Idle");
 
+	//Spark
 	Spark = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::PlayerEffect);
 	Spark->CreateAnimation({ .AnimationName = "Spark", .SpriteName = "Cuphead_AirPlane_Spark", .FrameInter = 0.05f, .Loop = true,.ScaleToTexture = true });
 	Spark->ChangeAnimation("Spark");
 	Spark->Off();
+}
 
+void PlayerAirPlaneMode::CreateStateFunc()
+{
+	// FSM 실행함수 포인터
+
+	//INTRO
+	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::INTRO)] = std::bind(&PlayerAirPlaneMode::Intro_Start, this);
+	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::INTRO)] = std::bind(&PlayerAirPlaneMode::Intro_Update, this, std::placeholders::_1);
+	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::INTRO)] = std::bind(&PlayerAirPlaneMode::Intro_End, this);
+
+	//IDLE
+	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::IDLE)] = std::bind(&PlayerAirPlaneMode::Idle_Start, this);
+	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::IDLE)] = std::bind(&PlayerAirPlaneMode::Idle_Update, this, std::placeholders::_1);
+	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::IDLE)] = std::bind(&PlayerAirPlaneMode::Idle_End, this);
+
+	//MOVE_UP
+	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_UP)] = std::bind(&PlayerAirPlaneMode::MoveUp_Start, this);
+	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_UP)] = std::bind(&PlayerAirPlaneMode::MoveUp_Update, this, std::placeholders::_1);
+	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_UP)] = std::bind(&PlayerAirPlaneMode::MoveUp_End, this);
+
+	//MOVE_DOWN
+	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_DOWN)] = std::bind(&PlayerAirPlaneMode::MoveDown_Start, this);
+	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_DOWN)] = std::bind(&PlayerAirPlaneMode::MoveDown_Update, this, std::placeholders::_1);
+	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_DOWN)] = std::bind(&PlayerAirPlaneMode::MoveDown_End, this);
+
+	//PARRY
+	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::PARRY)] = std::bind(&PlayerAirPlaneMode::Parry_Start, this);
+	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::PARRY)] = std::bind(&PlayerAirPlaneMode::Parry_Update, this, std::placeholders::_1);
+	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::PARRY)] = std::bind(&PlayerAirPlaneMode::Parry_End, this);
+
+	//SHOOT
+	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::SHOOT)] = std::bind(&PlayerAirPlaneMode::Shoot_Start, this);
+	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::SHOOT)] = std::bind(&PlayerAirPlaneMode::Shoot_Update, this, std::placeholders::_1);
+	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::SHOOT)] = std::bind(&PlayerAirPlaneMode::Shoot_End, this);
+
+	//DEAD
+	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::DEAD)] = std::bind(&PlayerAirPlaneMode::Dead_Start, this);
+	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::DEAD)] = std::bind(&PlayerAirPlaneMode::Dead_Update, this, std::placeholders::_1);
+	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::DEAD)] = std::bind(&PlayerAirPlaneMode::Dead_End, this);
+}
+
+
+void PlayerAirPlaneMode::Start()
+{
+	Player::Start();
+
+	if (nullptr != Player::MainPlayer)
+	{
+		MsgAssert("플레이어는 한개만 생성할 수 있습니다.");
+	}
+
+	Player::MainPlayer = DynamicThis<PlayerAirPlaneMode>().get();
+	PlayerRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Player);
+
+
+	MakeSprite();
+	CreateRenderAnimation();
+
+	
+	// 이펙트
 	ShadowEffect = GetLevel()->CreateActor <SupermodeShadowEffect>(CupHeadActorOrder::PlayerBackGround);
 	ShadowEffect->Off();
 
-	
+	// 플레이어 콜리전
 	PlayerCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Player);
+	PlayerCollision->GetTransform()->SetLocalScale(float4(100, 0));
 	PlayerCollision->SetColType(ColType::SPHERE2D);
 
+	// 패리 콜리전
 	ParryCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::PlayerWepaon);
 	ParryCollision->SetColType(ColType::SPHERE2D);
 	ParryCollision->GetTransform()->SetLocalScale(float4(170, 170, 1));
@@ -181,66 +242,24 @@ void PlayerAirPlaneMode::Start()
 	GetTransform()->SetLocalPosition(float4( -500, 0, 400));
 
 
-
+	// state
 	CurState = PlayerAirPlaneModeState::INTRO;
 	NextState = PlayerAirPlaneModeState::INTRO;
+	CreateStateFunc();
 
-
-
-	// FSM 실행함수 포인터
-
-	//INTRO
-	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::INTRO)]	= std::bind(&PlayerAirPlaneMode::Intro_Start ,	this);
-	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::INTRO)] = std::bind(&PlayerAirPlaneMode::Intro_Update, this, std::placeholders::_1);
-	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::INTRO)]	 = std::bind(&PlayerAirPlaneMode::Intro_End, this);
-
-	//IDLE
-	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::IDLE)]	= std::bind(&PlayerAirPlaneMode::Idle_Start, this);
-	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::IDLE)] = std::bind(&PlayerAirPlaneMode::Idle_Update, this, std::placeholders::_1);
-	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::IDLE)]	= std::bind(&PlayerAirPlaneMode::Idle_End, this);
-
-	//MOVE_UP
-	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_UP)]	= std::bind(&PlayerAirPlaneMode::MoveUp_Start, this);
-	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_UP)] = std::bind(&PlayerAirPlaneMode::MoveUp_Update, this, std::placeholders::_1);
-	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_UP)]	= std::bind(&PlayerAirPlaneMode::MoveUp_End, this);
-
-	//MOVE_DOWN
-	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_DOWN)]	= std::bind(&PlayerAirPlaneMode::MoveDown_Start, this);
-	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_DOWN)] = std::bind(&PlayerAirPlaneMode::MoveDown_Update, this, std::placeholders::_1);
-	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::MOVE_DOWN)]	= std::bind(&PlayerAirPlaneMode::MoveDown_End, this);
-
-	//PARRY
-	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::PARRY)]	= std::bind(&PlayerAirPlaneMode::Parry_Start, this);
-	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::PARRY)] = std::bind(&PlayerAirPlaneMode::Parry_Update, this, std::placeholders::_1);
-	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::PARRY)]	= std::bind(&PlayerAirPlaneMode::Parry_End, this);
-
-	//DEAD
-	StartFuncPtr[static_cast<int>(PlayerAirPlaneModeState::DEAD)] = std::bind(&PlayerAirPlaneMode::Dead_Start, this);
-	UpdateFuncPtr[static_cast<int>(PlayerAirPlaneModeState::DEAD)] = std::bind(&PlayerAirPlaneMode::Dead_Update, this, std::placeholders::_1);
-	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::DEAD)] = std::bind(&PlayerAirPlaneMode::Dead_End, this);
 
 }
 
 
 void PlayerAirPlaneMode::Update(float _DeltaTime)
 {
-	PlayerCollision->SetRenderScaleToCollision(PlayerRender);
-	//SuperModeEnergy += _DeltaTime*10;
-
-
-	// 임시 체크용
-	if (SuperModeEnergy >= 500 && true == GameEngineInput::IsDown("PlayerShmUpModeSwitch")) // VK_SPACE
-	{
-		ChangeMode("Super");
-		NextState = PlayerAirPlaneModeState::INTRO;
-		SuperModeEnergy = 0;
-	}
-	if ("Super" == CurMode && true == GameEngineInput::IsDown("PlayerShmupSkill")) // 'V'
+	if ("Super" == CurMode && true == GameEngineInput::IsDown("PlayerShmupSkill")) // SuperMode억지로 풀기용
 	{
 		ChangeMode("Origin");
 		NextState = PlayerAirPlaneModeState::IDLE;
 	}
 
+	// 강제 state변환
 	if (true == GameEngineInput::IsDown("PlayerOriginMode"))
 	{
 		ChangeMode("Origin");
@@ -258,10 +277,15 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 	}
 
 
-	// shoot
-	ShootInterVal -= _DeltaTime;
-	//CheckShoot(_DeltaTime);
+	BlinkEffect(_DeltaTime);
+	
+	// state
+	UpdateState(_DeltaTime);
+	MoveUpdate(_DeltaTime);
+}
 
+void PlayerAirPlaneMode::BlinkEffect(float _DeltaTime)
+{
 	//defeat interval
 	InvincibleTime -= _DeltaTime;
 	BlinkInterval -= _DeltaTime;
@@ -283,14 +307,6 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 		PlayerRender->ColorOptionValue.MulColor = float4(1, 1, 1, 1);
 
 	}
-
-	if (GetHP() <= 0)
-	{
-		NextState = PlayerAirPlaneModeState::DEAD;
-	}
-	// state
-	UpdateState(_DeltaTime);
-	MoveUpdate(_DeltaTime);
 }
 
 void PlayerAirPlaneMode::CheckPink()
@@ -328,38 +344,52 @@ void PlayerAirPlaneMode::MoveUpdate(float _DeltaTime)
 
 void PlayerAirPlaneMode::CheckInput()
 {
-	bool isPressKey = false;
+	if (true == GameEngineInput::IsPress("PlayerShmupSkill") && CurMode == "Origin")
+	{
+		if (SuperModeEnergy >= 500)
+		{
+			ChangeMode("Super");
+			NextState = PlayerAirPlaneModeState::INTRO;
+			SuperModeEnergy = 0;
+		}
+		else if (SuperModeEnergy >= 100)
+		{
+			NextState = PlayerAirPlaneModeState::SHOOT;
+			SuperModeEnergy -= 100;
+		}
+		return;
+	}
 	if (true == GameEngineInput::IsPress("PlayerAirPlaneParry") && CurMode == "Origin")
 	{
 		NextState = PlayerAirPlaneModeState::PARRY;
-		isPressKey = true;
+		return;
+	}
+
+
+	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveLeft"))
+	{
+		MoveVec += float4::Left;
+	}
+	else if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveRight"))
+	{
+		MoveVec += float4::Right;
+	}
+	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveUp"))
+	{
+		MoveVec += float4::Up;
+		NextState = PlayerAirPlaneModeState::MOVE_UP;
+	}
+	else if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveDown"))
+	{
+		MoveVec += float4::Down;
+		NextState = PlayerAirPlaneModeState::MOVE_DOWN;
 	}
 	else
 	{
-		if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveLeft"))
-		{
-			MoveVec += float4::Left;
-			isPressKey = true;
-		}
-		else if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveRight"))
-		{
-			MoveVec += float4::Right;
-			isPressKey = true;
-		}
-		if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveUp"))
-		{
-			MoveVec += float4::Up;
-			NextState = PlayerAirPlaneModeState::MOVE_UP;
-			isPressKey = true;
-		}
-		else if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveDown"))
-		{
-			MoveVec += float4::Down;
-			NextState = PlayerAirPlaneModeState::MOVE_DOWN;
-			isPressKey = true;
-		}
+		NextState = PlayerAirPlaneModeState::IDLE;
 
 	}
+
 	if ("Origin" == CurMode && true == GameEngineInput::IsPress("PlayerShrinkMode"))
 	{
 
@@ -372,11 +402,6 @@ void PlayerAirPlaneMode::CheckInput()
 
 		ChangeMode("Origin");
 		return;
-	}
-
-	if(false == isPressKey)
-	{
-		NextState = PlayerAirPlaneModeState::IDLE;
 	}
 }
 
@@ -410,6 +435,8 @@ void PlayerAirPlaneMode::ChangePlayerAnimation(const std::string_view& _Name)
 
 void PlayerAirPlaneMode::CheckShoot(float _DeltaTime)
 {
+	ShootInterVal -= _DeltaTime;
+
 	if (true == GameEngineInput::IsPress("PlayerAttack")) // 'X'
 	{
 		Spark->On();

@@ -15,6 +15,11 @@ void PlayerAirPlaneMode::Intro_Start()
 }
 void PlayerAirPlaneMode::Intro_Update(float _DeltaTime)
 {
+	if (GetHP() <= 0)
+	{
+		NextState = PlayerAirPlaneModeState::DEAD;
+		return;
+	}
 
 	if (true == PlayerRender->IsAnimationEnd())
 	{
@@ -36,6 +41,11 @@ void PlayerAirPlaneMode::Idle_Start()
 }
 void PlayerAirPlaneMode::Idle_Update(float _DeltaTime)
 {
+	if (GetHP() <= 0)
+	{
+		NextState = PlayerAirPlaneModeState::DEAD;
+		return;
+	}
 	CheckInput();
 	CheckShoot(_DeltaTime);
 	MakeSmoke(_DeltaTime);
@@ -54,6 +64,12 @@ void PlayerAirPlaneMode::MoveUp_Start()
 }
 void PlayerAirPlaneMode::MoveUp_Update(float _DeltaTime)
 {
+	if (GetHP() <= 0)
+	{
+		NextState = PlayerAirPlaneModeState::DEAD;
+		return;
+	}
+
 	if (false == isStartAnimationDone && true == PlayerRender->IsAnimationEnd())
 	{
 		isStartAnimationDone = true;
@@ -77,6 +93,11 @@ void PlayerAirPlaneMode::MoveDown_Start()
 }
 void PlayerAirPlaneMode::MoveDown_Update(float _DeltaTime)
 {
+	if (GetHP() <= 0)
+	{
+		NextState = PlayerAirPlaneModeState::DEAD;
+		return;
+	}
 	if (false == isStartAnimationDone && true == PlayerRender->IsAnimationEnd())
 	{
 		isStartAnimationDone = true;
@@ -109,6 +130,31 @@ void PlayerAirPlaneMode::Parry_End()
 {
 	ParryCollision->Off();
 	PlayerCollision->On();
+}
+
+
+
+
+void PlayerAirPlaneMode::Shoot_Start()
+{
+	PlayerRender->ChangeAnimation("Shoot_Up");
+	SortPoint = GetTransform()->GetLocalPosition();
+	SortPoint.x -= PlayerRender->GetTransform()->GetLocalScale().hx();
+}
+
+void PlayerAirPlaneMode::Shoot_Update(float _DeltaTime)
+{
+	GetTransform()->SetLocalPosition(SortPoint + float4{PlayerRender->GetTransform()->GetLocalScale().hx(), 0});
+	if (true == PlayerRender->IsAnimationEnd())
+	{
+		NextState = PlayerAirPlaneModeState::IDLE;
+	}
+}
+
+void PlayerAirPlaneMode::Shoot_End()
+{
+	GetTransform()->SetLocalPosition(SortPoint + float4{65, 0});
+
 }
 
 
