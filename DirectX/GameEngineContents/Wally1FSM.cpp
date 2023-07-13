@@ -93,6 +93,7 @@ void Wally1::Idle_Update(float _DeltaTime)
 	if (GetHP() <= 0)
 	{
 		NextState = Wally1State::STEAM;
+		return;
 	}
 	if (AttackInterval < 0)
 	{

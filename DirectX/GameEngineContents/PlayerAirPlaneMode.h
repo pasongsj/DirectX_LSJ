@@ -38,7 +38,7 @@ protected:
 	void Render(float _DeltaTime) override;
 
 private:
-
+	bool isPlayerInvincibleMode = false;
 	float  MoveSpeed = 500.0f;
 	float4 MoveVec = float4::Zero;
 	float4 MaxPlayerSize = float4(115, 102);

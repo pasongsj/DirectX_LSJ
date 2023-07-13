@@ -19,7 +19,7 @@ Wally2::~Wally2()
 
 void Wally2::MakeSprite()
 {
-	if(nullptr == GameEngineSprite::Find("Wally2_Idle"))
+	if (nullptr == GameEngineSprite::Find("Wally2_Idle"))
 	{
 		GameEngineDirectory Dir;
 		Dir.MoveParentToDirectory("ContentResources");
@@ -39,13 +39,8 @@ void Wally2::MakeSprite()
 	}
 
 }
-
-
-void Wally2::Start()
+void Wally2::SettingRender()
 {
-	MakeSprite();
-
-	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
 	BossRender->CreateAnimation({ .AnimationName = "Idle",.SpriteName = "Wally2_Idle" , .FrameInter = 0.05f, .Loop = true,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Blink",.SpriteName = "Wally2_Blink" , .FrameInter = 0.05f, .Loop = true,.ScaleToTexture = true });
 
@@ -63,17 +58,30 @@ void Wally2::Start()
 	BossRender->CreateAnimation({ .AnimationName = "TurnRight",.SpriteName = "Wally2_Turn_Right" , .FrameInter = 0.05f, .Loop = false,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "TurnLeft",.SpriteName = "Wally2_Turn_Left" , .FrameInter = 0.05f, .Loop = false,.ScaleToTexture = true });
 
+}
 
-	BodyCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+void Wally2::SettingCollision()
+{
 	BodyCollision->SetColType(ColType::SPHERE2D);
 	BodyCollision->GetTransform()->SetLocalScale(float4(90, 0));
 	BodyCollision->GetTransform()->SetLocalPosition(float4(0, -35));
 
-	HeadCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	HeadCollision->SetColType(ColType::SPHERE2D);
 	HeadCollision->GetTransform()->SetLocalScale(float4(90, 0));
 	HeadCollision->GetTransform()->SetLocalPosition(float4(-30, 40));
+}
 
+
+void Wally2::Start()
+{
+	MakeSprite();
+
+	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	SettingRender();
+
+	BodyCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	HeadCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	SettingCollision();
 
 	//INTRO
 	StartFuncPtr[static_cast<int>(Wally2State::INTRO)] = std::bind(&Wally2::Intro_Start, this);
@@ -141,9 +149,9 @@ void Wally2::Update(float _DeltaTime)
 	float4 Pos = float4::Right * 250 + float4::Right * 150 * sinf(EggController->GetLiveTime());
 	for (int i = 0; i < 5; ++i)
 	{
-		Eggs[i]->GetTransform()->SetLocalPosition(Pos.RotaitonZDegReturn(static_cast<float>(72 * i))+ float4(0, 0, -50));
+		Eggs[i]->GetTransform()->SetLocalPosition(Pos.RotaitonZDegReturn(static_cast<float>(72 * i)) + float4(0, 0, -50));
 	}
-	
+
 	UpdateState(_DeltaTime);
 }
 
@@ -178,7 +186,7 @@ void Wally2::MoveUpdate(float _DeltaTime)
 			isTransAnimatioin = true;
 
 		}
-		else if(NextPos.x - CurPos.x < 0 && float4::One != GetTransform()->GetLocalScale()) // 왼쪽에서 오른쪽으로
+		else if (NextPos.x - CurPos.x < 0 && float4::One != GetTransform()->GetLocalScale()) // 왼쪽에서 오른쪽으로
 		{
 			GetTransform()->SetLocalScale(float4::One);
 			BossRender->ChangeAnimation("TurnLeft");

@@ -264,12 +264,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="OverWorldToHilda.h">
-      <SubType>
-      </SubType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="Wally1_Bullet.h">
       <SubType>
       </SubType>
@@ -698,12 +692,6 @@
     <ClCompile Include="OverWorldInteractObject.cpp">
       <SubType>
       </SubType>
-    </ClCompile>
-    <ClCompile Include="OverWorldToHilda.cpp">
-      <SubType>
-      </SubType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Wally1_Bullet.cpp">
       <SubType>

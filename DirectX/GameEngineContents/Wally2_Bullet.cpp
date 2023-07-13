@@ -47,6 +47,8 @@ void Wally2_Bullet::Update(float _DeltaTime)
 		Death();
 		return;
 	}
+	CollisionPlayer(BulletCollision);
+
 }
 
 

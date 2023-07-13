@@ -16,6 +16,7 @@ public:
 	FlappyBird& operator=(const FlappyBird& _Other) = delete;
 	FlappyBird& operator=(FlappyBird&& _Other) noexcept = delete;
 
+	void Death() override;
 
 protected:
 	void Start() override;

@@ -56,4 +56,5 @@ void Wally1_Feather::Update(float _DeltaTime)
 		Death();
 		return;
 	}
+	CollisionPlayer(FeatherCollision);
 }

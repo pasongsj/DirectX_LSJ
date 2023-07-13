@@ -51,4 +51,6 @@ void Wally1_Egg_Pieces::Update(float _DeltaTime)
 		Death();
 		return;
 	}
+	CollisionPlayer(PiecesCollision);
+
 }

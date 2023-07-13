@@ -51,6 +51,8 @@ void Wally3_Pill_Piece::Update(float _DeltaTime)
 		Death();
 		return;
 	}
+	CollisionPlayer(PieceCollision);
+
 }
 
 void Wally3_Pill_Piece::Setting(float _Rot, int index)

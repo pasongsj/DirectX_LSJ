@@ -53,6 +53,9 @@ private:
 	Wally2State CurState = Wally2State::INTRO;
 	Wally2State NextState = Wally2State::INTRO;
 
+	void SettingRender();
+	void SettingCollision();
+
 	void MoveUpdate(float _DeltaTime);
 	void UpdateState(float _DeltaTime);
 

@@ -55,11 +55,7 @@ void Wally3_Pill::Update(float _DeltaTime)
 {
 	GetTransform()->AddLocalPosition(float4::Up * MoveSpeed * _DeltaTime);
 	MoveSpeed -= _DeltaTime * 500;
-	//if (false == GetLevel()->GetMainCamera()->IsView(PillRender->GetTransform()->GetTransDataRef()))
-	//{
-	//	Death();
-	//	return;
-	//}
+
 	if (MoveSpeed < 0)
 	{
 		float RandomRot = GameEngineRandom::MainRandom.RandomFloat(0, 360);
@@ -81,4 +77,5 @@ void Wally3_Pill::Update(float _DeltaTime)
 		Death();
 		return;
 	}
+	CollisionPlayer(PillCollision);
 }

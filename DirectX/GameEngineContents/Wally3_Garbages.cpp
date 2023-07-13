@@ -85,4 +85,6 @@ void Wally3_Garbages::Setting(int index)
 	default:
 		break;
 	}
+	CollisionPlayer(GarbageCollision);
+
 }

@@ -271,9 +271,6 @@
     <ClInclude Include="OverWorldInteractObject.h">
       <Filter>Object\OverWrold</Filter>
     </ClInclude>
-    <ClInclude Include="OverWorldToHilda.h">
-      <Filter>Object\OverWrold</Filter>
-    </ClInclude>
     <ClInclude Include="GameContentsButton.h">
       <Filter>Object\Button</Filter>
     </ClInclude>
@@ -571,9 +568,6 @@
       <Filter>Object\Wally\BackGround</Filter>
     </ClCompile>
     <ClCompile Include="OverWorldInteractObject.cpp">
-      <Filter>Object\OverWrold</Filter>
-    </ClCompile>
-    <ClCompile Include="OverWorldToHilda.cpp">
       <Filter>Object\OverWrold</Filter>
     </ClCompile>
     <ClCompile Include="GameContentsButton.cpp">

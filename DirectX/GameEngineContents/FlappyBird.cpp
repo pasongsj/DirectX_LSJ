@@ -30,7 +30,7 @@ void FlappyBird::MakeSprite()
 void FlappyBird::Start()
 {
 	MakeSprite();
-	BirdRender = CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
+	BirdRender = CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
 	BirdRender->CreateAnimation({ .AnimationName = "Yellow_Idle",.SpriteName = "FlapyBird_Yellow_Idle",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BirdRender->CreateAnimation({ .AnimationName = "Yellow_Death",.SpriteName = "FlapyBird_Yellow_Death",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });	
 	BirdRender->CreateAnimation({ .AnimationName = "Pink_Idle",.SpriteName = "FlapyBird_Pink_Idle",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
@@ -38,7 +38,7 @@ void FlappyBird::Start()
 	BirdRender->ChangeAnimation("Yellow_Idle");
 
 
-	BirdCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
+	BirdCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	BirdCollision->SetColType(ColType::SPHERE2D);
 	BirdCollision->GetTransform()->SetLocalScale(float4(80,0));
 	BirdCollision->GetTransform()->SetLocalPosition(float4(10, -10));
@@ -50,12 +50,12 @@ void FlappyBird::Update(float _DeltaTime)
 	if (false == GetLevel()->GetMainCamera()->IsView(GetTransform()->GetTransDataRef()) ||
 		true == isDeathAnimation && true == BirdRender->IsAnimationEnd())
 	{
-		Death();
+		GameEngineObjectBase::Death();
 		return;
 	}
 	if (false == isDeathAnimation)
 	{
-		if (GetHP() < 0)
+		if (GetHP() <= 0)
 		{
 			if (true == IsPink())
 			{
@@ -83,4 +83,9 @@ void FlappyBird::SetPink()
 {
 	BirdRender->ChangeAnimation("Pink_Idle");
 	SetPinkObject();
+}
+
+void FlappyBird::Death()
+{
+	SetHP(0);
 }

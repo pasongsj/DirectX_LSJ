@@ -280,6 +280,10 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 		NextState = PlayerAirPlaneModeState::INTRO;
 	}
 
+	if (true == GameEngineInput::IsDown("PlayerInvincibleMode"))
+	{
+		isPlayerInvincibleMode = !isPlayerInvincibleMode;
+	}
 
 	
 	// state
@@ -320,6 +324,19 @@ void PlayerAirPlaneMode::CheckPink()
 
 	std::vector<std::shared_ptr<GameEngineCollision>> Cols;
 	if (true == ParryCollision->CollisionAll(CupHeadCollisionOrder::EnemyWeapon, Cols))
+	{
+		for (std::shared_ptr<GameEngineCollision> _Col : Cols)
+		{
+			std::shared_ptr<GameEnemy> ColActor = _Col->GetActor()->DynamicThis<GameEnemy>();
+			if (true == ColActor->IsPink())
+			{
+				_Col->GetActor()->Death();
+				SuperModeEnergy += 100;
+
+			}
+		}
+	}
+	if (true == ParryCollision->CollisionAll(CupHeadCollisionOrder::Enemy, Cols))
 	{
 		for (std::shared_ptr<GameEngineCollision> _Col : Cols)
 		{
@@ -522,7 +539,10 @@ void PlayerAirPlaneMode::Attack(int _Dmg)
 	}
 	else // 일반 피격 시 깜박임
 	{
-		Player::Attack(_Dmg);
+		if (false == isPlayerInvincibleMode)
+		{
+			Player::Attack(_Dmg);
+		}
 	}
 }
 

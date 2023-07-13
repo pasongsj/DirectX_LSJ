@@ -74,6 +74,8 @@ void Wally3_Heart::Update(float _DeltaTime)
 	}
 	GetTransform()->AddLocalPosition(Dir * _DeltaTime * MoveSpeed);
 	ControlAnimation();
+	CollisionPlayer(HeartCollision);
+
 }
 
 void Wally3_Heart::ControlAnimation()

@@ -46,11 +46,8 @@ void Wally3::MakeSprite()
 
 }
 
-
-void Wally3::Start()
+void Wally3::SettingRender()
 {
-	MakeSprite();
-	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	BossRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Wally3_Idle",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 
 	BossRender->CreateAnimation({ .AnimationName = "Garbage_Intro", .SpriteName = "Wally3_Garbage_Intro",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
@@ -61,7 +58,7 @@ void Wally3::Start()
 		float4 BossPos = GetTransform()->GetWorldPosition();
 		BossPos.z = 500;
 		Garbage->GetTransform()->SetLocalPosition(BossPos + float4(200, 150));
-		Garbage->Setting(GameEngineRandom::MainRandom.RandomInt(1,3));
+		Garbage->Setting(GameEngineRandom::MainRandom.RandomInt(1, 3));
 		if (2 == GarbageCount)
 		{
 			Garbage->Setting(0);
@@ -80,7 +77,7 @@ void Wally3::Start()
 	BossRender->CreateAnimation({ .AnimationName = "Regurgitate_Loop", .SpriteName = "Wally3_Regurgitate_Loop",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BossRender->SetAnimationStartEvent("Regurgitate_Loop", 4, [this] {++RegurgitateCount; });
 	BossRender->CreateAnimation({ .AnimationName = "Regurgitate_Outro", .SpriteName = "Wally3_Regurgitate_Outro",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
-	
+
 	BossRender->CreateAnimation({ .AnimationName = "Death", .SpriteName = "Wally3_Death",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BossRender->SetAnimationStartEvent("Death", 8, [this]
 		{
@@ -91,37 +88,48 @@ void Wally3::Start()
 			std::shared_ptr<GameEngineActor> pepper = GetLevel()->CreateActor< Wally3_Pepper>(CupHeadActorOrder::EnemyEffect);
 			pepper->GetTransform()->SetLocalPosition(EffectPos + float4(200, 90));
 
-		});	
+		});
 	BossRender->SetAnimationStartEvent("Death", 0, [this]
 		{
 			float4 EffectPos = GetTransform()->GetWorldPosition();
 			EffectPos.z = 450;
 			std::shared_ptr<GameEngineActor> salt = GetLevel()->CreateActor< Wally3_Salt>(CupHeadActorOrder::EnemyEffect);
-			salt->GetTransform()->SetLocalPosition(EffectPos + float4(-230,90));
+			salt->GetTransform()->SetLocalPosition(EffectPos + float4(-230, 90));
 			std::shared_ptr<GameEngineActor> pepper = GetLevel()->CreateActor< Wally3_Pepper>(CupHeadActorOrder::EnemyEffect);
 			pepper->GetTransform()->SetLocalPosition(EffectPos + float4(200, 90));
 
 		});
-	Intro_Start();
+}
 
-
-	BodyCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+void Wally3::SettingCollision()
+{
 	BodyCollision->SetColType(ColType::SPHERE2D);
 	BodyCollision->GetTransform()->SetLocalScale(float4(250, 0));
 	BodyCollision->GetTransform()->SetLocalPosition(float4(-90, -25));
-	
 
-
-	HeadCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	HeadCollision->SetColType(ColType::SPHERE2D);
 	HeadCollision->GetTransform()->SetLocalScale(float4(150, 0));
 	HeadCollision->GetTransform()->SetLocalPosition(float4(200, 50));
 
-	SpineCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	SpineCollision->SetColType(ColType::AABBBOX2D);
 	SpineCollision->GetTransform()->SetLocalScale(float4(400, 20));
 	SpineCollision->GetTransform()->SetLocalPosition(float4(-60, -20));
-	
+}
+
+
+void Wally3::Start()
+{
+	MakeSprite();
+	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
+	SettingRender();
+
+
+	BodyCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	HeadCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	SpineCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	SettingCollision();
+
+	Intro_Start();
 
 	//INTRO
 	StartFuncPtr[static_cast<int>(Wally3State::INTRO)] = std::bind(&Wally3::Intro_Start, this);
@@ -168,6 +176,9 @@ void Wally3::Update(float _DeltaTime)
 		}
 	}
 	UpdateState(_DeltaTime);
+	CollisionPlayer(BodyCollision);
+	CollisionPlayer(HeadCollision);
+	CollisionPlayer(SpineCollision);
 }
 
 

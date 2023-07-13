@@ -23,7 +23,7 @@ Wally1::~Wally1()
 }
 void Wally1::MakeSprite()
 {
-	if(nullptr == GameEngineSprite::Find("Wally1_House"))
+	if (nullptr == GameEngineSprite::Find("Wally1_House"))
 	{
 		GameEngineDirectory Dir;
 		Dir.MoveParentToDirectory("ContentResources");
@@ -56,21 +56,13 @@ void Wally1::MakeSprite()
 	}
 
 }
-
-void Wally1::Start()
+void Wally1::SettingRender()
 {
-	MakeSprite();
-	// 랜더
-	// feet
-	FeetRender = CreateComponent< ContentsSortRenderer>(CupHeadRendererOrder::Boss);
 	FeetRender->CreateAnimation({ .AnimationName = "Feet_Pendulum_Intro",.SpriteName = "Wally1_Feet_Pendulum",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
 	FeetRender->CreateAnimation({ .AnimationName = "Feet_Intro",.SpriteName = "Wally1_Feet_Morph",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	FeetRender->CreateAnimation({ .AnimationName = "Feet_Idle",.SpriteName = "Wally1_Feet_Idle",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
 	FeetRender->CreateAnimation({ .AnimationName = "Feet_Barf",.SpriteName = "Wally1_Feet_Barf",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
-
-
-	//House
-	HouseRender = CreateComponent< ContentsSortRenderer>(CupHeadRendererOrder::Boss);
+	
 	HouseRender->CreateAnimation({ .AnimationName = "House_Intro",.SpriteName = "Wally1_House",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
 	HouseRender->CreateAnimation({ .AnimationName = "Flap_Intro",.SpriteName = "Wally1_Flap_Intro",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	HouseRender->CreateAnimation({ .AnimationName = "Flap_Loop",.SpriteName = "Wally1_Flap_Loop",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
@@ -78,9 +70,6 @@ void Wally1::Start()
 	HouseRender->CreateAnimation({ .AnimationName = "Flap_Outro",.SpriteName = "Wally1_Flap_Outro",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	HouseRender->CreateAnimation({ .AnimationName = "Dead",.SpriteName = "Wally1_Dead",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 
-
-	//Head
-	HeadRender = CreateComponent< ContentsSortRenderer>(CupHeadRendererOrder::Boss);
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Cuckoo_Intro",.SpriteName = "Wally1_Cuckoo",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
 	HeadRender->SetAnimationStartEvent("Head_Cuckoo_Intro", 17, [this] { ++IntroCount; });
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Intro",.SpriteName = "Wally1_Head_Intro",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
@@ -113,17 +102,34 @@ void Wally1::Start()
 	HeadRender->CreateAnimation({ .AnimationName = "Head_Pant",.SpriteName = "Wally1_Head_Pant",.FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
 	HeadRender->SetAnimationStartEvent("Head_Pant", 11, [this] {PantLoopCount++; });
 
+}
 
-	//콜리전
-
-	BodyCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+void Wally1::SettingCollision()
+{
 	BodyCollision->SetColType(ColType::SPHERE2D);
 	BodyCollision->GetTransform()->SetLocalScale(float4(300, 0, 0));
 	BodyCollision->GetTransform()->SetLocalPosition(float4(0, 50));
 
-	HeadCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	HeadCollision->SetColType(ColType::SPHERE2D);
 	HeadCollision->GetTransform()->SetLocalScale(float4(200, 0, 0));
+}
+
+void Wally1::Start()
+{
+	MakeSprite();
+	// 랜더
+	// feet
+	FeetRender = CreateComponent< ContentsSortRenderer>(CupHeadRendererOrder::Boss);
+	//House
+	HouseRender = CreateComponent< ContentsSortRenderer>(CupHeadRendererOrder::Boss);
+	//Head
+	HeadRender = CreateComponent< ContentsSortRenderer>(CupHeadRendererOrder::Boss);
+	SettingRender();
+
+	//콜리전
+	BodyCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	HeadCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	SettingCollision();
 
 
 	CuckooIntro_Start();
@@ -163,12 +169,12 @@ void Wally1::Start()
 	StartFuncPtr[static_cast<int>(Wally1State::STEAM)] = std::bind(&Wally1::Steam_Start, this);
 	UpdateFuncPtr[static_cast<int>(Wally1State::STEAM)] = std::bind(&Wally1::Steam_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(Wally1State::STEAM)] = std::bind(&Wally1::Steam_End, this);
-	
+
 	//FEATHERS
 	StartFuncPtr[static_cast<int>(Wally1State::FLAP)] = std::bind(&Wally1::Flap_Start, this);
 	UpdateFuncPtr[static_cast<int>(Wally1State::FLAP)] = std::bind(&Wally1::Flap_Update, this, std::placeholders::_1);
 	EndFuncPtr[static_cast<int>(Wally1State::FLAP)] = std::bind(&Wally1::Flap_End, this);
-	
+
 	//PANT
 	StartFuncPtr[static_cast<int>(Wally1State::PANT)] = std::bind(&Wally1::Pant_Start, this);
 	UpdateFuncPtr[static_cast<int>(Wally1State::PANT)] = std::bind(&Wally1::Pant_Update, this, std::placeholders::_1);
@@ -189,6 +195,8 @@ void Wally1::Update(float _DeltaTime)
 		NextState = Wally1State::FLAP;
 	}
 	UpdateState(_DeltaTime);
+	CollisionPlayer(BodyCollision);
+	CollisionPlayer(HeadCollision);
 }
 
 
@@ -243,7 +251,7 @@ void Wally1::FlappyBirdSpone(float _DeltaTime)
 	if (FlappyCount > 0)
 	{
 		FlappySponeInterval -= _DeltaTime;
-		if(FlappySponeInterval < 0.0f)
+		if (FlappySponeInterval < 0.0f)
 		{
 			std::shared_ptr< FlappyBird> Bird = GetLevel()->CreateActor< FlappyBird>(CupHeadActorOrder::EnemyWeapon);
 			Bird->SetStartPosition(FlappyPos);

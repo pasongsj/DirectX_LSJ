@@ -71,6 +71,9 @@ private:
 	std::shared_ptr<class GameEngineCollision> HeadCollision = nullptr;
 	std::shared_ptr<class GameEngineCollision> BodyCollision = nullptr;
 
+	void SettingRender();
+	void SettingCollision();
+
 	void UpdateState(float _DeltaTime);
 	void MoveUpdate(float _DeltaTime);
 
