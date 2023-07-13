@@ -36,7 +36,7 @@ protected:
 
 	void SetPhase(int _Phase) override;
 
-	void HildaDeath() override;
+	//void HildaDeath() override;
 
 
 private:
@@ -61,6 +61,8 @@ private:
 	HildaState CurState = HildaState::INTRO;
 	HildaState NextState = HildaState::INTRO;
 
+	void SettingRender();
+	void SettingCollision();
 
 	void UpdateState(float _DeltaTime);
 

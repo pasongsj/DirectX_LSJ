@@ -106,6 +106,7 @@ void Wally2::Death_Update(float _DeltaTime)
 	}
 	if (false == GetLevel()->GetMainCamera()->IsView(BossRender->GetTransform()->GetTransDataRef()))
 	{
+		isWallyDeath = true;
 		Death();
 		return;
 	}

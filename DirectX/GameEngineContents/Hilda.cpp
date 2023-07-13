@@ -51,36 +51,10 @@ void Hilda::MakeSprite()
 	}
 }
 
-void Hilda::SetPhase(int _Phase)
+
+
+void Hilda::SettingRender()
 {
-	HildaBoss::SetPhase(_Phase);
-	if (3 == _Phase || 5 == _Phase)
-	{
-		BossRender->ChangeAnimation("SecondIntro");
-	}
-}
-
-void Hilda::HildaDeath()
-{
-	if (HildaState::CHANGEPHASE != CurState && (1 == GetPhase() || 3 == GetPhase()))
-	{
-		NextState = HildaState::CHANGEPHASE;
-	}
-	else if (5 == GetPhase())
-	{
-		Death();
-	}
-	return;
-}
-
-
-void Hilda::Start()
-{
-	SetPhase(1);
-	MakeSprite();
-	// 랜더러 설정				
-
-	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	BossRender->CreateAnimation({ .AnimationName = "Intro",  .SpriteName = "Hilda_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "SecondIntro",  .SpriteName = "Hilda_ChangeBack", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Hilda_Idle",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
@@ -92,27 +66,67 @@ void Hilda::Start()
 	BossRender->ChangeAnimation("Intro");
 
 
-	BossBodyCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BossSmokeRender->CreateAnimation({ .AnimationName = "DashSmoke",  .SpriteName = "HildaChangePhaseDashSmoke",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	BossSmokeRender->GetTransform()->SetLocalPosition(float4(570, -30));
+	BossSmokeRender->Off();
+}
+
+void Hilda::SettingCollision()
+{
 	BossBodyCollision->SetRenderScaleToCollision(BossRender);
 	BossBodyCollision->SetColType(ColType::SPHERE2D);
 	BossBodyCollision->SetName("HildaCollision");
 	BossBodyCollision->GetTransform()->SetLocalPosition(float4(-10, 20));
 
-
-	BossLegCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	BossLegCollision->SetRenderScaleToCollision(BossRender);
 	BossLegCollision->SetColType(ColType::AABBBOX2D);
 	BossLegCollision->SetName("HildaCollision");
 	BossLegCollision->GetTransform()->SetLocalPosition(float4(-25, -120));
 	BossLegCollision->GetTransform()->SetLocalScale(float4(100, 150));
 
+}
+
+
+void Hilda::SetPhase(int _Phase)
+{
+	HildaBoss::SetPhase(_Phase);
+	if (3 == _Phase || 5 == _Phase)
+	{
+		BossRender->ChangeAnimation("SecondIntro");
+	}
+}
+
+//void Hilda::HildaDeath()
+//{
+//	if (HildaState::CHANGEPHASE != CurState && (1 == GetPhase() || 3 == GetPhase()))
+//	{
+//		NextState = HildaState::CHANGEPHASE;
+//	}
+//	else if (5 == GetPhase())
+//	{
+//		Death();
+//	}
+//	return;
+//}
+
+
+void Hilda::Start()
+{
+	SetPhase(1);
+	MakeSprite();
+	// 랜더러 설정				
+
+	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	BossSmokeRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
-	BossSmokeRender->CreateAnimation({ .AnimationName = "DashSmoke",  .SpriteName = "HildaChangePhaseDashSmoke",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	BossSmokeRender->GetTransform()->SetLocalPosition(float4(570, -30));
-	BossSmokeRender->Off();
+	SettingRender();
 
 
+	BossBodyCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	BossLegCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	SettingCollision();
 
+
+	//effect
 	for (int i = 12; i < 16; i += 3)
 	{
 
@@ -180,6 +194,12 @@ void Hilda::Start()
 
 void Hilda::Update(float _DeltaTime)
 {
+	if (nullptr == BossRender || nullptr == BossBodyCollision)
+	{
+		MsgAssert("Hilda 랜더러 또는 콜리전이 제대로 생성되지 않았습니다.");
+		return;
+	}
+
 	// 임시 테스트용
 	if (true == GameEngineInput::IsPress("TestT"))
 	{
@@ -194,17 +214,27 @@ void Hilda::Update(float _DeltaTime)
 		NextState = HildaState::CHANGEPHASE;
 	}
 
-
-
-
-	if (nullptr == BossRender || nullptr == BossBodyCollision)
+	
+	// death
+	if (false == isHildaDeath && GetHP() <= 0)
 	{
-		MsgAssert("Hilda 랜더러 또는 콜리전이 제대로 생성되지 않았습니다.");
-		return;
+		if (HildaState::CHANGEPHASE != CurState && (1 == GetPhase() || 3 == GetPhase()))
+		{
+			NextState = HildaState::CHANGEPHASE;
+		}
+		else if (5 == GetPhase())
+		{
+			Death();
+			return;
+		}
 	}
+
 	BossBodyCollision->GetTransform()->SetLocalScale(BossRender->GetTransform()->GetLocalScale().half());
 	UpdateState(_DeltaTime);
+	CollisionPlayer(BossBodyCollision);
+	CollisionPlayer(BossLegCollision);
 
+	
 }
 
 
@@ -225,6 +255,7 @@ void Hilda::UpdateState(float _DeltaTime)
 	}
 
 	UpdateFuncPtr[static_cast<int>(CurState)](_DeltaTime);
+
 }
 
 void Hilda::Attack(int _Dmg)

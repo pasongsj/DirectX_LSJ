@@ -53,6 +53,9 @@ private:
 	PlayerAirPlaneModeState CurState = PlayerAirPlaneModeState::INTRO;
 	PlayerAirPlaneModeState NextState = PlayerAirPlaneModeState::INTRO;
 
+	void SettingRender();
+	void SettingCollision();
+
 
 	std::string CurMode = "Origin";
 
@@ -68,7 +71,6 @@ private:
 	// temp point
 	float4 SortPoint = float4::Zero;
 	void MakeSprite();
-	void CreateRenderAnimation();
 	void CreateStateFunc();
 
 

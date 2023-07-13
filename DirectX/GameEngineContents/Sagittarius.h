@@ -31,7 +31,6 @@ public:
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
-	void Render(float _DeltaTime) override;
 
 private:
 
@@ -39,6 +38,7 @@ private:
 	std::shared_ptr<class GameContentsEnemyRenderer> Lower = nullptr;
 
 	std::shared_ptr<class GameEngineCollision> BossCollision = nullptr;
+	std::shared_ptr<class GameEngineCollision> Arm = nullptr;
 
 	bool isShoot = false;
 
@@ -46,6 +46,9 @@ private:
 
 	SagittariusState CurState = SagittariusState::IDLE;
 	SagittariusState NextState = SagittariusState::IDLE;
+	
+	void SettingRender();
+	void SettingCollision();
 
 	void MakeSprite();
 

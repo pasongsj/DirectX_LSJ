@@ -40,16 +40,51 @@ void WallyLevel::Start()
 
 void WallyLevel::Update(float _DeltaTime)
 {
-	BossSetting();
 
 	if (true == GameEngineInput::IsDown("DebugRender"))
 	{
 		GameEngineLevel::IsDebugSwitch();
 	}
+	if (true == GameEngineInput::IsDown("ChangeLevel"))
+	{
+		GameEngineCore::ChangeLevel("ResultLevel");
+		return;
+	}
+	
+
+	EndCheck();
+	BossSetting();
+
 }
+void WallyLevel::EndCheck()
+{
+	// LevelEnd 체크
+	if (true == isEffectOn)
+	{
+		if (true == FEffect->IsEnd())
+		{
+			GameEngineCore::ChangeLevel("ResultLevel");
+		}
+		return;
+
+	}
+
+	// 플레이어가 죽어서 끝남
+	if (false == isEffectOn && Player::MainPlayer->GetHP() <= 0)
+	{
+		CreateActor<YouDieUI>(CupHeadActorOrder::UI);
+		FEffect->SetTakesTime(5.0f);
+		FEffect->FadeIn();
+		isEffectOn = true;
+		return;
+
+	}
+}
+
 
 void WallyLevel::LevelChangeStart()
 {
+	ResetLiveTime();
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
@@ -65,6 +100,10 @@ void WallyLevel::LevelChangeStart()
 	if (false == GameEngineInput::IsKey("DebugRender"))
 	{
 		GameEngineInput::CreateKey("DebugRender", VK_F3);
+	}
+	if (false == GameEngineInput::IsKey("ChangeLevel"))
+	{
+		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
 	}
 
 	if(nullptr == GameEngineTexture::Find("birdhouse_bg_0006.png"))
@@ -118,11 +157,23 @@ void WallyLevel::BackGroundSetting()
 }
 void WallyLevel::BossSetting()
 {
-	if (nullptr != Boss && (true == Boss->IsDeath() || true == GameEngineInput::IsDown("NextBoss")))
+	// Hilda Boss 체크
+	if (nullptr != Boss)
 	{
-		LastPos = Boss->GetTransform()->GetWorldPosition();
-		Boss->Death();
-		Boss = nullptr;
+		if (true == Boss->IsDeath()) // Hilda가 죽은 상태인지 체크
+		{
+			LastBossPos = Boss->GetTransform()->GetWorldPosition();
+			Boss = nullptr;
+		}
+		else if (false == isEffectOn && true == Boss->isWallyDeath) // 마지막 페이즈
+		{
+			CreateActor<KnockOutUI>(CupHeadActorOrder::UI);
+			FEffect->SetTakesTime(5.0f);
+			FEffect->FadeIn();
+			isEffectOn = true;
+
+		}
+
 	}
 
 	if (nullptr == Boss)
@@ -137,7 +188,7 @@ void WallyLevel::BossSetting()
 		case 2:
 			Boss = CreateActor<Wally2>(CupHeadActorOrder::Boss);
 			Boss->SetHP(500);
-			Boss->GetTransform()->SetLocalPosition(LastPos);
+			Boss->GetTransform()->SetLocalPosition(LastBossPos);
 			++Phase;
 			break;
 		case 3:
@@ -146,16 +197,6 @@ void WallyLevel::BossSetting()
 			++Phase;
 			break;
 		default:
-			if (false == isEffectOn)
-			{
-				FEffect->SetTakesTime(3.0f);
-				FEffect->FadeIn();
-				isEffectOn = true;
-			}
-			else if (true == FEffect->IsEnd())
-			{
-				GameEngineCore::ChangeLevel("ResultLevel");
-			}
 			break;
 		}
 	}
@@ -192,7 +233,6 @@ void WallyLevel::UnLoadSprite()
 	GameEngineSprite::UnLoad("Wally1_Head_Pant");
 	GameEngineSprite::UnLoad("Wally1_Dead");
 	//wally1 bullet
-	GameEngineSprite::UnLoad("Wally1_Bullet_Pre");
 	GameEngineSprite::UnLoad("Wally1_Bullet_Shoot");
 	// wally1 egg pieces
 	GameEngineSprite::UnLoad("Wally_Egg_Piece_A");

@@ -48,12 +48,8 @@ void Moon::HildaDeath()
 	NextState = MoonState::DEATH;
 }
 
-
-void Moon::Start()
+void Moon::SettingRender()
 {
-	SetPhase(6);
-	MakeSprite();
-	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	BossRender->CreateAnimation({ .AnimationName = "Intro0",  .SpriteName = "Moon_Intro0", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Intro1",  .SpriteName = "Moon_Intro1", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Intro2",  .SpriteName = "Moon_Intro2", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
@@ -66,15 +62,24 @@ void Moon::Start()
 	BossRender->CreateAnimation({ .AnimationName = "Attack_Outtro",  .SpriteName = "Moon_Attack_Outtro", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Death",  .SpriteName = "Moon_Death", .FrameInter = 0.08f, .Loop = true ,.ScaleToTexture = true });
 	BossRender->ChangeAnimation("Intro0");
+}
+
+void Moon::SettingCollision()
+{
+	BossCollision->GetTransform()->SetLocalScale(float4(230, 400));
+	BossCollision->SetColType(ColType::AABBBOX2D);
+}
+
+void Moon::Start()
+{
+	SetPhase(6);
+	MakeSprite();
+	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
+	SettingRender();
 
 
 	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
-	//230,400
-	BossCollision->GetTransform()->SetLocalScale(float4(230, 400));
-	BossCollision->SetColType(ColType::AABBBOX2D);
-
-	// 수정 필요 - 보스 콜리전을 어떻게 하지??
-
+	SettingCollision();
 
 	//FSM			
 	// 																	
@@ -119,7 +124,14 @@ void Moon::Update(float _DeltaTime)
 	{
 		NextState = MoonState::DEATH;
 	}
+
+	if (GetHP() <= 0)
+	{
+		isHildaDeath = true;
+	}
+
 	UpdateState(_DeltaTime);
+	CollisionPlayer(BossCollision);
 }
 
 
@@ -281,7 +293,7 @@ void Moon::Attack_Update(float _DeltaTime)
 	}
 	else
 	{
-		if (false == isAttackDone  && 0.0f > IntervalTimer)
+		if (false == isAttackDone && 0.0f > IntervalTimer)
 		{
 			if (0.0f > IntervalTimer)
 			{

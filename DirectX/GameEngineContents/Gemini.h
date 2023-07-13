@@ -41,6 +41,8 @@ private:
 	GeminiState CurState = GeminiState::IDLE;
 	GeminiState NextState = GeminiState::IDLE;
 
+	void SettingRender();
+
 	void UpdateState(float _DeltaTime);
 
 	void Idle_Start();

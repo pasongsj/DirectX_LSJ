@@ -27,5 +27,6 @@ void Player::Start()
 		GameEngineInput::CreateKey("PlayerOriginMode", VK_NUMPAD1);
 		GameEngineInput::CreateKey("PlayerShmUpMode", VK_NUMPAD2);
 		GameEngineInput::CreateKey("PlayerShrinkMode", VK_SHIFT);
+		GameEngineInput::CreateKey("PlayerInvincibleMode", 'I');
 	}
 }

@@ -96,10 +96,6 @@ void HIldaMoonUFO::Update(float _DeltaTime)
 		}
 		break;
 	}
-	case 4:
-	{
-		Death();
-	}
 	default:
 		Death();
 		break;

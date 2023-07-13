@@ -38,11 +38,6 @@ private:
 	std::shared_ptr<class GameEngineActor> BackGround = nullptr;
 	GameEngineDirectory Dir;
 
-
 	static CupheadLevel NextLevel;
-	//static int Phase;
-	//static bool isEnd;
 
-	void LoadHildaSprite();
-	void LoadStorySprite();
 };

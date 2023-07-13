@@ -12,11 +12,11 @@
 #include "GameContentsEnemyRenderer.h"
 
 
-Sagittarius::Sagittarius() 
+Sagittarius::Sagittarius()
 {
 }
 
-Sagittarius::~Sagittarius() 
+Sagittarius::~Sagittarius()
 {
 }
 
@@ -30,7 +30,7 @@ void Sagittarius::MakeSprite()
 		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Sagittarius\\Sagittarius");
 
 
-		GameEngineSprite::LoadFolder( "Sagittarius_Lower_Idle", NewDir.GetPlusFileName("Lower\\Idle").GetFullPath());
+		GameEngineSprite::LoadFolder("Sagittarius_Lower_Idle", NewDir.GetPlusFileName("Lower\\Idle").GetFullPath());
 		GameEngineSprite::LoadFolder("Sagittarius_Upper_Idle", NewDir.GetPlusFileName("Upper\\Idle").GetFullPath());
 		GameEngineSprite::LoadFolder("Sagittarius_Upper_Attack", NewDir.GetPlusFileName("Upper\\Attack").GetFullPath());
 
@@ -38,37 +38,45 @@ void Sagittarius::MakeSprite()
 }
 
 
+void Sagittarius::SettingRender()
+{
+	Upper->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Upper_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	Upper->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Sagittarius_Upper_Attack",.FrameInter = 0.07f, .Loop = false , .ScaleToTexture = true });
+	Upper->ChangeAnimation("Idle");
+	Upper->GetTransform()->SetLocalPosition(float4(0, 100));
+
+	Lower->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Lower_Idle",  .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	Lower->ChangeAnimation("Idle");
+	Lower->GetTransform()->SetLocalPosition(float4(160, -55));
+}
+
+void Sagittarius::SettingCollision()
+{
+	BossCollision->GetTransform()->SetLocalScale(float4(200.0f, 440, 0));
+	BossCollision->GetTransform()->SetLocalPosition(float4(80, 40, 0));
+	BossCollision->SetColType(ColType::AABBBOX2D);
+
+	Arm->GetTransform()->SetLocalScale(float4(120, 50, 0));
+	Arm->GetTransform()->SetLocalPosition(float4(-80, 90, 0));
+	Arm->SetColType(ColType::AABBBOX2D);
+}
 
 
 void Sagittarius::Start()
-{			
+{
 	SetPhase(4);
 	MakeSprite();
 
 
 	Upper = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
-	Upper->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Upper_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	Upper->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Sagittarius_Upper_Attack",.FrameInter = 0.07f, .Loop = false , .ScaleToTexture = true });
-
-	Upper->ChangeAnimation("Idle");
-	Upper->GetTransform()->SetLocalPosition(float4(0, 100));
-
 	Lower = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
-	Lower->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Sagittarius_Lower_Idle",  .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	Lower->ChangeAnimation("Idle");
-	Lower->GetTransform()->SetLocalPosition(float4(160, -55));
-
+	SettingRender();
 
 	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
-	BossCollision->GetTransform()->SetLocalScale(float4(200.0f,440,0));
-	BossCollision->GetTransform()->SetLocalPosition(float4(80, 40, 0));
-	BossCollision->SetColType(ColType::AABBBOX2D);
+	Arm = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
+	SettingCollision();
 
-	std::shared_ptr<GameEngineCollision> Arm = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
-	Arm->GetTransform()->SetLocalScale(float4(120, 50, 0));
-	Arm->GetTransform()->SetLocalPosition(float4(-80, 90, 0));
-	Arm->SetColType(ColType::AABBBOX2D);
-																						
+
 	//FSM																				
 
 	//IDLE
@@ -87,14 +95,16 @@ void Sagittarius::Start()
 
 void Sagittarius::Update(float _DeltaTime)
 {
-
+	// death
+	if (GetHP() <= 0)
+	{
+		HildaDeath();
+		return;
+	}
 	UpdateState(_DeltaTime);
+	CollisionPlayer(BossCollision);
+	CollisionPlayer(Arm);
 }
-
-void Sagittarius::Render(float _DeltaTime) 
-{
-}
-
 
 
 void Sagittarius::UpdateState(float _DeltaTime)
@@ -130,7 +140,7 @@ void Sagittarius::Idle_Update(float _DeltaTime)
 	{
 		NextState = SagittariusState::ATTACK;
 	}
-	GetTransform()->SetLocalPosition(GetHildaMove(_DeltaTime) + float4(300.0f, 0 , 600));
+	GetTransform()->SetLocalPosition(GetHildaMove(_DeltaTime) + float4(300.0f, 0, 600));
 }
 
 void Sagittarius::Idle_End()
@@ -151,13 +161,13 @@ void Sagittarius::Attack_Update(float _DeltaTime)
 	{
 		isShoot = true;
 		std::shared_ptr<SagittariusArrow> Arrow = GetLevel()->CreateActor<SagittariusArrow>(CupHeadActorOrder::EnemyWeapon);
-		Arrow->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0,30, -100));
+		Arrow->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0, 30, -100));
 
 		std::shared_ptr<SagittariusStar> Star1 = GetLevel()->CreateActor<SagittariusStar>(CupHeadActorOrder::EnemyWeapon);
 		Star1->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0, 60, -90));
 
 		std::shared_ptr<SagittariusStar> Star2 = GetLevel()->CreateActor<SagittariusStar>(CupHeadActorOrder::EnemyWeapon);
-		Star2->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0, 0 , -90));
+		Star2->GetTransform()->SetLocalPosition(Upper->GetTransform()->GetWorldPosition() + float4(0, 0, -90));
 	}
 	if (true == Upper->IsAnimationEnd())
 	{

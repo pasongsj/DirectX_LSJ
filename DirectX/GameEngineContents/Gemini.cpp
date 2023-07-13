@@ -8,36 +8,41 @@
 
 #include "GeminiOrb.h"
 
-Gemini::Gemini() 
+Gemini::Gemini()
 {
 }
 
-Gemini::~Gemini() 
+Gemini::~Gemini()
 {
 }
+
+void Gemini::SettingRender()
+{
+	BossA->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	BossA->CreateAnimation({ .AnimationName = "AttackA",  .SpriteName = "Gemini_AttackA",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossA->ChangeAnimation("Idle");
+
+	Orb->CreateAnimation({ .AnimationName = "IdleIntro",  .SpriteName = "Orb_Idle_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Orb->CreateAnimation({ .AnimationName = "IdleLoop",  .SpriteName = "Orb_Idle_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	Orb->CreateAnimation({ .AnimationName = "IdleLeave",  .SpriteName = "Orb_Idle_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	Orb->ChangeAnimation("IdleIntro");
+	Orb->GetTransform()->SetLocalPosition(float4(0, -45, 0));
+
+	BossB->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
+	BossB->CreateAnimation({ .AnimationName = "AttackB",  .SpriteName = "Gemini_AttackB",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossB->ChangeAnimation("Idle", true, 15);
+}
+
 
 void Gemini::Start()
 {
 	SetPhase(4);
 
 	BossA = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
-	BossA->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	BossA->CreateAnimation({ .AnimationName = "AttackA",  .SpriteName = "Gemini_AttackA",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	BossA->ChangeAnimation("Idle");
-	
-	
 	Orb = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
-	Orb->CreateAnimation({ .AnimationName = "IdleIntro",  .SpriteName = "Orb_Idle_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	Orb->CreateAnimation({ .AnimationName = "IdleLoop",  .SpriteName = "Orb_Idle_Loop",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	Orb->CreateAnimation({ .AnimationName = "IdleLeave",  .SpriteName = "Orb_Idle_Leave", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	Orb->ChangeAnimation("IdleIntro");
-	Orb->GetTransform()->SetLocalPosition(float4(0, -45, 0));
-	
 	BossB = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
-	BossB->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Gemini_Idle", .FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
-	BossB->CreateAnimation({ .AnimationName = "AttackB",  .SpriteName = "Gemini_AttackB",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	BossB->ChangeAnimation("Idle", true, 15);
-
+	
+	SettingRender();
 
 	BossCollisionA = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
 	BossCollisionA->SetColType(ColType::AABBBOX2D);
@@ -78,6 +83,14 @@ void Gemini::Update(float _DeltaTime)
 		MsgAssert("Gemini 랜더러가 제대로 생성되지 않았습니다.");
 		return;
 	}
+
+	// death
+	if (GetHP() <= 0)
+	{
+		HildaDeath();
+		return;
+	}
+
 	UpdateState(_DeltaTime);
 	CollisionPlayer(BossCollisionA);
 	CollisionPlayer(BossCollisionB);
@@ -118,14 +131,14 @@ void Gemini::Idle_Update(float _DeltaTime)
 
 	float4 MoveVec = GetHildaMove(_DeltaTime) + float4(300.0f, 0, 600);
 	GetTransform()->SetLocalPosition(MoveVec);
-	
+
 	//y축 회전 + y축 진동
 	//x=acosθy=bsinθ
 
 	float SpinTime = -GetLiveTime() * 4;
 
 	BossA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -sinf(SpinTime)));
-	BossCollisionA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), - sinf(SpinTime)));
+	BossCollisionA->GetTransform()->SetLocalPosition(float4(100 * cosf(SpinTime), -50 * sinf(SpinTime), -sinf(SpinTime)));
 
 	BossB->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), sinf(SpinTime)));
 	BossCollisionB->GetTransform()->SetLocalPosition(float4(-100 * cosf(SpinTime), 50 * sinf(SpinTime), sinf(SpinTime)));

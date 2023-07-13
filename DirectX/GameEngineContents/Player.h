@@ -34,7 +34,7 @@ public:
 		if (InvincibleTime < 0)
 		{
 			PlayerHP -= _Dmg;
-			InvincibleTime = 2.0f;
+			InvincibleTime = 2.0f; // 2 초동안 무적 상태
 		}
 
 	}

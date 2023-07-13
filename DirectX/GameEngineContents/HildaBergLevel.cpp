@@ -66,45 +66,8 @@ void HildaBergLevel::Start()
 
 }
 
-void HildaBergLevel::Update(float _DeltaTime)
+void HildaBergLevel::SponeEnemy(float _DeltaTime)
 {
-	if (true == GameEngineInput::IsDown("DebugRender"))
-	{
-		GameEngineLevel::IsDebugSwitch();
-	}
-	if (true == GameEngineInput::IsDown("ChangeLevel"))
-	{
-		GameEngineCore::ChangeLevel("ResultLevel");
-		return;
-	}
-	if (0.0f < EndTime) // 끝남
-	{
-		if (EndTime < GetLiveTime())
-		{
-			if (false == isEffectOn)
-			{
-				FEffect->SetTakesTime(3.0f);
-				FEffect->FadeIn();
-				isEffectOn = true;
-			}
-			else if (true == FEffect->IsEnd())
-			{
-				GameEngineCore::ChangeLevel("ResultLevel");
-			}
-
-		}
-		return;
-	}
-
-
-	if (Player::MainPlayer->GetHP() <= 0)
-	{
-		CreateActor<YouDieUI>(CupHeadActorOrder::UI);
-		EndTime = GetLiveTime() + 5.0f;
-		return;
-
-	}
-
 	// 잔챙이 소환
 	if (GetLiveTime() > NextSponeTime)
 	{
@@ -116,57 +79,76 @@ void HildaBergLevel::Update(float _DeltaTime)
 		{
 			CreateActor<HIldaMoonUFO>(CupHeadActorOrder::Enemy);
 		}
-		NextSponeTime += GameEngineRandom::MainRandom.RandomFloat(1.0f,5.0f);
+		NextSponeTime += GameEngineRandom::MainRandom.RandomFloat(1.0f, 5.0f);
 	}
+}
 
-	if (nullptr != Boss)
+void HildaBergLevel::Update(float _DeltaTime)
+{
+	if (true == GameEngineInput::IsDown("DebugRender"))
 	{
-		if (true == Boss->IsDeath())
-		{
-			LastBossPos = Boss->GetTransform()->GetWorldPosition();
-			IsConstell = false;
-			Boss = nullptr;
-			++Phase;
-		}
-		else if (false == IsConstell && (Boss->GetHP() <= 0 || true == GameEngineInput::IsDown("NextBoss")))
-		{
-			Boss->HildaDeath();
-			if (Phase == 1)
-			{
-				std::shared_ptr<Constellation> Constell = CreateActor<Constellation>(CupHeadActorOrder::UI);
-				Constell->SetConstellation("Taurus");
-			}
-			else if(Phase == 3)
-			{
-				std::shared_ptr<Constellation> Constell = CreateActor<Constellation>(CupHeadActorOrder::UI);
-
-				int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 1);
-				IsGemini = static_cast<bool>(RandomNum);
-				if (true == IsGemini)
-				{
-					Constell->SetConstellation("Gemini");
-				}
-				else
-				{																	
-					Constell->SetConstellation("Sagittarius");						
-				}																	
-			}
-			else if (Phase == 6)
-			{
-				CreateActor<KnockOutUI>(CupHeadActorOrder::UI);
-				EndTime = GetLiveTime() + 5.0f;
-			}
-			IsConstell = true;
-		}
-
+		GameEngineLevel::IsDebugSwitch();
+	}
+	if (true == GameEngineInput::IsDown("ChangeLevel"))
+	{
+		GameEngineCore::ChangeLevel("ResultLevel");
+		return;
 	}
 
 
+	EndCheck();
+	SponeEnemy(_DeltaTime);
 	BossSetting();
 
 }
+
+void HildaBergLevel::EndCheck()
+{
+	// LevelEnd 체크
+	if (true == isEffectOn)
+	{
+		if (true == FEffect->IsEnd())
+		{
+			GameEngineCore::ChangeLevel("ResultLevel");
+		}
+		return;
+
+	}
+	// 플레이어가 죽어서 끝남
+	if (false == isEffectOn && Player::MainPlayer->GetHP() <= 0)
+	{
+		CreateActor<YouDieUI>(CupHeadActorOrder::UI);
+		FEffect->SetTakesTime(5.0f);
+		FEffect->FadeIn();
+		isEffectOn = true;
+		return;
+
+	}
+}
+
+
 void HildaBergLevel::BossSetting()
 {
+	// Hilda Boss 체크
+	if (nullptr != Boss)
+	{
+		if (true == Boss->IsDeath()) // Hilda가 죽은 상태인지 체크
+		{
+			LastBossPos = Boss->GetTransform()->GetWorldPosition();
+			Boss = nullptr;
+		}
+		else if (false == isEffectOn && true == Boss->isHildaDeath) // 마지막 페이즈
+		{
+			CreateActor<KnockOutUI>(CupHeadActorOrder::UI);
+			FEffect->SetTakesTime(5.0f);
+			FEffect->FadeIn();
+			isEffectOn = true;
+
+		}
+
+	}
+
+
 	if (nullptr == Boss)
 	{
 		switch (Phase)
@@ -180,6 +162,9 @@ void HildaBergLevel::BossSetting()
 		}
 		case 2:
 		{
+			std::shared_ptr<Constellation> Constell = CreateActor<Constellation>(CupHeadActorOrder::UI);
+			Constell->SetConstellation("Taurus");
+
 			Boss = CreateActor<Taurus>(CupHeadActorOrder::Boss);
 			Boss->SetPhase(2);
 			Boss->SetHP(468);
@@ -194,15 +179,21 @@ void HildaBergLevel::BossSetting()
 		}
 		case 4:
 		{
-			int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 9);
+			std::shared_ptr<Constellation> Constell = CreateActor<Constellation>(CupHeadActorOrder::UI);
+
+			int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 1);
+			IsGemini = static_cast<bool>(RandomNum);
 			if (true == IsGemini)
 			{
+				Constell->SetConstellation("Gemini");
 				Boss = CreateActor<Gemini>(CupHeadActorOrder::Boss);
 			}
 			else
 			{
+				Constell->SetConstellation("Sagittarius");
 				Boss = CreateActor<Sagittarius>(CupHeadActorOrder::Boss);
 			}
+
 			Boss->SetPhase(4);
 			Boss->SetHP(468);
 			break;
@@ -230,6 +221,7 @@ void HildaBergLevel::BossSetting()
 
 			break;
 		}
+		++Phase;
 	}
 }
 
@@ -237,22 +229,22 @@ void HildaBergLevel::BossSetting()
 void HildaBergLevel::LevelChangeStart()
 {
 	ResetLiveTime();
+	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
+	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+	GetMainCamera()->SetSortType(CupHeadRendererOrder::Boss, SortType::ZSort);
+
 	Phase = 1;
 	IsConstell = false;
 	IsGemini = false;
-	EndTime = -1;
 	isEffectOn = false;
 
+	// effect
 	if (nullptr == FEffect)
 	{
 		FEffect = GetLastTarget()->CreateEffect<FadeEffect>();
 	}
 
-
-	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
-	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-	GetMainCamera()->SetSortType(CupHeadRendererOrder::Boss, SortType::ZSort);
-
+	// -- key
 	if (false == GameEngineInput::IsKey("NextBoss"))
 	{
 		GameEngineInput::CreateKey("NextBoss", VK_F2);
@@ -264,6 +256,18 @@ void HildaBergLevel::LevelChangeStart()
 	if (false == GameEngineInput::IsKey("ChangeLevel"))
 	{
 		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
+	}
+
+	if (nullptr == GameEngineTexture::Find("blimp_clouds_0001.png"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\stage1\\Boss\\Hilda\\Level");
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
+		}
 	}
 
 	std::shared_ptr<HildaBergBack> BG0 = CreateActor<HildaBergBack0>(CupHeadActorOrder::BackGround);

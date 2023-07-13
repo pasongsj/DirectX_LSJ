@@ -25,6 +25,8 @@ void PlayerAirPlaneMode::Intro_Update(float _DeltaTime)
 	{
 		NextState = PlayerAirPlaneModeState::IDLE;
 	}
+	BlinkEffect(_DeltaTime);
+
 }
 void PlayerAirPlaneMode::Intro_End()
 {
@@ -49,6 +51,8 @@ void PlayerAirPlaneMode::Idle_Update(float _DeltaTime)
 	CheckInput();
 	CheckShoot(_DeltaTime);
 	MakeSmoke(_DeltaTime);
+	BlinkEffect(_DeltaTime);
+
 }
 void PlayerAirPlaneMode::Idle_End()
 {
@@ -78,6 +82,8 @@ void PlayerAirPlaneMode::MoveUp_Update(float _DeltaTime)
 	CheckInput();
 	CheckShoot(_DeltaTime);
 	MakeSmoke(_DeltaTime);
+	BlinkEffect(_DeltaTime);
+
 }
 void PlayerAirPlaneMode::MoveUp_End()
 {
@@ -106,6 +112,8 @@ void PlayerAirPlaneMode::MoveDown_Update(float _DeltaTime)
 	CheckInput();
 	CheckShoot(_DeltaTime);
 	MakeSmoke(_DeltaTime);
+	BlinkEffect(_DeltaTime);
+
 }
 void PlayerAirPlaneMode::MoveDown_End()
 {
@@ -149,6 +157,7 @@ void PlayerAirPlaneMode::Shoot_Update(float _DeltaTime)
 	{
 		NextState = PlayerAirPlaneModeState::IDLE;
 	}
+	BlinkEffect(_DeltaTime);
 }
 
 void PlayerAirPlaneMode::Shoot_End()

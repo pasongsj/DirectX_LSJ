@@ -25,6 +25,7 @@ protected:
 private:
 	// ¿‹√¨¿Ã
 	float NextSponeTime = 5.0f;
+	void SponeEnemy(float _DeltaTime);
 
 	// ∫∏Ω∫
 	std::shared_ptr<class HildaBoss> Boss = nullptr;
@@ -39,13 +40,15 @@ private:
 	// ¿Ã∆Â∆Æ
 	bool isEffectOn = false;
 	std::shared_ptr<class FadeEffect> FEffect = nullptr;
-	float EndTime = 0.0f;
 
-	//void ReLoadSprite();
+	void BossSetting();
+
+	void EndCheck();
 
 	void UnLoadSprite();
 
-	void BossSetting();
+
+
 
 };
 

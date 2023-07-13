@@ -141,7 +141,7 @@ void Wally3::Death_Start()
 
 void Wally3::Death_Update(float _DeltaTime)
 {
-
+	isWallyDeath = true;
 }
 
 void Wally3::Death_End()

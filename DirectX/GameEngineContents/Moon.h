@@ -39,6 +39,8 @@ private:
 
 	MoonState CurState = MoonState::INTRO;
 	MoonState NextState = MoonState::INTRO;
+	void SettingRender();
+	void SettingCollision();
 
 	float4 StartPos = float4::Zero;
 	float4 DestPos = float4::Zero;

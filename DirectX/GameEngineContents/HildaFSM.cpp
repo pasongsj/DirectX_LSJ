@@ -89,6 +89,7 @@ void Hilda::ChangePhase_Start()
 	//BossBodyCollision->Off();
 	BossLegCollision->Off();
 }
+
 void Hilda::ChangePhase_Update(float _DeltaTime)
 {
 
@@ -121,7 +122,8 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(DestPos, CurPos, WaitingTime * 0.95f));
 		if (true == BossRender->IsAnimationEnd())
 		{
-			NextState = HildaState::IDLE;
+			//NextState = HildaState::IDLE;
+			HildaDeath();
 		}
 
 	}
@@ -130,8 +132,7 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 }
 void Hilda::ChangePhase_End()
 {
-	HildaBoss::HildaDeath();
-	return;
+	HildaDeath();
 }
 
 void Hilda::Tornado_Start()

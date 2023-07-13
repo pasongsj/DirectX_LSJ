@@ -54,5 +54,7 @@ void HildaBoss::HildaDeath()
 	std::shared_ptr<HildaDashBackExplodeFX> Explode4 = GetLevel()->CreateActor< HildaDashBackExplodeFX>(CupHeadActorOrder::EnemyEffect);
 	Explode4->GetTransform()->SetLocalPosition(float4(500, -120, 450));
 
+
+	isHildaDeath = true;
 	Death();
 }

@@ -291,7 +291,7 @@ void Wally1::ChangePhase_Update(float _DeltaTime)
 	if (true == HouseRender->IsAnimationEnd())
 	{
 		//NextState = Wally1State::IDLE;
-
+		isWallyDeath = true;
 		Death();
 	}
 }

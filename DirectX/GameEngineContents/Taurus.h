@@ -41,6 +41,9 @@ private:
 	TaurusState CurState = TaurusState::IDLE;
 	TaurusState NextState = TaurusState::IDLE;
 
+	void SettingRender();
+	void SettingCollision();
+
 	// attack
 	bool isCharge = true;
 	float4 CurPos = float4::Zero;

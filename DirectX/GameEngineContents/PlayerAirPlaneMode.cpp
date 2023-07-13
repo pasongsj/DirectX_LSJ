@@ -109,7 +109,7 @@ void PlayerAirPlaneMode::MakeSprite()
 		GameEngineSprite::LoadFolder("Cuphead_AirPlane_Spark", NewDir.GetPlusFileName("Spark").GetFullPath());
 	}
 }
-void PlayerAirPlaneMode::CreateRenderAnimation()
+void PlayerAirPlaneMode::SettingRender()
 {
 	// Player
 	// idle mode
@@ -205,6 +205,15 @@ void PlayerAirPlaneMode::CreateStateFunc()
 	EndFuncPtr[static_cast<int>(PlayerAirPlaneModeState::DEAD)] = std::bind(&PlayerAirPlaneMode::Dead_End, this);
 }
 
+void PlayerAirPlaneMode::SettingCollision()
+{
+	PlayerCollision->GetTransform()->SetLocalScale(float4(100, 0));
+	PlayerCollision->SetColType(ColType::SPHERE2D);
+
+	ParryCollision->SetColType(ColType::SPHERE2D);
+	ParryCollision->GetTransform()->SetLocalScale(float4(170, 170, 1));
+	ParryCollision->Off();
+}
 
 void PlayerAirPlaneMode::Start()
 {
@@ -220,7 +229,7 @@ void PlayerAirPlaneMode::Start()
 
 
 	MakeSprite();
-	CreateRenderAnimation();
+	SettingRender();
 
 	
 	// 이펙트
@@ -229,14 +238,9 @@ void PlayerAirPlaneMode::Start()
 
 	// 플레이어 콜리전
 	PlayerCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Player);
-	PlayerCollision->GetTransform()->SetLocalScale(float4(100, 0));
-	PlayerCollision->SetColType(ColType::SPHERE2D);
-
 	// 패리 콜리전
 	ParryCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::PlayerWepaon);
-	ParryCollision->SetColType(ColType::SPHERE2D);
-	ParryCollision->GetTransform()->SetLocalScale(float4(170, 170, 1));
-	ParryCollision->Off();
+	SettingCollision();
 
 
 	GetTransform()->SetLocalPosition(float4( -500, 0, 400));
@@ -277,7 +281,6 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 	}
 
 
-	BlinkEffect(_DeltaTime);
 	
 	// state
 	UpdateState(_DeltaTime);
@@ -291,16 +294,19 @@ void PlayerAirPlaneMode::BlinkEffect(float _DeltaTime)
 	BlinkInterval -= _DeltaTime;
 	if (InvincibleTime > 0)
 	{
-		if (BlinkInterval < 0)
+		if (0.05f < BlinkInterval)
 		{
-			BlinkInterval = 0.1f;
+			PlayerRender->ColorOptionValue.MulColor = float4(1, 1, 1, 1);
+		}
+		else if (0.0f < BlinkInterval)
+		{
 			PlayerRender->ColorOptionValue.MulColor = float4(1, 1, 1, 0.1f);
 		}
 		else
 		{
-			PlayerRender->ColorOptionValue.MulColor = float4(1, 1, 1, 1);
-
+			BlinkInterval = 0.1f;
 		}
+
 	}
 	else
 	{
@@ -415,6 +421,7 @@ void PlayerAirPlaneMode::UpdateState(float _DeltaTime)
 	if (CurState != NextState)
 	{
 		// CurState에 대한 ending
+		PlayerRender->ColorOptionValue.MulColor = float4(1, 1, 1, 1);
 		EndFuncPtr[static_cast<int>(CurState)]();
 
 		// NextState에 대한 Start
@@ -507,13 +514,13 @@ void PlayerAirPlaneMode::TimePlay()
 
 void PlayerAirPlaneMode::Attack(int _Dmg)
 {
-	if ("Super" == CurMode)
+	if ("Super" == CurMode) // super모드에서 피격 시 Boom + 무적상태
 	{
 		ChangeMode("Origin");
 		NextState = PlayerAirPlaneModeState::IDLE;
 		InvincibleTime = 2.0f;
 	}
-	else
+	else // 일반 피격 시 깜박임
 	{
 		Player::Attack(_Dmg);
 	}

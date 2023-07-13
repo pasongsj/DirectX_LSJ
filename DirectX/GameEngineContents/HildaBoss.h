@@ -32,6 +32,7 @@ public:
 
 protected:
 	bool isAttack = false;
+	bool isHildaDeath = false;
 
 	float4 GetHildaMove(float _Delta);
 	
@@ -49,8 +50,6 @@ protected:
 
 
 private:
-
-
 
 	// idle Move
 	int CircleMove = 1;

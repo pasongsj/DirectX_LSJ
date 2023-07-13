@@ -10,11 +10,11 @@
 #include "HIldaBigCloudFX.h"
 #include "HildaDashBackExplodeFX.h"
 
-Taurus::Taurus() 
+Taurus::Taurus()
 {
 }
 
-Taurus::~Taurus() 
+Taurus::~Taurus()
 {
 }
 
@@ -36,23 +36,33 @@ void Taurus::MakeSprite()
 }
 
 
+void Taurus::SettingRender()
+{
+	BossRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Taurus_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "ChargeAttack", .SpriteName = "Taurus_Charge", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Taurus_Attack",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossRender->ChangeAnimation("Idle");
+
+}
+
+void Taurus::SettingCollision()
+{
+	BossCollision->SetColType(ColType::AABBBOX2D);
+	BossCollision->GetTransform()->SetLocalPosition(float4(10, 40));
+}
+
+
 
 void Taurus::Start()
 {
 	SetPhase(2);
 	MakeSprite();
 	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
-	BossRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Taurus_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	BossRender->CreateAnimation({ .AnimationName = "ChargeAttack", .SpriteName = "Taurus_Charge", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	BossRender->CreateAnimation({ .AnimationName = "Attack", .SpriteName = "Taurus_Attack",  .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	SettingRender();
 
-	BossRender->ChangeAnimation("Idle");
-
-	//GetTransform()->SetLocalPosition(float4(300.0f, 0));					
 	BossCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);
-	BossCollision->SetColType(ColType::AABBBOX2D);
-	BossCollision->GetTransform()->SetLocalPosition(float4(10, 40));
-																							
+	SettingCollision();
+
 	//FSM																							
 	//INTRO
 	StartFuncPtr[static_cast<int>(TaurusState::IDLE)] = std::bind(&Taurus::Idle_Start, this);
@@ -73,9 +83,17 @@ void Taurus::Update(float _DeltaTime)
 	{
 		MsgAssert("보스렌더 혹은 보스 콜리전이 생성되지 않았습니다");
 	}
+	// death
+	if (GetHP() <= 0)
+	{
+		HildaDeath();
+		return;
+	}
+
 	float4 Size = BossRender->GetTransform()->GetLocalScale();
 	BossCollision->GetTransform()->SetLocalScale(float4(Size.x * 0.8f, Size.y * 0.6f, 1));
 	UpdateState(_DeltaTime);
+	CollisionPlayer(BossCollision);
 
 }
 
@@ -138,9 +156,9 @@ void Taurus::Attack_Update(float _DeltaTime)
 		isCharge = false;
 		BossRender->ChangeAnimation("Attack");
 	}
-	else if(false == isCharge)
+	else if (false == isCharge)
 	{
-		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(CurPos, DestPos, GetLiveTime()*2));
+		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(CurPos, DestPos, GetLiveTime() * 2));
 		if (true == BossRender->IsAnimationEnd())
 			//if (GetLiveTime() > 1.0f)
 		{

@@ -28,6 +28,7 @@ public:
 protected:
 
 	bool isAttack = false;
+	bool isWallyDeath = false;
 
 
 	virtual void SetPhase(int _Phase)
