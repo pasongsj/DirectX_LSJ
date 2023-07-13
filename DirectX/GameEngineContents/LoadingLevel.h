@@ -35,6 +35,7 @@ protected:
 
 private:
 
+	float NextLevelTime = 0.0f;
 	std::shared_ptr<class GameEngineActor> BackGround = nullptr;
 	GameEngineDirectory Dir;
 

@@ -53,8 +53,7 @@ void TutorialBackGround::Update(float _DeltaTime)
 		ExitBtn->GetTransform()->SetLocalPosition(float4(438, -288));
 		ExitBtn->SetEvent([]
 			{
-				GameEngineCore::ChangeLevel("LoadingLevel");
-				LoadingLevel::SetLevel(CupheadLevel::HILDA);
+				GameEngineCore::ChangeLevel("OverWorldLevel");
 			});
 
 		std::shared_ptr<GameEngineSpriteRenderer> shmup_tutorial_linework = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);

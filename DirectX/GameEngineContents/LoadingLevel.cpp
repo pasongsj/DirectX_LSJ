@@ -222,6 +222,8 @@ void LoadingWallyLevel(GameEngineThread* Thread)
 	}
 	LoadingPlayer();
 	LoadingPlayerUI();
+	isDone = true;
+
 }
 
 void LoadingStoryLevel(GameEngineThread* Thread)
@@ -352,7 +354,7 @@ void LoadingHildaLevel(GameEngineThread* Thread)
 
 	LoadingPlayer();
 	LoadingPlayerUI();
-
+	isDone = true;
 }
 
 LoadingLevel::LoadingLevel()
@@ -367,36 +369,42 @@ LoadingLevel::~LoadingLevel()
 
 void LoadingLevel::Update(float _DeltaTime)
 {
-
-	switch (NextLevel)
+	if (0.0f == NextLevelTime && true == isDone)
 	{
-	case CupheadLevel::NONE:
-		return;
-	case CupheadLevel::STORY:
-		if (true == isDone)
+		NextLevelTime = GetLiveTime() + 1.0f;
+	}
+	if(0.0f != NextLevelTime && GetLiveTime() > NextLevelTime )
+	{
+		switch (NextLevel)
 		{
+		case CupheadLevel::NONE:
+			return;
+		case CupheadLevel::STORY:
+			//if (true == isDone)
+			//{
 			GameEngineCore::ChangeLevel("StoryLevel");
 			NextLevel = CupheadLevel::NONE;
-		}
-		break;
-	case CupheadLevel::HILDA:
-		if (1491 == GameEngineTexture::TextureReLoadCount)
-		{
+			//}
+			break;
+		case CupheadLevel::HILDA:
+			//if (1491 == GameEngineTexture::TextureReLoadCount || true == isDone)
+			//{
 			GameEngineCore::ChangeLevel("HildaBergLevel");
 			NextLevel = CupheadLevel::NONE;
-		}
-		break;
-	case CupheadLevel::WALLY:
-		if (935 == GameEngineTexture::TextureReLoadCount)
-		{
+			//}
+			break;
+		case CupheadLevel::WALLY:
+			//if (935 == GameEngineTexture::TextureReLoadCount || true == isDone)
+			//{
 			GameEngineCore::ChangeLevel("WallyLevel");
 			NextLevel = CupheadLevel::NONE;
+			//}
+			break;
+		case CupheadLevel::MAX:
+			break;
+		default:
+			break;
 		}
-		break;
-	case CupheadLevel::MAX:
-		break;
-	default:
-		break;
 	}
 }
 
@@ -417,8 +425,10 @@ void LoadingLevel::LevelChangeStart()
 	Dir.MoveParentToDirectory("ContentResources");
 	Dir.Move("ContentResources\\Texture");
 
+	ResetLiveTime();
 	isDone = false;
 	GameEngineTexture::TextureReLoadCount = 0;
+	NextLevelTime = 0.0f;
 
 	switch (NextLevel)
 	{
