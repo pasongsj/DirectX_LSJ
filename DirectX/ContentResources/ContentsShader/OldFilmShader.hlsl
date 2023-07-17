@@ -43,12 +43,8 @@ float4 OldFilm_PS(OutPut _Value) : SV_Target0
     // 0.2 => 0.8
     // 1 => 0
     
-    Color.x = (1.0f - Color.x) * OldFilmValue.x;
-    //if (Color.x != 0)
-    //{
-    //    Color.xyzw = 1.0f;
-    //}
-    Color.yzw = Color.x;
-    
+    Color.w = 1 - Color.w ;
+    Color.xyz =  Color.w * OldFilmValue.x;
+
     return Color;
 }

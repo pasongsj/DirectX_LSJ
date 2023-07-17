@@ -27,6 +27,9 @@ private:
 
 	float4 OldData;
 
+	float FilmTimer = 0.0f;
+	float FilmInterval = 0.05f;
+
 	int Index = 0;
 };
 

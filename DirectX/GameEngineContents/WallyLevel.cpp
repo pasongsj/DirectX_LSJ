@@ -25,6 +25,8 @@
 #include "KnockOutUI.h"
 #include "YouDieUI.h"
 
+// Effect
+#include "OldFilmEffect.h"
 
 WallyLevel::WallyLevel()
 {
@@ -35,7 +37,8 @@ WallyLevel::~WallyLevel()
 }
 void WallyLevel::Start()
 {
-	//GetLastTarget()->CreateEffect<OldFilmEffect>();
+	GetLastTarget()->CreateEffect<OldFilmEffect>();
+
 }
 
 void WallyLevel::Update(float _DeltaTime)
@@ -125,6 +128,9 @@ void WallyLevel::LevelChangeStart()
 	CreateActor<PlayerUI>(CupHeadActorOrder::UI);
 
 	CreateActor<GetReadyUI>(CupHeadActorOrder::UI);
+
+	//GetLastTarget()->CreateEffect<OldFilmEffect>();
+
 }
 
 void WallyLevel::BackGroundSetting()

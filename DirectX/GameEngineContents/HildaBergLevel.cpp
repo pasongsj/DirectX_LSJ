@@ -51,6 +51,7 @@
 
 //Effect
 #include "FadeEffect.h"
+#include "OldFilmEffect.h"
 
 HildaBergLevel::HildaBergLevel() 
 {
@@ -63,6 +64,7 @@ HildaBergLevel::~HildaBergLevel()
 
 void HildaBergLevel::Start()
 {
+	GetLastTarget()->CreateEffect<OldFilmEffect>();
 
 }
 

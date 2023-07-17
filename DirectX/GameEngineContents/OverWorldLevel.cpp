@@ -10,7 +10,9 @@
 #include "OverWorldBush.h"
 #include "PlayerOverWorldMode.h"
 #include "OverWorldInteractObject.h"
-//#include "OverWorldToHilda.h"
+
+
+#include "OldFilmEffect.h"
 
 
 OverWorldLevel::OverWorldLevel() 
@@ -91,6 +93,8 @@ void OverWorldLevel::Start()
 	{
 		GameEngineInput::CreateKey("KeyZ_Interaction", 'Z');
 	}*/
+	GetLastTarget()->CreateEffect<OldFilmEffect>();
+
 }
 
 void OverWorldLevel::Update(float _DeltaTime)

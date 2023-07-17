@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineSprite.h>
 
 #include "StoryObject.h"
+#include "OldFilmEffect.h"
 
 StoryLevel::StoryLevel() 
 {
@@ -23,6 +24,8 @@ void StoryLevel::Start()
 	{
 		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
 	}
+	GetLastTarget()->CreateEffect<OldFilmEffect>();
+
 }
 void StoryLevel::Update(float _DeltaTime) 
 {

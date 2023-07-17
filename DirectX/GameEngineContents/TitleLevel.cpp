@@ -6,6 +6,7 @@
 #include "LoadingLevel.h"
 
 #include "GameContentsButton.h"
+#include "OldFilmEffect.h"
 
 TitleLevel::TitleLevel()
 {
@@ -52,6 +53,12 @@ void TitleLevel::MakeSprite()
 
 
 }
+
+void TitleLevel::Start()
+{
+	GetLastTarget()->CreateEffect<OldFilmEffect>();
+}
+
 
 void TitleLevel::Update(float _DeltaTime)
 {
