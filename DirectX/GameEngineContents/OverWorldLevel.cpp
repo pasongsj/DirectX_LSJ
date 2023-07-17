@@ -87,10 +87,10 @@ void OverWorldLevel::MakeSprite()
 
 void OverWorldLevel::Start()
 {
-	if (false == GameEngineInput::IsKey("KeyF_Interaction"))
+	/*if (false == GameEngineInput::IsKey("KeyF_Interaction"))
 	{
 		GameEngineInput::CreateKey("KeyZ_Interaction", 'Z');
-	}
+	}*/
 }
 
 void OverWorldLevel::Update(float _DeltaTime)
@@ -117,8 +117,15 @@ void OverWorldLevel::LevelChangeStart()
 	//CreateActor<OverWorldToHilda>(CupHeadActorOrder::BackGround);
 	MakeInteractObject();
 
-	CreateActor<PlayerOverWorldMode>(CupHeadActorOrder::Player);
-
+	std::shared_ptr< PlayerOverWorldMode> NewPlayer = CreateActor<PlayerOverWorldMode>(CupHeadActorOrder::Player);
+	if (false == LastPlayerPos.IsZero())
+	{
+		NewPlayer->GetTransform()->SetLocalPosition(LastPlayerPos);
+		float4 CamPos = LastPlayerPos;
+		CamPos.z = -1000;
+		CamPos.y = CamPos.y > -375 ? -375 : CamPos.y;
+		GetMainCamera()->GetTransform()->SetLocalPosition(CamPos);
+	}
 
 	if (false == GameEngineInput::IsKey("ChangeLevel"))
 	{
@@ -133,6 +140,7 @@ void OverWorldLevel::LevelChangeEnd()
 {
 	if (nullptr != Player::MainPlayer)
 	{
+		LastPlayerPos = Player::MainPlayer->GetTransform()->GetWorldPosition();
 		Player::MainPlayer->Death();
 		Player::MainPlayer = nullptr;
 	}
@@ -176,12 +184,12 @@ void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 N
 	ToHilda->InteractRender->ChangeAnimation("Idle");
 	ToHilda->GetTransform()->SetLocalPosition(float4{ 3325,-300,500 });
 	ToHilda->InteractFucntion = []{
-			if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
+		LoadingLevel::SetLevel(CupheadLevel::HILDA);
+		GameEngineCore::ChangeLevel("LoadingLevel");
+			/*if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
 			{
-				LoadingLevel::SetLevel(CupheadLevel::HILDA);
-				GameEngineCore::ChangeLevel("LoadingLevel");
 				return;
-			}};	
+			}*/};	
 	
 	std::shared_ptr<OverWorldInteractObject> Canteen = CreateActor<OverWorldInteractObject>(CupHeadActorOrder::BackGround);
 	Canteen->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_NPC_Canteen",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
@@ -194,10 +202,10 @@ void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 N
 	Tutorial->InteractRender->ChangeAnimation("Idle");
 	Tutorial->GetTransform()->SetLocalPosition(float4{ 2850,-230,500 });
 	Tutorial->InteractFucntion = []{
-		if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
-		{
 			GameEngineCore::ChangeLevel("TutorialLevel");
+		/*if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
+		{
 			return;
-		}};
+		}*/};
 
 }

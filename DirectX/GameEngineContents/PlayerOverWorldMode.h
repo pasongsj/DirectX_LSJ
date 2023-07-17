@@ -24,16 +24,17 @@ public:
 	PlayerOverWorldMode& operator=(const PlayerOverWorldMode& _Other) = delete;
 	PlayerOverWorldMode& operator=(PlayerOverWorldMode&& _Other) noexcept = delete;
 
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
-	void Render(float _DeltaTime) override;
 
 private:
 
 	int Stage = 1; 
 
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerRender = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> ZRender = nullptr; // press z interaction icon
 	std::shared_ptr<class GameEngineTexture> ColMapTexture = nullptr;
 	std::shared_ptr<class GameEngineCollision> PlayerCollision = nullptr;
 
@@ -45,6 +46,9 @@ private:
 
 	PlayerOverWorldModeState CurState = PlayerOverWorldModeState::IDLE;
 	PlayerOverWorldModeState NextState = PlayerOverWorldModeState::IDLE;
+
+	void SettingRender();
+	void CheckInteract();
 
 	void MoveUpdate(float _DeltaTime);
 	void UpdateState(float _DeltaTime);

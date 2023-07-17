@@ -6,6 +6,8 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
+#include "OverWorldInteractObject.h"
+
 PlayerOverWorldMode::PlayerOverWorldMode()
 {
 }
@@ -25,35 +27,8 @@ void PlayerOverWorldMode::Start()
 	Player::MainPlayer = DynamicThis<PlayerOverWorldMode>().get();
 	
 	PlayerRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Player);
-	PlayerRender->CreateAnimation({ .AnimationName = "Down_Right_Idle", .SpriteName = "Diag_Down_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "Down_Right_Move", .SpriteName = "Diag_Down_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-
-	PlayerRender->CreateAnimation({ .AnimationName = "Up_Right_Idle", .SpriteName = "Diag_Up_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "Up_Right_Move", .SpriteName = "Diag_Up_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-
-	PlayerRender->CreateAnimation({ .AnimationName = "Right_Move", .SpriteName = "Side_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "Right_Idle", .SpriteName = "Side_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-
-	PlayerRender->CreateAnimation({ .AnimationName = "Up_Idle", .SpriteName = "Up_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "Up_Move", .SpriteName = "Up_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-
-	PlayerRender->CreateAnimation({ .AnimationName = "Down_Idle", .SpriteName = "Down_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "Down_Move", .SpriteName = "Down_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-
-	
-	PlayerRender->CreateAnimation({ .AnimationName = "Down_Left_Idle", .SpriteName = "Diag_Down_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "Down_Left_Move", .SpriteName = "Diag_Down_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-
-	PlayerRender->CreateAnimation({ .AnimationName = "Up_Left_Idle", .SpriteName = "Diag_Up_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "Up_Left_Move", .SpriteName = "Diag_Up_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-
-	PlayerRender->CreateAnimation({ .AnimationName = "Left_Idle", .SpriteName = "Side_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "Left_Move", .SpriteName = "Side_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-
-	PlayerRender->CreateAnimation({ .AnimationName = "InterAction_Win", .SpriteName = "InterAction_Win", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-
-	PlayerRender->ChangeAnimation("Down_Right_Idle");
-	//PlayerRender->SetAnimationStartEvent()
+	ZRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::UI);
+	SettingRender();
 
 
 	PlayerCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Player);
@@ -85,23 +60,80 @@ void PlayerOverWorldMode::Start()
 	{
 		GameEngineInput::CreateKey("Press_I", 'I');
 	}
+	if (false == GameEngineInput::IsKey("KeyZ_Interaction"))
+	{
+		GameEngineInput::CreateKey("KeyZ_Interaction", 'Z');
+	}
 
 	ColMapTexture = GameEngineTexture::Find("Overworld_ColMap.png");
 }
 
+void PlayerOverWorldMode::SettingRender()
+{
+	PlayerRender->CreateAnimation({ .AnimationName = "Down_Right_Idle", .SpriteName = "Diag_Down_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Down_Right_Move", .SpriteName = "Diag_Down_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+
+	PlayerRender->CreateAnimation({ .AnimationName = "Up_Right_Idle", .SpriteName = "Diag_Up_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Up_Right_Move", .SpriteName = "Diag_Up_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+
+	PlayerRender->CreateAnimation({ .AnimationName = "Right_Move", .SpriteName = "Side_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Right_Idle", .SpriteName = "Side_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+
+	PlayerRender->CreateAnimation({ .AnimationName = "Up_Idle", .SpriteName = "Up_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Up_Move", .SpriteName = "Up_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+
+	PlayerRender->CreateAnimation({ .AnimationName = "Down_Idle", .SpriteName = "Down_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Down_Move", .SpriteName = "Down_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+
+	PlayerRender->CreateAnimation({ .AnimationName = "Down_Left_Idle", .SpriteName = "Diag_Down_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Down_Left_Move", .SpriteName = "Diag_Down_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+
+	PlayerRender->CreateAnimation({ .AnimationName = "Up_Left_Idle", .SpriteName = "Diag_Up_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Up_Left_Move", .SpriteName = "Diag_Up_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+
+	PlayerRender->CreateAnimation({ .AnimationName = "Left_Idle", .SpriteName = "Side_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Left_Move", .SpriteName = "Side_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+
+	PlayerRender->CreateAnimation({ .AnimationName = "InterAction_Win", .SpriteName = "InterAction_Win", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+
+	PlayerRender->ChangeAnimation("Down_Right_Idle");
+
+	ZRender->SetScaleToTexture("interactionIcon.png");
+	ZRender->GetTransform()->SetLocalPosition(float4{ 0,50,-300 });
+	ZRender->Off();
+}
+
+
 void PlayerOverWorldMode::Update(float _DeltaTime)
 {
 	UpdateState(_DeltaTime);
-
+	CheckInteract();
 	if (true == GameEngineInput::IsPress("Press_I"))
 	{
 		NextState = PlayerOverWorldModeState::WIN;
 	}
 }
 
-void PlayerOverWorldMode::Render(float _DeltaTime)
+void PlayerOverWorldMode::CheckInteract()
 {
+	std::shared_ptr<GameEngineCollision> Obj = nullptr;
+	if (nullptr != (Obj = PlayerCollision->Collision(CupHeadCollisionOrder::UI)))
+	{
+		ZRender->On();
+		if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
+		{
+			std::shared_ptr< OverWorldInteractObject> Interact = Obj->GetActor()->DynamicThis< OverWorldInteractObject>();
+			Interact->DoInteractFucntion();
+			return;
+		}
+	}
+	else
+	{
+		ZRender->Off();
+	}
+
 }
+
 
 void PlayerOverWorldMode::MoveUpdate(float _DeltaTime)
 {

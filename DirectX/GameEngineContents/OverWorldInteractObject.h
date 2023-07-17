@@ -21,13 +21,21 @@ public:
 		InteractFucntion = _Func;
 	}
 
+	void DoInteractFucntion()
+	{
+		if (nullptr != InteractFucntion)
+		{
+			InteractFucntion();
+		}
+	}
+
 
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> FRender = nullptr; // 상호작용 표시
+	//std::shared_ptr<class GameEngineSpriteRenderer> FRender = nullptr; // 상호작용 표시
 
 	std::shared_ptr<class GameEngineSpriteRenderer> InteractRender = nullptr; // 상호작용할 객체 랜더
 	std::shared_ptr<class GameEngineCollision> InteractCollision = nullptr; // 상호작용 범위용 콜리전

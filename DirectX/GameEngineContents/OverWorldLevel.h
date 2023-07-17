@@ -24,6 +24,7 @@ protected:
 
 private:
 
+	float4 LastPlayerPos = float4::Zero;
 	void MakeSprite();
 	void MakeInteractObject();
 };
