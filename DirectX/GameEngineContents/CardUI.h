@@ -22,13 +22,18 @@ protected:
 	
 private:
 	bool isFlip = false;
-	bool isRot = false;
-	int Energy = 0;
-	int CardNumber = -1;
+	bool isFront = false;
+	bool isRot = false; // full Energy 인지 체크
 
 	std::shared_ptr<class GameEngineUIRenderer> CardRender = nullptr;
-	float4 CardSize = float4(20, 30, 1);
 
+	float4 CardSize = float4{ 20,30,1 };
+	float4 Pivot = float4::Zero;
+
+	inline void SetPivot(const float4& _Pos)
+	{
+		Pivot = _Pos;
+	}
 	void MakeSprite();
 
 	void SetEnergy(int _En, bool Rot = false);

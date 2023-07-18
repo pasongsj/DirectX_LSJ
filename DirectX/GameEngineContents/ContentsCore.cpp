@@ -38,7 +38,7 @@ void ContentsCore::GameStart()
 	ContentsResourcesCreate();
 
 	//GameEngineGUI::GUIWindowCreate<GameEngineCoreWindow>("Controller");
-	//GameEngineGUI::GUIWindowCreate<postitionkit>("Controller");
+	GameEngineGUI::GUIWindowCreate<postitionkit>("Controller");
 
 
 
@@ -52,7 +52,7 @@ void ContentsCore::GameStart()
 	GameEngineCore::CreateLevel<OverWorldLevel>();
 	GameEngineCore::CreateLevel<WallyLevel>();
 
-	GameEngineCore::ChangeLevel("TitleLevel");
+	GameEngineCore::ChangeLevel("WallyLevel");
 }
 
 void ContentsCore::GameEnd() 

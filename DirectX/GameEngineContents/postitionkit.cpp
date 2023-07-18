@@ -17,6 +17,7 @@ void postitionkit::OnGUI(std::shared_ptr<GameEngineLevel> Level, float _DeltaTim
 	{
 		float4 Pos = Player::MainPlayer->GetTransform()->GetWorldPosition();
 		ImGui::Text("Player Position - X : %f, Y : %f, Z : %f", Pos.x, Pos.y, Pos.z);
+		ImGui::Text("Player Energy %d", Player::MainPlayer->GetSuperModeEnergy());
 
 	}
 	std::shared_ptr< GameEngineTexture> ColMapTexture = GameEngineTexture::Find("Overworld_Map.png");
@@ -25,5 +26,6 @@ void postitionkit::OnGUI(std::shared_ptr<GameEngineLevel> Level, float _DeltaTim
 		GameEnginePixelColor Color = ColMapTexture->GetPixel(Pos.ix(), -Pos.iy());
 		ImGui::Text("Pixel Color - r : %f, g : %f, b : %f, a : %f", Color.r, Color.g, Color.b, Color.a);
 	}
+
 	ImGui::Text("ReloadCount : %d",static_cast<int>(GameEngineTexture::TextureReLoadCount));
 }

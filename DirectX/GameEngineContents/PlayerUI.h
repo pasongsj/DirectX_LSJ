@@ -26,15 +26,15 @@ private:
 	std::map<int, std::shared_ptr<class GameEngineTexture>> HPTexture;
 	std::shared_ptr<class GameEngineUIRenderer> HPRender = nullptr;
 
-	std::vector<std::shared_ptr<class GameContentsUIRenderer>> SuperModeCard;
-	std::vector<float4> CardPos;
+	std::vector<std::shared_ptr<class CardUI>> CardRenders;
+	void UpdateCard();
+
 
 	float4 CardYSize = float4(0, 30);
 	int LastInputEnergy = 0;
 
 
 	void MakeSprite();
-	void CardUIUpdate();
 
 	float4 CardSize = float4(20, 30, 1);
 
