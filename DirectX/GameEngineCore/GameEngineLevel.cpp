@@ -418,5 +418,6 @@ void GameEngineLevel::DestroyCamera()
 		_Cam.second->Renderers.clear();
 	}
 	Cameras.clear();
+	MainCamera = nullptr;
 }
 

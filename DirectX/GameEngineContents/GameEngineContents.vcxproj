@@ -272,6 +272,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Shop_Pig.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Wally1_Bullet.h">
       <SubType>
       </SubType>
@@ -706,6 +710,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ShopLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Shop_Pig.cpp">
       <SubType>
       </SubType>
     </ClCompile>

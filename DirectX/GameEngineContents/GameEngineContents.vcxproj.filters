@@ -283,6 +283,9 @@
     <ClInclude Include="CircleTransEffect.h">
       <Filter>PostEffect</Filter>
     </ClInclude>
+    <ClInclude Include="Shop_Pig.h">
+      <Filter>Object\Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -588,6 +591,9 @@
     <ClCompile Include="CircleTransEffect.cpp">
       <Filter>PostEffect</Filter>
     </ClCompile>
+    <ClCompile Include="Shop_Pig.cpp">
+      <Filter>Object\Shop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -691,6 +697,9 @@
     </Filter>
     <Filter Include="Object\Button">
       <UniqueIdentifier>{baacf87d-5c12-4e1c-968d-c7d9574c6487}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Shop">
+      <UniqueIdentifier>{0df1731f-26a6-477b-aba6-34791b3dee52}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

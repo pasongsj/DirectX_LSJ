@@ -28,7 +28,7 @@ private:
 	void MakeSprite();
 	void MakeInteractObject();
 
-	std::shared_ptr<class OldFilmEffect> OldFilmEff = nullptr;
+	//std::shared_ptr<class OldFilmEffect> OldFilmEff = nullptr;
 	std::shared_ptr<class CircleTransEffect> FadeEffect = nullptr;
 };
 

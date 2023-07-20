@@ -95,8 +95,6 @@ void OverWorldLevel::Start()
 	{
 		GameEngineInput::CreateKey("KeyZ_Interaction", 'Z');
 	}*/
-	//GetLastTarget()->CreateEffect<OldFilmEffect>();
-	FadeEffect = GetLastTarget()->CreateEffect<CircleTransEffect>();
 	if (false == GameEngineInput::IsKey("key_u"))
 	{
 		GameEngineInput::CreateKey("key_u", 'U');
@@ -132,6 +130,8 @@ void OverWorldLevel::LevelChangeStart()
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	MakeSprite();
 	GetLastTarget()->CreateEffect<OldFilmEffect>();
+	FadeEffect = GetLastTarget()->CreateEffect<CircleTransEffect>();
+
 
 	CreateActor<OverWorldBack>(CupHeadActorOrder::BackGround);
 	CreateActor<OverWorldBush>(CupHeadActorOrder::BackGround);
@@ -196,6 +196,8 @@ void OverWorldLevel::LevelChangeEnd()
 
 	GameEngineSprite::UnLoad("OverWorld_To_Shmup_Tutorial");
 	GameEngineSprite::UnLoad("OverWorld_NPC_Canteen");
+
+	FadeEffect = nullptr;
 }
 
 

@@ -2,6 +2,9 @@
 #include "ShopLevel.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 
+#include "Shop_Pig.h"
+
+
 ShopLevel::ShopLevel()
 {
 }
@@ -50,12 +53,22 @@ void ShopLevel::LevelChangeStart()
 		BackGround->GetTransform()->SetLocalPosition(Shop_BG_Pos);
 	}
 	{
-		//std::shared_ptr<GameEngineActor> Curtain = CreateActor<GameEngineActor>(CupHeadActorOrder::BackGround);
-		//std::shared_ptr<GameEngineSpriteRenderer> CurtainRender = Curtain->CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
-		//BGRender->SetScaleToTexture("shop-background.png");
-		//const float4 Shop_BG_Pos = float4{ 0, 180, 2000 };
-		//BackGround->GetTransform()->SetLocalPosition(Shop_BG_Pos);
+		std::shared_ptr<GameEngineActor> Curtain = CreateActor<GameEngineActor>(CupHeadActorOrder::BackGround);
+		std::shared_ptr<GameEngineSpriteRenderer> CurtainRender = Curtain->CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
+		CurtainRender->SetScaleToTexture("shop_draped_fabric.png");
+		const float4 Shop_Curtain_Pos = float4{ 0, 230, 1900 };
+		Curtain->GetTransform()->SetLocalPosition(Shop_Curtain_Pos);
 	}
+
+	{
+		std::shared_ptr<GameEngineActor> Table = CreateActor<GameEngineActor>(CupHeadActorOrder::BackGround);
+		std::shared_ptr<GameEngineSpriteRenderer> TableRender = Table->CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
+		TableRender->SetScaleToTexture("shop_table.png");
+		const float4 Shop_Table_Pos = float4{ 0, -220, 1200};
+		Table->GetTransform()->SetLocalPosition(Shop_Table_Pos);
+	}
+
+	CreateActor<Shop_Pig>(CupHeadActorOrder::BackGround);
 }
 
 void ShopLevel::LevelChangeEnd()
