@@ -13,6 +13,7 @@
 
 
 #include "OldFilmEffect.h"
+#include "CircleTransEffect.h"
 
 
 OverWorldLevel::OverWorldLevel() 
@@ -80,6 +81,7 @@ void OverWorldLevel::MakeSprite()
 			Dir.Move("ContentResources\\Texture\\stage1\\Overworld");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("blimp").GetFullPath(), "OverWorld_To_Hilda");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shmup_Tutorial").GetFullPath(), "OverWorld_To_Shmup_Tutorial");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shop").GetFullPath(), "OverWorld_To_Shop");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("NPC\\Canteen").GetFullPath(), "OverWorld_NPC_Canteen");
 		}
 	}
@@ -93,7 +95,8 @@ void OverWorldLevel::Start()
 	{
 		GameEngineInput::CreateKey("KeyZ_Interaction", 'Z');
 	}*/
-	GetLastTarget()->CreateEffect<OldFilmEffect>();
+	//GetLastTarget()->CreateEffect<OldFilmEffect>();
+	//GetLastTarget()->CreateEffect<CircleTransEffect>();
 
 }
 
@@ -115,6 +118,7 @@ void OverWorldLevel::LevelChangeStart()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	MakeSprite();
+	GetLastTarget()->CreateEffect<OldFilmEffect>();
 
 	CreateActor<OverWorldBack>(CupHeadActorOrder::BackGround);
 	CreateActor<OverWorldBush>(CupHeadActorOrder::BackGround);
@@ -175,6 +179,7 @@ void OverWorldLevel::LevelChangeEnd()
 				
 	GameEngineSprite::UnLoad("InterAction_Win");
 	GameEngineSprite::UnLoad("OverWorld_To_Hilda");
+	GameEngineSprite::UnLoad("OverWorld_To_Shop");
 
 	GameEngineSprite::UnLoad("OverWorld_To_Shmup_Tutorial");
 	GameEngineSprite::UnLoad("OverWorld_NPC_Canteen");
@@ -190,16 +195,12 @@ void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 N
 	ToHilda->InteractFucntion = []{
 		LoadingLevel::SetLevel(CupheadLevel::HILDA);
 		GameEngineCore::ChangeLevel("LoadingLevel");
-			/*if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
-			{
-				return;
-			}*/};	
+			};	
 	
 	std::shared_ptr<OverWorldInteractObject> Canteen = CreateActor<OverWorldInteractObject>(CupHeadActorOrder::BackGround);
 	Canteen->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_NPC_Canteen",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
 	Canteen->InteractRender->ChangeAnimation("Idle");
 	Canteen->GetTransform()->SetLocalPosition(float4{ 2620,-275,500 });
-	//Canteen->InteractFucntion = []{};
 
 	std::shared_ptr<OverWorldInteractObject> Tutorial = CreateActor<OverWorldInteractObject>(CupHeadActorOrder::BackGround);
 	Tutorial->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_To_Shmup_Tutorial",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
@@ -207,9 +208,11 @@ void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 N
 	Tutorial->GetTransform()->SetLocalPosition(float4{ 2850,-230,500 });
 	Tutorial->InteractFucntion = []{
 			GameEngineCore::ChangeLevel("TutorialLevel");
-		/*if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
-		{
-			return;
-		}*/};
+		};
+
+	std::shared_ptr< OverWorldInteractObject> Shop = CreateActor< OverWorldInteractObject>(CupHeadActorOrder::BackGround);
+	Shop->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_To_Shop",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
+	Shop->InteractRender->ChangeAnimation("Idle");
+	Shop->GetTransform()->SetLocalPosition(float4{ 2275,-1075,500 });
 
 }

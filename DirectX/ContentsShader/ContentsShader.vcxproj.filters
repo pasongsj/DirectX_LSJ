@@ -5,5 +5,6 @@
     <FxCompile Include="..\ContentResources\ContentsShader\MyShader.fx" />
     <FxCompile Include="..\ContentResources\ContentsShader\BrightShader.hlsl" />
     <FxCompile Include="..\ContentResources\ContentsShader\OldFilmShader.hlsl" />
+    <FxCompile Include="..\ContentResources\ContentsShader\CircleTransShader.hlsl" />
   </ItemGroup>
 </Project>

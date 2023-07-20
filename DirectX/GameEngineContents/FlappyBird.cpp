@@ -53,10 +53,15 @@ void FlappyBird::Update(float _DeltaTime)
 		GameEngineObjectBase::Death();
 		return;
 	}
+	if (true == BirdCollision->IsUpdate())
+	{
+		CollisionPlayer(BirdCollision);
+	}
 	if (false == isDeathAnimation)
 	{
 		if (GetHP() <= 0)
 		{
+			BirdCollision->Off();
 			if (true == IsPink())
 			{
 				BirdRender->ChangeAnimation("Pink_Death");

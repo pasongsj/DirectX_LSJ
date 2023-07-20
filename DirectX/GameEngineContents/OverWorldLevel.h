@@ -27,5 +27,7 @@ private:
 	float4 LastPlayerPos = float4::Zero;
 	void MakeSprite();
 	void MakeInteractObject();
+
+	std::shared_ptr<class OldFilmEffect> OldFilmEff = nullptr;
 };
 

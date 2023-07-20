@@ -277,6 +277,12 @@
     <ClInclude Include="ExBullet.h">
       <Filter>Object\Player\AirPlane\PlayerWeapon</Filter>
     </ClInclude>
+    <ClInclude Include="ShopLevel.h">
+      <Filter>Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleTransEffect.h">
+      <Filter>PostEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -575,6 +581,12 @@
     </ClCompile>
     <ClCompile Include="ExBullet.cpp">
       <Filter>Object\Player\AirPlane\PlayerWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopLevel.cpp">
+      <Filter>Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleTransEffect.cpp">
+      <Filter>PostEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

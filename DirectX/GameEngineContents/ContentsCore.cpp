@@ -19,6 +19,7 @@
 #include "OverWorldLevel.h"
 #include "postitionkit.h"
 #include "WallyLevel.h"
+#include "ShopLevel.h"
 
 ContentsCore::ContentsCore() 
 {
@@ -51,8 +52,9 @@ void ContentsCore::GameStart()
 	GameEngineCore::CreateLevel<TitleLevel>();
 	GameEngineCore::CreateLevel<OverWorldLevel>();
 	GameEngineCore::CreateLevel<WallyLevel>();
+	GameEngineCore::CreateLevel<ShopLevel>();
 
-	GameEngineCore::ChangeLevel("WallyLevel");
+	GameEngineCore::ChangeLevel("ShopLevel");
 }
 
 void ContentsCore::GameEnd() 

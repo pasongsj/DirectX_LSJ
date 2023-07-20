@@ -23,7 +23,7 @@ void TutorialLevel::LoadSprite()
 	Dir.Move("ContentResources\\Texture\\Tutorial");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("shmup_tutorial_BG").GetFullPath(), "shmup_tutorial_BG");
 
-	if (nullptr == GameEngineTexture::Find("shmup_tutorial_linework"))
+	if (nullptr == GameEngineTexture::Find("shmup_tutorial_linework.png"))
 	{
 		GameEngineTexture::Load(Dir.GetPlusFileName("shmup_tutorial_linework.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("tutorial_pink_sphere_1.png").GetFullPath());
@@ -32,9 +32,9 @@ void TutorialLevel::LoadSprite()
 	}
 	else
 	{
-		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shmup_tutorial_linework.png").GetFullPath());
-		GameEngineTexture::ReLoad(Dir.GetPlusFileName("tutorial_pink_sphere_1.png").GetFullPath());
-		GameEngineTexture::ReLoad(Dir.GetPlusFileName("exit.png").GetFullPath());
+		GameEngineTexture::ReLoad("shmup_tutorial_linework.png");
+		GameEngineTexture::ReLoad("tutorial_pink_sphere_1.png");
+		GameEngineTexture::ReLoad("exit.png");
 	}
 
 }

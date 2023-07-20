@@ -167,6 +167,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CircleTransEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentsSortRenderer.h">
       <SubType>
       </SubType>
@@ -261,6 +265,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="OverWorldInteractObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShopLevel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -596,6 +604,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CircleTransEffect.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ContentsSortRenderer.cpp">
       <SubType>
       </SubType>
@@ -690,6 +702,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="OverWorldInteractObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShopLevel.cpp">
       <SubType>
       </SubType>
     </ClCompile>
