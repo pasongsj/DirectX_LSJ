@@ -96,8 +96,12 @@ void OverWorldLevel::Start()
 		GameEngineInput::CreateKey("KeyZ_Interaction", 'Z');
 	}*/
 	//GetLastTarget()->CreateEffect<OldFilmEffect>();
-	//GetLastTarget()->CreateEffect<CircleTransEffect>();
-
+	FadeEffect = GetLastTarget()->CreateEffect<CircleTransEffect>();
+	if (false == GameEngineInput::IsKey("key_u"))
+	{
+		GameEngineInput::CreateKey("key_u", 'U');
+		GameEngineInput::CreateKey("key_Y", 'Y');
+	}
 }
 
 void OverWorldLevel::Update(float _DeltaTime)
@@ -110,6 +114,15 @@ void OverWorldLevel::Update(float _DeltaTime)
 	if (true == GameEngineInput::IsDown("DebugRender"))
 	{
 		GameEngineLevel::IsDebugSwitch();
+	}
+	
+	if (true == GameEngineInput::IsDown("key_y"))
+	{
+		FadeEffect->SetFade(CircleTransOption::FadeIn);
+	}
+	if (true == GameEngineInput::IsDown("key_u"))
+	{
+		FadeEffect->SetFade(CircleTransOption::FadeOut);
 	}
 }
 

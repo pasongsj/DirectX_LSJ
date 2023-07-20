@@ -23,13 +23,36 @@ OutPut CircleTrans_VS(Input _Value)
 }
 
 
+cbuffer TimeData : register(b1)
+{
+    // 상수버퍼는 
+    float4 TimeValue;
+}
+
+
 Texture2D DiffuseTex : register(t0);
 SamplerState POINTSAMPLER : register(s0);
 
 float4 CircleTrans_PS(OutPut _Value) : SV_Target0
 {
-    float4 ResultColor = (float4) 0.0f;
-    ResultColor += DiffuseTex.Sample(POINTSAMPLER, _Value.UV.xy);
+    float Time = TimeValue.x;
+    
+    float2 ScreenSize = float2(1280.0f, 720.0f);
+    float2 OrientUV = _Value.UV.xy;
+    float R = ScreenSize.x /ScreenSize.y;  
+    
+    float4 Center = float4(0.5f, 0.5f, 0.0f, 0.0f);
+    Center.x *= R;
+    OrientUV.x = OrientUV.x * R;
+    float Len = length(Center.xy - OrientUV.xy);
+    
+    
+    
+    float4 ResultColor = DiffuseTex.Sample(POINTSAMPLER, _Value.UV.xy);
+    if(Len >= Time)
+    {
+        ResultColor = float4(0.0f, 0.0f, 0.0f, 1.0f);
+    }
     
     return ResultColor;
 
