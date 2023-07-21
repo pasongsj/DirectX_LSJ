@@ -27,5 +27,9 @@ private:
 
 	std::shared_ptr<class Drawer_L> LeftDrawer = nullptr;
 
+	void SetItems();
+	std::vector<std::shared_ptr<class ShopItem>> Items;
+	int CurItemIndex = 0;
+
 };
 

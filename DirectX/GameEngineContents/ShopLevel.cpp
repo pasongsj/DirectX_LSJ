@@ -2,9 +2,11 @@
 #include "ShopLevel.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineCore.h>
 
 #include "Shop_Pig.h"
 #include "Drawer_L.h"
+#include "ShopItem.h"
 
 ShopLevel::ShopLevel()
 {
@@ -19,7 +21,7 @@ void ShopLevel::MakeSprite()
 	Dir.MoveParentToDirectory("ContentResources");
 	Dir.Move("ContentResources\\Texture\\Shop");
 
-	if (nullptr == GameEngineSprite::Find("shop-background.png"))
+	if (nullptr == GameEngineTexture::Find("shop-background.png"))
 	{
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop-background.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_draped_fabric.png").GetFullPath());
@@ -28,8 +30,31 @@ void ShopLevel::MakeSprite()
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_chalk_coin.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_drawer_left.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_drawer_right.png").GetFullPath());
-
 	}
+	else
+	{
+		GameEngineTexture::ReLoad("shop-background.png");
+		GameEngineTexture::ReLoad("shop_draped_fabric.png");
+		GameEngineTexture::ReLoad("shop_table.png");
+		GameEngineTexture::ReLoad("shop_table_chalkboard.png");
+		GameEngineTexture::ReLoad("shop_chalk_coin.png");
+		GameEngineTexture::ReLoad("shop_drawer_left.png");
+		GameEngineTexture::ReLoad("shop_drawer_right.png");
+	}
+	//if (nullptr == GameEngineSprite::Find("Item_Coffee_Glow"))
+	//{
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\glow").GetFullPath(), "Item_Coffee_Glow");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\dim").GetFullPath(), "Item_Coffee_Dim");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\sold").GetFullPath(), "Item_Coffee_Sold");
+
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\glow").GetFullPath(), "Item_Hp1_Glow");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\dim").GetFullPath(), "Item_Hp1_Dim");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\sold").GetFullPath(), "Item_Hp1_Sold");
+		
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\glow").GetFullPath(), "Item_Hp2_Glow");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\dim").GetFullPath(), "Item_Hp2_Dim");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\sold").GetFullPath(), "Item_Hp2_Sold");
+	//}
 }
 
 void ShopLevel::Start()
@@ -38,15 +63,57 @@ void ShopLevel::Start()
 	{
 		GameEngineInput::CreateKey("PressI", 'I');
 	}
+	if (false == GameEngineInput::IsKey("Left_Buttion"))
+	{
+		GameEngineInput::CreateKey("Left_Buttion", VK_LEFT);
+	}
+	if (false == GameEngineInput::IsKey("Right_Buttion"))
+	{
+		GameEngineInput::CreateKey("Right_Buttion", VK_RIGHT);
+	}
+	if (false == GameEngineInput::IsKey("ESC_Buttion"))
+	{
+		GameEngineInput::CreateKey("ESC_Buttion", VK_ESCAPE);
+	}
 }
 
 void ShopLevel::Update(float _DeltaTime)
 {
+	if (true == GameEngineInput::IsDown("ESC_Buttion"))
+	{
+		GameEngineCore::ChangeLevel("OverWorldLevel");
+	}
+
 	if (true == GameEngineInput::IsDown("PressI"))
 	{
 		if (nullptr != LeftDrawer)
 		{
 			LeftDrawer->isClosed = true;
+		}
+	}
+	if (true == GameEngineInput::IsUp("Left_Buttion"))
+	{
+		if (CurItemIndex <= 0)
+		{
+			return;
+		}
+		else
+		{
+			Items[CurItemIndex--]->SetState(ItemState::DIM);
+			Items[CurItemIndex]->SetState(ItemState::GLOW);
+		}
+	}
+
+	if (true == GameEngineInput::IsUp("Right_Buttion"))
+	{
+		if (CurItemIndex >= Items.size()-1)
+		{
+			return;
+		}
+		else
+		{
+			Items[CurItemIndex++]->SetState(ItemState::DIM);
+			Items[CurItemIndex]->SetState(ItemState::GLOW);
 		}
 	}
 }
@@ -104,8 +171,75 @@ void ShopLevel::LevelChangeStart()
 	}
 
 	CreateActor<Shop_Pig>(CupHeadActorOrder::BackGround);
+	SetItems();
 }
 
 void ShopLevel::LevelChangeEnd()
 {
+	AllActorDestroy();
+
+
+	GameEngineTexture::UnLoad("shop-background.png");
+	GameEngineTexture::UnLoad("shop_draped_fabric.png");
+	GameEngineTexture::UnLoad("shop_table.png");
+	GameEngineTexture::UnLoad("shop_table_chalkboard.png");
+	GameEngineTexture::UnLoad("shop_chalk_coin.png");
+	GameEngineTexture::UnLoad("shop_drawer_left.png");
+	GameEngineTexture::UnLoad("shop_drawer_right.png");
+
+	GameEngineSprite::UnLoad("Item_Coffee_Glow");
+	GameEngineSprite::UnLoad("Item_Coffee_Dim");
+	GameEngineSprite::UnLoad("Item_Coffee_Sold");
+							
+	GameEngineSprite::UnLoad("Item_Hp1_Glow");
+	GameEngineSprite::UnLoad("Item_Hp1_Dim");
+	GameEngineSprite::UnLoad("Item_Hp1_Sold");
+							
+	GameEngineSprite::UnLoad("Item_Hp2_Glow");
+	GameEngineSprite::UnLoad("Item_Hp2_Dim");
+	GameEngineSprite::UnLoad("Item_Hp2_Sold");
 }
+
+
+void ShopLevel::SetItems()
+{
+	const float4 ItemPos1 = float4{ -500, 0, 1000 };
+	const float4 ItemPos2 = float4{ -430, 20, 900 };
+	const float4 ItemPos3 = float4{ -360, 30, 1000 };
+	Items.resize(3);
+	std::string glow = std::to_string(static_cast<int>(ItemState::GLOW));
+	std::string dim = std::to_string(static_cast<int>(ItemState::DIM));
+	std::string sold = std::to_string(static_cast<int>(ItemState::SOLD));
+	{
+		std::shared_ptr< ShopItem> Item = CreateActor< ShopItem>(CupHeadActorOrder::PlayerBackGround);
+		Item->GetItemRender()->CreateAnimation({ .AnimationName = glow,.SpriteName = "Item_Coffee_Glow",.FrameInter = 0.1f,.Loop = true, .ScaleToTexture = true});
+		Item->GetItemRender()->CreateAnimation({ .AnimationName = dim,.SpriteName = "Item_Coffee_Dim",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
+		Item->GetItemRender()->CreateAnimation({ .AnimationName = sold,.SpriteName = "Item_Coffee_Sold",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
+		Item->SetState(ItemState::DIM);
+		Item->GetTransform()->SetLocalPosition(ItemPos1);
+		Items[0] = Item;
+	}
+	{
+		std::shared_ptr< ShopItem> Item = CreateActor< ShopItem>(CupHeadActorOrder::PlayerBackGround);
+		Item->GetItemRender()->CreateAnimation({ .AnimationName = glow,.SpriteName = "Item_Hp2_Glow",.FrameInter = 0.1f,.Loop = true, .ScaleToTexture = true });
+		Item->GetItemRender()->CreateAnimation({ .AnimationName = dim,.SpriteName = "Item_Hp2_Dim",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
+		Item->GetItemRender()->CreateAnimation({ .AnimationName = sold,.SpriteName = "Item_Hp2_Sold",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
+		Item->SetState(ItemState::DIM);
+		Item->GetTransform()->SetLocalPosition(ItemPos3);
+		Items[2] = Item;
+
+	}
+	{
+		std::shared_ptr< ShopItem> Item = CreateActor< ShopItem>(CupHeadActorOrder::PlayerBackGround);
+		Item->GetItemRender()->CreateAnimation({ .AnimationName = glow,.SpriteName = "Item_Hp1_Glow",.FrameInter = 0.1f,.Loop = true, .ScaleToTexture = true });
+		Item->GetItemRender()->CreateAnimation({ .AnimationName = dim,.SpriteName = "Item_Hp1_Dim",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
+		Item->GetItemRender()->CreateAnimation({ .AnimationName = sold,.SpriteName = "Item_Hp1_Sold",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
+		Item->SetState(ItemState::DIM);
+		Item->GetTransform()->SetLocalPosition(ItemPos2);
+		Items[1] = Item;
+
+	}
+	Items[CurItemIndex]->SetState(ItemState::GLOW);
+}
+
+

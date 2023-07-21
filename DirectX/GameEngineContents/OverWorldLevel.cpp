@@ -229,5 +229,8 @@ void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 N
 	Shop->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_To_Shop",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
 	Shop->InteractRender->ChangeAnimation("Idle");
 	Shop->GetTransform()->SetLocalPosition(float4{ 2275,-1075,500 });
+	Shop->InteractFucntion = [] {
+		GameEngineCore::ChangeLevel("ShopLevel");
+	};
 
 }

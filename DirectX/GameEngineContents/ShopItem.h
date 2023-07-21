@@ -1,14 +1,17 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
 
 enum class ItemState
 {
+	GLOW,
 	DIM,
-	GLOW
+	SOLD,
 };
 // Ό³Έν :
-class ShopItem
+class ShopItem : public GameEngineActor
 {
+	friend class ShopLevel;
 public:
 	// constrcuter destructer
 	ShopItem();
@@ -19,10 +22,20 @@ public:
 	ShopItem(ShopItem&& _Other) noexcept = delete;
 	ShopItem& operator=(const ShopItem& _Other) = delete;
 	ShopItem& operator=(ShopItem&& _Other) noexcept = delete;
+	std::shared_ptr< GameEngineSpriteRenderer> GetItemRender()
+	{
+		return ItemRender;
+	}
+
+	void SetState(ItemState _State);
 
 protected:
+	void Start() override;
+	
 
 private:
+	std::shared_ptr<class GameEngineSpriteRenderer> ItemRender = nullptr;
+
 
 };
 
