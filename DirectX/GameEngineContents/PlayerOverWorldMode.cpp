@@ -75,7 +75,7 @@ void PlayerOverWorldMode::SettingRender()
 
 	PlayerRender->CreateAnimation({ .AnimationName = "Up_Right_Idle", .SpriteName = "Diag_Up_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "Up_Right_Move", .SpriteName = "Diag_Up_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-
+	
 	PlayerRender->CreateAnimation({ .AnimationName = "Right_Move", .SpriteName = "Side_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "Right_Idle", .SpriteName = "Side_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 
@@ -85,14 +85,14 @@ void PlayerOverWorldMode::SettingRender()
 	PlayerRender->CreateAnimation({ .AnimationName = "Down_Idle", .SpriteName = "Down_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	PlayerRender->CreateAnimation({ .AnimationName = "Down_Move", .SpriteName = "Down_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 
-	PlayerRender->CreateAnimation({ .AnimationName = "Down_Left_Idle", .SpriteName = "Diag_Down_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "Down_Left_Move", .SpriteName = "Diag_Down_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Down_Left_Idle", .SpriteName = "Diag_Down_Idle_Left", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Down_Left_Move", .SpriteName = "Diag_Down_Move_Left", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 
-	PlayerRender->CreateAnimation({ .AnimationName = "Up_Left_Idle", .SpriteName = "Diag_Up_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "Up_Left_Move", .SpriteName = "Diag_Up_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Up_Left_Idle", .SpriteName = "Diag_Up_Idle_Left", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Up_Left_Move", .SpriteName = "Diag_Up_Move_Left", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 
-	PlayerRender->CreateAnimation({ .AnimationName = "Left_Idle", .SpriteName = "Side_Idle", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
-	PlayerRender->CreateAnimation({ .AnimationName = "Left_Move", .SpriteName = "Side_Move", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Left_Idle", .SpriteName = "Side_Idle_Left", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
+	PlayerRender->CreateAnimation({ .AnimationName = "Left_Move", .SpriteName = "Side_Move_Left", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 
 	PlayerRender->CreateAnimation({ .AnimationName = "InterAction_Win", .SpriteName = "InterAction_Win", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 
@@ -100,6 +100,8 @@ void PlayerOverWorldMode::SettingRender()
 
 	ZRender->SetScaleToTexture("interactionIcon.png");
 	ZRender->GetTransform()->SetLocalPosition(float4{ 0,50,-300 });
+	//ZRenderScale = GameEngineTexture::Find("interactionIcon.png")->GetScale();
+	//ZRender->GetTransform()->SetWorldScale(ZRenderScale);
 	ZRender->Off();
 }
 
@@ -171,13 +173,13 @@ void PlayerOverWorldMode::CheckInput()
 	std::string TmpDir = "";
 	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveUp"))
 	{
-		GetTransform()->SetLocalScale(float4(1, 1, 1));
+		//GetTransform()->SetLocalScale(float4(1, 1, 1));¤¤
 		MoveVec += float4::Up;
 		TmpDir += "Up_";
 	}
 	else if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveDown"))
 	{
-		GetTransform()->SetLocalScale(float4(1, 1, 1));
+		//GetTransform()->SetLocalScale(float4(1, 1, 1));
 		MoveVec += float4::Down;
 		TmpDir += "Down_";
 	}
@@ -185,13 +187,13 @@ void PlayerOverWorldMode::CheckInput()
 
 	if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveLeft"))
 	{
-		GetTransform()->SetLocalScale(float4(-1, 1, 1));
+		//GetTransform()->SetLocalScale(float4(-1, 1, 1));
 		MoveVec += float4::Left;
 		TmpDir += "Left_";
 	}
 	else if (true == GameEngineInput::IsPress("PlayerAirPlaneMoveRight"))
 	{
-		GetTransform()->SetLocalScale(float4(1, 1, 1));
+		//GetTransform()->SetLocalScale(float4(1, 1, 1));
 		MoveVec += float4::Right;
 		TmpDir += "Right_";
 	}

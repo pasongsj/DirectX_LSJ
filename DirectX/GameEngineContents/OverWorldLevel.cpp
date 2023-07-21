@@ -61,6 +61,9 @@ void OverWorldLevel::MakeSprite()
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Idle").GetFullPath(), "Diag_Down_Idle");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Move").GetFullPath(), "Diag_Down_Move");
 
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Idle_Left").GetFullPath(), "Diag_Down_Idle_Left");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Move_Left").GetFullPath(), "Diag_Down_Move_Left");
+
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Idle").GetFullPath(), "Diag_Up_Idle");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Move").GetFullPath(), "Diag_Up_Move");
 
@@ -72,6 +75,12 @@ void OverWorldLevel::MakeSprite()
 
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Up_Idle").GetFullPath(), "Up_Idle");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Up_Move").GetFullPath(), "Up_Move");
+
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Idle_Left").GetFullPath(), "Diag_Up_Idle_Left");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Move_Left").GetFullPath(), "Diag_Up_Move_Left");
+
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Side_Idle_Left").GetFullPath(), "Side_Idle_Left");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Side_Move_Left").GetFullPath(), "Side_Move_Left");
 
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("InterAction_Win").GetFullPath(), "InterAction_Win");
 		}
@@ -91,15 +100,14 @@ void OverWorldLevel::MakeSprite()
 
 void OverWorldLevel::Start()
 {
-	/*if (false == GameEngineInput::IsKey("KeyF_Interaction"))
-	{
-		GameEngineInput::CreateKey("KeyZ_Interaction", 'Z');
-	}*/
+
 	if (false == GameEngineInput::IsKey("key_u"))
 	{
 		GameEngineInput::CreateKey("key_u", 'U');
 		GameEngineInput::CreateKey("key_Y", 'Y');
 	}
+	GetLastTarget()->CreateEffect<OldFilmEffect>();
+
 }
 
 void OverWorldLevel::Update(float _DeltaTime)
@@ -129,8 +137,10 @@ void OverWorldLevel::LevelChangeStart()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	MakeSprite();
-	GetLastTarget()->CreateEffect<OldFilmEffect>();
-	FadeEffect = GetLastTarget()->CreateEffect<CircleTransEffect>();
+	if(nullptr == FadeEffect)
+	{ 
+		FadeEffect = GetLastTarget()->CreateEffect<CircleTransEffect>();
+	}
 
 
 	CreateActor<OverWorldBack>(CupHeadActorOrder::BackGround);

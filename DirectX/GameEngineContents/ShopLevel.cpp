@@ -41,20 +41,19 @@ void ShopLevel::MakeSprite()
 		GameEngineTexture::ReLoad("shop_drawer_left.png");
 		GameEngineTexture::ReLoad("shop_drawer_right.png");
 	}
-	//if (nullptr == GameEngineSprite::Find("Item_Coffee_Glow"))
-	//{
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\glow").GetFullPath(), "Item_Coffee_Glow");
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\dim").GetFullPath(), "Item_Coffee_Dim");
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\sold").GetFullPath(), "Item_Coffee_Sold");
 
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\glow").GetFullPath(), "Item_Hp1_Glow");
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\dim").GetFullPath(), "Item_Hp1_Dim");
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\sold").GetFullPath(), "Item_Hp1_Sold");
-		
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\glow").GetFullPath(), "Item_Hp2_Glow");
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\dim").GetFullPath(), "Item_Hp2_Dim");
-		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\sold").GetFullPath(), "Item_Hp2_Sold");
-	//}
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\glow").GetFullPath(), "Item_Coffee_Glow");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\dim").GetFullPath(), "Item_Coffee_Dim");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\sold").GetFullPath(), "Item_Coffee_Sold");
+
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\glow").GetFullPath(), "Item_Hp1_Glow");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\dim").GetFullPath(), "Item_Hp1_Dim");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\sold").GetFullPath(), "Item_Hp1_Sold");
+	
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\glow").GetFullPath(), "Item_Hp2_Glow");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\dim").GetFullPath(), "Item_Hp2_Dim");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\sold").GetFullPath(), "Item_Hp2_Sold");
+
 }
 
 void ShopLevel::Start()
@@ -81,15 +80,15 @@ void ShopLevel::Update(float _DeltaTime)
 {
 	if (true == GameEngineInput::IsDown("ESC_Buttion"))
 	{
+		if (nullptr != LeftDrawer)
+		{
+			LeftDrawer->isClosed = true;
+		}
 		GameEngineCore::ChangeLevel("OverWorldLevel");
 	}
 
 	if (true == GameEngineInput::IsDown("PressI"))
 	{
-		if (nullptr != LeftDrawer)
-		{
-			LeftDrawer->isClosed = true;
-		}
 	}
 	if (true == GameEngineInput::IsUp("Left_Buttion"))
 	{
