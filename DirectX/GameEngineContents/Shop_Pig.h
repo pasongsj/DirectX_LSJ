@@ -29,7 +29,7 @@ protected:
 	void Start();
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> PigRender = nullptr;
+	std::shared_ptr<class ContentsSortRenderer> PigRender = nullptr;
 	void MakeSprite();
 
 };

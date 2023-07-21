@@ -24,5 +24,8 @@ protected:
 
 private:
 	void MakeSprite();
+
+	std::shared_ptr<class Drawer_L> LeftDrawer = nullptr;
+
 };
 

@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "Shop_Pig.h"
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include "ContentsSortRenderer.h"
+
 
 Shop_Pig::Shop_Pig() 
 {
@@ -28,8 +29,8 @@ void Shop_Pig::MakeSprite()
 void Shop_Pig::Start()
 {
 	MakeSprite();
-	PigRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
-	PigRender->CreateAnimation({ .AnimationName = "Idle",.SpriteName = "Shop_Pig_Idle", .FrameInter = 0.05f,.Loop = true,.ScaleToTexture = true });
+	PigRender = CreateComponent<ContentsSortRenderer>(CupHeadRendererOrder::BackGround);
+	PigRender->CreateAnimation({ .AnimationName = "Idle",.SpriteName = "Shop_Pig_Idle", .FrameInter = 0.1f,.Loop = true,.ScaleToTexture = true });
 	PigRender->CreateAnimation({ .AnimationName = "Clock",.SpriteName = "Shop_Pig_Clock", .FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	PigRender->CreateAnimation({ .AnimationName = "GoodBye",.SpriteName = "Shop_Pig_GoodBye", .FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	PigRender->CreateAnimation({ .AnimationName = "nod",.SpriteName = "Shop_Pig_nod", .FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
@@ -37,5 +38,6 @@ void Shop_Pig::Start()
 	PigRender->ChangeAnimation("Idle");
 	const float4 PigPos = float4{ 0,130,1000 };
 	GetTransform()->SetLocalPosition(PigPos);
+	PigRender->SetLocalSortPosition(float4{ 0,-197.5f,0 }, SortRenderer::BOT);
 
 }

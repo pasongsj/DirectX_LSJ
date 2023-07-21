@@ -196,6 +196,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="CupheadEnum.h" />
+    <ClInclude Include="Drawer_L.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ExBullet.h">
       <SubType>
       </SubType>
@@ -265,6 +269,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="OverWorldInteractObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShopItem.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -637,6 +645,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Contents_Resources.cpp" />
+    <ClCompile Include="Drawer_L.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ExBullet.cpp">
       <SubType>
       </SubType>
@@ -706,6 +718,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="OverWorldInteractObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShopItem.cpp">
       <SubType>
       </SubType>
     </ClCompile>

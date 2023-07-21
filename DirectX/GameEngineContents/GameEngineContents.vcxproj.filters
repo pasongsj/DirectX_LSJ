@@ -286,6 +286,12 @@
     <ClInclude Include="Shop_Pig.h">
       <Filter>Object\Shop</Filter>
     </ClInclude>
+    <ClInclude Include="Drawer_L.h">
+      <Filter>Object\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopItem.h">
+      <Filter>Object\Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -592,6 +598,12 @@
       <Filter>PostEffect</Filter>
     </ClCompile>
     <ClCompile Include="Shop_Pig.cpp">
+      <Filter>Object\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawer_L.cpp">
+      <Filter>Object\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopItem.cpp">
       <Filter>Object\Shop</Filter>
     </ClCompile>
   </ItemGroup>
