@@ -27,11 +27,13 @@ public:
 	void SetState(PigState _State);
 
 protected:
-	void Start();
+	void Start() override;
+	void Update(float _DeltaTime) override;
 
 private:
 	std::shared_ptr<class ContentsSortRenderer> PigRender = nullptr;
 	void MakeSprite();
+	bool isWelcomeDone = false;
 
 };
 

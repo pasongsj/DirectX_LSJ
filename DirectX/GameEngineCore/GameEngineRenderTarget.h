@@ -80,6 +80,8 @@ public:
 
 	void Effect(float _DeltaTime);
 
+	void ReleaseEffect(std::shared_ptr<GameEnginePostProcess> _Effect);
+
 	std::shared_ptr<GameEngineTexture> GetTexture(int _Index)
 	{
 		return Textures[_Index];

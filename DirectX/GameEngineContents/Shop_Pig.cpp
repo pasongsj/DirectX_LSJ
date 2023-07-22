@@ -35,12 +35,23 @@ void Shop_Pig::Start()
 	PigRender->CreateAnimation({ .AnimationName = "GoodBye",.SpriteName = "Shop_Pig_GoodBye", .FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	PigRender->CreateAnimation({ .AnimationName = "nod",.SpriteName = "Shop_Pig_nod", .FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	PigRender->CreateAnimation({ .AnimationName = "Welcome",.SpriteName = "Shop_Pig_Welcome", .FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
-	PigRender->ChangeAnimation("Idle");
+	PigRender->ChangeAnimation("Welcome");
 	const float4 PigPos = float4{ 0,130,1000 };
 	GetTransform()->SetLocalPosition(PigPos);
 	PigRender->SetLocalSortPosition(float4{ 0,-197.5f,0 }, SortRenderer::BOT);
 
 }
+
+
+void Shop_Pig::Update(float _DeltaTime)
+{
+	if (false == isWelcomeDone && true == PigRender->IsAnimationEnd())
+	{
+		PigRender->ChangeAnimation("Idle");
+		isWelcomeDone = true;
+	}
+}
+
 void Shop_Pig::SetState(PigState _State)
 {
 	switch (_State)

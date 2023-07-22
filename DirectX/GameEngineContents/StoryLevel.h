@@ -26,6 +26,7 @@ protected:
 private:
 
 	std::shared_ptr<class StoryObject> Story = nullptr;
-
+	std::shared_ptr<class CircleTransEffect> FadeEffect = nullptr;
+	float LevelChangeTime = 0.0f;
 };
 

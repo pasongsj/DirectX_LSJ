@@ -8,6 +8,8 @@
 #include "StoryObject.h"
 #include "OldFilmEffect.h"
 #include "LoadingLevel.h"
+#include "CircleTransEffect.h"
+
 StoryLevel::StoryLevel() 
 {
 }
@@ -29,10 +31,17 @@ void StoryLevel::Start()
 }
 void StoryLevel::Update(float _DeltaTime) 
 {
-	if (true == Story->isEnd() || true == GameEngineInput::IsDown("ChangeLevel"))
+	if ((true == Story->isEnd() || true == GameEngineInput::IsDown("ChangeLevel")) && 0.0f == LevelChangeTime)
+	{
+		FadeEffect->SetFade(CircleTransOption::FadeIn);
+		LevelChangeTime = GetLiveTime() + 1.0f;
+
+	}
+	if (0.0f < LevelChangeTime && LevelChangeTime < GetLiveTime() && true == FadeEffect->IsEnd())
 	{
 		LoadingLevel::SetLevel(CupheadLevel::OVERWORLD);
-		GameEngineCore::ChangeLevel("LoadingLevel"); 
+		GameEngineCore::ChangeLevel("LoadingLevel");
+
 	}
 }
 	
@@ -41,7 +50,10 @@ void StoryLevel::LevelChangeStart()
 	ResetLiveTime();
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-
+	if (nullptr == FadeEffect)
+	{
+		FadeEffect = GetLastTarget()->CreateEffect<CircleTransEffect>();
+	}
 	if (nullptr == GameEngineSprite::Find("story0"))
 	{
 
@@ -64,8 +76,9 @@ void StoryLevel::LevelChangeStart()
 
 
 	}
-
+	LevelChangeTime = 0.0f;
 	Story = CreateActor<StoryObject>(CupHeadActorOrder::BackGround);
+	FadeEffect->SetFade(CircleTransOption::FadeOut);
 }
 void StoryLevel::LevelChangeEnd()
 {
@@ -84,4 +97,6 @@ void StoryLevel::LevelChangeEnd()
 	Story = nullptr;
 
 	AllActorDestroy();
+	GetLastTarget()->ReleaseEffect(FadeEffect);
+	FadeEffect = nullptr;
 }

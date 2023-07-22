@@ -21,12 +21,24 @@ public:
 	CircleTransEffect& operator=(const CircleTransEffect& _Other) = delete;
 	CircleTransEffect& operator=(CircleTransEffect&& _Other) noexcept = delete;
 
-	void SetFade(CircleTransOption _Option)
+	inline void SetFade(CircleTransOption _Option)
 	{
 		CurState = _Option;
+		if (CircleTransOption::FadeIn == _Option)
+		{
+			TimeData.x = 1;
+		}
+		else if (CircleTransOption::FadeOut == _Option)
+		{
+			TimeData.x = 0;
+		}
 		StateEnd = false;
 	}
 
+	inline bool IsEnd()
+	{
+		return StateEnd;
+	}
 protected:
 	void Start(GameEngineRenderTarget* _Target) override;
 	void Effect(GameEngineRenderTarget* _Target, float _DeltaTime) override;
