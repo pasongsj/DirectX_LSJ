@@ -49,7 +49,7 @@ void PlayerUI::MakeSprite()
 
 void PlayerUI::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	// camera
 	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetCamera(100);
 	Camera->SetProjectionType(CameraType::Orthogonal);

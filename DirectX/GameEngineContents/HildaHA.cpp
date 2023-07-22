@@ -31,7 +31,7 @@ void HildaHA::MakeSprite()
 
 void HildaHA::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	HaRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	HaRender->CreateAnimation({.AnimationName = "Ha", .SpriteName = "Hilda_Ha",  .FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	

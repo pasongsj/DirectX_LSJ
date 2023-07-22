@@ -24,6 +24,7 @@ public:
 	Shop_Pig(Shop_Pig&& _Other) noexcept = delete;
 	Shop_Pig& operator=(const Shop_Pig& _Other) = delete;
 	Shop_Pig& operator=(Shop_Pig&& _Other) noexcept = delete;
+	void SetState(PigState _State);
 
 protected:
 	void Start();

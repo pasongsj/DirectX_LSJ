@@ -37,7 +37,7 @@ void Moon::MakeSprite()
 		GameEngineSprite::LoadFolder("Moon_Idle", NewDir.GetPlusFileName("Idle").GetFullPath());
 		GameEngineSprite::LoadFolder("Moon_Attack_Intro", NewDir.GetPlusFileName("Attack\\Intro").GetFullPath());
 		GameEngineSprite::LoadFolder("Moon_Attack", NewDir.GetPlusFileName("Attack\\AttackIdle").GetFullPath());
-		GameEngineSprite::LoadFolder("Moon_Attack_Outtro", NewDir.GetPlusFileName("Attack\\Outtro").GetFullPath());
+		GameEngineSprite::LoadFolder("Moon_Attack_Outro", NewDir.GetPlusFileName("Attack\\Outtro").GetFullPath());
 		GameEngineSprite::LoadFolder("Moon_Death", NewDir.GetPlusFileName("Death").GetFullPath());
 
 	}
@@ -59,7 +59,7 @@ void Moon::SettingRender()
 	BossRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Moon_Idle", .FrameInter = 0.05f, .Loop = true ,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Attack_Intro",  .SpriteName = "Moon_Attack_Intro", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Moon_Attack", .FrameInter = 0.08f, .Loop = true ,.ScaleToTexture = true });
-	BossRender->CreateAnimation({ .AnimationName = "Attack_Outtro",  .SpriteName = "Moon_Attack_Outtro", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "Attack_Outtro",  .SpriteName = "Moon_Attack_Outro", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Death",  .SpriteName = "Moon_Death", .FrameInter = 0.08f, .Loop = true ,.ScaleToTexture = true });
 	BossRender->ChangeAnimation("Intro0");
 }
@@ -73,7 +73,7 @@ void Moon::SettingCollision()
 void Moon::Start()
 {
 	SetPhase(6);
-	MakeSprite();
+	//MakeSprite();
 	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	SettingRender();
 

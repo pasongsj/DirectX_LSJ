@@ -27,7 +27,7 @@ void HIldaBigCloudFX::MakeSprite()
 
 void HIldaBigCloudFX::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	ExplodeFX = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	ExplodeFX->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "HildaChangeFX", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	ExplodeFX->ChangeAnimation("Idle");

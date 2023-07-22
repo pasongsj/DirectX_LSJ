@@ -113,7 +113,7 @@ void Hilda::SetPhase(int _Phase)
 void Hilda::Start()
 {
 	SetPhase(1);
-	MakeSprite();
+	//MakeSprite();
 	// 랜더러 설정				
 
 	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);

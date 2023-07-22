@@ -100,8 +100,6 @@ void PlayerOverWorldMode::SettingRender()
 
 	ZRender->SetScaleToTexture("interactionIcon.png");
 	ZRender->GetTransform()->SetLocalPosition(float4{ 0,50,-300 });
-	//ZRenderScale = GameEngineTexture::Find("interactionIcon.png")->GetScale();
-	//ZRender->GetTransform()->SetWorldScale(ZRenderScale);
 	ZRender->Off();
 }
 

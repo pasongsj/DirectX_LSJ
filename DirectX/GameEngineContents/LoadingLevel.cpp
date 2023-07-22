@@ -11,6 +11,7 @@
 CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
 std::atomic_bool isDone = false;
 
+
 void LoadingPlayer()
 {
 	GameEngineDirectory Dir;
@@ -60,42 +61,62 @@ void LoadingPlayer()
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
 		NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane\\effect");
-		GameEngineTexture::ReLoad(NewDir.GetPlusFileName("BlackBack.png").GetFullPath());
+		GameEngineTexture::ReLoad(NewDir.GetPlusFileName("BlackBack.png").GetFileName());
 	}
 }
 
 void LoadingPlayerUI()
 {
-	if (nullptr == GameEngineTexture::Find("hud_hp_1.png"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
 		NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
 
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
+		if (nullptr == GameEngineTexture::Find("hud_hp_1.png"))
 		{
-			GameEngineTexture::Load(File[i].GetFullPath());
+			std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+			for (size_t i = 0; i < File.size(); i++)
+			{
+				GameEngineTexture::Load(File[i].GetFullPath());
+			}
+		}
+		else
+		{
+			std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+			for (size_t i = 0; i < File.size(); i++)
+			{
+				GameEngineTexture::ReLoad(File[i].GetFileName());
+			}
 		}
 	}
-	else
+
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
-
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
+		NewDir.Move("ContentResources\\Texture\\PlayerUI");
+		if (nullptr == GameEngineTexture::Find("hud_ch_card_Back.png"))
 		{
-			GameEngineTexture::ReLoad(File[i].GetFullPath());
+			GameEngineTexture::Load(NewDir.GetPlusFileName("BackCard\\hud_ch_card_Back.png").GetFullPath());
+			GameEngineTexture::Load(NewDir.GetPlusFileName("FrontCard\\hud_ch_card_front.png").GetFullPath());
+		}
+		else
+		{
+			GameEngineTexture::ReLoad("hud_ch_card_Back.png");
+			GameEngineTexture::ReLoad("hud_ch_card_front.png");
 		}
 	}
-	GameEngineDirectory Dir;
-	Dir.MoveParentToDirectory("ContentResources");
-	Dir.Move("ContentResources\\Texture");
 
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_YouDied").GetFullPath(), "Text_YouDied");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_KO").GetFullPath(), "Text_KO");
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture");
+
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_GetReady").GetFullPath(), "Text_GetReady");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_YouDied").GetFullPath(), "Text_YouDied");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("TextUI\\Text_KO").GetFullPath(), "Text_KO");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("PlayerUI\\RotateCard").GetFullPath().c_str(), "CharacterRotateCard");
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("PlayerUI\\FlipCard").GetFullPath().c_str(), "CharacterFlipCard");
+	}
 }
 
 
@@ -243,30 +264,44 @@ void LoadingHildaLevel(GameEngineThread* Thread)
 	GameEngineDirectory Dir;
 	Dir.MoveParentToDirectory("ContentResources");
 	Dir.Move("ContentResources\\Texture");
+	//Fx
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\HildaChangeFX").GetFullPath(), "HildaChangeFX");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\DashBackExplodeFX").GetFullPath(), "HildaChangePhaseDashBackExplode");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\DashExplodeFX").GetFullPath(), "HildaChangePhaseDashExplode");
+	// Hilda
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Intro\\Hilda").GetFullPath(), "Hilda_Intro");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Idle").GetFullPath(), "Hilda_Idle");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Laugh\\Hilda").GetFullPath(), "Hilda_Shoot");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Laugh\\Ha").GetFullPath(), "Hilda_Ha");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\Dash\\Dash").GetFullPath(), "Hilda_Dash");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\Dash\\DashBack").GetFullPath(), "Hilda_DashBack");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\Summon").GetFullPath(), "Hilda_Summon");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Tornado\\Hilda").GetFullPath(), "Hilda_Tornado");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\ChangeBack").GetFullPath(), "Hilda_ChangeBack");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\SmokeFX").GetFullPath(), "HildaChangePhaseDashSmoke");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Laugh\\Ha").GetFullPath(), "Hilda_Ha");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Tornado\\Tornado\\Attack").GetFullPath(), "Hilda_Tornado_Attack");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\Tornado\\Tornado\\Intro").GetFullPath(), "Hilda_Tornado_Intro");
+	//Taurus
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Taurus\\Idle").GetFullPath(), "Taurus_Idle");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Taurus\\Attack\\Charge").GetFullPath(), "Taurus_Charge");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Taurus\\Attack\\Attack").GetFullPath(), "Taurus_Attack");
+
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Taurus\\Constellation").GetFullPath(), "Taurus_Constellation");
+	//Sagittarius
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Sagittarius\\Lower\\Idle").GetFullPath(), "Sagittarius_Lower_Idle");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Sagittarius\\Upper\\Idle").GetFullPath(), "Sagittarius_Upper_Idle");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Sagittarius\\Upper\\Attack").GetFullPath(), "Sagittarius_Upper_Attack");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\Arrow").GetFullPath(), "Sagittarius_Arrow");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\AppearFX").GetFullPath(), "Sagittarius_AppearFX");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\Star\\Idle").GetFullPath(), "Sagittarius_Star_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\Star\\Trail\\A").GetFullPath(), "Sagittarius_Star_Trail");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\Star\\Death").GetFullPath(), "Sagittarius_Star_Death");
+
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Constellation").GetFullPath(), "Sagittarius_Constellation");
+	//Gemini
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Idle").GetFullPath(), "Gemini_Idle");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Attack (A)").GetFullPath(), "Gemini_AttackA");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Attack (B)").GetFullPath(), "Gemini_AttackB");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Constellation").GetFullPath(), "Gemini_Constellation");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Idle\\Intro").GetFullPath(), "Orb_Idle_Intro");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Idle\\Loop").GetFullPath(), "Orb_Idle_Loop");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Idle\\Leave").GetFullPath(), "Orb_Idle_Leave");
@@ -275,6 +310,9 @@ void LoadingHildaLevel(GameEngineThread* Thread)
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Attack\\Leave").GetFullPath(), "Orb_Attack_Leave");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Attack\\FX\\Large").GetFullPath(), "Orb_Attack_Scatter");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Orb\\Attack\\BulletStream").GetFullPath(), "Orb_Bullet");
+
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Gemini\\Constellation").GetFullPath(), "Gemini_Constellation");
+	//Moon
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\TransitionToMoon\\Start").GetFullPath(), "Moon_Intro0");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\TransitionToMoon\\BoilA").GetFullPath(), "Moon_Intro1");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\TransitionToMoon\\Middle").GetFullPath(), "Moon_Intro2");
@@ -283,11 +321,18 @@ void LoadingHildaLevel(GameEngineThread* Thread)
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Idle").GetFullPath(), "Moon_Idle");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Attack\\Intro").GetFullPath(), "Moon_Attack_Intro");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Attack\\AttackIdle").GetFullPath(), "Moon_Attack");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Attack\\Outtro").GetFullPath(), "Moon_Attack_Outtro");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Attack\\Outtro").GetFullPath(), "Moon_Attack_Outro");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Death").GetFullPath(), "Moon_Death");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\UFO\\Red").GetFullPath(), "Hilda_UFO_Red");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\UFO\\Bronze").GetFullPath(), "Hilda_UFO_Bronze");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\UFO\\Beam").GetFullPath(), "Hilda_UFO_Beam");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\A").GetFullPath(), "Moon_Star_A");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\B").GetFullPath(), "Moon_Star_B");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\C").GetFullPath(), "Moon_Star_C");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\Pink").GetFullPath(), "Moon_Star_Pink");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\IdleFX").GetFullPath(), "Moon_Star_IdleFX");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\PinkFX").GetFullPath(), "Moon_Star_PinkFX");
+	//Zeppling
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Purple\\Idle").GetFullPath(), "BlimpEnemy_PurPle_Idle");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Green\\Idle").GetFullPath(), "BlimpEnemy_Green_Idle");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Purple\\Attack").GetFullPath(), "BlimpEnemy_Purple_Attack");
@@ -308,20 +353,6 @@ void LoadingHildaLevel(GameEngineThread* Thread)
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Purple\\Pieces\\F").GetFullPath(), "BlimpEnemy_Purple_Death_F");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Explode (Death)\\Explode").GetFullPath(), "BlimpEnemy_Explode");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Explode (Death)\\Spark").GetFullPath(), "BlimpEnemy_Spark");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\Star\\Idle").GetFullPath(), "Sagittarius_Star_Idle");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\Star\\Trail\\A").GetFullPath(), "Sagittarius_Star_Trail");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Sagittarius\\Arrow\\Star\\Death").GetFullPath(), "Sagittarius_Star_Death");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\A").GetFullPath(), "Moon_Star_A");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\B").GetFullPath(), "Moon_Star_B");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\C").GetFullPath(), "Moon_Star_C");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\Pink").GetFullPath(), "Moon_Star_Pink");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\IdleFX").GetFullPath(), "Moon_Star_IdleFX");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\Moon\\Projectiles\\Star\\PinkFX").GetFullPath(), "Moon_Star_PinkFX");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\ChangeBack").GetFullPath(), "Hilda_ChangeBack");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\SmokeFX").GetFullPath(), "HildaChangePhaseDashSmoke");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\DashBackExplodeFX").GetFullPath(), "HildaChangePhaseDashBackExplode");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\DashExplodeFX").GetFullPath(), "HildaChangePhaseDashExplode");
-	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\HildaBerg\\Normal\\ChangePhase\\FX\\HildaChangeFX").GetFullPath(), "HildaChangeFX");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\A\\Bullet").GetFullPath(), "BlimpEnemy_BulletA");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\B\\Bullet").GetFullPath(), "BlimpEnemy_BulletB");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\C\\Bullet").GetFullPath(), "BlimpEnemy_BulletC");
@@ -348,7 +379,7 @@ void LoadingHildaLevel(GameEngineThread* Thread)
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
 		{
-			GameEngineTexture::ReLoad(File[i].GetFullPath());
+			GameEngineTexture::ReLoad(File[i].GetFileName());
 		}
 	}
 

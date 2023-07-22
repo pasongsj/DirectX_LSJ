@@ -182,34 +182,42 @@ void OverWorldLevel::LevelChangeEnd()
 	GameEngineTexture::UnLoad("Overworld_ColMap.png");
 	GameEngineTexture::UnLoad("Overworld_Bush_Left.png");
 	GameEngineTexture::UnLoad("Overworld_Bush_Right.png");
+	GameEngineTexture::UnLoad("interactionIcon.png");
 
 
 
 	GameEngineSprite::UnLoad("Diag_Down_Idle");
-	GameEngineSprite::UnLoad("Diag_Down_Move");
+	GameEngineSprite::UnLoad("Diag_Down_Move");	
+
+	GameEngineSprite::UnLoad("Diag_Down_Idle_Left");
+	GameEngineSprite::UnLoad("Diag_Down_Move_Left");
 					
 	GameEngineSprite::UnLoad("Diag_Up_Idle");
-	GameEngineSprite::UnLoad("Diag_Up_Move");
+	GameEngineSprite::UnLoad("Diag_Up_Move");	
+
+	GameEngineSprite::UnLoad("Diag_Up_Idle_Left");
+	GameEngineSprite::UnLoad("Diag_Up_Move_Left");
 					
 	GameEngineSprite::UnLoad("Down_Idle");
 	GameEngineSprite::UnLoad("Down_Move");
 				
 	GameEngineSprite::UnLoad("Side_Idle");
 	GameEngineSprite::UnLoad("Side_Move");
+
+	GameEngineSprite::UnLoad("Side_Idle_Left");
+	GameEngineSprite::UnLoad("Side_Move_Left");
 			
 	GameEngineSprite::UnLoad("Up_Idle");
 	GameEngineSprite::UnLoad("Up_Move");
 				
 	GameEngineSprite::UnLoad("InterAction_Win");
+
 	GameEngineSprite::UnLoad("OverWorld_To_Hilda");
 	GameEngineSprite::UnLoad("OverWorld_To_Shop");
 
 	GameEngineSprite::UnLoad("OverWorld_To_Shmup_Tutorial");
 	GameEngineSprite::UnLoad("OverWorld_NPC_Canteen");
-
-	FadeEffect = nullptr;
 }
-
 
 void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 NPC
 {

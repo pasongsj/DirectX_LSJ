@@ -32,7 +32,6 @@ protected:
 private:
 
 	int Stage = 1; 
-	//float4 ZRenderScale = float4::Zero;
 
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerRender = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> ZRender = nullptr; // press z interaction icon

@@ -17,7 +17,7 @@ SagittariusStar::~SagittariusStar()
 
 void SagittariusStar::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 
 	StarRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	StarCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::Enemy);

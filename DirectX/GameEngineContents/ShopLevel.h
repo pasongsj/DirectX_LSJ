@@ -26,6 +26,9 @@ private:
 	void MakeSprite();
 
 	std::shared_ptr<class Drawer_L> LeftDrawer = nullptr;
+	std::shared_ptr<class Shop_Pig> PigActor = nullptr;
+
+	std::shared_ptr<class CircleTransEffect> FadeEffect = nullptr;
 
 	void SetItems();
 	std::vector<std::shared_ptr<class ShopItem>> Items;

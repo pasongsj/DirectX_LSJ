@@ -39,7 +39,7 @@ void CardUI::MakeSprite()
 
 void CardUI::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	CardRender = CreateComponent< GameEngineUIRenderer>(CupHeadRendererOrder::UI);
 	CardRender->CreateAnimation({ .AnimationName = "RotateCard",  .SpriteName = "CharacterRotateCard", .FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true ,.FrameIndex = {5,6,7,0,1,2,3,4} });
 	CardRender->CreateAnimation({ .AnimationName = "FlipCard",  .SpriteName = "CharacterFlipCard" , .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });

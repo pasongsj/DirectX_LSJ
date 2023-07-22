@@ -17,7 +17,7 @@ MoonStar::~MoonStar()
 
 void MoonStar::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	StarRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	FxRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	StarCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);

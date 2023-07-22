@@ -18,16 +18,16 @@ void YouDieUI::Start()
 	Camera->SetProjectionType(CameraType::Orthogonal);
 	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
-	// sprite
-	if (nullptr == GameEngineSprite::Find("Text_YouDied"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources\\Texture\\TextUI");
+	//// sprite
+	//if (nullptr == GameEngineSprite::Find("Text_YouDied"))
+	//{
+	//	GameEngineDirectory NewDir;
+	//	NewDir.MoveParentToDirectory("ContentResources");
+	//	NewDir.Move("ContentResources\\Texture\\TextUI");
 
 
-		GameEngineSprite::LoadFolder("Text_YouDied", NewDir.GetPlusFileName("Text_YouDied").GetFullPath().c_str());
-	}
+	//	GameEngineSprite::LoadFolder("Text_YouDied", NewDir.GetPlusFileName("Text_YouDied").GetFullPath().c_str());
+	//}
 	YouDieRender = CreateComponent<GameEngineUIRenderer>(CupHeadRendererOrder::UI);
 	YouDieRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Text_YouDied", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	YouDieRender->ChangeAnimation("Idle");

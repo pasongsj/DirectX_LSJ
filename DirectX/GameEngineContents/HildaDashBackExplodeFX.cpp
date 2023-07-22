@@ -26,7 +26,7 @@ void HildaDashBackExplodeFX::MakeSprite()
 
 void HildaDashBackExplodeFX::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	ExplodeFX = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	ExplodeFX->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "HildaChangePhaseDashBackExplode", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });
 	//ExplodeFX->CreateAnimation({ .AnimationName = "Last", .SpriteName = "HildaChangeFX", .FrameInter = 0.1f, .Loop = false, .ScaleToTexture = true });

@@ -41,7 +41,7 @@ void GeminiOrb::MakeSprite()
 
 void GeminiOrb::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 
 	Orb = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 

@@ -8,6 +8,10 @@
 #include "Drawer_L.h"
 #include "ShopItem.h"
 
+//effect
+#include "OldFilmEffect.h"
+#include "CircleTransEffect.h"
+
 ShopLevel::ShopLevel()
 {
 }
@@ -58,6 +62,9 @@ void ShopLevel::MakeSprite()
 
 void ShopLevel::Start()
 {
+	GetLastTarget()->CreateEffect<OldFilmEffect>();
+	FadeEffect = GetLastTarget()->CreateEffect<CircleTransEffect>();
+
 	if (false == GameEngineInput::IsKey("PressI"))
 	{
 		GameEngineInput::CreateKey("PressI", 'I');
@@ -80,10 +87,15 @@ void ShopLevel::Update(float _DeltaTime)
 {
 	if (true == GameEngineInput::IsDown("ESC_Buttion"))
 	{
-		if (nullptr != LeftDrawer)
+		if (nullptr != LeftDrawer && nullptr != PigActor)
 		{
+			PigActor->SetState(PigState::GOODBYE);
 			LeftDrawer->isClosed = true;
+			FadeEffect->SetFade(CircleTransOption::FadeIn);
 		}
+	}
+	if (nullptr != LeftDrawer && LeftDrawer->CloseTimer > 1.0f)
+	{
 		GameEngineCore::ChangeLevel("OverWorldLevel");
 	}
 
@@ -169,12 +181,17 @@ void ShopLevel::LevelChangeStart()
 		Table->GetTransform()->SetLocalPosition(Shop_Table_Pos);
 	}
 
-	CreateActor<Shop_Pig>(CupHeadActorOrder::BackGround);
+	PigActor = CreateActor<Shop_Pig>(CupHeadActorOrder::BackGround);
 	SetItems();
+	FadeEffect->SetFade(CircleTransOption::FadeOut);
+
 }
 
 void ShopLevel::LevelChangeEnd()
 {
+	LeftDrawer = nullptr;
+	PigActor = nullptr;
+	Items.clear();
 	AllActorDestroy();
 
 

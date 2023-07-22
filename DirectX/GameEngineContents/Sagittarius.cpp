@@ -65,7 +65,7 @@ void Sagittarius::SettingCollision()
 void Sagittarius::Start()
 {
 	SetPhase(4);
-	MakeSprite();
+	//MakeSprite();
 
 
 	Upper = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);

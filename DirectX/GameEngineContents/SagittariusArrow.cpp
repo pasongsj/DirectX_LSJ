@@ -26,7 +26,7 @@ void SagittariusArrow::MakeSprite()
 
 void SagittariusArrow::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 
 	ArrowRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	ArrowRender->CreateAnimation({ .AnimationName = "Shoot", .SpriteName = "Sagittarius_Arrow", .FrameInter = 0.05f, .ScaleToTexture = true });

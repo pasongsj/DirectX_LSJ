@@ -40,7 +40,7 @@ void ZepplingBullet::MakeSprite()
 
 void ZepplingBullet::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	// 총알 이미지 랜더러
 	BulletRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	//Bullet->SetTexture("blimp_enemy_bullet_a_0001.png");

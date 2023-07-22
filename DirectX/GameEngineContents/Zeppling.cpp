@@ -43,7 +43,7 @@ void Zeppling::MakeSprite()
 
 void Zeppling::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	EnemyRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Enemy);
 	float4x4 tmpmatrix1 = GetTransform()->GetWorldMatrix();
 	float4x4 Enemytmpmatrix0 = EnemyRender->GetTransform()->GetLocalWorldMatrix();
@@ -113,6 +113,7 @@ void Zeppling::Start()
 void Zeppling::Update(float _DeltaTime)
 {
 	UpdateState(_DeltaTime);
+	CollisionPlayer(EnemyCollision);
 }
 
 void Zeppling::Render(float _DeltaTime)

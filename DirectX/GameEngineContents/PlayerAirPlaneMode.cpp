@@ -228,7 +228,7 @@ void PlayerAirPlaneMode::Start()
 	PlayerRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Player);
 
 
-	MakeSprite();
+	//MakeSprite();
 	SettingRender();
 
 	

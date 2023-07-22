@@ -56,7 +56,7 @@ void Taurus::SettingCollision()
 void Taurus::Start()
 {
 	SetPhase(2);
-	MakeSprite();
+	//MakeSprite();
 	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	SettingRender();
 

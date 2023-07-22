@@ -41,3 +41,29 @@ void Shop_Pig::Start()
 	PigRender->SetLocalSortPosition(float4{ 0,-197.5f,0 }, SortRenderer::BOT);
 
 }
+void Shop_Pig::SetState(PigState _State)
+{
+	switch (_State)
+	{
+	case PigState::WELCOME:
+		PigRender->ChangeAnimation("Welcome");
+		break;
+	case PigState::IDLE:
+		PigRender->ChangeAnimation("Idle");
+		break;
+	case PigState::CLOCK:
+		PigRender->ChangeAnimation("Clock");
+
+		break;
+	case PigState::NOD:
+		PigRender->ChangeAnimation("Nod");
+		break;
+	case PigState::GOODBYE:
+		PigRender->ChangeAnimation("GoodBye");
+		break;
+	case PigState::MAX:
+		break;
+	default:
+		break;
+	}
+}

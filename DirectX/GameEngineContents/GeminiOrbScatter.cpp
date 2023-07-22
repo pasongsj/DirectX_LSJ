@@ -27,7 +27,7 @@ void GeminiOrbScatter::MakeSprite()
 
 void GeminiOrbScatter::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	ScatterRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	ScatterRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "Orb_Bullet", .FrameInter = 0.03f,.Loop = false,.ScaleToTexture = true });
 	ScatterRender->ChangeAnimation("Idle");

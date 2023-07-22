@@ -14,7 +14,7 @@ ZepplingBroken::~ZepplingBroken()
 
 void ZepplingBroken::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 
 
 	A = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BossBack);
