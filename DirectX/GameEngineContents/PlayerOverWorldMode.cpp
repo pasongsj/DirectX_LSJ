@@ -120,12 +120,12 @@ void PlayerOverWorldMode::CheckInteract()
 	if (nullptr != (Obj = PlayerCollision->Collision(CupHeadCollisionOrder::UI)))
 	{
 		ZRender->On();
-		if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
-		{
-			std::shared_ptr< OverWorldInteractObject> Interact = Obj->GetActor()->DynamicThis< OverWorldInteractObject>();
-			Interact->DoInteractFucntion();
-			return;
-		}
+		//if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
+		//{
+		//	std::shared_ptr< OverWorldInteractObject> Interact = Obj->GetActor()->DynamicThis< OverWorldInteractObject>();
+		//	Interact->DoInteractFucntion();
+		//	return;
+		//}
 	}
 	else
 	{

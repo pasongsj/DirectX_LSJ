@@ -3,6 +3,7 @@
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineUIRenderer.h>
 
 #include "LoadingLevel.h"
 
@@ -39,6 +40,7 @@ void OverWorldLevel::MakeSprite()
 			GameEngineTexture::Load(Dir.GetPlusFileName("Upper\\Bush\\Overworld_Bush_Left.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("Upper\\Bush\\Overworld_Bush_Right.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("interactionIcon.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_background.png").GetFullPath());
 		}
 		else
 		{
@@ -47,6 +49,7 @@ void OverWorldLevel::MakeSprite()
 			GameEngineTexture::ReLoad("Overworld_Bush_Left.png");
 			GameEngineTexture::ReLoad("Overworld_Bush_Right.png");
 			GameEngineTexture::ReLoad("interactionIcon.png");
+			GameEngineTexture::ReLoad("title_card_background.png");
 		}
 
 		// Sprite
@@ -142,7 +145,7 @@ void OverWorldLevel::LevelChangeStart()
 	{ 
 		FadeEffect = GetLastTarget()->CreateEffect<CircleTransEffect>();
 	}
-
+	FadeEffect->SetFade(CircleTransOption::FadeOut);
 
 	CreateActor<OverWorldBack>(CupHeadActorOrder::BackGround);
 	CreateActor<OverWorldBush>(CupHeadActorOrder::BackGround);
@@ -218,6 +221,10 @@ void OverWorldLevel::LevelChangeEnd()
 
 	GameEngineSprite::UnLoad("OverWorld_To_Shmup_Tutorial");
 	GameEngineSprite::UnLoad("OverWorld_NPC_Canteen");
+
+	//--
+	GameEngineTexture::UnLoad("title_card_background.png");
+
 }
 
 void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 NPC
@@ -226,11 +233,16 @@ void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 N
 	ToHilda->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_To_Hilda",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
 	ToHilda->InteractRender->ChangeAnimation("Idle");
 	ToHilda->GetTransform()->SetLocalPosition(float4{ 3325,-300,500 });
-	ToHilda->InteractFucntion = []{
+	ToHilda->TitleCard->SetScaleToTexture("title_card_background.png");
+	//ToHilda->InteractFucntion = []{
+	//	LoadingLevel::SetLevel(CupheadLevel::HILDA);
+	//	GameEngineCore::ChangeLevel("LoadingLevel");
+	//		};	
+	ToHilda->EnterFucntion = [] {
 		LoadingLevel::SetLevel(CupheadLevel::HILDA);
 		GameEngineCore::ChangeLevel("LoadingLevel");
-			};	
-	
+	};
+
 	std::shared_ptr<OverWorldInteractObject> Canteen = CreateActor<OverWorldInteractObject>(CupHeadActorOrder::BackGround);
 	Canteen->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_NPC_Canteen",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
 	Canteen->InteractRender->ChangeAnimation("Idle");
@@ -240,16 +252,24 @@ void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 N
 	Tutorial->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_To_Shmup_Tutorial",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
 	Tutorial->InteractRender->ChangeAnimation("Idle");
 	Tutorial->GetTransform()->SetLocalPosition(float4{ 2850,-230,500 });
-	Tutorial->InteractFucntion = []{
+	//Tutorial->InteractFucntion = []{
+	//	LoadingLevel::SetLevel(CupheadLevel::TUTORIAL);
+	//	GameEngineCore::ChangeLevel("LoadingLevel");
+	//	};
+	Tutorial->EnterFucntion = [] {
 		LoadingLevel::SetLevel(CupheadLevel::TUTORIAL);
 		GameEngineCore::ChangeLevel("LoadingLevel");
-		};
+	};
 
 	std::shared_ptr< OverWorldInteractObject> Shop = CreateActor< OverWorldInteractObject>(CupHeadActorOrder::BackGround);
 	Shop->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_To_Shop",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
 	Shop->InteractRender->ChangeAnimation("Idle");
 	Shop->GetTransform()->SetLocalPosition(float4{ 2275,-1075,500 });
-	Shop->InteractFucntion = [] {
+	//Shop->InteractFucntion = [] {
+	//	LoadingLevel::SetLevel(CupheadLevel::SHOP);
+	//	GameEngineCore::ChangeLevel("LoadingLevel");
+	//};
+	Shop->EnterFucntion = [] {
 		LoadingLevel::SetLevel(CupheadLevel::SHOP);
 		GameEngineCore::ChangeLevel("LoadingLevel");
 	};

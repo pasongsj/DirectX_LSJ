@@ -2,6 +2,8 @@
 #include "OverWorldInteractObject.h"
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineUIRenderer.h>
 //#include "Player.h"
 
 OverWorldInteractObject::OverWorldInteractObject()
@@ -20,10 +22,40 @@ void OverWorldInteractObject::Start()
 	InteractCollision->SetColType(ColType::SPHERE2D);
 	InteractCollision->GetTransform()->SetLocalScale({ 200 ,0 });
 
+	TitleCard = CreateComponent<GameEngineUIRenderer>(CupHeadRendererOrder::UI);
+	if (false == GameEngineInput::IsKey("ESC_Buttion"))
+	{
+		GameEngineInput::CreateKey("ESC_Buttion", VK_ESCAPE);
+	}
+	if (false == GameEngineInput::IsKey("EnterKey"))
+	{
+		GameEngineInput::CreateKey("EnterKey", VK_RETURN);
+	}
 
 }
 
 void OverWorldInteractObject::Update(float _DeltaTime)
 {
 
+	std::shared_ptr<GameEngineCollision> Obj = nullptr;
+	if (nullptr != (Obj = InteractCollision->Collision(CupHeadCollisionOrder::Player)))
+	{
+		if ((false == isInteract && true == GameEngineInput::IsDown("KeyZ_Interaction")) || true == isInteract)
+		{
+			TitleCard->On();
+			isInteract = true;
+		}
+		if (true == isInteract && true == GameEngineInput::IsDown("ESC_Buttion"))
+		{
+			TitleCard->Off();
+			isInteract = false;
+		}
+
+
+		if (true == isInteract && true == GameEngineInput::IsDown("EnterKey"))
+		{
+			EnterFucntion();
+			return;
+		}
+	}
 }
