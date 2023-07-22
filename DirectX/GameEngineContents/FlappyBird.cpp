@@ -29,7 +29,7 @@ void FlappyBird::MakeSprite()
 
 void FlappyBird::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	BirdRender = CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
 	BirdRender->CreateAnimation({ .AnimationName = "Yellow_Idle",.SpriteName = "FlapyBird_Yellow_Idle",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BirdRender->CreateAnimation({ .AnimationName = "Yellow_Death",.SpriteName = "FlapyBird_Yellow_Death",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });	

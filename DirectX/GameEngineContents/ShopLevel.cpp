@@ -12,6 +12,8 @@
 #include "OldFilmEffect.h"
 #include "CircleTransEffect.h"
 
+#include "LoadingLevel.h"
+
 ShopLevel::ShopLevel()
 {
 }
@@ -96,7 +98,8 @@ void ShopLevel::Update(float _DeltaTime)
 	}
 	if (nullptr != LeftDrawer && LeftDrawer->CloseTimer > 1.0f)
 	{
-		GameEngineCore::ChangeLevel("OverWorldLevel");
+		LoadingLevel::SetLevel(CupheadLevel::OVERWORLD);
+		GameEngineCore::ChangeLevel("LoadingLevel");
 	}
 
 	if (true == GameEngineInput::IsDown("PressI"))
@@ -134,7 +137,7 @@ void ShopLevel::LevelChangeStart()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-	MakeSprite();
+	//MakeSprite();
 	{
 		std::shared_ptr<GameEngineActor> BackGround = CreateActor<GameEngineActor>(CupHeadActorOrder::BackGround);
 		std::shared_ptr<GameEngineSpriteRenderer> BGRender = BackGround->CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
@@ -214,6 +217,12 @@ void ShopLevel::LevelChangeEnd()
 	GameEngineSprite::UnLoad("Item_Hp2_Glow");
 	GameEngineSprite::UnLoad("Item_Hp2_Dim");
 	GameEngineSprite::UnLoad("Item_Hp2_Sold");
+
+	GameEngineSprite::UnLoad("Shop_Pig_Clock");
+	GameEngineSprite::UnLoad("Shop_Pig_GoodBye");
+	GameEngineSprite::UnLoad("Shop_Pig_Idle");
+	GameEngineSprite::UnLoad("Shop_Pig_nod");
+	GameEngineSprite::UnLoad("Shop_Pig_Welcome");
 }
 
 

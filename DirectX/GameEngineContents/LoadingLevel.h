@@ -27,7 +27,7 @@ public:
 
 
 protected:
-	void Start() override {};
+	void Start() override;
 	void Update(float _DeltaTime) override;
 
 	void LevelChangeStart() override;

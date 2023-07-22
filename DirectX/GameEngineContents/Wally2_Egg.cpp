@@ -26,7 +26,7 @@ void Wally2_Egg::MakeSprite()
 
 void Wally2_Egg::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	EggRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	EggRender->CreateAnimation({ .AnimationName = "Idle",.SpriteName = "Wally2_Egg_Rotate", .FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	EggRender->CreateAnimation({ .AnimationName = "Death",.SpriteName = "Wally2_Egg_Death", .FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });

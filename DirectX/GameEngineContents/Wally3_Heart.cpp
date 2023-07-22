@@ -29,7 +29,7 @@ void Wally3_Heart::MakeSprite()
 
 void Wally3_Heart::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	HeartRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	MouseRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	

@@ -53,11 +53,11 @@
 #include "FadeEffect.h"
 #include "OldFilmEffect.h"
 
-HildaBergLevel::HildaBergLevel() 
+HildaBergLevel::HildaBergLevel()
 {
 }
 
-HildaBergLevel::~HildaBergLevel() 
+HildaBergLevel::~HildaBergLevel()
 {
 
 }
@@ -93,7 +93,8 @@ void HildaBergLevel::Update(float _DeltaTime)
 	}
 	if (true == GameEngineInput::IsDown("ChangeLevel"))
 	{
-		GameEngineCore::ChangeLevel("ResultLevel");
+		LoadingLevel::SetLevel(CupheadLevel::RESULT);
+		GameEngineCore::ChangeLevel("LoadingLevel");
 		return;
 	}
 
@@ -111,7 +112,8 @@ void HildaBergLevel::EndCheck()
 	{
 		if (true == FEffect->IsEnd())
 		{
-			GameEngineCore::ChangeLevel("ResultLevel");
+			LoadingLevel::SetLevel(CupheadLevel::RESULT);
+			GameEngineCore::ChangeLevel("LoadingLevel");
 		}
 		return;
 
@@ -296,7 +298,7 @@ void HildaBergLevel::LevelChangeStart()
 void HildaBergLevel::LevelChangeEnd()
 {
 	UnLoadSprite();
-	if(nullptr != Player::MainPlayer)
+	if (nullptr != Player::MainPlayer)
 	{
 		Player::MainPlayer->Death();
 		Player::MainPlayer = nullptr;
@@ -316,98 +318,98 @@ void HildaBergLevel::UnLoadSprite()
 
 	//Fx
 	GameEngineSprite::UnLoad("HildaChangeFX");
-	GameEngineSprite::UnLoad( "HildaChangePhaseDashBackExplode");
+	GameEngineSprite::UnLoad("HildaChangePhaseDashBackExplode");
 	GameEngineSprite::UnLoad("HildaChangePhaseDashExplode");
 	// Hilda
 	GameEngineSprite::UnLoad("Hilda_Intro");
 	GameEngineSprite::UnLoad("Hilda_Idle");
 	GameEngineSprite::UnLoad("Hilda_Shoot");
-	GameEngineSprite::UnLoad( "Hilda_Dash");
+	GameEngineSprite::UnLoad("Hilda_Dash");
 	GameEngineSprite::UnLoad("Hilda_DashBack");
 	GameEngineSprite::UnLoad("Hilda_Summon");
-	GameEngineSprite::UnLoad( "Hilda_Tornado");
-	GameEngineSprite::UnLoad( "Hilda_ChangeBack");
+	GameEngineSprite::UnLoad("Hilda_Tornado");
+	GameEngineSprite::UnLoad("Hilda_ChangeBack");
 	GameEngineSprite::UnLoad("HildaChangePhaseDashSmoke");
 	GameEngineSprite::UnLoad("Hilda_Ha");
-	GameEngineSprite::UnLoad( "Hilda_Tornado_Attack");
+	GameEngineSprite::UnLoad("Hilda_Tornado_Attack");
 	GameEngineSprite::UnLoad("Hilda_Tornado_Intro");
 	//Taurus
 	GameEngineSprite::UnLoad("Taurus_Idle");
-	GameEngineSprite::UnLoad( "Taurus_Charge");
-	GameEngineSprite::UnLoad( "Taurus_Attack");
+	GameEngineSprite::UnLoad("Taurus_Charge");
+	GameEngineSprite::UnLoad("Taurus_Attack");
 
 	GameEngineSprite::UnLoad("Taurus_Constellation");
 	//Sagittarius
-	GameEngineSprite::UnLoad( "Sagittarius_Lower_Idle");
-	GameEngineSprite::UnLoad( "Sagittarius_Upper_Idle");
+	GameEngineSprite::UnLoad("Sagittarius_Lower_Idle");
+	GameEngineSprite::UnLoad("Sagittarius_Upper_Idle");
 	GameEngineSprite::UnLoad("Sagittarius_Upper_Attack");
-	GameEngineSprite::UnLoad( "Sagittarius_Arrow");
+	GameEngineSprite::UnLoad("Sagittarius_Arrow");
 	GameEngineSprite::UnLoad("Sagittarius_AppearFX");
-	GameEngineSprite::UnLoad( "Sagittarius_Star_Idle");
-	GameEngineSprite::UnLoad( "Sagittarius_Star_Trail");
+	GameEngineSprite::UnLoad("Sagittarius_Star_Idle");
+	GameEngineSprite::UnLoad("Sagittarius_Star_Trail");
 	GameEngineSprite::UnLoad("Sagittarius_Star_Death");
 
 	GameEngineSprite::UnLoad("Sagittarius_Constellation");
 	//Gemini
 	GameEngineSprite::UnLoad("Gemini_Idle");
-	GameEngineSprite::UnLoad( "Gemini_AttackA");
-	GameEngineSprite::UnLoad( "Gemini_AttackB");
-	GameEngineSprite::UnLoad( "Orb_Idle_Intro");
+	GameEngineSprite::UnLoad("Gemini_AttackA");
+	GameEngineSprite::UnLoad("Gemini_AttackB");
+	GameEngineSprite::UnLoad("Orb_Idle_Intro");
 	GameEngineSprite::UnLoad("Orb_Idle_Loop");
-	GameEngineSprite::UnLoad( "Orb_Idle_Leave");
-	GameEngineSprite::UnLoad( "Orb_Attack_Intro");
+	GameEngineSprite::UnLoad("Orb_Idle_Leave");
+	GameEngineSprite::UnLoad("Orb_Attack_Intro");
 	GameEngineSprite::UnLoad("Orb_Attack_Loop");
 	GameEngineSprite::UnLoad("Orb_Attack_Leave");
 	GameEngineSprite::UnLoad("Orb_Attack_Scatter");
 	GameEngineSprite::UnLoad("Orb_Bullet");
 
-	GameEngineSprite::UnLoad( "Gemini_Constellation");
+	GameEngineSprite::UnLoad("Gemini_Constellation");
 	//Moon
 	GameEngineSprite::UnLoad("Moon_Intro0");
 	GameEngineSprite::UnLoad("Moon_Intro1");
-	GameEngineSprite::UnLoad( "Moon_Intro2");
+	GameEngineSprite::UnLoad("Moon_Intro2");
 	GameEngineSprite::UnLoad("Moon_Intro3");
-	GameEngineSprite::UnLoad( "Moon_Intro4");
+	GameEngineSprite::UnLoad("Moon_Intro4");
 	GameEngineSprite::UnLoad("Moon_Idle");
-	GameEngineSprite::UnLoad( "Moon_Attack_Intro");
-	GameEngineSprite::UnLoad( "Moon_Attack");
+	GameEngineSprite::UnLoad("Moon_Attack_Intro");
+	GameEngineSprite::UnLoad("Moon_Attack");
 	GameEngineSprite::UnLoad("Moon_Attack_Outro");
 	GameEngineSprite::UnLoad("Moon_Death");
-	GameEngineSprite::UnLoad( "Hilda_UFO_Red");
-	GameEngineSprite::UnLoad( "Hilda_UFO_Bronze");
-	GameEngineSprite::UnLoad( "Hilda_UFO_Beam");
-	GameEngineSprite::UnLoad( "Moon_Star_A");
-	GameEngineSprite::UnLoad( "Moon_Star_B");
-	GameEngineSprite::UnLoad( "Moon_Star_C");
+	GameEngineSprite::UnLoad("Hilda_UFO_Red");
+	GameEngineSprite::UnLoad("Hilda_UFO_Bronze");
+	GameEngineSprite::UnLoad("Hilda_UFO_Beam");
+	GameEngineSprite::UnLoad("Moon_Star_A");
+	GameEngineSprite::UnLoad("Moon_Star_B");
+	GameEngineSprite::UnLoad("Moon_Star_C");
 	GameEngineSprite::UnLoad("Moon_Star_Pink");
-	GameEngineSprite::UnLoad( "Moon_Star_IdleFX");
-	GameEngineSprite::UnLoad( "Moon_Star_PinkFX");
+	GameEngineSprite::UnLoad("Moon_Star_IdleFX");
+	GameEngineSprite::UnLoad("Moon_Star_PinkFX");
 	//Zeppling
-	GameEngineSprite::UnLoad( "BlimpEnemy_PurPle_Idle");
+	GameEngineSprite::UnLoad("BlimpEnemy_PurPle_Idle");
 	GameEngineSprite::UnLoad("BlimpEnemy_Green_Idle");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Purple_Attack");
+	GameEngineSprite::UnLoad("BlimpEnemy_Purple_Attack");
 	GameEngineSprite::UnLoad("BlimpEnemy_Green_Attack");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Purple_Turn");
+	GameEngineSprite::UnLoad("BlimpEnemy_Purple_Turn");
 	GameEngineSprite::UnLoad("BlimpEnemy_Green_Turn");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Green_Death_A");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Green_Death_B");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Green_Death_C");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Green_Death_D");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Green_Death_E");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Green_Death_F");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Purple_Death_A");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Purple_Death_B");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Purple_Death_C");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Purple_Death_D");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Purple_Death_E");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Purple_Death_F");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Explode");
-	GameEngineSprite::UnLoad( "BlimpEnemy_Spark");
-	GameEngineSprite::UnLoad( "BlimpEnemy_BulletA");
-	GameEngineSprite::UnLoad( "BlimpEnemy_BulletB");
-	GameEngineSprite::UnLoad( "BlimpEnemy_BulletC");
-	GameEngineSprite::UnLoad( "BlimpEnemy_BulletPinkA");
-	GameEngineSprite::UnLoad( "BlimpEnemy_BulletPinkB");
+	GameEngineSprite::UnLoad("BlimpEnemy_Green_Death_A");
+	GameEngineSprite::UnLoad("BlimpEnemy_Green_Death_B");
+	GameEngineSprite::UnLoad("BlimpEnemy_Green_Death_C");
+	GameEngineSprite::UnLoad("BlimpEnemy_Green_Death_D");
+	GameEngineSprite::UnLoad("BlimpEnemy_Green_Death_E");
+	GameEngineSprite::UnLoad("BlimpEnemy_Green_Death_F");
+	GameEngineSprite::UnLoad("BlimpEnemy_Purple_Death_A");
+	GameEngineSprite::UnLoad("BlimpEnemy_Purple_Death_B");
+	GameEngineSprite::UnLoad("BlimpEnemy_Purple_Death_C");
+	GameEngineSprite::UnLoad("BlimpEnemy_Purple_Death_D");
+	GameEngineSprite::UnLoad("BlimpEnemy_Purple_Death_E");
+	GameEngineSprite::UnLoad("BlimpEnemy_Purple_Death_F");
+	GameEngineSprite::UnLoad("BlimpEnemy_Explode");
+	GameEngineSprite::UnLoad("BlimpEnemy_Spark");
+	GameEngineSprite::UnLoad("BlimpEnemy_BulletA");
+	GameEngineSprite::UnLoad("BlimpEnemy_BulletB");
+	GameEngineSprite::UnLoad("BlimpEnemy_BulletC");
+	GameEngineSprite::UnLoad("BlimpEnemy_BulletPinkA");
+	GameEngineSprite::UnLoad("BlimpEnemy_BulletPinkB");
 
 
 	{
@@ -420,43 +422,37 @@ void HildaBergLevel::UnLoadSprite()
 			GameEngineTexture::UnLoad(File[i].GetFileName());
 		}
 	}
-	 // Player
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Origin_Idle");
+	// Player
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_Idle");
 	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_Idleup");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Origin_Idledown");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Origin_intro");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_Idledown");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_intro");
 	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_transup");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Origin_transdown");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Super_Idle");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Super_Idleup");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Super_Idledown");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Super_intro");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Super_transup");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Super_transdown");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Shrink_Idle");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_transdown");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_Idle");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_Idleup");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_Idledown");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_intro");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_transup");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_transdown");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_Idle");
 	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_Idleup");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Shrink_Idledown");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_Idledown");
 	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_intro");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Shrink_transup");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_transup");
 	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_transdown");
 	GameEngineSprite::UnLoad("Cuphead_AirPlane_Parry");
 	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shoot_Up");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Shoot_Down");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shoot_Down");
 	GameEngineSprite::UnLoad("Cuphead_AirPlane_Ghost");
 	GameEngineSprite::UnLoad("Cuphead_AirPlane_Spark");
-	GameEngineSprite::UnLoad( "peashotFX");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Smoke_Idle");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_Bullet");
+	GameEngineSprite::UnLoad("peashotFX");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Smoke_Idle");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Bullet");
 	GameEngineSprite::UnLoad("shmup_super_boom");
 	GameEngineSprite::UnLoad("shmup_super_explode");
-	GameEngineSprite::UnLoad( "Super_FX");
-	GameEngineSprite::UnLoad( "Cuphead_AirPlane_ExBullet");
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("ContentResources");
-		NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane\\effect");
-		GameEngineTexture::UnLoad(NewDir.GetPlusFileName("BlackBack.png").GetFileName());
-	}
+	GameEngineSprite::UnLoad("Super_FX");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_ExBullet");
 
 	// playerUI
 	{
@@ -464,17 +460,21 @@ void HildaBergLevel::UnLoadSprite()
 		NewDir.MoveParentToDirectory("ContentResources");
 		NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
+		if (nullptr != GameEngineTexture::Find("hud_hp_1.png"))
 		{
-			GameEngineTexture::UnLoad(File[i].GetFileName());
+			for (size_t i = 0; i < File.size(); i++)
+			{
+				GameEngineTexture::UnLoad(File[i].GetFileName());
+			}
 		}
 	}
+	GameEngineTexture::UnLoad("BlackBack.png");
 	GameEngineTexture::UnLoad("hud_ch_card_Back.png");
 	GameEngineTexture::UnLoad("hud_ch_card_front.png");
 
 	GameEngineSprite::UnLoad("Text_GetReady");
-	GameEngineSprite::UnLoad( "Text_YouDied");
-	GameEngineSprite::UnLoad( "Text_KO");
-	GameEngineSprite::UnLoad( "CharacterRotateCard");
+	GameEngineSprite::UnLoad("Text_YouDied");
+	GameEngineSprite::UnLoad("Text_KO");
+	GameEngineSprite::UnLoad("CharacterRotateCard");
 	GameEngineSprite::UnLoad("CharacterFlipCard");
 }

@@ -26,7 +26,7 @@ void Wally2_Bullet::MakeSprite()
 }
 void Wally2_Bullet::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	BulletRender = CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	BulletRender->CreateAnimation({ .AnimationName = "Idle",.SpriteName = "Wally2_Bullet",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BulletRender->ChangeAnimation("Idle");

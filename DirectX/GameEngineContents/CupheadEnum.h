@@ -48,5 +48,9 @@ enum class CupheadLevel
 	STORY,
 	HILDA,
 	WALLY,
+	OVERWORLD,
+	TUTORIAL,
+	SHOP,
+	RESULT,
 	MAX
 };

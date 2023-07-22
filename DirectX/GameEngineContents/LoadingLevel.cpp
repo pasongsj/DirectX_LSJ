@@ -10,8 +10,189 @@
 
 CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
 std::atomic_bool isDone = false;
+std::atomic_int LoadFuncCount = 0;
+void LoadingPlayer();
+void LoadingPlayerUI();
 
 
+void LoadingResultLevel(GameEngineThread* Thread)
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentResources");
+	Dir.Move("ContentResources\\Texture\\Result\\winscreen");
+	if (nullptr == GameEngineTexture::Find("winscreen_bg.png"))
+	{
+		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_bg.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_board.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_grey_star_a.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_main_star_a.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_line.png").GetFullPath());
+	}
+	{
+		GameEngineTexture::ReLoad("winscreen_bg.png");
+		GameEngineTexture::ReLoad("winscreen_board.png");
+		GameEngineTexture::ReLoad("winscreen_grey_star_a.png");
+		GameEngineTexture::ReLoad("winscreen_main_star_a.png");
+		GameEngineTexture::ReLoad("winscreen_line.png");
+	}
+
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("wincreen_result_title").GetFullPath(), "wincreen_result_title"); // path, name
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("winscreen_cuphead").GetFullPath(), "winscreen_cuphead"); // path, name
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("banner\\banner_NewRecord").GetFullPath(), "banner_NewRecord"); // path, name
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("winscreen_appear_star").GetFullPath(), "winscreen_appear_star"); // path, name
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("winscreen_circle").GetFullPath(), "winscreen_circle"); // path, name
+	isDone = true;
+
+}
+
+void LoadingTutorialLevel(GameEngineThread* Thread)
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentResources");
+	Dir.Move("ContentResources\\Texture\\Tutorial");
+
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("shmup_tutorial_BG").GetFullPath(), "shmup_tutorial_BG");
+
+	if (nullptr == GameEngineTexture::Find("shmup_tutorial_linework.png"))
+	{
+		GameEngineTexture::Load(Dir.GetPlusFileName("shmup_tutorial_linework.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("tutorial_pink_sphere_1.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("exit.png").GetFullPath());
+
+	}
+	else
+	{
+		GameEngineTexture::ReLoad("shmup_tutorial_linework.png");
+		GameEngineTexture::ReLoad("tutorial_pink_sphere_1.png");
+		GameEngineTexture::ReLoad("exit.png");
+	}
+
+	LoadingPlayer();
+	isDone = true;
+
+}
+void LoadingShopLevel(GameEngineThread* Thread)
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentResources");
+	Dir.Move("ContentResources\\Texture\\Shop");
+
+	if (nullptr == GameEngineTexture::Find("shop-background.png"))
+	{
+		GameEngineTexture::Load(Dir.GetPlusFileName("shop-background.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("shop_draped_fabric.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("shop_table.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("shop_table_chalkboard.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("shop_chalk_coin.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("shop_drawer_left.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("shop_drawer_right.png").GetFullPath());
+	}
+	else
+	{
+		GameEngineTexture::ReLoad("shop-background.png");
+		GameEngineTexture::ReLoad("shop_draped_fabric.png");
+		GameEngineTexture::ReLoad("shop_table.png");
+		GameEngineTexture::ReLoad("shop_table_chalkboard.png");
+		GameEngineTexture::ReLoad("shop_chalk_coin.png");
+		GameEngineTexture::ReLoad("shop_drawer_left.png");
+		GameEngineTexture::ReLoad("shop_drawer_right.png");
+	}
+
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\glow").GetFullPath(), "Item_Coffee_Glow");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\dim").GetFullPath(), "Item_Coffee_Dim");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\sold").GetFullPath(), "Item_Coffee_Sold");
+
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\glow").GetFullPath(), "Item_Hp1_Glow");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\dim").GetFullPath(), "Item_Hp1_Dim");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp1\\sold").GetFullPath(), "Item_Hp1_Sold");
+
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\glow").GetFullPath(), "Item_Hp2_Glow");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\dim").GetFullPath(), "Item_Hp2_Dim");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Hp2\\sold").GetFullPath(), "Item_Hp2_Sold");
+
+	//pig
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Pig\\Clock").GetFullPath(), "Shop_Pig_Clock");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Pig\\GoodBye").GetFullPath(), "Shop_Pig_GoodBye");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Pig\\Idle").GetFullPath(), "Shop_Pig_Idle");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Pig\\nod").GetFullPath(), "Shop_Pig_nod");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Pig\\Welcome").GetFullPath(), "Shop_Pig_Welcome");
+	isDone = true;
+
+}
+
+void LoadingOverWorldLevel(GameEngineThread* Thread)
+{
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Texture\\stage1\\Overworld");
+
+		// Texture
+		if (nullptr == GameEngineTexture::Find("Overworld_Map.png"))
+		{
+			GameEngineTexture::Load(Dir.GetPlusFileName("Overworld_Map.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("Overworld_ColMap.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("Upper\\Bush\\Overworld_Bush_Left.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("Upper\\Bush\\Overworld_Bush_Right.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("interactionIcon.png").GetFullPath());
+		}
+		else
+		{
+			GameEngineTexture::ReLoad("Overworld_Map.png");
+			GameEngineTexture::ReLoad("Overworld_ColMap.png");
+			GameEngineTexture::ReLoad("Overworld_Bush_Left.png");
+			GameEngineTexture::ReLoad("Overworld_Bush_Right.png");
+			GameEngineTexture::ReLoad("interactionIcon.png");
+		}
+
+		// Sprite
+	}
+	{
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToDirectory("ContentResources");
+			Dir.Move("ContentResources\\Texture\\Cuphead_Overworld");
+
+
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Idle").GetFullPath(), "Diag_Down_Idle");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Move").GetFullPath(), "Diag_Down_Move");
+
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Idle_Left").GetFullPath(), "Diag_Down_Idle_Left");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Down_Move_Left").GetFullPath(), "Diag_Down_Move_Left");
+
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Idle").GetFullPath(), "Diag_Up_Idle");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Move").GetFullPath(), "Diag_Up_Move");
+
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Idle_Left").GetFullPath(), "Diag_Up_Idle_Left");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Diag_Up_Move_Left").GetFullPath(), "Diag_Up_Move_Left");
+
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Down_Idle").GetFullPath(), "Down_Idle");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Down_Move").GetFullPath(), "Down_Move");
+
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Side_Idle").GetFullPath(), "Side_Idle");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Side_Move").GetFullPath(), "Side_Move");
+
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Side_Idle_Left").GetFullPath(), "Side_Idle_Left");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Side_Move_Left").GetFullPath(), "Side_Move_Left");
+
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Up_Idle").GetFullPath(), "Up_Idle");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Up_Move").GetFullPath(), "Up_Move");
+
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("InterAction_Win").GetFullPath(), "InterAction_Win");
+		}
+		{
+			GameEngineDirectory Dir;
+			Dir.MoveParentToDirectory("ContentResources");
+			Dir.Move("ContentResources\\Texture\\stage1\\Overworld");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("blimp").GetFullPath(), "OverWorld_To_Hilda");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shmup_Tutorial").GetFullPath(), "OverWorld_To_Shmup_Tutorial");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shop").GetFullPath(), "OverWorld_To_Shop");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("NPC\\Canteen").GetFullPath(), "OverWorld_NPC_Canteen");
+		}
+	}
+	isDone = true;
+
+}
 void LoadingPlayer()
 {
 	GameEngineDirectory Dir;
@@ -237,7 +418,7 @@ void LoadingWallyLevel(GameEngineThread* Thread)
 		{
 			for (size_t i = 0; i < AllLoadFile.size(); i++)
 			{
-				GameEngineTexture::ReLoad(AllLoadFile[i].GetFullPath());
+				GameEngineTexture::ReLoad(AllLoadFile[i].GetFileName());
 			}
 		}
 	}
@@ -404,45 +585,84 @@ void LoadingLevel::Update(float _DeltaTime)
 	{
 		NextLevelTime = GetLiveTime() + 1.0f;
 	}
+	
 	if(0.0f != NextLevelTime && GetLiveTime() > NextLevelTime )
 	{
 		switch (NextLevel)
 		{
 		case CupheadLevel::NONE:
-			return;
+			break;
 		case CupheadLevel::STORY:
-			//if (true == isDone)
-			//{
 			GameEngineCore::ChangeLevel("StoryLevel");
-			NextLevel = CupheadLevel::NONE;
-			//}
 			break;
 		case CupheadLevel::HILDA:
-			//if (1491 == GameEngineTexture::TextureReLoadCount || true == isDone)
-			//{
 			GameEngineCore::ChangeLevel("HildaBergLevel");
-			NextLevel = CupheadLevel::NONE;
-			//}
 			break;
 		case CupheadLevel::WALLY:
-			//if (935 == GameEngineTexture::TextureReLoadCount || true == isDone)
-			//{
 			GameEngineCore::ChangeLevel("WallyLevel");
-			NextLevel = CupheadLevel::NONE;
-			//}
+			break;
+		case CupheadLevel::OVERWORLD:
+			GameEngineCore::ChangeLevel("OverWorldLevel");
+			break;
+		case CupheadLevel::TUTORIAL:
+			GameEngineCore::ChangeLevel("TutorialLevel");
+			break;
+		case CupheadLevel::SHOP:
+			GameEngineCore::ChangeLevel("ShopLevel");
+			break;
+		case CupheadLevel::RESULT:
+			GameEngineCore::ChangeLevel("ResultLevel");
 			break;
 		case CupheadLevel::MAX:
 			break;
 		default:
 			break;
 		}
+
+
+		//switch (NextLevel)
+		//{
+		//case CupheadLevel::NONE:
+		//	return;
+		//case CupheadLevel::STORY:
+		//	//if (true == isDone)
+		//	//{
+		//	GameEngineCore::ChangeLevel("StoryLevel");
+		//	NextLevel = CupheadLevel::NONE;
+		//	//}
+		//	break;
+		//case CupheadLevel::HILDA:
+		//	//if (1491 == GameEngineTexture::TextureReLoadCount || true == isDone)
+		//	//{
+		//	GameEngineCore::ChangeLevel("HildaBergLevel");
+		//	NextLevel = CupheadLevel::NONE;
+		//	//}
+		//	break;
+		//case CupheadLevel::WALLY:
+		//	//if (935 == GameEngineTexture::TextureReLoadCount || true == isDone)
+		//	//{
+		//	GameEngineCore::ChangeLevel("WallyLevel");
+		//	NextLevel = CupheadLevel::NONE;
+		//	//}
+		//	break;
+		//case CupheadLevel::MAX:
+		//	break;
+		//default:
+		//	break;
+		//}
 	}
 }
 
-void LoadingLevel::LevelChangeStart()
+void LoadingLevel::Start()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+
+}
+
+
+void LoadingLevel::LevelChangeStart()
+{
 	if (nullptr == BackGround)
 	{
 		BackGround = CreateActor<LoadingBackGround>(CupHeadActorOrder::BackGround);
@@ -461,6 +681,7 @@ void LoadingLevel::LevelChangeStart()
 	GameEngineTexture::TextureReLoadCount = 0;
 	NextLevelTime = 0.0f;
 
+
 	switch (NextLevel)
 	{
 	case CupheadLevel::NONE:
@@ -474,6 +695,18 @@ void LoadingLevel::LevelChangeStart()
 	case CupheadLevel::WALLY:
 		GameEngineCore::JobQueue.Work(LoadingWallyLevel);
 		break;
+	case CupheadLevel::OVERWORLD:
+		GameEngineCore::JobQueue.Work(LoadingOverWorldLevel);
+		break;
+	case CupheadLevel::TUTORIAL:
+		GameEngineCore::JobQueue.Work(LoadingTutorialLevel);
+		break;
+	case CupheadLevel::SHOP:
+		GameEngineCore::JobQueue.Work(LoadingShopLevel);
+		break;
+	case CupheadLevel::RESULT:
+		GameEngineCore::JobQueue.Work(LoadingResultLevel);
+		break;
 	case CupheadLevel::MAX:
 		break;
 	default:
@@ -483,7 +716,4 @@ void LoadingLevel::LevelChangeStart()
 
 void LoadingLevel::LevelChangeEnd()
 {
-	BackGround->Death();
-	BackGround = nullptr;
-	AllActorDestroy();
 }

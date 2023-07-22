@@ -28,6 +28,8 @@
 // Effect
 #include "OldFilmEffect.h"
 
+#include "LoadingLevel.h"
+
 WallyLevel::WallyLevel()
 {
 }
@@ -50,10 +52,11 @@ void WallyLevel::Update(float _DeltaTime)
 	}
 	if (true == GameEngineInput::IsDown("ChangeLevel"))
 	{
-		GameEngineCore::ChangeLevel("ResultLevel");
+		LoadingLevel::SetLevel(CupheadLevel::RESULT);
+		GameEngineCore::ChangeLevel("LoadingLevel");
 		return;
 	}
-	
+
 
 	EndCheck();
 	BossSetting();
@@ -66,7 +69,8 @@ void WallyLevel::EndCheck()
 	{
 		if (true == FEffect->IsEnd())
 		{
-			GameEngineCore::ChangeLevel("ResultLevel");
+			LoadingLevel::SetLevel(CupheadLevel::RESULT);
+			GameEngineCore::ChangeLevel("LoadingLevel");
 		}
 		return;
 
@@ -109,7 +113,7 @@ void WallyLevel::LevelChangeStart()
 		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
 	}
 
-	if(nullptr == GameEngineTexture::Find("birdhouse_bg_0006.png"))
+	if (nullptr == GameEngineTexture::Find("birdhouse_bg_0006.png"))
 	{
 		GameEngineDirectory Dir;
 		Dir.MoveParentToDirectory("ContentResources");
@@ -137,7 +141,7 @@ void WallyLevel::BackGroundSetting()
 {
 	// BackGround
 	std::shared_ptr<WallyBack> BG0 = CreateActor<WallyBack>(CupHeadActorOrder::BackGround);
-	BG0->Setting("birdhouse_bg_0008.png", 1000,0.0f, 50.0f,WallyBackGroundSort::CENTER);
+	BG0->Setting("birdhouse_bg_0008.png", 1000, 0.0f, 50.0f, WallyBackGroundSort::CENTER);
 
 	std::shared_ptr<WallyBack> BG1 = CreateActor<WallyBack>(CupHeadActorOrder::BackGround);
 	BG1->Setting("birdhouse_bg_0007.png", 950, 0.0f, 100.0f, WallyBackGroundSort::TOP);
@@ -153,7 +157,7 @@ void WallyLevel::BackGroundSetting()
 
 	std::shared_ptr<WallyFore> BG5 = CreateActor<WallyFore>(CupHeadActorOrder::BackGround);
 	BG5->Setting("birdhouse_bg_0003.png", 300, 0.0f, 300.0f, WallyForeGroundSort::BOT);
-	 
+
 	std::shared_ptr<WallyFore> BG6 = CreateActor<WallyFore>(CupHeadActorOrder::BackGround);
 	BG6->Setting("birdhouse_bg_0002.png", 250, 0.0f, 350.0f, WallyForeGroundSort::BOT);
 
@@ -239,6 +243,7 @@ void WallyLevel::UnLoadSprite()
 	GameEngineSprite::UnLoad("Wally1_Head_Pant");
 	GameEngineSprite::UnLoad("Wally1_Dead");
 	//wally1 bullet
+	GameEngineSprite::UnLoad("Wally1_Bullet_Pre");
 	GameEngineSprite::UnLoad("Wally1_Bullet_Shoot");
 	// wally1 egg pieces
 	GameEngineSprite::UnLoad("Wally_Egg_Piece_A");
@@ -278,9 +283,9 @@ void WallyLevel::UnLoadSprite()
 	GameEngineSprite::UnLoad("Wally3_Death");
 	GameEngineSprite::UnLoad("Wally3_Regurgitate_Intro");
 	GameEngineSprite::UnLoad("Wally3_Regurgitate_Loop");
-	GameEngineSprite::UnLoad( "Wally3_Regurgitate_Outro");
+	GameEngineSprite::UnLoad("Wally3_Regurgitate_Outro");
 	// wally3 garbage
-	GameEngineSprite::UnLoad( "Wally3_Garbage_Apple");
+	GameEngineSprite::UnLoad("Wally3_Garbage_Apple");
 	GameEngineSprite::UnLoad("Wally3_Garbage_Boot");
 	GameEngineSprite::UnLoad("Wally3_Garbage_Fish");
 	GameEngineSprite::UnLoad("Wally3_Garbage_Boot_Pink");
@@ -295,7 +300,7 @@ void WallyLevel::UnLoadSprite()
 	GameEngineSprite::UnLoad("Wally3_Pepper_A");
 	GameEngineSprite::UnLoad("Wally3_Pepper_B");
 	// wally3 pill
-	GameEngineSprite::UnLoad( "Wally3_Pill_Blue");
+	GameEngineSprite::UnLoad("Wally3_Pill_Blue");
 	GameEngineSprite::UnLoad("Wally3_Pill_Pink");
 	// wally3 piil pieces
 	GameEngineSprite::UnLoad("Wally3_Pill_Blue_Piece");
@@ -306,8 +311,8 @@ void WallyLevel::UnLoadSprite()
 	GameEngineSprite::UnLoad("Wally3_RightBird_Idle");
 	GameEngineSprite::UnLoad("Wally3_RightBird_Attack");
 	// wally3 salt
-	GameEngineSprite::UnLoad("Wally3_Salt_B");
 	GameEngineSprite::UnLoad("Wally3_Salt_A");
+	GameEngineSprite::UnLoad("Wally3_Salt_B");
 
 
 	{
@@ -323,17 +328,60 @@ void WallyLevel::UnLoadSprite()
 			}
 		}
 	}
+
+	// Player
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_Idle");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_Idleup");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_Idledown");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_intro");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_transup");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Origin_transdown");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_Idle");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_Idleup");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_Idledown");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_intro");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_transup");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Super_transdown");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_Idle");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_Idleup");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_Idledown");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_intro");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_transup");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shrink_transdown");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Parry");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shoot_Up");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Shoot_Down");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Ghost");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Spark");
+	GameEngineSprite::UnLoad("peashotFX");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Smoke_Idle");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_Bullet");
+	GameEngineSprite::UnLoad("shmup_super_boom");
+	GameEngineSprite::UnLoad("shmup_super_explode");
+	GameEngineSprite::UnLoad("Super_FX");
+	GameEngineSprite::UnLoad("Cuphead_AirPlane_ExBullet");
+
+	// playerUI
 	{
-		GameEngineDirectory Dir;
-		Dir.MoveParentToDirectory("ContentResources");
-		Dir.Move("ContentResources\\Texture\\stage2\\Boss\\Wally\\Level");
-		std::vector<GameEngineFile> AllLoadFile = Dir.GetAllFile({ ".png" });
-		if(nullptr != GameEngineTexture::Find("birdhouse_bg_0001.png"))
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		if (nullptr != GameEngineTexture::Find("hud_hp_1.png"))
 		{
-			for (size_t i = 0; i < AllLoadFile.size(); i++)
+			for (size_t i = 0; i < File.size(); i++)
 			{
-				GameEngineTexture::UnLoad(AllLoadFile[i].GetFileName());
+				GameEngineTexture::UnLoad(File[i].GetFileName());
 			}
 		}
 	}
+	GameEngineTexture::UnLoad("BlackBack.png");
+	GameEngineTexture::UnLoad("hud_ch_card_Back.png");
+	GameEngineTexture::UnLoad("hud_ch_card_front.png");
+
+	GameEngineSprite::UnLoad("Text_GetReady");
+	GameEngineSprite::UnLoad("Text_YouDied");
+	GameEngineSprite::UnLoad("Text_KO");
+	GameEngineSprite::UnLoad("CharacterRotateCard");
+	GameEngineSprite::UnLoad("CharacterFlipCard");
 }

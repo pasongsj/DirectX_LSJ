@@ -7,7 +7,7 @@
 
 #include "StoryObject.h"
 #include "OldFilmEffect.h"
-
+#include "LoadingLevel.h"
 StoryLevel::StoryLevel() 
 {
 }
@@ -31,7 +31,8 @@ void StoryLevel::Update(float _DeltaTime)
 {
 	if (true == Story->isEnd() || true == GameEngineInput::IsDown("ChangeLevel"))
 	{
-		GameEngineCore::ChangeLevel("OverWorldLevel");
+		LoadingLevel::SetLevel(CupheadLevel::OVERWORLD);
+		GameEngineCore::ChangeLevel("LoadingLevel"); 
 	}
 }
 	

@@ -28,7 +28,7 @@ void Wally1_House_Death::MakeSprite()
 
 void Wally1_House_Death::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	BackRender	    = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	BottomRender    = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	LeftRender	    = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);

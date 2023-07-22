@@ -30,7 +30,7 @@ void Wally1_Feather::MakeSprite()
 
 void Wally1_Feather::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	FeatherRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	FeatherRender->CreateAnimation({ .AnimationName = "Blue",.SpriteName = "Wally1_Feather_Blue",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	FeatherRender->CreateAnimation({ .AnimationName = "Pink",.SpriteName = "Wally1_Feather_Pink",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });

@@ -74,7 +74,7 @@ void Wally2::SettingCollision()
 
 void Wally2::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 
 	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
 	SettingRender();

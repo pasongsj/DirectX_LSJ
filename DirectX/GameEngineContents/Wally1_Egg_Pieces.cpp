@@ -30,7 +30,7 @@ void Wally1_Egg_Pieces::MakeSprite()
 
 void Wally1_Egg_Pieces::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	PiecesRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	PiecesRender->CreateAnimation({ .AnimationName = "A",.SpriteName = "Wally_Egg_Piece_A",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	PiecesRender->CreateAnimation({ .AnimationName = "B",.SpriteName = "Wally_Egg_Piece_B",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });

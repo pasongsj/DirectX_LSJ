@@ -136,7 +136,7 @@ void OverWorldLevel::LevelChangeStart()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-	MakeSprite();
+	//MakeSprite();
 	if(nullptr == FadeEffect)
 	{ 
 		FadeEffect = GetLastTarget()->CreateEffect<CircleTransEffect>();
@@ -240,7 +240,8 @@ void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 N
 	Tutorial->InteractRender->ChangeAnimation("Idle");
 	Tutorial->GetTransform()->SetLocalPosition(float4{ 2850,-230,500 });
 	Tutorial->InteractFucntion = []{
-			GameEngineCore::ChangeLevel("TutorialLevel");
+		LoadingLevel::SetLevel(CupheadLevel::TUTORIAL);
+		GameEngineCore::ChangeLevel("LoadingLevel");
 		};
 
 	std::shared_ptr< OverWorldInteractObject> Shop = CreateActor< OverWorldInteractObject>(CupHeadActorOrder::BackGround);
@@ -248,7 +249,8 @@ void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 N
 	Shop->InteractRender->ChangeAnimation("Idle");
 	Shop->GetTransform()->SetLocalPosition(float4{ 2275,-1075,500 });
 	Shop->InteractFucntion = [] {
-		GameEngineCore::ChangeLevel("ShopLevel");
+		LoadingLevel::SetLevel(CupheadLevel::SHOP);
+		GameEngineCore::ChangeLevel("LoadingLevel");
 	};
 
 }

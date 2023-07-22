@@ -24,7 +24,7 @@ void Wally3_Pepper::MakeSprite()
 
 void Wally3_Pepper::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	PepperRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	PepperRender->CreateAnimation({ .AnimationName = "0",.SpriteName = "Wally3_Pepper_A",.FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	PepperRender->CreateAnimation({ .AnimationName = "1",.SpriteName = "Wally3_Pepper_B",.FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });

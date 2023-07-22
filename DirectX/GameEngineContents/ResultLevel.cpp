@@ -6,6 +6,7 @@
 
 #include "ResultBackGround.h"
 #include "ResultBoard.h"
+#include "LoadingLevel.h"
 
 ResultLevel::ResultLevel() 
 {
@@ -49,7 +50,8 @@ void ResultLevel::Update(float _DeltaTime)
 {
 	if (true == GameEngineInput::IsDown("ChangeLevel"))
 	{
-		GameEngineCore::ChangeLevel("OverWorldLevel");
+		LoadingLevel::SetLevel(CupheadLevel::OVERWORLD);
+		GameEngineCore::ChangeLevel("LoadingLevel");
 	}
 }
 
@@ -57,7 +59,7 @@ void ResultLevel::LevelChangeStart()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
-	MakeSprite();
+	//MakeSprite();
 	// BG
 	CreateActor<ResultBackGround>(CupHeadActorOrder::BackGround);
 

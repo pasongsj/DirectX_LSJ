@@ -32,7 +32,7 @@ void Wally3_Garbages::MakeSprite()
 
 void Wally3_Garbages::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	GarbageRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	GarbageRender->CreateAnimation({ .AnimationName = "0",.SpriteName = "Wally3_Garbage_Boot_Pink",.FrameInter = 0.05f,.Loop = true ,.ScaleToTexture = true });
 	GarbageRender->CreateAnimation({ .AnimationName = "1",.SpriteName = "Wally3_Garbage_Boot",.FrameInter = 0.05f,.Loop = true ,.ScaleToTexture = true });

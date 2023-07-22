@@ -30,7 +30,7 @@ void Wally3_LeftBird::MakeSprite()
 
 void Wally3_LeftBird::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	BirdRender = CreateComponent<ContentsSortRenderer>(CupHeadRendererOrder::Enemy);
 	BirdRender->CreateAnimation({ .AnimationName = "Idle",.SpriteName = "Wally3_LeftBird_Idle",.FrameInter = 0.05f, .Loop = true, .ScaleToTexture = true });
 	BirdRender->CreateAnimation({ .AnimationName = "Attack",.SpriteName = "Wally3_LeftBird_Attack",.FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });

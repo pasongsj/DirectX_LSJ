@@ -31,7 +31,7 @@ void Wally3_Pill::MakeSprite()
 
 void Wally3_Pill::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	PillRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyWeapon);
 	PillRender->CreateAnimation({ .AnimationName = "Blue",.SpriteName = "Wally3_Pill_Blue",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	PillRender->CreateAnimation({ .AnimationName = "Pink",.SpriteName = "Wally3_Pill_Pink",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });

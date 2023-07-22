@@ -28,7 +28,7 @@ void Shop_Pig::MakeSprite()
 
 void Shop_Pig::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	PigRender = CreateComponent<ContentsSortRenderer>(CupHeadRendererOrder::BackGround);
 	PigRender->CreateAnimation({ .AnimationName = "Idle",.SpriteName = "Shop_Pig_Idle", .FrameInter = 0.1f,.Loop = true,.ScaleToTexture = true });
 	PigRender->CreateAnimation({ .AnimationName = "Clock",.SpriteName = "Shop_Pig_Clock", .FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });

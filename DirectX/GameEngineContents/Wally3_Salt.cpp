@@ -25,7 +25,7 @@ void Wally3_Salt::MakeSprtie()
 
 void Wally3_Salt::Start()
 {
-	MakeSprtie();
+	//MakeSprtie();
 	SaltRender = CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::EnemyEffect);
 	SaltRender->CreateAnimation({ .AnimationName = "0",.SpriteName = "Wally3_Salt_A",.FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });
 	SaltRender->CreateAnimation({ .AnimationName = "1",.SpriteName = "Wally3_Salt_B",.FrameInter = 0.05f, .Loop = false, .ScaleToTexture = true });

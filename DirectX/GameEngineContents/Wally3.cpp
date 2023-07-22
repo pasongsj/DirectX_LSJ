@@ -119,7 +119,7 @@ void Wally3::SettingCollision()
 
 void Wally3::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	SettingRender();
 

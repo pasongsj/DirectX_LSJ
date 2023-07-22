@@ -116,7 +116,7 @@ void Wally1::SettingCollision()
 
 void Wally1::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	// ·£´õ
 	// feet
 	FeetRender = CreateComponent< ContentsSortRenderer>(CupHeadRendererOrder::Boss);

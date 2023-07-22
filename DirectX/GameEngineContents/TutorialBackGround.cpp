@@ -35,7 +35,7 @@ void TutorialBackGround::MakeSprite()
 
 void TutorialBackGround::Start()
 {
-	MakeSprite();
+	//MakeSprite();
 	BackGround = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
 	BackGround->CreateAnimation({.AnimationName = "BGIdle", .SpriteName = "shmup_tutorial_BG", .FrameInter = 0.05f, .Loop = false, . ScaleToTexture = true});
 	BackGround->ChangeAnimation("BGIdle");
@@ -53,7 +53,8 @@ void TutorialBackGround::Update(float _DeltaTime)
 		ExitBtn->GetTransform()->SetLocalPosition(float4(438, -288));
 		ExitBtn->SetEvent([]
 			{
-				GameEngineCore::ChangeLevel("OverWorldLevel");
+				LoadingLevel::SetLevel(CupheadLevel::OVERWORLD);
+				GameEngineCore::ChangeLevel("LoadingLevel");
 			});
 
 		std::shared_ptr<GameEngineSpriteRenderer> shmup_tutorial_linework = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
