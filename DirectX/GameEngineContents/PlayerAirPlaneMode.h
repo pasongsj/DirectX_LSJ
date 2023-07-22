@@ -137,5 +137,15 @@ private:
 	void TimePlay();
 
 	void SuperModeBoomAttack();
+
+	// shakeCam
+	int ShackCount = 0;
+	float MoveTimer = 0.0f;
+	float4 CamPos = float4::Zero;
+	float4 UpPos = float4::Zero;
+	float4 DownPos = float4::Zero;
+	float4 CurPos = float4::Zero;
+	void ShakeMainCamera(float DeltaTime);
+
 };
 

@@ -251,7 +251,9 @@ void PlayerAirPlaneMode::Start()
 	NextState = PlayerAirPlaneModeState::INTRO;
 	CreateStateFunc();
 
-
+	CurPos = CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
+	UpPos = CurPos + float4(0, 5);
+	DownPos = CurPos + float4(0, -5);
 }
 
 
@@ -284,7 +286,7 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 	{
 		isPlayerInvincibleMode = !isPlayerInvincibleMode;
 	}
-
+	ShakeMainCamera(_DeltaTime);
 	
 	// state
 	UpdateState(_DeltaTime);
@@ -541,7 +543,14 @@ void PlayerAirPlaneMode::Attack(int _Dmg)
 	{
 		if (false == isPlayerInvincibleMode)
 		{
+			if (InvincibleTime < 0)
+			{
+				ShackCount = 7;
+				MoveTimer = 0.0f;
+			}
 			Player::Attack(_Dmg);
+			// shakeCam
+			
 		}
 	}
 }
@@ -557,5 +566,41 @@ void PlayerAirPlaneMode::SuperModeBoomAttack()
 		{
 			ColActor->Attack(20);
 		}
+	}
+}
+
+void PlayerAirPlaneMode::ShakeMainCamera(float DeltaTime)
+{
+
+	// shakeCam
+	//ShackCount = 10;
+	//MoveTimer = 0.0f;
+	//CurPos = CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
+	//UpPos = CurPos + float4(0, 20);
+	//DownPos = CurPos + float4(0, -20);
+
+	if (ShackCount < 0)
+	{
+		return;
+	}
+
+	MoveTimer += DeltaTime * 50;
+	if (0 == ShackCount)
+	{
+		GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(CurPos, CamPos, MoveTimer));
+	}
+	else if (0 == (ShackCount & 1))
+	{
+		GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(CurPos, UpPos, MoveTimer));
+	}
+	else
+	{
+		GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(CurPos, DownPos, MoveTimer));
+	}
+	if (MoveTimer > 1.0f)
+	{
+		MoveTimer = 0.0f;
+		CurPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
+		--ShackCount;
 	}
 }
