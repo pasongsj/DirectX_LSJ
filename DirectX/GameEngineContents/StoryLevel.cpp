@@ -38,6 +38,7 @@ void StoryLevel::Update(float _DeltaTime)
 	
 void StoryLevel::LevelChangeStart()
 {
+	ResetLiveTime();
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 

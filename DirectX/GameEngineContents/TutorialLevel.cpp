@@ -85,6 +85,7 @@ void TutorialLevel::UnLoadSprite()
 
 void TutorialLevel::LevelChangeStart()
 {
+	ResetLiveTime();
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	GetMainCamera()->SetSortType(CupHeadRendererOrder::Boss, SortType::ZSort);

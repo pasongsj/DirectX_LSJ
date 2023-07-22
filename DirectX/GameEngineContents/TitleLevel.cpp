@@ -160,6 +160,7 @@ void TitleLevel::SetHoverButtion()
 
 void TitleLevel::LevelChangeStart()
 {
+	ResetLiveTime();
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 

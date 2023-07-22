@@ -20,8 +20,6 @@ public:
 
 	static void SetLevel(CupheadLevel _Level)
 	{
-		//Phase = 0;
-		//isEnd = false;
 		NextLevel = _Level;
 	}
 
@@ -37,7 +35,6 @@ private:
 
 	float NextLevelTime = 0.0f;
 	std::shared_ptr<class GameEngineActor> BackGround = nullptr;
-	GameEngineDirectory Dir;
 
 	static CupheadLevel NextLevel;
 

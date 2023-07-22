@@ -57,6 +57,7 @@ void ResultLevel::Update(float _DeltaTime)
 
 void ResultLevel::LevelChangeStart()
 {
+	ResetLiveTime();
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	//MakeSprite();

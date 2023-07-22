@@ -135,8 +135,11 @@ void ShopLevel::Update(float _DeltaTime)
 
 void ShopLevel::LevelChangeStart()
 {
+	ResetLiveTime();
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+	GetMainCamera()->SetSortType(CupHeadRendererOrder::PlayerBackGround, SortType::ZSort);
+
 	//MakeSprite();
 	{
 		std::shared_ptr<GameEngineActor> BackGround = CreateActor<GameEngineActor>(CupHeadActorOrder::BackGround);
