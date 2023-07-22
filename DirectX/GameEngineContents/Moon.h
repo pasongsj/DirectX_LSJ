@@ -56,7 +56,12 @@ private:
 	bool isAttackIntroDone = false;
 	bool isAttackDone = false;
 	
+	// Death
+	float DeathWaiting = 0.0f;
+
+	// spone star
 	float StarInterval = 1.0f;
+
 
 	void MakeStar(float _DeltaTime);
 

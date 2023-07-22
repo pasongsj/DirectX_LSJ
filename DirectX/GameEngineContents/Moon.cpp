@@ -125,9 +125,10 @@ void Moon::Update(float _DeltaTime)
 		NextState = MoonState::DEATH;
 	}
 
-	if (GetHP() <= 0)
+	if (GetHP() <= 0 && MoonState::DEATH != CurState)
 	{
-		isHildaDeath = true;
+		NextState = MoonState::DEATH;
+		//isHildaDeath = true;
 	}
 
 	UpdateState(_DeltaTime);
@@ -320,9 +321,15 @@ void Moon::Attack_End()
 void Moon::Death_Start()
 {
 	BossRender->ChangeAnimation("Death");
+	DeathWaiting = GetLiveTime() + 5.0f;
+	BossCollision->Off();
 }
 void Moon::Death_Update(float _DeltaTime)
 {
+	if (GetLiveTime() > DeathWaiting)
+	{
+		isHildaDeath = true;
+	}
 	//GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(GetTransform()->GetLocalPosition(), DestPos, GetLiveTime()));
 }
 void Moon::Death_End()

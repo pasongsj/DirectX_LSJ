@@ -15,7 +15,7 @@ public:
 	float4 BrightOptionValue;
 	void MakeBright()
 	{
-		BrightInterval = 0.1f;
+		BrightInterval = 0.05f;
 	}
 
 protected:
