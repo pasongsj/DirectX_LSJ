@@ -159,7 +159,7 @@ void GameEngineCore::Start(HINSTANCE _instance, std::function<void()> _Start, st
 		GameEngineInput::CreateKey("EngineMouseRight", VK_RBUTTON);
 	}
 
-	GameEngineWindow::WindowCreate(_instance, "MainWindow", _Size, _Pos);
+	GameEngineWindow::WindowCreate(_instance, "CupHead", _Size, _Pos);
 	GameEngineWindow::WindowLoop(std::bind(GameEngineCore::EngineStart, _Start), GameEngineCore::EngineUpdate, std::bind(GameEngineCore::EngineEnd, _End));
 }
 

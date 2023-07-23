@@ -99,7 +99,7 @@ void PlayerOverWorldMode::SettingRender()
 	PlayerRender->ChangeAnimation("Down_Right_Idle");
 
 	ZRender->SetScaleToTexture("interactionIcon.png");
-	ZRender->GetTransform()->SetLocalPosition(float4{ 0,50,-300 });
+	ZRender->GetTransform()->SetLocalPosition(float4{ 0,65,-300 });
 	ZRender->Off();
 }
 
@@ -120,12 +120,6 @@ void PlayerOverWorldMode::CheckInteract()
 	if (nullptr != (Obj = PlayerCollision->Collision(CupHeadCollisionOrder::UI)))
 	{
 		ZRender->On();
-		//if (true == GameEngineInput::IsDown("KeyZ_Interaction"))
-		//{
-		//	std::shared_ptr< OverWorldInteractObject> Interact = Obj->GetActor()->DynamicThis< OverWorldInteractObject>();
-		//	Interact->DoInteractFucntion();
-		//	return;
-		//}
 	}
 	else
 	{

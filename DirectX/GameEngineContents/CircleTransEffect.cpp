@@ -35,9 +35,9 @@ void CircleTransEffect::Effect(GameEngineRenderTarget* _Target, float _DeltaTime
 	if (CurState == CircleTransOption::FadeOut)
 	{
 		TimeData.x += Delta;
-		if (1.0f <= TimeData.x)
+		if (1.2f <= TimeData.x)
 		{
-			TimeData.x = 1.0f;
+			TimeData.x = 1.2f;
 			StateEnd = true;
 		}
 	}

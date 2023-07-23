@@ -8,7 +8,7 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::OVERWORLD;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
@@ -136,7 +136,9 @@ void LoadingOverWorldLevel1(GameEngineThread* Thread)
 			GameEngineTexture::Load(Dir.GetPlusFileName("Upper\\Bush\\Overworld_Bush_Left.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("Upper\\Bush\\Overworld_Bush_Right.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("interactionIcon.png").GetFullPath());
-			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_background.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_tutorial_background.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_blimp_background.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_shop_background.png").GetFullPath());
 
 		}
 		else
@@ -146,7 +148,9 @@ void LoadingOverWorldLevel1(GameEngineThread* Thread)
 			GameEngineTexture::ReLoad("Overworld_Bush_Left.png");
 			GameEngineTexture::ReLoad("Overworld_Bush_Right.png");
 			GameEngineTexture::ReLoad("interactionIcon.png");
-			GameEngineTexture::ReLoad("title_card_background.png");
+			GameEngineTexture::ReLoad("title_card_tutorial_background.png");
+			GameEngineTexture::ReLoad("title_card_blimp_background.png");
+			GameEngineTexture::ReLoad("title_card_shop_background.png");
 
 		}
 

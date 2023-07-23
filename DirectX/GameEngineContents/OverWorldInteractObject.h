@@ -1,5 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineUIRenderer.h>
 
 // Ό³Έν :
 class OverWorldInteractObject : public GameEngineActor
@@ -16,24 +18,12 @@ public:
 	OverWorldInteractObject& operator=(const OverWorldInteractObject& _Other) = delete;
 	OverWorldInteractObject& operator=(OverWorldInteractObject&& _Other) noexcept = delete;
 
-	inline void SetInteractFucntion(std::function<void()> _Func)
-	{
-		InteractFucntion = _Func;
-	}
 
 	inline void SetEnterFunction(std::function<void()> _Func)
 	{
 		EnterFucntion = _Func;
 	}
 
-	inline void DoInteractFucntion()
-	{
-		if (nullptr != InteractFucntion)
-		{
-			InteractFucntion();
-			isInteract = true;
-		}
-	}
 
 	inline bool GetisInteract()
 	{
@@ -54,7 +44,6 @@ private:
 
 	std::shared_ptr<class GameEngineUIRenderer> TitleCard = nullptr;
 
-	std::function<void()> InteractFucntion = nullptr;
 	std::function<void()> EnterFucntion = nullptr;
 	bool isInteract = false;
 

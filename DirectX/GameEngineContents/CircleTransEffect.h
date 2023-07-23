@@ -26,7 +26,7 @@ public:
 		CurState = _Option;
 		if (CircleTransOption::FadeIn == _Option)
 		{
-			TimeData.x = 1;
+			TimeData.x = 1.2f;
 		}
 		else if (CircleTransOption::FadeOut == _Option)
 		{
