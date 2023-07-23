@@ -5,11 +5,11 @@
 
 #include "NumberRenderObject.h"
 
-float ResultBoard::Time = 0.0f;
-int ResultBoard::HPCount = 3;
-int ResultBoard::ParryCount = 0;
-int ResultBoard::SuperMeter = 0;
-int ResultBoard::SkillLevel = 2;
+float ResultBoard::ResultTime = 200.0f;
+int ResultBoard::ResultHPCount = 3;
+int ResultBoard::ResultParryCount = 3;
+int ResultBoard::ResultSuperMeter = 3;
+int ResultBoard::ResultSkillLevel = 2;
 std::string_view ResultBoard::Rank = "RankB";
 
 ResultBoard::ResultBoard() 
@@ -32,11 +32,6 @@ void ResultBoard::Start()
 	std::shared_ptr<GameEngineSpriteRenderer> BoardBG = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::UI);
 	BoardBG->SetScaleToTexture("winscreen_board_letter.png");
 	
-	//// ±¸ºÐ¼±
-	//std::shared_ptr<GameEngineSpriteRenderer> Line = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::UI);
-	//Line->SetScaleToTexture("winscreen_line.png");
-	//Line->GetTransform()->SetLocalPosition(float4(0, -70, -100));
-
 
 	RankStars.reserve(3);
 	float4 StarPos = float4(115, -30, -100);
@@ -59,7 +54,7 @@ void ResultBoard::Start()
 	TimeSecRender->SetValue("00");
 
 	HPRender = GetLevel()->CreateActor< NumberRenderObject>(CupHeadActorOrder::UI);
-	HPRender->GetTransform()->SetLocalPosition(float4{ 297, 31, 0 });
+	HPRender->GetTransform()->SetLocalPosition(float4{ 297, 30, 0 });
 
 	ParryRender = GetLevel()->CreateActor< NumberRenderObject>(CupHeadActorOrder::UI);
 	ParryRender->GetTransform()->SetLocalPosition(float4{ 297, -14, 0 });
@@ -72,5 +67,57 @@ void ResultBoard::Start()
 
 void ResultBoard::Update(float _DeltaTime)
 {
+	if (CurLocalTime < ResultTime)
+	{
+		CurLocalTime += _DeltaTime*100;
+		int Min = static_cast<int>(CurLocalTime) / 60;
+		int Sec = static_cast<int>(CurLocalTime) % 60;
+		if (Min < 10)
+		{
+			TimeMinRender->SetValue("0" + std::to_string(Min));
+		}
+		else
+		{
+		TimeMinRender->SetValue(std::to_string(Min));
+		}
+		if (Sec < 10)
+		{
+			TimeSecRender->SetValue("0" + std::to_string(Sec));
+		}
+		else
+		{
+			TimeSecRender->SetValue(std::to_string(Sec));
+		}
+		return;
 
+	}
+	else if (ChangeInterval > 0)
+	{
+		ChangeInterval -= _DeltaTime;
+		return;
+	}
+	if(CurHPCount < ResultHPCount)
+	{
+		HPRender->SetValue(std::to_string(++CurHPCount));
+		ChangeInterval = 0.3f;
+		return;
+	}
+	else if (CurParryCount < ResultParryCount)
+	{
+		ParryRender->SetValue(std::to_string(++CurParryCount));
+		ChangeInterval = 0.3f;
+		return;
+	}
+	else if (CurSuperMeter < ResultSuperMeter)
+	{
+		SuperMeterRender->SetValue(std::to_string(++CurSuperMeter));
+		ChangeInterval = 0.3f;
+		return;
+	}
+	else if (StarIndex < 3)
+	{
+		RankStars[StarIndex++]->SetScaleToTexture("winscreen_main_star_a.png");
+		ChangeInterval = 0.3f;
+		return;
+	}
 }

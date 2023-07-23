@@ -46,11 +46,15 @@ void NumberRenderObject::SetValue(const std::string_view& _Value)
 	Value = _Value;
 	//std::string Num = std::to_string(Value);
 
-
-	for (size_t i = 0; i < Value.size() - NumberRenders.size(); ++i)
+	int NumberRenderSize = static_cast<int>(NumberRenders.size());
+	int ValueSize = static_cast<int>(Value.size());
+	if (ValueSize - NumberRenderSize > 0)
 	{
-		std::shared_ptr< GameEngineUIRenderer> NewNumber = CreateComponent< GameEngineUIRenderer>(CupHeadRendererOrder::UI);
-		NumberRenders.push_back(NewNumber);
+		for (size_t i = 0; i < ValueSize - NumberRenderSize; ++i)
+		{
+			std::shared_ptr< GameEngineUIRenderer> NewNumber = CreateComponent< GameEngineUIRenderer>(CupHeadRendererOrder::UI);
+			NumberRenders.push_back(NewNumber);
+		}
 	}
 
 

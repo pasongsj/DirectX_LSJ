@@ -5,11 +5,11 @@
 class ResultBoard : public GameEngineActor
 {
 public:
-	static float Time;
-	static int HPCount;
-	static int ParryCount;
-	static int SuperMeter;
-	static int SkillLevel;
+	static float ResultTime;
+	static int ResultHPCount;
+	static int ResultParryCount;
+	static int ResultSuperMeter;
+	static int ResultSkillLevel;
 	static std::string_view Rank;
 
 	// constrcuter destructer
@@ -34,6 +34,16 @@ private:
 	std::shared_ptr<class NumberRenderObject> HPRender = nullptr;
 	std::shared_ptr<class NumberRenderObject> ParryRender = nullptr;
 	std::shared_ptr<class NumberRenderObject> SuperMeterRender = nullptr;
+
+	float ChangeInterval = 0.3f;
+	float CurLocalTime = 0.0f;
+	int CurHPCount = 0;
+	int CurParryCount = 0;
+	int CurSuperMeter = 0;
+	int CurSkillLevel = 3;
+
+	int StarIndex = 0;
+
 
 };
 

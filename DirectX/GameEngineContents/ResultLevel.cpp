@@ -7,7 +7,6 @@
 #include "ResultBackGround.h"
 #include "ResultBoard.h"
 #include "LoadingLevel.h"
-#include "NumberRenderObject.h"
 
 ResultLevel::ResultLevel() 
 {
@@ -67,6 +66,13 @@ void ResultLevel::LevelChangeStart()
 	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetCamera(100);
 	Camera->SetProjectionType(CameraType::Orthogonal);
 	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+
+	//Time = 0.0f;
+	//HPCount = 0;
+	//ParryCount = 0;
+	//SuperMeter = 0;
+	//SkillLevel = 3;
+
 	//MakeSprite();
 	// BG
 	CreateActor<ResultBackGround>(CupHeadActorOrder::BackGround);
@@ -113,5 +119,11 @@ void ResultLevel::LevelChangeEnd()
 	GameEngineSprite::UnLoad("banner_NewRecord");
 	GameEngineSprite::UnLoad("winscreen_appear_star");
 	GameEngineSprite::UnLoad("winscreen_circle");
+
+	ResultBoard::ResultTime = 0.0f;
+	ResultBoard::ResultHPCount = 3;
+	ResultBoard::ResultParryCount = 0;
+	ResultBoard::ResultSuperMeter = 0;
+	ResultBoard::ResultSkillLevel = 3;
 
 }
