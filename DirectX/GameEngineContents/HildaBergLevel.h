@@ -37,12 +37,18 @@ private:
 	// 배경
 	std::vector<std::shared_ptr<class HildaBergBack>> HildaBG;
 
+
+	// 끝남
+	float EndTimer = 0.0f;
+	// win
 	// 이펙트
 	bool isEffectOn = false;
 	std::shared_ptr<class FadeEffect> FEffect = nullptr;
 
-
+	// death
 	bool DeathCard = false;
+
+	// retry card
 
 	void BossSetting();
 

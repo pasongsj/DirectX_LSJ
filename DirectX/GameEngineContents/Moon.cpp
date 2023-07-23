@@ -321,7 +321,7 @@ void Moon::Attack_End()
 void Moon::Death_Start()
 {
 	BossRender->ChangeAnimation("Death");
-	DeathWaiting = GetLiveTime() + 5.0f;
+	DeathWaiting = GetLiveTime() + 1.0f;
 	BossCollision->Off();
 }
 void Moon::Death_Update(float _DeltaTime)

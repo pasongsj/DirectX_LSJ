@@ -1,7 +1,8 @@
 #include "PrecompileHeader.h"
 #include "ShopLevel.h"
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineUIRenderer.h>
 #include <GameEngineCore/GameEngineCore.h>
 
 #include "Shop_Pig.h"
@@ -36,16 +37,18 @@ void ShopLevel::MakeSprite()
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_chalk_coin.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_drawer_left.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_drawer_right.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("ConfirmBack.png").GetFullPath());
 	}
 	else
 	{
-		GameEngineTexture::ReLoad("shop-background.png");
-		GameEngineTexture::ReLoad("shop_draped_fabric.png");
-		GameEngineTexture::ReLoad("shop_table.png");
-		GameEngineTexture::ReLoad("shop_table_chalkboard.png");
-		GameEngineTexture::ReLoad("shop_chalk_coin.png");
-		GameEngineTexture::ReLoad("shop_drawer_left.png");
-		GameEngineTexture::ReLoad("shop_drawer_right.png");
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop-background.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_draped_fabric.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_table.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_table_chalkboard.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_chalk_coin.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_drawer_left.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_drawer_right.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("ConfirmBack.png").GetFullPath());
 	}
 
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\glow").GetFullPath(), "Item_Coffee_Glow");
@@ -189,6 +192,12 @@ void ShopLevel::LevelChangeStart()
 
 	PigActor = CreateActor<Shop_Pig>(CupHeadActorOrder::BackGround);
 	SetItems();
+	{
+		std::shared_ptr<GameEngineActor> ConfirmBack = CreateActor< GameEngineActor>(CupHeadActorOrder::UI);
+		std::shared_ptr< GameEngineUIRenderer> Render = ConfirmBack->CreateComponent<GameEngineUIRenderer>(CupHeadRendererOrder::UI);
+		Render->SetScaleToTexture("ConfirmBack.png");
+		ConfirmBack->GetTransform()->AddLocalPosition(float4{ 435,-332 });
+	}
 	FadeEffect->SetFade(CircleTransOption::FadeOut);
 
 }

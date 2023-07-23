@@ -8,7 +8,7 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::OVERWORLD;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
@@ -117,6 +117,7 @@ void LoadingShopLevel(GameEngineThread* Thread)
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_chalk_coin.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_drawer_left.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_drawer_right.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("ConfirmBack.png").GetFullPath());
 	}
 	else
 	{
@@ -127,6 +128,7 @@ void LoadingShopLevel(GameEngineThread* Thread)
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_chalk_coin.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_drawer_left.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_drawer_right.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("ConfirmBack.png").GetFullPath());
 	}
 
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\glow").GetFullPath(), "Item_Coffee_Glow");

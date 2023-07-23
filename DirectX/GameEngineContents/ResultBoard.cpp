@@ -1,6 +1,14 @@
 #include "PrecompileHeader.h"
 #include "ResultBoard.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+
+float ResultBoard::Time = 0.0f;
+int ResultBoard::HPCount = 3;
+int ResultBoard::ParryCount = 0;
+int ResultBoard::SuperMeter = 0;
+int ResultBoard::SkillLevel = 2;
+std::string_view ResultBoard::Rank = "RankB";
+
 ResultBoard::ResultBoard() 
 {
 }

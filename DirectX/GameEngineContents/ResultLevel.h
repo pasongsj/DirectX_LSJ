@@ -25,12 +25,6 @@ protected:
 
 private:
 
-	float ResultTime = 0.0f;
-	int HPBonus = 0;
-	int Evasion = 0;
-	int SuperMeter = 0;
-	int SkillLevel = 0;
-	char Rank = 'F';
 	void MakeSprite();
 };
 

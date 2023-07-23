@@ -5,6 +5,14 @@
 class ResultBoard : public GameEngineActor
 {
 public:
+	static float Time;
+	static int HPCount;
+	static int ParryCount;
+	static int SuperMeter;
+	static int SkillLevel;
+	static std::string_view Rank;
+
+
 	// constrcuter destructer
 	ResultBoard();
 	~ResultBoard();

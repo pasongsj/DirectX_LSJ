@@ -109,29 +109,34 @@ void HildaBergLevel::Update(float _DeltaTime)
 void HildaBergLevel::EndCheck()
 {
 	// LevelEnd 체크
-	if (true == isEffectOn)
+	if (0 != EndTimer && EndTimer < GetLiveTime())
 	{
-		//if (true == FEffect->IsEnd())
-		//{
-		//	LoadingLevel::SetLevel(CupheadLevel::RESULT);
-		//	GameEngineCore::ChangeLevel("LoadingLevel");
-		//}
+		if (true == isEffectOn && true == FEffect->IsEnd())
+		{
+			LoadingLevel::SetLevel(CupheadLevel::RESULT);
+			GameEngineCore::ChangeLevel("LoadingLevel");
+			EndTimer = 0.0f;
+
+		}
+		if (true == DeathCard)
+		{
+			std::shared_ptr< Result_DeathUI> DeahtUI = CreateActor< Result_DeathUI>(CupHeadActorOrder::UI);
+			DeahtUI->SetCardUI("death_card_blimp.png");
+			DeahtUI->SetReTryBtn([] {
+				LoadingLevel::SetLevel(CupheadLevel::HILDA);
+				GameEngineCore::ChangeLevel("LoadingLevel");
+				});
+			EndTimer = 0.0f;
+		}
 		return;
 
 	}
 	// 플레이어가 죽어서 끝남
-	if (false == isEffectOn && Player::MainPlayer->GetHP() <= 0)
+	if (false == DeathCard && Player::MainPlayer->GetHP() <= 0)
 	{
+		EndTimer = GetLiveTime() + 3.0f;
+		DeathCard = true;
 		CreateActor<YouDieUI>(CupHeadActorOrder::UI);
-		std::shared_ptr< Result_DeathUI> DeahtUI = CreateActor< Result_DeathUI>(CupHeadActorOrder::UI);
-		DeahtUI->SetCardUI("death_card_blimp.png");
-		DeahtUI->SetReTryBtn([] {
-			LoadingLevel::SetLevel(CupheadLevel::HILDA);
-			GameEngineCore::ChangeLevel("LoadingLevel");
-			});
-		//FEffect->SetTakesTime(5.0f);
-		//FEffect->FadeIn();
-		isEffectOn = true;
 
 		return;
 
@@ -155,6 +160,7 @@ void HildaBergLevel::BossSetting()
 			FEffect->SetTakesTime(5.0f);
 			FEffect->FadeIn();
 			isEffectOn = true;
+			EndTimer = GetLiveTime() + 5.0f;
 
 		}
 

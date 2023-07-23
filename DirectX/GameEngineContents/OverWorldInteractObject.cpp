@@ -52,7 +52,7 @@ void OverWorldInteractObject::Update(float _DeltaTime)
 				TitleCard->Off();
 				isInteract = false;
 			}
-			if (true == isInteract && true == GameEngineInput::IsDown("EnterKey"))
+			if (nullptr != EnterFucntion && true == isInteract && true == GameEngineInput::IsDown("EnterKey"))
 			{
 				EnterFucntion();
 				return;

@@ -1,9 +1,10 @@
 #include "PrecompileHeader.h"
 #include "TutorialBackGround.h"
+#include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineLevel.h>
 //#include <GameEngineCore/GameEngineButton.h>
 #include "GameContentsButton.h"
-#include <GameEngineCore/GameEngineLevel.h>
 #include "LoadingLevel.h"
 
 
@@ -41,9 +42,21 @@ void TutorialBackGround::Start()
 	BackGround->ChangeAnimation("BGIdle");
 	BackGround->GetTransform()->SetLocalPosition(float4(0, 0, 1000));
 
+	if (false == GameEngineInput::IsKey("ESC_Buttion"))
+	{
+		GameEngineInput::CreateKey("ESC_Buttion", VK_ESCAPE);
+	}
+
 }
+
 void TutorialBackGround::Update(float _DeltaTime)
 {
+	if (true == GameEngineInput::IsDown("ESC_Buttion"))
+	{
+		LoadingLevel::SetLevel(CupheadLevel::OVERWORLD);
+		GameEngineCore::ChangeLevel("LoadingLevel");
+		return;
+	}
 	if (false == isBGAnimationEnd && true == BackGround->IsAnimationEnd())
 	{
 		isBGAnimationEnd = true;
