@@ -264,6 +264,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="NumberRenderObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="OldFilmEffect.h">
       <SubType>
       </SubType>
@@ -716,6 +720,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="NumberRenderObject.cpp">
+      <SubType>
+      </SubType>
     </ClCompile>
     <ClCompile Include="OldFilmEffect.cpp">
       <SubType>

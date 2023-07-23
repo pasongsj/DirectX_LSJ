@@ -7,6 +7,7 @@
 #include "ResultBackGround.h"
 #include "ResultBoard.h"
 #include "LoadingLevel.h"
+#include "NumberRenderObject.h"
 
 ResultLevel::ResultLevel() 
 {
@@ -25,6 +26,7 @@ void ResultLevel::MakeSprite()
 	{
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_bg.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_board.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_board_letter.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_grey_star_a.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_main_star_a.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_line.png").GetFullPath());
@@ -33,6 +35,7 @@ void ResultLevel::MakeSprite()
 	{
 		GameEngineTexture::ReLoad("winscreen_bg.png");
 		GameEngineTexture::ReLoad("winscreen_board.png");
+		GameEngineTexture::ReLoad("winscreen_board_letter.png");
 		GameEngineTexture::ReLoad("winscreen_grey_star_a.png");
 		GameEngineTexture::ReLoad("winscreen_main_star_a.png");
 		GameEngineTexture::ReLoad("winscreen_line.png");
@@ -100,6 +103,7 @@ void ResultLevel::LevelChangeEnd()
 
 	GameEngineTexture::UnLoad("winscreen_bg.png");
 	GameEngineTexture::UnLoad("winscreen_board.png");
+	GameEngineTexture::UnLoad("winscreen_board_letter.png");
 	GameEngineTexture::UnLoad("winscreen_grey_star_a.png");
 	GameEngineTexture::UnLoad("winscreen_main_star_a.png");
 	GameEngineTexture::UnLoad("winscreen_line.png");

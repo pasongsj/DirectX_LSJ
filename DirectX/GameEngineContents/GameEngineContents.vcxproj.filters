@@ -295,6 +295,9 @@
     <ClInclude Include="Result_DeathUI.h">
       <Filter>Object\ResultPage\death</Filter>
     </ClInclude>
+    <ClInclude Include="NumberRenderObject.h">
+      <Filter>Object\ResultPage\win</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -611,6 +614,9 @@
     </ClCompile>
     <ClCompile Include="Result_DeathUI.cpp">
       <Filter>Object\ResultPage\death</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberRenderObject.cpp">
+      <Filter>Object\ResultPage\win</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

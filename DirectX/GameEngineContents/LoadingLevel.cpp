@@ -8,7 +8,7 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::OVERWORLD;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::RESULT;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
@@ -54,6 +54,7 @@ void LoadingResultLevel(GameEngineThread* Thread)
 	{
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_bg.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_board.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_board_letter.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_grey_star_a.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_main_star_a.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_line.png").GetFullPath());
@@ -61,6 +62,7 @@ void LoadingResultLevel(GameEngineThread* Thread)
 	{
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_bg.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_board.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_board_letter.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_grey_star_a.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_main_star_a.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_line.png").GetFullPath());
