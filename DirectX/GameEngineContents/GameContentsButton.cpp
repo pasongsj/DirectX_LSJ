@@ -13,7 +13,7 @@ GameContentsButton::~GameContentsButton()
 
 void GameContentsButton::Start()
 {
-	Render = CreateComponent<GameEngineUIRenderer>();
+	Render = CreateComponent<GameEngineUIRenderer>(CupHeadRendererOrder::UI);
 	if (false == GameEngineInput::IsKey("EnterKey"))
 	{
 		GameEngineInput::CreateKey("EnterKey", VK_RETURN);

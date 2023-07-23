@@ -91,6 +91,7 @@ void PlayerUI::Start()
 		UIPos.x += 20;
 	}
 
+	GetTransform()->SetLocalPosition(float4(0, 0, 200));
 
 }
 

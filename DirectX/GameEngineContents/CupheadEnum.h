@@ -13,6 +13,7 @@ enum class CupHeadRendererOrder
 	PlayerEffect,
 	ForeGround,
 	UI,
+	BUTTON,
 	MAX,
 };
 

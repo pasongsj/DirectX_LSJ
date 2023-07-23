@@ -54,7 +54,7 @@ void ContentsCore::GameStart()
 	GameEngineCore::CreateLevel<WallyLevel>();
 	GameEngineCore::CreateLevel<ShopLevel>();
 
-	GameEngineCore::ChangeLevel("LoadingLevel");
+	GameEngineCore::ChangeLevel("TitleLevel");
 }
 
 void ContentsCore::GameEnd() 

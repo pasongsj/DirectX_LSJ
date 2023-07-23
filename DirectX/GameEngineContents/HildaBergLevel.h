@@ -41,6 +41,9 @@ private:
 	bool isEffectOn = false;
 	std::shared_ptr<class FadeEffect> FEffect = nullptr;
 
+
+	bool DeathCard = false;
+
 	void BossSetting();
 
 	void EndCheck();

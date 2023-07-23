@@ -67,7 +67,7 @@ void CardUI::SetEnergy(int _En, bool Rot)
 		if(false == isRot)
 		{
 			CardRender->ChangeAnimation("RotateCard");
-			CardRender->GetTransform()->SetLocalPosition(Pivot + float4{0, CardSize.hy()});
+			CardRender->GetTransform()->SetLocalPosition(Pivot + float4{0, CardSize.hy(),200});
 			CardRender->ImageClippingY(1.0f, ClipYDir::Top);
 
 			isRot = true;
@@ -82,7 +82,7 @@ void CardUI::SetEnergy(int _En, bool Rot)
 			CardRender->SetTexture("hud_ch_card_Back.png");
 			float Rat = static_cast<float>(_En) / 100;
 			CardRender->GetTransform()->SetLocalScale(float4{ CardSize.x, CardSize.y * Rat,1 });
-			CardRender->GetTransform()->SetLocalPosition(Pivot + float4{0, CardSize.hy() * Rat });
+			CardRender->GetTransform()->SetLocalPosition(Pivot + float4{0, CardSize.hy() * Rat, 200});
 			CardRender->ImageClippingY(Rat, ClipYDir::Top);
 			isFront = false;
 			isFlip = false;
@@ -91,7 +91,7 @@ void CardUI::SetEnergy(int _En, bool Rot)
 		}
 		else if (false == isFront && false == isFlip && _En == 100)
 		{
-			CardRender->GetTransform()->SetLocalPosition(Pivot + float4{0, CardSize.hy()});
+			CardRender->GetTransform()->SetLocalPosition(Pivot + float4{0, CardSize.hy(), 200});
 			CardRender->ImageClippingY(1.0f, ClipYDir::Top);
 			CardRender->ChangeAnimation("FlipCard");
 

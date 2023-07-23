@@ -36,6 +36,8 @@ void KnockOutUI::Start()
 	KnockOutRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Text_KO", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	KnockOutRender->SetScaleRatio(2.5f);
 	KnockOutRender->ChangeAnimation("Idle");
+	GetTransform()->SetLocalPosition(float4(0, 0, 200));
+
 }
 
 void KnockOutUI::Update(float _Delta)

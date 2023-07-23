@@ -90,7 +90,9 @@ void TutorialLevel::LevelChangeStart()
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	GetMainCamera()->SetSortType(CupHeadRendererOrder::Boss, SortType::ZSort);
 	
-	
+	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetCamera(100);
+	Camera->SetProjectionType(CameraType::Orthogonal);
+	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	//LoadSprite();
 
 

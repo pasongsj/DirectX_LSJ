@@ -31,6 +31,9 @@ void YouDieUI::Start()
 	YouDieRender = CreateComponent<GameEngineUIRenderer>(CupHeadRendererOrder::UI);
 	YouDieRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Text_YouDied", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	YouDieRender->ChangeAnimation("Idle");
+
+	GetTransform()->SetLocalPosition(float4(0, 0, 200));
+
 }
 
 void YouDieUI::Update(float _Delta)

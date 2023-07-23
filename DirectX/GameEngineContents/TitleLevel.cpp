@@ -227,6 +227,10 @@ void TitleLevel::LevelChangeStart()
 		ExitButton->SetAllButtionTexture({ "Title_ExitButton.png" ,"Title_ExitButton_Hover.png", "",true });
 		ExitButton->GetTransform()->SetLocalPosition(float4{ 0,0 });
 		ExitButton->SetName("ExitButton");
+		ExitButton->SetEvent([]
+			{
+				GameEngineWindow::AppOff();
+			});
 		ExitButton->Off();
 	}
 

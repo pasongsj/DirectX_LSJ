@@ -8,13 +8,43 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::OVERWORLD;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
 
+void LoadingDeathResultSprite(GameEngineThread* Thread)
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToDirectory("ContentResources");
+	Dir.Move("ContentResources\\Texture\\Result\\deathscreen");
 
+	if (nullptr == GameEngineTexture::Find("Death_Result_BG.png"))
+	{
+		GameEngineTexture::Load(Dir.GetPlusFileName("Death_Result_BG.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("death_card_blimp.png").GetFullPath());
 
+		GameEngineTexture::Load(Dir.GetPlusFileName("RetryButton_hover.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("RetryButton_release.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("ExitButton_hover.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("ExitButton_release.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("QuitButton_hover.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("QuitButton_release.png").GetFullPath());
+	}
+	{
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Death_Result_BG.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("death_card_blimp.png").GetFullPath());
+
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("RetryButton_hover.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("RetryButton_release.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("ExitButton_hover.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("ExitButton_release.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("QuitButton_hover.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("QuitButton_release.png").GetFullPath());
+	}
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("deathcard_ch_run").GetFullPath(), "deathcard_ch_run"); // path, name
+	++LoadFuncCount;
+}
 void LoadingResultLevel(GameEngineThread* Thread)
 {
 	GameEngineDirectory Dir;
@@ -29,11 +59,11 @@ void LoadingResultLevel(GameEngineThread* Thread)
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_line.png").GetFullPath());
 	}
 	{
-		GameEngineTexture::ReLoad("winscreen_bg.png");
-		GameEngineTexture::ReLoad("winscreen_board.png");
-		GameEngineTexture::ReLoad("winscreen_grey_star_a.png");
-		GameEngineTexture::ReLoad("winscreen_main_star_a.png");
-		GameEngineTexture::ReLoad("winscreen_line.png");
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_bg.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_board.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_grey_star_a.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_main_star_a.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_line.png").GetFullPath());
 	}
 
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("wincreen_result_title").GetFullPath(), "wincreen_result_title"); // path, name
@@ -62,9 +92,9 @@ void LoadingTutorialLevel(GameEngineThread* Thread)
 	}
 	else
 	{
-		GameEngineTexture::ReLoad("shmup_tutorial_linework.png");
-		GameEngineTexture::ReLoad("tutorial_pink_sphere_1.png");
-		GameEngineTexture::ReLoad("exit.png");
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shmup_tutorial_linework.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("tutorial_pink_sphere_1.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("exit.png").GetFullPath());
 	}
 
 	//LoadingPlayer();
@@ -90,13 +120,13 @@ void LoadingShopLevel(GameEngineThread* Thread)
 	}
 	else
 	{
-		GameEngineTexture::ReLoad("shop-background.png");
-		GameEngineTexture::ReLoad("shop_draped_fabric.png");
-		GameEngineTexture::ReLoad("shop_table.png");
-		GameEngineTexture::ReLoad("shop_table_chalkboard.png");
-		GameEngineTexture::ReLoad("shop_chalk_coin.png");
-		GameEngineTexture::ReLoad("shop_drawer_left.png");
-		GameEngineTexture::ReLoad("shop_drawer_right.png");
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop-background.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_draped_fabric.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_table.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_table_chalkboard.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_chalk_coin.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_drawer_left.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_drawer_right.png").GetFullPath());
 	}
 
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\glow").GetFullPath(), "Item_Coffee_Glow");
@@ -143,14 +173,14 @@ void LoadingOverWorldLevel1(GameEngineThread* Thread)
 		}
 		else
 		{
-			GameEngineTexture::ReLoad("Overworld_Map.png");
-			GameEngineTexture::ReLoad("Overworld_ColMap.png");
-			GameEngineTexture::ReLoad("Overworld_Bush_Left.png");
-			GameEngineTexture::ReLoad("Overworld_Bush_Right.png");
-			GameEngineTexture::ReLoad("interactionIcon.png");
-			GameEngineTexture::ReLoad("title_card_tutorial_background.png");
-			GameEngineTexture::ReLoad("title_card_blimp_background.png");
-			GameEngineTexture::ReLoad("title_card_shop_background.png");
+			GameEngineTexture::ReLoad(Dir.GetPlusFileName("Overworld_Map.png").GetFullPath());
+			GameEngineTexture::ReLoad(Dir.GetPlusFileName("Overworld_ColMap.png").GetFullPath());
+			GameEngineTexture::ReLoad(Dir.GetPlusFileName("Overworld_Bush_Left.png").GetFullPath());
+			GameEngineTexture::ReLoad(Dir.GetPlusFileName("Overworld_Bush_Right.png").GetFullPath());
+			GameEngineTexture::ReLoad(Dir.GetPlusFileName("interactionIcon.png").GetFullPath());
+			GameEngineTexture::ReLoad(Dir.GetPlusFileName("title_card_tutorial_background.png").GetFullPath());
+			GameEngineTexture::ReLoad(Dir.GetPlusFileName("title_card_blimp_background.png").GetFullPath());
+			GameEngineTexture::ReLoad(Dir.GetPlusFileName("title_card_shop_background.png").GetFullPath());
 
 		}
 
@@ -241,7 +271,7 @@ void LoadingPlayer1(GameEngineThread* Thread)
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("ContentResources");
 		NewDir.Move("ContentResources\\Texture\\Cuphead_AirPlane\\effect");
-		GameEngineTexture::ReLoad(NewDir.GetPlusFileName("BlackBack.png").GetFileName());
+		GameEngineTexture::ReLoad(NewDir.GetPlusFileName("BlackBack.png").GetFullPath());
 	}
 	++LoadFuncCount;
 
@@ -307,8 +337,8 @@ void LoadingPlayerUI1(GameEngineThread* Thread)
 		}
 		else
 		{
-			GameEngineTexture::ReLoad("hud_ch_card_Back.png");
-			GameEngineTexture::ReLoad("hud_ch_card_front.png");
+			GameEngineTexture::ReLoad(NewDir.GetPlusFileName("hud_ch_card_Back.png").GetFullPath());
+			GameEngineTexture::ReLoad(NewDir.GetPlusFileName("hud_ch_card_front.png").GetFullPath());
 		}
 	}
 
@@ -558,7 +588,7 @@ void LoadingHildaLevel0(GameEngineThread* Thread)
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
 		{
-			GameEngineTexture::ReLoad(File[i].GetFileName());
+			GameEngineTexture::ReLoad(File[i].GetFullPath());
 		}
 	}
 
@@ -707,13 +737,13 @@ void LoadingLevel::Update(float _DeltaTime)
 		}
 		break;
 	case CupheadLevel::HILDA:
-		if (9 == LoadFuncCount)
+		if (10 == LoadFuncCount)
 		{
 			GameEngineCore::ChangeLevel("HildaBergLevel");
 		}
 		break;
 	case CupheadLevel::WALLY:
-		if (9 == LoadFuncCount)
+		if (10 == LoadFuncCount)
 		{
 			GameEngineCore::ChangeLevel("WallyLevel");
 		}
@@ -795,6 +825,7 @@ void LoadingLevel::LevelChangeStart()
 		GameEngineCore::JobQueue.Work(LoadingPlayer2);
 		GameEngineCore::JobQueue.Work(LoadingPlayerUI1);
 		GameEngineCore::JobQueue.Work(LoadingPlayerUI2);
+		GameEngineCore::JobQueue.Work(LoadingDeathResultSprite);
 		break;
 	case CupheadLevel::WALLY:
 		GameEngineCore::JobQueue.Work(LoadingWallyLevel0);
@@ -806,6 +837,7 @@ void LoadingLevel::LevelChangeStart()
 		GameEngineCore::JobQueue.Work(LoadingPlayer2);
 		GameEngineCore::JobQueue.Work(LoadingPlayerUI1);
 		GameEngineCore::JobQueue.Work(LoadingPlayerUI2);
+		GameEngineCore::JobQueue.Work(LoadingDeathResultSprite);
 		break;
 	case CupheadLevel::OVERWORLD:
 		GameEngineCore::JobQueue.Work(LoadingOverWorldLevel1);

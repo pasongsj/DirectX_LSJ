@@ -50,6 +50,11 @@ void StoryLevel::LevelChangeStart()
 	ResetLiveTime();
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+
+	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetCamera(100);
+	Camera->SetProjectionType(CameraType::Orthogonal);
+	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+
 	if (nullptr == FadeEffect)
 	{
 		FadeEffect = GetLastTarget()->CreateEffect<CircleTransEffect>();

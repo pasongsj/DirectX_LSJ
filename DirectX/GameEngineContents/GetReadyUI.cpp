@@ -16,9 +16,9 @@ GetReadyUI::~GetReadyUI()
 
 void GetReadyUI::Start()
 {
-	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetCamera(100);
-	Camera->SetProjectionType(CameraType::Orthogonal);
-	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+	//std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetCamera(100);
+	//Camera->SetProjectionType(CameraType::Orthogonal);
+	//Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
 	//// sprite
 	//if (nullptr == GameEngineSprite::Find("Text_GetReady"))
@@ -34,6 +34,7 @@ void GetReadyUI::Start()
 	GetReadyRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Text_GetReady", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	GetReadyRender->SetScaleRatio(2.5f);
 	GetReadyRender->ChangeAnimation("Idle");
+	GetTransform()->SetLocalPosition(float4(0, 0, 200));
 }
 
 void GetReadyUI::Update(float _Delta)

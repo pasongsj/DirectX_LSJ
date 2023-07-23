@@ -48,6 +48,7 @@
 #include "GetReadyUI.h"
 #include "KnockOutUI.h"
 #include "YouDieUI.h"
+#include "Result_DeathUI.h"
 
 //Effect
 #include "FadeEffect.h"
@@ -110,11 +111,11 @@ void HildaBergLevel::EndCheck()
 	// LevelEnd üũ
 	if (true == isEffectOn)
 	{
-		if (true == FEffect->IsEnd())
-		{
-			LoadingLevel::SetLevel(CupheadLevel::RESULT);
-			GameEngineCore::ChangeLevel("LoadingLevel");
-		}
+		//if (true == FEffect->IsEnd())
+		//{
+		//	LoadingLevel::SetLevel(CupheadLevel::RESULT);
+		//	GameEngineCore::ChangeLevel("LoadingLevel");
+		//}
 		return;
 
 	}
@@ -122,9 +123,16 @@ void HildaBergLevel::EndCheck()
 	if (false == isEffectOn && Player::MainPlayer->GetHP() <= 0)
 	{
 		CreateActor<YouDieUI>(CupHeadActorOrder::UI);
-		FEffect->SetTakesTime(5.0f);
-		FEffect->FadeIn();
+		std::shared_ptr< Result_DeathUI> DeahtUI = CreateActor< Result_DeathUI>(CupHeadActorOrder::UI);
+		DeahtUI->SetCardUI("death_card_blimp.png");
+		DeahtUI->SetReTryBtn([] {
+			LoadingLevel::SetLevel(CupheadLevel::HILDA);
+			GameEngineCore::ChangeLevel("LoadingLevel");
+			});
+		//FEffect->SetTakesTime(5.0f);
+		//FEffect->FadeIn();
 		isEffectOn = true;
+
 		return;
 
 	}
@@ -236,6 +244,10 @@ void HildaBergLevel::LevelChangeStart()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 	GetMainCamera()->SetSortType(CupHeadRendererOrder::Boss, SortType::ZSort);
+
+	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetCamera(100);
+	Camera->SetProjectionType(CameraType::Orthogonal);
+	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
 	Phase = 1;
 	IsConstell = false;
@@ -477,4 +489,15 @@ void HildaBergLevel::UnLoadSprite()
 	GameEngineSprite::UnLoad("Text_KO");
 	GameEngineSprite::UnLoad("CharacterRotateCard");
 	GameEngineSprite::UnLoad("CharacterFlipCard");
+
+
+	GameEngineSprite::UnLoad("deathcard_ch_run");
+	GameEngineTexture::UnLoad("death_card_blimp.png");
+	GameEngineTexture::UnLoad("Death_Result_BG.png");
+	GameEngineTexture::UnLoad("ExitButton_hover.png");
+	GameEngineTexture::UnLoad("ExitButton_release.png");
+	GameEngineTexture::UnLoad("QuitButton_hover.png");
+	GameEngineTexture::UnLoad("QuitButton_release.png");	
+	GameEngineTexture::UnLoad("RetryButton_hover.png");
+	GameEngineTexture::UnLoad("RetryButton_release.png");
 }
