@@ -43,9 +43,6 @@
     <ClInclude Include="SagittariusArrow.h">
       <Filter>Object\HildaBerg\Boss\Sagittarius</Filter>
     </ClInclude>
-    <ClInclude Include="LoadingLevel.h">
-      <Filter>Levels</Filter>
-    </ClInclude>
     <ClInclude Include="Hilda.h">
       <Filter>Object\HildaBerg\Boss\Hilda</Filter>
     </ClInclude>
@@ -298,6 +295,9 @@
     <ClInclude Include="NumberRenderObject.h">
       <Filter>Object\ResultPage\win</Filter>
     </ClInclude>
+    <ClInclude Include="LoadingLevel.h">
+      <Filter>Control</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -343,9 +343,6 @@
     </ClCompile>
     <ClCompile Include="SagittariusArrow.cpp">
       <Filter>Object\HildaBerg\Boss\Sagittarius</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadingLevel.cpp">
-      <Filter>Levels</Filter>
     </ClCompile>
     <ClCompile Include="Hilda.cpp">
       <Filter>Object\HildaBerg\Boss\Hilda</Filter>
@@ -618,6 +615,9 @@
     <ClCompile Include="NumberRenderObject.cpp">
       <Filter>Object\ResultPage\win</Filter>
     </ClCompile>
+    <ClCompile Include="LoadingLevel.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Levels">
@@ -730,6 +730,9 @@
     </Filter>
     <Filter Include="Object\ResultPage\death">
       <UniqueIdentifier>{ce070472-b8de-4549-b259-83ea35d418ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Control">
+      <UniqueIdentifier>{29f99ec4-c00d-4333-896a-480b19374a2d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

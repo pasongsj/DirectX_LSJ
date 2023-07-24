@@ -7,6 +7,7 @@
 
 #include "GameContentsButton.h"
 #include "OldFilmEffect.h"
+#include "CircleTransEffect.h"
 
 TitleLevel::TitleLevel()
 {
@@ -36,15 +37,15 @@ void TitleLevel::MakeSprite()
 	}
 	else
 	{
-		GameEngineTexture::ReLoad("title_screen_background.png");
-		GameEngineTexture::ReLoad("cuphead_secondary_title_screen.png");
-		GameEngineTexture::ReLoad("PressAnyButton.png");
-		GameEngineTexture::ReLoad("Title_StartButton.png");
-		GameEngineTexture::ReLoad("Title_OptionButton.png");
-		GameEngineTexture::ReLoad("Title_ExitButton.png");
-		GameEngineTexture::ReLoad("Title_StartButton_Hover.png");
-		GameEngineTexture::ReLoad("Title_OptionButton_Hover.png");
-		GameEngineTexture::ReLoad("Title_ExitButton_Hover.png");
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("title_screen_background.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("cuphead_secondary_title_screen.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("PressAnyButton.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Title_StartButton.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Title_OptionButton.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Title_ExitButton.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Title_StartButton_Hover.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Title_OptionButton_Hover.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Title_ExitButton_Hover.png").GetFullPath());
 
 	}
 
@@ -62,6 +63,28 @@ void TitleLevel::Start()
 
 void TitleLevel::Update(float _DeltaTime)
 {
+	if (true == TitleSound.IsValid())
+	{
+		bool isPlayingResult;
+		TitleSound.isPlaying(&isPlayingResult);
+		if (false == isPlayingResult && false == LoopSoundPlay)
+		{
+			TitleSound.Stop();
+			GameEngineSound::Play("Don't Deal with the Devil (Instrumental).mp3").SetLoop(-1);
+			LoopSoundPlay = true;
+		}
+	}
+	if (true == isLogoDone && true == isPressAnyKey && true == isButtonTime)
+	{
+		SetHoverButtion();
+
+		if (true == GameEngineInput::IsDown("ChangeLevel"))
+		{
+			LoadingLevel::SetLevel(CupheadLevel::STORY);
+			GameEngineCore::ChangeLevel("LoadingLevel");
+		}
+		return;
+	}
 	if (false == isLogoDone && true == BackGround->IsAnimationEnd()) // Title_Logo
 	{
 		BackGround->SetScaleToTexture("title_screen_background.png");
@@ -71,8 +94,19 @@ void TitleLevel::Update(float _DeltaTime)
 		Rend->SetScaleToTexture("PressAnyButton.png");
 		Rend->GetTransform()->SetLocalPosition(float4(0, -300));
 		isLogoDone = true;
+		TitleSound = GameEngineSound::Play("Don't Deal with the Devil.mp3");
+
 	}
 	if (true == isLogoDone && false == isPressAnyKey && true == GameEngineInput::IsAnyKey()) // Title Cuphead Animation
+	{
+		if (false == isPressAnyKey && true == GameEngineInput::IsAnyKey())
+		{
+			CircleFadeOut = GetLastTarget()->CreateEffect< CircleTransEffect>();
+			CircleFadeOut->SetFade(CircleTransOption::FadeIn);
+			isPressAnyKey = true;
+		}
+	}
+	if (true == isPressAnyKey && true == CircleFadeOut->IsEnd())
 	{
 		if (nullptr != CharUI)
 		{
@@ -87,21 +121,12 @@ void TitleLevel::Update(float _DeltaTime)
 		StartButton->On();
 		OptionsButton->On();
 		ExitButton->On();
-	}
-	if (true == isLogoDone && true == isPressAnyKey)
-	{
-		SetHoverButtion();
-
-		if (true == GameEngineInput::IsDown("ChangeLevel"))
-		{
-			LoadingLevel::SetLevel(CupheadLevel::STORY);
-			GameEngineCore::ChangeLevel("LoadingLevel");
-		}
+		isButtonTime = true;
+		GetLastTarget()->ReleaseEffect(CircleFadeOut);
+		
 	}
 }
-// start
-// options
-// exit
+
 void TitleLevel::SetHoverButtion()
 {
 	if (true == GameEngineInput::IsDown("Up_Buttion"))
@@ -163,6 +188,17 @@ void TitleLevel::LevelChangeStart()
 	ResetLiveTime();
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+
+	{ // sound Loading
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\Title");;
+		std::vector<GameEngineFile> AllFiles = Dir.GetAllFile({ ".wav",".mp3" });
+		for (GameEngineFile _File : AllFiles)
+		{
+			GameEngineSound::Load(_File.GetFullPath());
+		}
+	}
 
 	// button
 	{
@@ -233,7 +269,7 @@ void TitleLevel::LevelChangeStart()
 			});
 		ExitButton->Off();
 	}
-
+	GameEngineSound::Play("MDHR_LOGO_STING.wav");
 
 }
 
@@ -251,6 +287,14 @@ void TitleLevel::LevelChangeEnd()
 	{
 		BtnUI = nullptr;
 	}
+	if (nullptr != StartButton)
+	{
+		StartButton = nullptr;
+		OptionsButton = nullptr;
+		ExitButton = nullptr;
+		HoverButton = nullptr;
+	}
+	CircleFadeOut = nullptr;
 	AllActorDestroy();
 
 	GameEngineTexture::UnLoad("title_screen_background.png");

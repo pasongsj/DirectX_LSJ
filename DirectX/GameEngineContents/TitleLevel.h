@@ -36,10 +36,16 @@ private:
 	// Hover Buttion
 	std::shared_ptr<class GameContentsButton> HoverButton = nullptr;
 
+	std::shared_ptr<class  CircleTransEffect> CircleFadeOut = nullptr;
+
 	bool isLogoDone = false;
 	bool isPressAnyKey = false;
+	bool isButtonTime = false;
+
+	bool LoopSoundPlay = false;
 
 	void MakeSprite();
 	void SetHoverButtion();
+	GameEngineSoundPlayer TitleSound;
 };
 
