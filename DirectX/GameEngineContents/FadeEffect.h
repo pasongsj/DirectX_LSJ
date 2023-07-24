@@ -59,7 +59,7 @@ private:
 
 	bool StateEnd = false;
 
-	float TimeRatio = 1.0f;
+	float TimeRatio = 1.5f;
 
 	FadeState State = FadeState::None;
 

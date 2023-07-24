@@ -35,6 +35,8 @@ private:
 	std::shared_ptr<class NumberRenderObject> ParryRender = nullptr;
 	std::shared_ptr<class NumberRenderObject> SuperMeterRender = nullptr;
 
+	std::shared_ptr<class GameEngineUIRenderer> RankRender = nullptr;
+
 	float ChangeInterval = 0.3f;
 	float CurLocalTime = 0.0f;
 	int CurHPCount = 0;
@@ -43,6 +45,10 @@ private:
 	int CurSkillLevel = 3;
 
 	int StarIndex = 0;
+
+	bool ShowRank = false;
+	bool WinCircle = false;
+	bool Banner = false;
 
 
 };

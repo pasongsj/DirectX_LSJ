@@ -58,6 +58,12 @@ void LoadingResultLevel(GameEngineThread* Thread)
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_grey_star_a.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_main_star_a.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_line.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\A_Pluse.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\A_Zero.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\B_Pluse.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\B_Zero.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\S_Zero.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\question.png").GetFullPath());
 	}
 	{
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_bg.png").GetFullPath());
@@ -66,6 +72,12 @@ void LoadingResultLevel(GameEngineThread* Thread)
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_grey_star_a.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_main_star_a.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("winscreen_line.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Rank\\A_Pluse.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Rank\\A_Zero.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Rank\\B_Pluse.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Rank\\B_Zero.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Rank\\S_Zero.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Rank\\question.png").GetFullPath());
 	}
 
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("wincreen_result_title").GetFullPath(), "wincreen_result_title"); // path, name

@@ -4,6 +4,7 @@
 // Ό³Έν :
 class ResultLevel : public GameEngineLevel
 {
+	friend class ResultBoard;
 public:
 	// constrcuter destructer
 	ResultLevel();
@@ -26,5 +27,12 @@ protected:
 private:
 
 	void MakeSprite();
+
+	std::shared_ptr<class FadeEffect> FadeOutEffect = nullptr;
+	std::shared_ptr<class CircleTransEffect> FadeInEffect = nullptr;
+
+	float LevelChangeTimer = 0.0f;
+	bool didFadein = false;
+
 };
 

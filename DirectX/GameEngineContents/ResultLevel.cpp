@@ -8,6 +8,10 @@
 #include "ResultBoard.h"
 #include "LoadingLevel.h"
 
+//effect
+#include "CircleTransEffect.h"
+#include "FadeEffect.h"
+
 ResultLevel::ResultLevel() 
 {
 }
@@ -29,15 +33,12 @@ void ResultLevel::MakeSprite()
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_grey_star_a.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_main_star_a.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("winscreen_line.png").GetFullPath());
-	}
-	else
-	{
-		GameEngineTexture::ReLoad("winscreen_bg.png");
-		GameEngineTexture::ReLoad("winscreen_board.png");
-		GameEngineTexture::ReLoad("winscreen_board_letter.png");
-		GameEngineTexture::ReLoad("winscreen_grey_star_a.png");
-		GameEngineTexture::ReLoad("winscreen_main_star_a.png");
-		GameEngineTexture::ReLoad("winscreen_line.png");
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\A_Pluse.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\A_Zero.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\B_Pluse.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\B_Zero.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\S_Zero.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("Rank\\question.png").GetFullPath());
 	}
 
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("wincreen_result_title").GetFullPath(), "wincreen_result_title"); // path, name
@@ -55,6 +56,20 @@ void ResultLevel::Update(float _DeltaTime)
 		LoadingLevel::SetLevel(CupheadLevel::OVERWORLD);
 		GameEngineCore::ChangeLevel("LoadingLevel");
 	}
+
+	if (0.0f != LevelChangeTimer && GetLiveTime() > LevelChangeTimer)
+	{
+		if (false == didFadein)
+		{
+			FadeInEffect->SetFade(CircleTransOption::FadeIn);
+			didFadein = true;
+		}
+		else if (true == FadeInEffect->IsEnd())
+		{
+			LoadingLevel::SetLevel(CupheadLevel::OVERWORLD);
+			GameEngineCore::ChangeLevel("LoadingLevel");
+		}
+	}
 }
 
 void ResultLevel::LevelChangeStart()
@@ -67,12 +82,15 @@ void ResultLevel::LevelChangeStart()
 	Camera->SetProjectionType(CameraType::Orthogonal);
 	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
-	//Time = 0.0f;
-	//HPCount = 0;
-	//ParryCount = 0;
-	//SuperMeter = 0;
-	//SkillLevel = 3;
-
+	if (nullptr == FadeOutEffect)
+	{
+		FadeOutEffect = GetLastTarget()->CreateEffect< FadeEffect>();
+	}
+	FadeOutEffect->FadeOut();
+	if (nullptr == FadeInEffect)
+	{
+		FadeInEffect = GetLastTarget()->CreateEffect< CircleTransEffect>();
+	}
 	//MakeSprite();
 	// BG
 	CreateActor<ResultBackGround>(CupHeadActorOrder::BackGround);
@@ -113,17 +131,29 @@ void ResultLevel::LevelChangeEnd()
 	GameEngineTexture::UnLoad("winscreen_grey_star_a.png");
 	GameEngineTexture::UnLoad("winscreen_main_star_a.png");
 	GameEngineTexture::UnLoad("winscreen_line.png");
+	GameEngineTexture::UnLoad("A_Pluse.png");
+	GameEngineTexture::UnLoad("A_Zero.png");
+	GameEngineTexture::UnLoad("B_Pluse.png");
+	GameEngineTexture::UnLoad("B_Zero.png");
+	GameEngineTexture::UnLoad("S_Zero.png");
+	GameEngineTexture::UnLoad("question.png");
 
 	GameEngineSprite::UnLoad("wincreen_result_title");
 	GameEngineSprite::UnLoad("winscreen_cuphead");
 	GameEngineSprite::UnLoad("banner_NewRecord");
 	GameEngineSprite::UnLoad("winscreen_appear_star");
-	GameEngineSprite::UnLoad("winscreen_circle");
 
 	ResultBoard::ResultTime = 0.0f;
 	ResultBoard::ResultHPCount = 3;
 	ResultBoard::ResultParryCount = 0;
 	ResultBoard::ResultSuperMeter = 0;
 	ResultBoard::ResultSkillLevel = 3;
+
+	GetLastTarget()->ReleaseEffect(FadeInEffect);
+	GetLastTarget()->ReleaseEffect(FadeOutEffect);
+	FadeInEffect = nullptr;
+	FadeOutEffect = nullptr;
+	LevelChangeTimer = 0.0f;
+	didFadein = false;
 
 }
