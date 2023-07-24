@@ -35,6 +35,7 @@ public:
 		{
 			PlayerHP -= _Dmg;
 			InvincibleTime = 2.0f; // 2 초동안 무적 상태
+			GameEngineSound::Play("player_plane_damaged_001.wav");
 		}
 
 	}

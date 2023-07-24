@@ -16,6 +16,8 @@
 
 //////////////////////////// GameEngineSoundPlayer ////////////////////////////
 
+
+
 void GameEngineSoundPlayer::SoundFadeIn(double _Time, float _Volume)
 {
 	if (false == IsValid())
@@ -101,6 +103,15 @@ public:
 };
 
 SoundSystemCreator SoundInitObject = SoundSystemCreator();
+
+bool GameEngineSound::Find(const std::string_view& FileName)
+{
+	if (AllSound.end() == AllSound.find(FileName.data()))
+	{
+		return false;
+	}
+	return true;
+}
 
 void GameEngineSound::SoundUpdate()
 {

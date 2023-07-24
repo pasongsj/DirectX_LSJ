@@ -80,6 +80,10 @@ void TitleLevel::Update(float _DeltaTime)
 
 		if (true == GameEngineInput::IsDown("ChangeLevel"))
 		{
+			if (true == TitleSound.IsValid())
+			{
+				TitleSound.Stop();
+			}
 			LoadingLevel::SetLevel(CupheadLevel::STORY);
 			GameEngineCore::ChangeLevel("LoadingLevel");
 		}
@@ -247,6 +251,10 @@ void TitleLevel::LevelChangeStart()
 		StartButton->SetName("StartButton");
 		StartButton->SetEvent({[this]
 			{
+				if (true == TitleSound.IsValid())
+			{
+				TitleSound.Stop();
+			}
 				LoadingLevel::SetLevel(CupheadLevel::STORY);
 				GameEngineCore::ChangeLevel("LoadingLevel");
 			}});

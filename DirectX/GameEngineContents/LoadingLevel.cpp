@@ -8,11 +8,17 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::RESULT;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::TUTORIAL;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
-
+//void LoadingPlayerSound(GameEngineThread* Thread)
+//{
+//	GameEngineDirectory Dir;
+//	Dir.MoveParentToDirectory("ContentResources");
+//	Dir.Move("ContentResources\\Soun\\Cuphead_AirPlane");
+//	if(nullptr == GameEngineSound::GameEngineSound)
+//}
 void LoadingDeathResultSprite(GameEngineThread* Thread)
 {
 	GameEngineDirectory Dir;

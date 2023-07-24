@@ -142,6 +142,8 @@ public:
 
 	static void Load(const std::string_view& _Name, const std::string_view& _Path);
 
+	static bool Find(const std::string_view& FileName);
+
 	static GameEngineSoundPlayer Play(const std::string_view& _Name);
 
 protected:

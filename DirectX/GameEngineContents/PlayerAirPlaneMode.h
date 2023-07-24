@@ -137,6 +137,9 @@ private:
 	void TimePlay();
 
 	void SuperModeBoomAttack();
+	//sound
+	GameEngineSoundPlayer PeaShootSoundPlayer;
+	bool isPeaSootSoundPlay = false;
 
 	// shakeCam
 	int ShackCount = 0;

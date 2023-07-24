@@ -224,6 +224,18 @@ void PlayerAirPlaneMode::Start()
 		MsgAssert("플레이어는 한개만 생성할 수 있습니다.");
 	}
 
+
+	if (false == GameEngineSound::Find("player_plane_damaged_001.wav"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\Cuphead_AirPlane");
+		std::vector<GameEngineFile> AllSoundFile = Dir.GetAllFile({".wav"});
+		for (GameEngineFile _File : AllSoundFile)
+		{
+			GameEngineSound::Load(_File.GetFullPath());
+		}
+	}
 	Player::MainPlayer = DynamicThis<PlayerAirPlaneMode>().get();
 	PlayerRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Player);
 
@@ -254,6 +266,11 @@ void PlayerAirPlaneMode::Start()
 	CurPos = CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 	UpPos = CurPos + float4(0, 5);
 	DownPos = CurPos + float4(0, -5);
+
+	PeaShootSoundPlayer = GameEngineSound::Play("player_plane_weapon_fire_loop_01.wav");
+	PeaShootSoundPlayer.SetLoop(-1);
+	PeaShootSoundPlayer.SetPause(true);
+	PeaShootSoundPlayer.SetVolume(0.5f);
 }
 
 
@@ -276,11 +293,11 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 		ChangeMode("Super");
 		NextState = PlayerAirPlaneModeState::INTRO;
 	}
-	if (true == GameEngineInput::IsDown("PlayerShrinkMode"))
-	{
-		ChangeMode("Shrink");
-		NextState = PlayerAirPlaneModeState::INTRO;
-	}
+	//if (true == GameEngineInput::IsDown("PlayerShrinkMode"))
+	//{
+	//	ChangeMode("Shrink");
+	//	NextState = PlayerAirPlaneModeState::INTRO;
+	//}
 
 	if (true == GameEngineInput::IsDown("PlayerInvincibleMode"))
 	{
@@ -419,6 +436,8 @@ void PlayerAirPlaneMode::CheckInput()
 	{
 
 		ChangeMode("Shrink");
+		NextState = PlayerAirPlaneModeState::INTRO;
+		GameEngineSound::Play("player_plane_shrink_01.wav");
 		return;
 
 	}
@@ -426,6 +445,7 @@ void PlayerAirPlaneMode::CheckInput()
 	{
 
 		ChangeMode("Origin");
+		GameEngineSound::Play("player_plane_expand_01.wav");
 		return;
 	}
 }
@@ -465,7 +485,10 @@ void PlayerAirPlaneMode::CheckShoot(float _DeltaTime)
 
 	if (true == GameEngineInput::IsPress("PlayerAttack")) // 'X'
 	{
-		Spark->On();
+		if (ShootInterVal > 0.1f)
+		{
+			return;
+		}
 		if (0.0f > ShootInterVal)
 		{
 			std::shared_ptr<PeaShooter> bullet = GetLevel()->CreateActor<PeaShooter>(CupHeadActorOrder::PlayerWepaon);
@@ -475,9 +498,17 @@ void PlayerAirPlaneMode::CheckShoot(float _DeltaTime)
 			BulletYPos *= -1;
 			ShootInterVal = 0.1f;
 		}
+		if (false == isPeaSootSoundPlay)
+		{
+			PeaShootSoundPlayer.SetPause(false);
+			isPeaSootSoundPlay = true;
+		}
+		Spark->On();
 	}
 	else
 	{
+		PeaShootSoundPlayer.SetPause(true);
+		isPeaSootSoundPlay = false;
 		Spark->Off();
 	}
 }
@@ -538,6 +569,7 @@ void PlayerAirPlaneMode::Attack(int _Dmg)
 		ChangeMode("Origin");
 		NextState = PlayerAirPlaneModeState::IDLE;
 		InvincibleTime = 2.0f;
+		GameEngineSound::Play("player_plane_shmup_bomb_explode_01.wav");
 	}
 	else // 일반 피격 시 깜박임
 	{
