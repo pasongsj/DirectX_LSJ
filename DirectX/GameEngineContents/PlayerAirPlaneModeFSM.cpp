@@ -125,7 +125,8 @@ void PlayerAirPlaneMode::Parry_Start()
 	PlayerRender->ChangeAnimation("Parry");
 	PlayerCollision->Off();
 	ParryCollision->On();
-	GameEngineSound::Play("player_plane_parry_01.wav");
+	GameEngineSoundPlayer parrySound = GameEngineSound::Play("player_plane_parry_01.wav");
+	parrySound.SetVolume(0.5f);
 	PeaShootSoundPlayer.SetPause(true);
 	Spark->Off();
 }
@@ -178,6 +179,7 @@ void PlayerAirPlaneMode::Dead_Start()
 	PlayerCollision->Death();
 	PlayerRender->ChangeAnimation("Dead");
 	GameEngineSound::Play("player_death_01.wav");
+	PeaShootSoundPlayer.Stop();
 }
 
 void PlayerAirPlaneMode::Dead_Update(float _DeltaTime)

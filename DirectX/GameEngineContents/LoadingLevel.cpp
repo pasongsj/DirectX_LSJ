@@ -8,7 +8,7 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::TUTORIAL;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 

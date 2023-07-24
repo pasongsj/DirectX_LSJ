@@ -349,6 +349,7 @@ void PlayerAirPlaneMode::CheckPink()
 			std::shared_ptr<GameEnemy> ColActor = _Col->GetActor()->DynamicThis<GameEnemy>();
 			if (true == ColActor->IsPink())
 			{
+				GameEngineSound::Play("sfx_player_parry_slap_01.wav");
 				_Col->GetActor()->Death();
 				SuperModeEnergy += 100;
 
@@ -393,11 +394,13 @@ void PlayerAirPlaneMode::CheckInput()
 			ChangeMode("Super");
 			NextState = PlayerAirPlaneModeState::INTRO;
 			SuperModeEnergy = 0;
+			GameEngineSound::Play("sfx_player_plane_ex_end_01.wav");
 		}
 		else if (SuperModeEnergy >= 100)
 		{
 			NextState = PlayerAirPlaneModeState::SHOOT;
 			SuperModeEnergy -= 100;
+			GameEngineSound::Play("sfx_player_plane_weapon_special_fire_01.wav");
 		}
 		return;
 	}
