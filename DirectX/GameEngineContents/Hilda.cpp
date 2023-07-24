@@ -56,7 +56,7 @@ void Hilda::MakeSprite()
 void Hilda::SettingRender()
 {
 	BossRender->CreateAnimation({ .AnimationName = "Intro",  .SpriteName = "Hilda_Intro", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
-	BossRender->CreateAnimation({ .AnimationName = "SecondIntro",  .SpriteName = "Hilda_ChangeBack", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
+	BossRender->CreateAnimation({ .AnimationName = "SecondIntro",  .SpriteName = "Hilda_ChangeBack", .FrameInter = 0.07f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Idle",  .SpriteName = "Hilda_Idle",.FrameInter = 0.05f, .Loop = true , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "shoot",  .SpriteName = "Hilda_Shoot",.FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Dash",  .SpriteName = "Hilda_Dash", .FrameInter = 0.05f, .Loop = false , .ScaleToTexture = true });
@@ -93,6 +93,8 @@ void Hilda::SetPhase(int _Phase)
 	if (3 == _Phase || 5 == _Phase)
 	{
 		BossRender->ChangeAnimation("SecondIntro");
+		GameEngineSoundPlayer TransSound = GameEngineSound::Play("blimp_lady_constellation_transform.wav");
+		TransSound.SetPosition(1.2f);
 	}
 }
 

@@ -65,6 +65,7 @@ void Hilda::Shoot_Start()
 	float4 Pos = GetTransform()->GetWorldPosition();
 	Pos.z = 500;
 	Ha->GetTransform()->SetLocalPosition(Pos);
+	GameEngineSound::Play("blimp_fire_HA_01.wav");
 }
 void Hilda::Shoot_Update(float _DeltaTime)
 {
@@ -88,6 +89,7 @@ void Hilda::ChangePhase_Start()
 	BossRender->ChangeAnimation("Dash");
 	//BossBodyCollision->Off();
 	BossLegCollision->Off();
+	GameEngineSound::Play("blimp_inhale.wav");
 }
 
 void Hilda::ChangePhase_Update(float _DeltaTime)
@@ -101,6 +103,8 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 		DestPos.x = - (GameEngineWindow::GetScreenSize().hx() + BossRender->GetTransform()->GetLocalScale().hx());
 		BossSmokeRender->ChangeAnimation("DashSmoke");
 		BossSmokeRender->On();
+		GameEngineSound::Play("blimp_exhale.wav");
+
 	}
 
 	else if (true == isDashBackTurn && false == isBackTurn)
@@ -151,6 +155,8 @@ void Hilda::Tornado_Start()
 	tmpDir.z = 0;
 	tmpDir.Normalize();
 	Tronado->SetTornadoDir(tmpDir);
+
+	GameEngineSound::Play("blimp_spawn_fire_tornado.wav");
 }
 void Hilda::Tornado_Update(float _DeltaTime)
 {

@@ -54,6 +54,7 @@ void ZepplingBroken::Start()
 	Spark 	->GetTransform()->SetLocalPosition(float4(0,0,-120));
 	Explode ->GetTransform()->SetLocalPosition(float4(0,0,-120));
 	MakePiecesDir();
+	GameEngineSound::Play("blimp_cannon_ship_death_01.wav");
 }
 
 void ZepplingBroken::Update(float _DeltaTime)

@@ -36,6 +36,7 @@ void Zeppling::Shoot_Start()
 	BulletDir = PlayerAirPlaneMode::MainPlayer->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();// 플레이어 위치 - Zeppling의 위치
 	BulletDir.z = 0;
 	BulletDir.Normalize();
+	GameEngineSound::Play("flying_blimp_cannon_ship_fire_01.wav");
 }
 void Zeppling::Shoot_Update(float _DeltaTime)
 {

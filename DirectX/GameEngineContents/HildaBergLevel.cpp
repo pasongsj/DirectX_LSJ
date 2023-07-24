@@ -311,6 +311,8 @@ void HildaBergLevel::LevelChangeStart()
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 	std::shared_ptr<PlayerUI> UI = CreateActor<PlayerUI>(CupHeadActorOrder::UI);
 	CreateActor<GetReadyUI>(CupHeadActorOrder::UI);
+
+	GameEngineSound::Play("blimp_intro_start.wav");
 }
 
 void HildaBergLevel::LevelChangeEnd()

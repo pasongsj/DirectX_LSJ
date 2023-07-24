@@ -12,13 +12,38 @@ CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
-//void LoadingPlayerSound(GameEngineThread* Thread)
-//{
-//	GameEngineDirectory Dir;
-//	Dir.MoveParentToDirectory("ContentResources");
-//	Dir.Move("ContentResources\\Soun\\Cuphead_AirPlane");
-//	if(nullptr == GameEngineSound::GameEngineSound)
-//}
+void LoadingPlayerSound(GameEngineThread* Thread)
+{
+	if (false == GameEngineSound::Find("player_plane_damaged_001.wav"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\Cuphead_AirPlane");
+		std::vector<GameEngineFile> AllSoundFile = Dir.GetAllFile({ ".wav" });
+		for (GameEngineFile _File : AllSoundFile)
+		{
+			GameEngineSound::Load(_File.GetFullPath());
+		}
+	}
+	++LoadFuncCount;
+
+}
+void LoadingHildaSound(GameEngineThread* Thread)
+{
+	if (false == GameEngineSound::Find("blimp_cannon_ship_death_01.wav"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\Stage1");
+		std::vector<GameEngineFile> AllSoundFile = Dir.GetAllFile({ ".wav" });
+		for (GameEngineFile _File : AllSoundFile)
+		{
+			GameEngineSound::Load(_File.GetFullPath());
+		}
+	}
+	++LoadFuncCount;
+
+}
 void LoadingDeathResultSprite(GameEngineThread* Thread)
 {
 	GameEngineDirectory Dir;
@@ -759,13 +784,13 @@ void LoadingLevel::Update(float _DeltaTime)
 		}
 		break;
 	case CupheadLevel::HILDA:
-		if (10 == LoadFuncCount)
+		if (12 == LoadFuncCount)
 		{
 			GameEngineCore::ChangeLevel("HildaBergLevel");
 		}
 		break;
 	case CupheadLevel::WALLY:
-		if (10 == LoadFuncCount)
+		if (11 == LoadFuncCount)
 		{
 			GameEngineCore::ChangeLevel("WallyLevel");
 		}
@@ -777,7 +802,7 @@ void LoadingLevel::Update(float _DeltaTime)
 		}
 		break;
 	case CupheadLevel::TUTORIAL:
-		if (3 == LoadFuncCount)
+		if (4 == LoadFuncCount)
 		{
 			GameEngineCore::ChangeLevel("TutorialLevel");
 		}
@@ -848,6 +873,8 @@ void LoadingLevel::LevelChangeStart()
 		GameEngineCore::JobQueue.Work(LoadingPlayerUI1);
 		GameEngineCore::JobQueue.Work(LoadingPlayerUI2);
 		GameEngineCore::JobQueue.Work(LoadingDeathResultSprite);
+		GameEngineCore::JobQueue.Work(LoadingPlayerSound);
+		GameEngineCore::JobQueue.Work(LoadingHildaSound);
 		break;
 	case CupheadLevel::WALLY:
 		GameEngineCore::JobQueue.Work(LoadingWallyLevel0);
@@ -860,6 +887,8 @@ void LoadingLevel::LevelChangeStart()
 		GameEngineCore::JobQueue.Work(LoadingPlayerUI1);
 		GameEngineCore::JobQueue.Work(LoadingPlayerUI2);
 		GameEngineCore::JobQueue.Work(LoadingDeathResultSprite);
+		GameEngineCore::JobQueue.Work(LoadingPlayerSound);
+
 		break;
 	case CupheadLevel::OVERWORLD:
 		GameEngineCore::JobQueue.Work(LoadingOverWorldLevel1);
@@ -869,6 +898,8 @@ void LoadingLevel::LevelChangeStart()
 		GameEngineCore::JobQueue.Work(LoadingTutorialLevel);
 		GameEngineCore::JobQueue.Work(LoadingPlayer1);
 		GameEngineCore::JobQueue.Work(LoadingPlayer2);
+		GameEngineCore::JobQueue.Work(LoadingPlayerSound);
+
 		break;
 	case CupheadLevel::SHOP:
 		GameEngineCore::JobQueue.Work(LoadingShopLevel);
