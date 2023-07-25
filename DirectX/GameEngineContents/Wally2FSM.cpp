@@ -3,7 +3,8 @@
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineLevel.h>
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
+//#include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include "GameContentsEnemyRenderer.h"
 #include "Wally2_Egg.h"
 
 
@@ -15,7 +16,7 @@ void Wally2::Intro_Start()
 
 void Wally2::Intro_Update(float _DeltaTime)
 {
-	if (GetLiveTime() > 2.0f)
+	if (GetLiveTime() > 1.5f)
 	{
 		NextState = Wally2State::IDLE;
 	}
@@ -32,11 +33,17 @@ void Wally2::Intro_End()
 void Wally2::Idle_Start()
 {
 	BossRender->ChangeAnimation("Idle",false);
-
+	StartPos = GetTransform()->GetLocalPosition();
 }
 
 void Wally2::Idle_Update(float _DeltaTime)
 {
+	ToZeroMoveDuration += _DeltaTime * 2;
+	if (ToZeroMoveDuration < 1.0f)
+	{
+		GetTransform()->SetLocalPosition(float4::Zero.LerpClamp(StartPos, DestPos, ToZeroMoveDuration));
+		return;
+	}
 	MoveUpdate(_DeltaTime);
 	
 	if (GetHP() < 0)

@@ -223,3 +223,8 @@ void Wally3::MoveUpdate(float _DeltaTime)
 	GetTransform()->SetLocalPosition(float4(sinf(MoveDuration / 2) * 250, -210, 600));
 	MoveDuration += _DeltaTime;
 }
+void Wally3::Attack(int _Dmg)
+{
+	BossRender->MakeBright();
+	GameEnemy::Attack(_Dmg);
+}

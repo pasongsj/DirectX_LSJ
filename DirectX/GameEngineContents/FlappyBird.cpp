@@ -1,10 +1,10 @@
 #include "PrecompileHeader.h"
 #include "FlappyBird.h"
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
+//#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
-
+#include "GameContentsEnemyRenderer.h"
 FlappyBird::FlappyBird()
 {
 }
@@ -12,6 +12,14 @@ FlappyBird::FlappyBird()
 FlappyBird::~FlappyBird()
 {
 }
+
+
+void FlappyBird::Attack(int _Dmg)
+{
+	BirdRender->MakeBright();
+	GameEnemy::Attack(_Dmg);
+}
+
 void FlappyBird::MakeSprite()
 {
 	if (nullptr == GameEngineSprite::Find("FlapyBird_Pink_Idle"))
@@ -30,7 +38,7 @@ void FlappyBird::MakeSprite()
 void FlappyBird::Start()
 {
 	//MakeSprite();
-	BirdRender = CreateComponent< GameEngineSpriteRenderer>(CupHeadRendererOrder::Enemy);
+	BirdRender = CreateComponent< GameContentsEnemyRenderer>(CupHeadRendererOrder::Enemy);
 	BirdRender->CreateAnimation({ .AnimationName = "Yellow_Idle",.SpriteName = "FlapyBird_Yellow_Idle",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BirdRender->CreateAnimation({ .AnimationName = "Yellow_Death",.SpriteName = "FlapyBird_Yellow_Death",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });	
 	BirdRender->CreateAnimation({ .AnimationName = "Pink_Idle",.SpriteName = "FlapyBird_Pink_Idle",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });

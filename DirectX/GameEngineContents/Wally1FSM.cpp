@@ -265,16 +265,14 @@ void Wally1::Pant_Start()
 
 void Wally1::Pant_Update(float _DeltaTime)
 {
-	if (PantLoopCount >= 5)
+	if (PantLoopCount >= 3 && PantCount == 2)
 	{
-		if (PantCount < 2)
-		{
-			NextState = Wally1State::FLAP;
-		}
-		else
-		{
-			NextState = Wally1State::CHANGEPHASE;
-		}
+		NextState = Wally1State::CHANGEPHASE;
+
+	}
+	else if (PantLoopCount >= 5 && PantCount < 2)
+	{
+		NextState = Wally1State::FLAP;
 	}
 }
 

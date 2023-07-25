@@ -28,6 +28,8 @@ public:
 	Wally1& operator=(const Wally1& _Other) = delete;
 	Wally1& operator=(Wally1&& _Other) noexcept = delete;
 
+	void Attack(int _Dmg) override;
+
 protected:
 
 	void Start() override;

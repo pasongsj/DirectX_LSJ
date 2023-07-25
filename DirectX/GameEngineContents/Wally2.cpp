@@ -1,13 +1,15 @@
 #include "PrecompileHeader.h"
 #include "Wally2.h"
 #include <GameEnginePlatform/GameEngineInput.h>
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
+//#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include "Wally2_Bullet.h"
 #include "Wally1_House_Death.h"
 #include "Wally2_Egg.h"
+
+#include "GameContentsEnemyRenderer.h"
 
 Wally2::Wally2()
 {
@@ -76,7 +78,7 @@ void Wally2::Start()
 {
 	//MakeSprite();
 
-	BossRender = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::Boss);
+	BossRender = CreateComponent<GameContentsEnemyRenderer>(CupHeadRendererOrder::Boss);
 	SettingRender();
 
 	BodyCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::Enemy);
@@ -153,6 +155,8 @@ void Wally2::Update(float _DeltaTime)
 	}
 
 	UpdateState(_DeltaTime);
+	CollisionPlayer(HeadCollision);
+	CollisionPlayer(BodyCollision);
 }
 
 void Wally2::UpdateState(float _DeltaTime)
@@ -196,4 +200,10 @@ void Wally2::MoveUpdate(float _DeltaTime)
 	BeforDir = (NextPos.x - CurPos.x) * 100;
 	GetTransform()->SetLocalPosition(NextPos);
 	MoveDuration += _DeltaTime;
+}
+
+void Wally2::Attack(int _Dmg)
+{
+	BossRender->MakeBright();
+	GameEnemy::Attack(_Dmg);
 }

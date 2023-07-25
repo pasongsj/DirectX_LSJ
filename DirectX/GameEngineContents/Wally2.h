@@ -24,18 +24,23 @@ public:
 	Wally2& operator=(const Wally2& _Other) = delete;
 	Wally2& operator=(Wally2&& _Other) noexcept = delete;
 
+	void Attack(int _Dmg) override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
 
-	std::shared_ptr<class GameEngineSpriteRenderer> BossRender = nullptr;
+	std::shared_ptr<class GameContentsEnemyRenderer> BossRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> BodyCollision = nullptr;
 	std::shared_ptr<class GameEngineCollision> HeadCollision = nullptr;
 	std::shared_ptr<GameEngineActor> EggController = nullptr;
 	std::vector < std::shared_ptr<class Wally2_Egg>> Eggs;
 
+	float ToZeroMoveDuration = 0.0f;
+	float4 StartPos = float4::Zero;
+	const float4 DestPos = float4(100, 0, 600);
 	// idle
 	bool isTransAnimatioin = false;
 	float BeforDir = 1.0f;

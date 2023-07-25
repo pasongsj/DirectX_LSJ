@@ -21,7 +21,7 @@ void ContentsSortRenderer::SetLocalSortPosition(const float4& _Pos, SortRenderer
 
 void ContentsSortRenderer::Update(float _Delta)
 {
-	GameEngineSpriteRenderer::Update(_Delta);
+	GameContentsEnemyRenderer::Update(_Delta);
 	if (SortRenderer::CENTER != PivotSort)
 	{
 		float4 HalfScale = GetTransform()->GetLocalScale().half();

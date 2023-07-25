@@ -6,7 +6,6 @@
 #include <GameEngineCore/GameEngineCollision.h>
 
 
-#include "GameContentsEnemyRenderer.h"
 #include "ContentsSortRenderer.h"
 
 #include "Wally1_Egg_Spin.h"
@@ -274,4 +273,12 @@ void Wally1::FlappyBirdSpone(float _DeltaTime)
 			FlappyPos.y = GameEngineRandom::MainRandom.RandomFloat(-300, 300);
 		}
 	}
+}
+void Wally1::Attack(int _Dmg)
+{
+
+	HouseRender->MakeBright();
+	FeetRender ->MakeBright();
+	HeadRender->MakeBright();
+	GameEnemy::Attack(_Dmg);
 }

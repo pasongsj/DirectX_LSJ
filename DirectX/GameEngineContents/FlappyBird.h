@@ -18,12 +18,14 @@ public:
 
 	void Death() override;
 
+	void Attack(int _Dmg) override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 
 private:
-	std::shared_ptr<class GameEngineSpriteRenderer> BirdRender = nullptr;
+	std::shared_ptr<class GameContentsEnemyRenderer> BirdRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> BirdCollision = nullptr;
 
 	bool isDeathAnimation = false;

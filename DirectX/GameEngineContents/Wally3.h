@@ -25,6 +25,8 @@ public:
 	Wally3& operator=(const Wally3& _Other) = delete;
 	Wally3& operator=(Wally3&& _Other) noexcept = delete;
 
+	void Attack(int _Dmg) override;
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
