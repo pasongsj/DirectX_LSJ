@@ -97,6 +97,7 @@ void ShopLevel::Update(float _DeltaTime)
 			PigActor->SetState(PigState::GOODBYE);
 			LeftDrawer->isClosed = true;
 			FadeEffect->SetFade(CircleTransOption::FadeIn);
+			GameEngineSound::Play("store_panel_slide_close.wav");
 		}
 	}
 	if (nullptr != LeftDrawer && LeftDrawer->CloseTimer > 1.0f)
@@ -118,6 +119,7 @@ void ShopLevel::Update(float _DeltaTime)
 		{
 			Items[CurItemIndex--]->SetState(ItemState::DIM);
 			Items[CurItemIndex]->SetState(ItemState::GLOW);
+			GameEngineSound::Play("store_navigate_item.wav");
 		}
 	}
 
@@ -131,6 +133,7 @@ void ShopLevel::Update(float _DeltaTime)
 		{
 			Items[CurItemIndex++]->SetState(ItemState::DIM);
 			Items[CurItemIndex]->SetState(ItemState::GLOW);
+			GameEngineSound::Play("store_navigate_item.wav");
 		}
 	}
 }
@@ -199,7 +202,8 @@ void ShopLevel::LevelChangeStart()
 		ConfirmBack->GetTransform()->AddLocalPosition(float4{ 435,-332 });
 	}
 	FadeEffect->SetFade(CircleTransOption::FadeOut);
-
+	BackGroundSound = GameEngineSound::Play("bgm_shop_pig.wav");
+	BackGroundSound.SetLoop(-1);
 }
 
 void ShopLevel::LevelChangeEnd()
@@ -235,6 +239,7 @@ void ShopLevel::LevelChangeEnd()
 	GameEngineSprite::UnLoad("Shop_Pig_Idle");
 	GameEngineSprite::UnLoad("Shop_Pig_nod");
 	GameEngineSprite::UnLoad("Shop_Pig_Welcome");
+	BackGroundSound.Stop();
 }
 
 

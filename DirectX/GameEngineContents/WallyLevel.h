@@ -37,5 +37,6 @@ private:
 	void EndCheck();
 	void UnLoadSprite();
 
+	GameEngineSoundPlayer BackGroundSound;
 };
 

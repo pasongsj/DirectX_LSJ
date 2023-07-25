@@ -77,7 +77,8 @@ void ResultBoard::Start()
 	RankRender->SetScaleToTexture("question.png");
 	RankRender->GetTransform()->SetWorldPosition(float4{ 280, -165, 0 });
 
-
+	ResultSound = GameEngineSound::Play("win_time_loop.wav");
+	ResultSound.SetLoop(-1);
 }
 
 void ResultBoard::Update(float _DeltaTime)
@@ -115,20 +116,24 @@ void ResultBoard::Update(float _DeltaTime)
 	}
 	if (CurHPCount < (ResultHPCount < 3 ? ResultHPCount : 3))
 	{
+		ResultSound.Stop();
 		HPRender->SetValue(std::to_string(++CurHPCount));
 		ChangeInterval = 0.3f;
+		GameEngineSound::Play("win_score_tick_01.wav");
 		return;																							//   d::ResultTime = 200.0f;
 	}																									//   :ResultHPCount = 3;
 	else if (CurParryCount < (ResultParryCount < 3 ? ResultParryCount : 3))															//   :ResultParryCount = 3;
 	{																									//   :ResultSuperMeter = 6;
 		ParryRender->SetValue(std::to_string(++CurParryCount));											//   :ResultSkillLevel = 2;
 		ChangeInterval = 0.3f;																			//    ResultBoard::Rank = "B_Pluse";
+		GameEngineSound::Play("win_score_tick_01.wav");
 		return;
 	}
 	else if (CurSuperMeter < (ResultSuperMeter < 3 ? ResultSuperMeter : 3))
 	{
 		SuperMeterRender->SetValue(std::to_string(++CurSuperMeter));
 		ChangeInterval = 0.3f;
+		GameEngineSound::Play("win_score_tick_01.wav");
 		return;
 	}
 	else if (StarIndex < (ResultSkillLevel < 6 ? ResultSkillLevel : 6))
@@ -136,6 +141,7 @@ void ResultBoard::Update(float _DeltaTime)
 		//RankStars[StarIndex++]->SetScaleToTexture("winscreen_main_star_a.png");
 		RankStars[StarIndex++]->ChangeAnimation("Appear");
 		ChangeInterval = 0.3f;
+		GameEngineSound::Play("win_award_ping_01.wav");
 		return;
 	}
 	else if (false == ShowRank)
@@ -147,6 +153,7 @@ void ResultBoard::Update(float _DeltaTime)
 	}
 	else if (false == WinCircle)
 	{
+		GameEngineSound::Play("win_chalk_scoreboard_01.wav");
 		std::shared_ptr<GameEngineUIRenderer> CircleUI = CreateComponent<GameEngineUIRenderer>(CupHeadRendererOrder::UI);
 		CircleUI->CreateAnimation({ .AnimationName = "Idle",.SpriteName = "winscreen_circle",.FrameInter = 0.05f,.Loop = false ,.ScaleToTexture = true });
 		CircleUI->ChangeAnimation("Idle");

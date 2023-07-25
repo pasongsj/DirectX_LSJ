@@ -13,6 +13,38 @@ std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
 
+void LoadingResultSound(GameEngineThread* Thread)
+{
+	if (false == GameEngineSound::Find("win_award_ping_01.wav"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\Result");
+		std::vector<GameEngineFile> AllSoundFile = Dir.GetAllFile({ ".wav" });
+		for (GameEngineFile _File : AllSoundFile)
+		{
+			GameEngineSound::Load(_File.GetFullPath());
+		}
+	}
+	++LoadFuncCount;
+}
+
+void LoadingShopSound(GameEngineThread* Thread)
+{
+	if (false == GameEngineSound::Find("store_pig_goodbye.wav"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\Shop");
+		std::vector<GameEngineFile> AllSoundFile = Dir.GetAllFile({ ".wav" });
+		for (GameEngineFile _File : AllSoundFile)
+		{
+			GameEngineSound::Load(_File.GetFullPath());
+		}
+	}
+	++LoadFuncCount;
+}
+
 void LoadingOverWorldSound(GameEngineThread* Thread)
 {
 	if (false == GameEngineSound::Find("WorldMap_Footstep_001.wav"))
@@ -176,6 +208,14 @@ void LoadingTutorialLevel(GameEngineThread* Thread)
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("exit.png").GetFullPath());
 	}
 
+	if (false == GameEngineSound::Find("MUS_Tutorial.wav"))
+	{
+		GameEngineDirectory SoundDir;
+		SoundDir.MoveParentToDirectory("ContentResources");
+		SoundDir.Move("ContentResources\\Sound\\Tutorial");
+		GameEngineSound::Load(SoundDir.GetPlusFileName("MUS_Tutorial.wav").GetFullPath());
+
+	}
 	//LoadingPlayer();
 	++LoadFuncCount;
 
@@ -625,6 +665,18 @@ void LoadingStoryLevel(GameEngineThread* Thread)
 	{
 		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("story\\before\\Page" + std::to_string(i)).GetFullPath(), "story" + std::to_string(i));
 	}
+
+	if (false == GameEngineSound::Find("cutscene_pageturn_01.wav"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\Story");
+		std::vector<GameEngineFile> AllSoundFile = Dir.GetAllFile({ ".wav" });
+		for (GameEngineFile _File : AllSoundFile)
+		{
+			GameEngineSound::Load(_File.GetFullPath());
+		}
+	}
 	++LoadFuncCount;
 }
 
@@ -848,13 +900,13 @@ void LoadingLevel::Update(float _DeltaTime)
 		}
 		break;
 	case CupheadLevel::SHOP:
-		if (1 == LoadFuncCount)
+		if (2 == LoadFuncCount)
 		{
 			GameEngineCore::ChangeLevel("ShopLevel");
 		}
 		break;
 	case CupheadLevel::RESULT:
-		if (1 == LoadFuncCount)
+		if (2 == LoadFuncCount)
 		{
 			GameEngineCore::ChangeLevel("ResultLevel");
 		}
@@ -945,9 +997,11 @@ void LoadingLevel::LevelChangeStart()
 		break;
 	case CupheadLevel::SHOP:
 		GameEngineCore::JobQueue.Work(LoadingShopLevel);
+		GameEngineCore::JobQueue.Work(LoadingShopSound);
 		break;
 	case CupheadLevel::RESULT:
 		GameEngineCore::JobQueue.Work(LoadingResultLevel);
+		GameEngineCore::JobQueue.Work(LoadingResultSound);
 		break;
 	case CupheadLevel::MAX:
 		break;

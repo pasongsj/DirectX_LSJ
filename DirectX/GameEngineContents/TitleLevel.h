@@ -44,6 +44,8 @@ private:
 
 	bool LoopSoundPlay = false;
 
+	bool isChangeLevel = false;
+
 	void MakeSprite();
 	void SetHoverButtion();
 	GameEngineSoundPlayer TitleSound;

@@ -179,6 +179,7 @@ void OverWorldLevel::LevelChangeStart()
 	{
 		GameEngineInput::CreateKey("DebugRender", VK_F3);
 	}
+	BackGroundSound = GameEngineSound::Play("bgm_map_world_1.wav");
 }
 void OverWorldLevel::LevelChangeEnd()
 {
@@ -234,7 +235,8 @@ void OverWorldLevel::LevelChangeEnd()
 	//--
 	GameEngineTexture::UnLoad("title_card_tutorial_background.png");
 	GameEngineTexture::UnLoad("title_card_blimp_background.png");
-
+	BackGroundSound.Stop();
+	BackGroundSound.SetLoop(-1);
 }
 
 void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 NPC

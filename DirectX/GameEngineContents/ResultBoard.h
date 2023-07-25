@@ -50,6 +50,6 @@ private:
 	bool WinCircle = false;
 	bool Banner = false;
 
-
+	GameEngineSoundPlayer ResultSound;
 };
 

@@ -118,7 +118,7 @@ void ResultLevel::LevelChangeStart()
 	{
 		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
 	}
-
+	BackGroundSound = GameEngineSound::Play("MUS_VictoryScreen.wav");
 }
 
 void ResultLevel::LevelChangeEnd()
@@ -155,5 +155,6 @@ void ResultLevel::LevelChangeEnd()
 	FadeOutEffect = nullptr;
 	LevelChangeTimer = 0.0f;
 	didFadein = false;
+	BackGroundSound.Stop();
 
 }

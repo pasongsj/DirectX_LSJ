@@ -58,6 +58,6 @@ private:
 
 
 
-
+	GameEngineSoundPlayer BackrGroundSound;
 };
 

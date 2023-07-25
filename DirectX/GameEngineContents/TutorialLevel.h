@@ -26,5 +26,7 @@ private:
 	void LoadSprite();
 	void UnLoadSprite();
 
+	GameEngineSoundPlayer BackGroundSound;
+
 };
 

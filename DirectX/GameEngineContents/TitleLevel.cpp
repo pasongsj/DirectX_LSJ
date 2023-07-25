@@ -63,11 +63,17 @@ void TitleLevel::Start()
 
 void TitleLevel::Update(float _DeltaTime)
 {
+	if (true == isChangeLevel && true == CircleFadeOut->IsEnd())
+	{
+		LoadingLevel::SetLevel(CupheadLevel::STORY);
+		GameEngineCore::ChangeLevel("LoadingLevel");
+		return;
+	}
 	if (true == TitleSound.IsValid())
 	{
 		bool isPlayingResult;
 		TitleSound.isPlaying(&isPlayingResult);
-		if (false == isPlayingResult && false == LoopSoundPlay)
+		if (false == isChangeLevel && false == isPlayingResult && false == LoopSoundPlay)
 		{
 			TitleSound.Stop();
 			GameEngineSound::Play("Don't Deal with the Devil (Instrumental).mp3").SetLoop(-1);
@@ -139,6 +145,7 @@ void TitleLevel::SetHoverButtion()
 		{
 			HoverButton = StartButton;
 			HoverButton->SetHover();
+			GameEngineSound::Play("Menu_Move.wav");
 			return;
 		}
 		HoverButton->SetRelease();
@@ -156,6 +163,8 @@ void TitleLevel::SetHoverButtion()
 			HoverButton = OptionsButton;
 		}
 		HoverButton->SetHover();
+		GameEngineSound::Play("Menu_Move.wav");
+
 	}
 	if (true == GameEngineInput::IsDown("Down_Buttion"))
 	{
@@ -163,6 +172,8 @@ void TitleLevel::SetHoverButtion()
 		{
 			HoverButton = StartButton;
 			HoverButton->SetHover();
+			GameEngineSound::Play("Menu_Move.wav");
+
 			return;
 		}
 		HoverButton->SetRelease();
@@ -180,6 +191,8 @@ void TitleLevel::SetHoverButtion()
 			HoverButton = StartButton;
 		}
 		HoverButton->SetHover();
+		GameEngineSound::Play("Menu_Move.wav");
+
 
 	}
 
@@ -252,11 +265,13 @@ void TitleLevel::LevelChangeStart()
 		StartButton->SetEvent({[this]
 			{
 				if (true == TitleSound.IsValid())
-			{
-				TitleSound.Stop();
-			}
-				LoadingLevel::SetLevel(CupheadLevel::STORY);
-				GameEngineCore::ChangeLevel("LoadingLevel");
+				{
+					TitleSound.Stop();
+				}
+				CircleFadeOut = GetLastTarget()->CreateEffect< CircleTransEffect>();
+				CircleFadeOut->SetFade(CircleTransOption::FadeIn);
+				isChangeLevel = true;
+				GameEngineSound::Play("Menu_Category_Select.wav");
 			}});
 		StartButton->Off();
 
@@ -318,4 +333,5 @@ void TitleLevel::LevelChangeEnd()
 
 	GameEngineSprite::UnLoad("cuphead_title_screen");
 	GameEngineSprite::UnLoad("Title_Logo");
+	TitleSound.Stop();
 }

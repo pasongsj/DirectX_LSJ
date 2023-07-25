@@ -315,6 +315,8 @@ void HildaBergLevel::LevelChangeStart()
 	CreateActor<GetReadyUI>(CupHeadActorOrder::UI);
 
 	GameEngineSound::Play("blimp_intro_start.wav");
+	BackrGroundSound = GameEngineSound::Play("bgm_level_flying_blimp.wav");
+	BackrGroundSound.SetLoop(-1);
 }
 
 void HildaBergLevel::LevelChangeEnd()
@@ -511,4 +513,5 @@ void HildaBergLevel::UnLoadSprite()
 	GameEngineTexture::UnLoad("QuitButton_release.png");	
 	GameEngineTexture::UnLoad("RetryButton_hover.png");
 	GameEngineTexture::UnLoad("RetryButton_release.png");
+	BackrGroundSound.Stop();
 }

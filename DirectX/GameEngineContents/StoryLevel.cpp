@@ -27,6 +27,13 @@ void StoryLevel::Start()
 		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
 	}
 	GetLastTarget()->CreateEffect<OldFilmEffect>();
+	GameEngineDirectory Dir;
+	if (false == GameEngineSound::Find("cutscene_pageturn_01.wav"))
+	{
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\Story");
+		GameEngineSound::Load(Dir.GetPlusFileName("cutscene_pageturn_01.wav").GetFullPath());
+	}
 
 }
 void StoryLevel::Update(float _DeltaTime) 
@@ -35,6 +42,8 @@ void StoryLevel::Update(float _DeltaTime)
 	{
 		FadeEffect->SetFade(CircleTransOption::FadeIn);
 		LevelChangeTime = GetLiveTime() + 1.0f;
+		BackGroundSound.Stop();
+
 
 	}
 	if (0.0f < LevelChangeTime && LevelChangeTime < GetLiveTime() && true == FadeEffect->IsEnd())
@@ -84,6 +93,9 @@ void StoryLevel::LevelChangeStart()
 	LevelChangeTime = 0.0f;
 	Story = CreateActor<StoryObject>(CupHeadActorOrder::BackGround);
 	FadeEffect->SetFade(CircleTransOption::FadeOut);
+
+	BackGroundSound = GameEngineSound::Play("MUS_Intro.wav");
+	BackGroundSound.SetLoop(-1);
 }
 void StoryLevel::LevelChangeEnd()
 {
@@ -104,4 +116,5 @@ void StoryLevel::LevelChangeEnd()
 	AllActorDestroy();
 	GetLastTarget()->ReleaseEffect(FadeEffect);
 	FadeEffect = nullptr;
+	BackGroundSound.Stop();
 }

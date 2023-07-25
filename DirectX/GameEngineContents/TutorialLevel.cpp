@@ -101,8 +101,8 @@ void TutorialLevel::LevelChangeStart()
 
 
 
-
-
+	BackGroundSound = GameEngineSound::Play("MUS_Tutorial.wav");
+	BackGroundSound.SetLoop(-1);
 }
 void TutorialLevel::LevelChangeEnd()
 {
@@ -111,4 +111,5 @@ void TutorialLevel::LevelChangeEnd()
 
 	UnLoadSprite();
 	AllActorDestroy();
+	BackGroundSound.Stop();
 }

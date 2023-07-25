@@ -83,4 +83,5 @@ void StoryObject::NextPage()
 	}
 	WaitingTime = 10.0f;
 	BackGround->ChangeAnimation(std::to_string(Page++));
+	GameEngineSound::Play("cutscene_pageturn_01.wav");
 }

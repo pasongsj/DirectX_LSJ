@@ -39,6 +39,8 @@ void Shop_Pig::Start()
 	const float4 PigPos = float4{ 0,130,1000 };
 	GetTransform()->SetLocalPosition(PigPos);
 	PigRender->SetLocalSortPosition(float4{ 0,-197.5f,0 }, SortRenderer::BOT);
+	GameEngineSound::Play("store_pig_welcome.wav");
+
 
 }
 
@@ -71,6 +73,7 @@ void Shop_Pig::SetState(PigState _State)
 		break;
 	case PigState::GOODBYE:
 		PigRender->ChangeAnimation("GoodBye");
+		GameEngineSound::Play("store_pig_goodbye.wav");
 		break;
 	case PigState::MAX:
 		break;

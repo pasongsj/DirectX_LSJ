@@ -34,5 +34,7 @@ private:
 	float LevelChangeTimer = 0.0f;
 	bool didFadein = false;
 
+	GameEngineSoundPlayer BackGroundSound;
+
 };
 

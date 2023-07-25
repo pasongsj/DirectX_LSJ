@@ -139,6 +139,9 @@ void WallyLevel::LevelChangeStart()
 
 	//GetLastTarget()->CreateEffect<OldFilmEffect>();
 
+	BackGroundSound = GameEngineSound::Play("MUS_AviaryAction.wav");
+	BackGroundSound.SetLoop(-1);
+
 }
 
 void WallyLevel::BackGroundSetting()
@@ -393,4 +396,5 @@ void WallyLevel::UnLoadSprite()
 	GameEngineSprite::UnLoad("Text_KO");
 	GameEngineSprite::UnLoad("CharacterRotateCard");
 	GameEngineSprite::UnLoad("CharacterFlipCard");
+	BackGroundSound.Stop();
 }

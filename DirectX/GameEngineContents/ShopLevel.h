@@ -33,6 +33,7 @@ private:
 	void SetItems();
 	std::vector<std::shared_ptr<class ShopItem>> Items;
 	int CurItemIndex = 0;
-
+	
+	GameEngineSoundPlayer BackGroundSound;
 };
 
