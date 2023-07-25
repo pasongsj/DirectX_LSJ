@@ -22,6 +22,11 @@ public:
 	ResultBoard& operator=(const ResultBoard& _Other) = delete;
 	ResultBoard& operator=(ResultBoard&& _Other) noexcept = delete;
 
+	void StopSound()
+	{
+		ResultSound.Stop();
+	}
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

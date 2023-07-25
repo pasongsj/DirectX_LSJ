@@ -112,7 +112,7 @@ void ResultLevel::LevelChangeStart()
 		Character->GetTransform()->SetLocalPosition(float4(-300, -50, 900));
 	}
 	// Board
-	CreateActor<ResultBoard>(CupHeadActorOrder::UI);
+	ResultBoardActor = CreateActor<ResultBoard>(CupHeadActorOrder::UI);
 
 	if (false == GameEngineInput::IsKey("ChangeLevel"))
 	{
@@ -123,6 +123,13 @@ void ResultLevel::LevelChangeStart()
 
 void ResultLevel::LevelChangeEnd()
 {
+	FadeInEffect = nullptr;
+	FadeOutEffect = nullptr;
+	ResultBoardActor->StopSound();
+	ResultBoardActor = nullptr;
+
+	LevelChangeTimer = 0.0f;
+	didFadein = false;
 	AllActorDestroy();
 
 	GameEngineTexture::UnLoad("winscreen_bg.png");
@@ -151,10 +158,6 @@ void ResultLevel::LevelChangeEnd()
 
 	GetLastTarget()->ReleaseEffect(FadeInEffect);
 	GetLastTarget()->ReleaseEffect(FadeOutEffect);
-	FadeInEffect = nullptr;
-	FadeOutEffect = nullptr;
-	LevelChangeTimer = 0.0f;
-	didFadein = false;
 	BackGroundSound.Stop();
 
 }

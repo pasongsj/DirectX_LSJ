@@ -42,6 +42,7 @@ void OverWorldLevel::MakeSprite()
 			GameEngineTexture::Load(Dir.GetPlusFileName("interactionIcon.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_tutorial_background.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_blimp_background.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_wally_background.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_shop_background.png").GetFullPath());
 		}
 		else
@@ -53,6 +54,7 @@ void OverWorldLevel::MakeSprite()
 			GameEngineTexture::ReLoad("interactionIcon.png");
 			GameEngineTexture::ReLoad("title_card_tutorial_background.png");
 			GameEngineTexture::ReLoad("title_card_blimp_background.png");
+			GameEngineTexture::ReLoad("title_card_wally_background.png");
 			GameEngineTexture::ReLoad("title_card_shop_background.png");
 		}
 
@@ -96,6 +98,7 @@ void OverWorldLevel::MakeSprite()
 			Dir.MoveParentToDirectory("ContentResources");
 			Dir.Move("ContentResources\\Texture\\stage1\\Overworld");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("blimp").GetFullPath(), "OverWorld_To_Hilda");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("birdhouse").GetFullPath(), "OverWorld_To_Wally");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shmup_Tutorial").GetFullPath(), "OverWorld_To_Shmup_Tutorial");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shop").GetFullPath(), "OverWorld_To_Shop");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("NPC\\Canteen").GetFullPath(), "OverWorld_NPC_Canteen");
@@ -227,6 +230,7 @@ void OverWorldLevel::LevelChangeEnd()
 	GameEngineSprite::UnLoad("InterAction_Win");
 
 	GameEngineSprite::UnLoad("OverWorld_To_Hilda");
+	GameEngineSprite::UnLoad("OverWorld_To_Wally");
 	GameEngineSprite::UnLoad("OverWorld_To_Shop");
 
 	GameEngineSprite::UnLoad("OverWorld_To_Shmup_Tutorial");
@@ -235,6 +239,7 @@ void OverWorldLevel::LevelChangeEnd()
 	//--
 	GameEngineTexture::UnLoad("title_card_tutorial_background.png");
 	GameEngineTexture::UnLoad("title_card_blimp_background.png");
+	GameEngineTexture::UnLoad("title_card_wally_background.png");
 	BackGroundSound.Stop();
 	BackGroundSound.SetLoop(-1);
 }
@@ -278,4 +283,14 @@ void OverWorldLevel::MakeInteractObject() // 오버월드에 존재하는 대화 상호작용 N
 		GameEngineCore::ChangeLevel("LoadingLevel");
 	};
 
+
+	std::shared_ptr<OverWorldInteractObject> ToWally = CreateActor<OverWorldInteractObject>(CupHeadActorOrder::BackGround);
+	ToWally->InteractRender->CreateAnimation({ .AnimationName = "Idle", .SpriteName = "OverWorld_To_Wally",.FrameInter = 0.1f, .Loop = true, .ScaleToTexture = true });
+	ToWally->InteractRender->ChangeAnimation("Idle");
+	ToWally->GetTransform()->SetLocalPosition(float4{ 3055,-1180,500 });
+	ToWally->TitleCard->SetScaleToTexture("title_card_wally_background.png");
+	ToWally->EnterFucntion = [] {
+		LoadingLevel::SetLevel(CupheadLevel::WALLY);
+		GameEngineCore::ChangeLevel("LoadingLevel");
+	};
 }

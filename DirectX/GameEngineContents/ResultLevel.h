@@ -30,6 +30,7 @@ private:
 
 	std::shared_ptr<class FadeEffect> FadeOutEffect = nullptr;
 	std::shared_ptr<class CircleTransEffect> FadeInEffect = nullptr;
+	std::shared_ptr<class ResultBoard> ResultBoardActor = nullptr;
 
 	float LevelChangeTimer = 0.0f;
 	bool didFadein = false;

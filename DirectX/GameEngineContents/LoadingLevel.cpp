@@ -289,6 +289,7 @@ void LoadingOverWorldLevel1(GameEngineThread* Thread)
 			GameEngineTexture::Load(Dir.GetPlusFileName("interactionIcon.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_tutorial_background.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_blimp_background.png").GetFullPath());
+			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_wally_background.png").GetFullPath());
 			GameEngineTexture::Load(Dir.GetPlusFileName("title_card_shop_background.png").GetFullPath());
 
 		}
@@ -301,6 +302,7 @@ void LoadingOverWorldLevel1(GameEngineThread* Thread)
 			GameEngineTexture::ReLoad(Dir.GetPlusFileName("interactionIcon.png").GetFullPath());
 			GameEngineTexture::ReLoad(Dir.GetPlusFileName("title_card_tutorial_background.png").GetFullPath());
 			GameEngineTexture::ReLoad(Dir.GetPlusFileName("title_card_blimp_background.png").GetFullPath());
+			GameEngineTexture::ReLoad(Dir.GetPlusFileName("title_card_wally_background.png").GetFullPath());
 			GameEngineTexture::ReLoad(Dir.GetPlusFileName("title_card_shop_background.png").GetFullPath());
 
 		}
@@ -313,6 +315,7 @@ void LoadingOverWorldLevel1(GameEngineThread* Thread)
 			Dir.MoveParentToDirectory("ContentResources");
 			Dir.Move("ContentResources\\Texture\\stage1\\Overworld");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("blimp").GetFullPath(), "OverWorld_To_Hilda");
+			GameEngineSprite::ReLoad(Dir.GetPlusFileName("birdhouse").GetFullPath(), "OverWorld_To_Wally");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shmup_Tutorial").GetFullPath(), "OverWorld_To_Shmup_Tutorial");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("Shop").GetFullPath(), "OverWorld_To_Shop");
 			GameEngineSprite::ReLoad(Dir.GetPlusFileName("NPC\\Canteen").GetFullPath(), "OverWorld_NPC_Canteen");
@@ -737,12 +740,6 @@ void LoadingStorySound(GameEngineThread* Thread)
 	NewDir.MoveParentToDirectory("ContentResources");
 	NewDir.Move("ContentResources\\Texture");
 	GameEngineSprite::ReLoad(NewDir.GetPlusFileName("story\\before\\Page" + std::to_string(10)).GetFullPath(), "story" + std::to_string(10));
-	//for (int i = 0; i <= 10; i++)
-	//{
-
-	//	std::string NewPath = NewDir.GetPlusFileName("story\\before\\Page" + std::to_string(i)).GetFullPath();
-	//	GameEngineCore::JobQueue.Work(std::bind(LoadingStory, NewPath,"story" + std::to_string(i),);
-	//}
 
 	++LoadFuncCount;
 }
