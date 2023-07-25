@@ -23,6 +23,8 @@ void Wally2::Intro_Update(float _DeltaTime)
 
 void Wally2::Intro_End()
 {
+	EggSound = GameEngineSound::Play("flying_bird_small_bird_rotating_eggs_loop.wav");
+	EggSound.SetVolume(0.2f);
 }
 
 
@@ -66,6 +68,7 @@ void Wally2::Shoot_Start()
 {
 	GetTransform()->SetLocalScale(float4::One);
 	BossRender->ChangeAnimation("Shoot");
+	GameEngineSound::Play("flying_bird_small_bird_shoot.wav");
 }
 
 void Wally2::Shoot_Update(float _DeltaTime)
@@ -91,6 +94,8 @@ void Wally2::Death_Start()
 		_Egg->MakeDeath();
 	}
 	std::vector < std::shared_ptr<GameEngineActor>> Eggs;
+	EggSound.Stop();
+	GameEngineSound::Play("flying_bird_small_bird_death_cry.wav");
 }
 
 void Wally2::Death_Update(float _DeltaTime)

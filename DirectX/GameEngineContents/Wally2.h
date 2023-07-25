@@ -83,5 +83,7 @@ private:
 
 	void MakeSprite();
 	void SettingEggs();
+
+	GameEngineSoundPlayer EggSound;
 };
 

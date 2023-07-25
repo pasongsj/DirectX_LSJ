@@ -68,6 +68,7 @@ void Wally3::Garbage_Start()
 	isGarbageIntroDone = false;
 	isGarbageLoopDone = false;
 	GarbageCount = 0;
+	GameEngineSound::Play("bird_stretcher_garbage_start.wav");
 
 }
 
@@ -103,6 +104,7 @@ void Wally3::Regurgitate_Start()
 	isRegurgitateIntroDone = false;
 	isRegurgitateLoopDone = false;
 	RegurgitateCount = 0;
+	GameEngineSound::Play("bird_stretcher_garbage_regurgitate_start.wav");
 }
 
 void Wally3::Regurgitate_Update(float _DeltaTime)
@@ -117,6 +119,7 @@ void Wally3::Regurgitate_Update(float _DeltaTime)
 	{
 		BossRender->ChangeAnimation("Regurgitate_Outro");
 		isRegurgitateLoopDone = true;
+		GameEngineSound::Play("bird_stretcher_garbage_regurgitate_end.wav");
 	}
 	else if (true == isRegurgitateLoopDone && true == BossRender->IsAnimationEnd())
 	{
@@ -137,6 +140,7 @@ void Wally3::Death_Start()
 	LeftBird->Death();
 	RightBird = nullptr;
 	LeftBird = nullptr;
+	GameEngineSound::Play("bird_stretcher_death.wav");
 }
 
 void Wally3::Death_Update(float _DeltaTime)

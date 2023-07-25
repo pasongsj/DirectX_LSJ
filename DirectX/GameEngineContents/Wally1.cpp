@@ -84,6 +84,7 @@ void Wally1::SettingRender()
 	HeadRender->CreateAnimation({ .AnimationName = "Head_HandGun",.SpriteName = "Wally1_Head_HandGun",.FrameInter = 0.05f,.Loop = false,.ScaleToTexture = true });
 	HeadRender->SetAnimationStartEvent("Head_HandGun", 10, [this]
 		{
+			GameEngineSound::Play("flying_bird_laser_fire.wav");
 			float4 HeadRenderPos = HeadRender->GetTransform()->GetWorldPosition();
 			HeadRenderPos.z = 550;
 			std::shared_ptr< Wally1_Bullet> Bullet1 = GetLevel()->CreateActor< Wally1_Bullet>(CupHeadActorOrder::EnemyWeapon);

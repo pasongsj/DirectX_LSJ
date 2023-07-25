@@ -18,6 +18,7 @@ void Wally1::CuckooIntro_Start()
 	HeadRender->SetLocalSortPosition(float4(-45, 35), SortRenderer::RIGHT);
 
 	HeadCollision->Off();
+	GameEngineSound::Play("flying_bird_intro_full.wav");
 }
 
 void Wally1::CuckooIntro_Update(float _DeltaTime)
@@ -124,6 +125,7 @@ void Wally1::Barf_Start()
 	HeadRender->SetLocalSortPosition(float4(-80, -5), SortRenderer::RIGHT);
 
 	HeadCollision->GetTransform()->SetLocalPosition(float4(-300, 0));
+	GameEngineSound::Play("flying_bird_bird_spit.wav");
 
 }
 
@@ -148,6 +150,7 @@ void Wally1::HandGun_Start()
 	HeadRender->ChangeAnimation("Head_HandGun");
 	HeadRender->SetLocalSortPosition(float4(20, 5), SortRenderer::RIGHT);
 	HouseRender->ChangeAnimation("House_Intro", false);
+	GameEngineSound::Play("flying_bird_lasers.wav");
 
 }
 
@@ -173,6 +176,7 @@ void Wally1::Steam_Start()
 	HeadRender->ChangeAnimation("Head_Steam");
 	HeadRender->SetLocalSortPosition(float4(-70, -90), SortRenderer::RBOT);
 	HouseRender->ChangeAnimation("House_Intro", false);
+	GameEngineSound::Play("flying_bird_whistle.wav");
 
 }
 
@@ -196,6 +200,7 @@ void Wally1::Flap_Start()
 	FeetRender->Off();
 	HeadRender->Off();
 	HouseRender->ChangeAnimation("Flap_Intro");
+	GameEngineSound::Play("flying_bird_bird_feathers_start.wav");
 }
 
 void Wally1::Flap_Update(float _DeltaTime)
@@ -207,6 +212,7 @@ void Wally1::Flap_Update(float _DeltaTime)
 			HouseRender->ChangeAnimation("Flap_Loop");
 			FlapLoopCout = 0;
 			isFlapIntroDone = true;
+			GameEngineSound::Play("flying_bird_bird_feathers_loop.wav").SetVolume(0.5f);
 		}
 	}
 	else
@@ -219,7 +225,7 @@ void Wally1::Flap_Update(float _DeltaTime)
 				FeatherInterval = 0.25f;
 				MakeFeather();
 			}
-			if (FlapLoopCout >= 19)
+			if (FlapLoopCout >= 15)
 			{
 				HouseRender->ChangeAnimation("Flap_Outro");
 				isFlapLoopDone = true;
@@ -254,6 +260,7 @@ void Wally1::Pant_Start()
 	HeadRender->SetLocalSortPosition(float4(-80, 115), SortRenderer::RTOP);
 	PantLoopCount = 0;
 	++PantCount;
+	GameEngineSound::Play("flying_bird_bird_feathers_hesitate.wav");
 }
 
 void Wally1::Pant_Update(float _DeltaTime)

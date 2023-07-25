@@ -56,6 +56,7 @@ void Wally3_Heart::Start()
 	HeartCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
 	HeartCollision->SetColType(ColType::SPHERE2D);
 	HeartCollision->GetTransform()->SetLocalScale(float4(130,1,1));
+	GameEngineSound::Play("bird_stretcher_garbage_regurgitate_projectile_fire_01.wav");
 }
 
 void Wally3_Heart::Update(float _DeltaTime)

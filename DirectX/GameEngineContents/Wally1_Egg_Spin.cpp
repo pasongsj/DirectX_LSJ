@@ -53,6 +53,7 @@ void Wally1_Egg_Spin::Update(float _DeltaTime)
 	{
 		if (ScreenSize.hx() - 5 < abs(GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition().x - GetTransform()->GetWorldPosition().x))
 		{
+			GameEngineSound::Play("flying_bird_egg_break_01.wav");
 			EggCollision->Death();
 			isDeadAnimation = true;
 			EggRender->ChangeAnimation("Dead");

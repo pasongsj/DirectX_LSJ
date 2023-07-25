@@ -44,6 +44,7 @@ void Wally3_Garbages::Start()
 
 	Dir = float4(0, 3);
 	Dir.Normalize();
+	GameEngineSound::Play("bird_stretcher_garbage_01.wav");
 }
 
 void Wally3_Garbages::Update(float _DeltaTime)

@@ -61,6 +61,7 @@ void FlappyBird::Update(float _DeltaTime)
 	{
 		if (GetHP() <= 0)
 		{
+			GameEngineSound::Play("flying_bird_smallbird_death_01.wav");
 			BirdCollision->Off();
 			if (true == IsPink())
 			{

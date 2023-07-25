@@ -49,6 +49,8 @@ void Wally3_Pill::Start()
 	PillCollision = CreateComponent<GameEngineCollision>(CupHeadCollisionOrder::EnemyWeapon);
 	PillCollision->SetColType(ColType::SPHERE2D);
 	PillCollision->GetTransform()->SetLocalScale(float4(30, 30));
+	GameEngineSound::Play("bird_stretcher_nurse_attack_01.wav");
+
 }
 
 void Wally3_Pill::Update(float _DeltaTime)

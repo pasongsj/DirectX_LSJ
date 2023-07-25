@@ -8,7 +8,7 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::WALLY;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
@@ -44,6 +44,24 @@ void LoadingHildaSound(GameEngineThread* Thread)
 	++LoadFuncCount;
 
 }
+
+void LoadingWallySound(GameEngineThread* Thread)
+{
+	if (false == GameEngineSound::Find("flying_bird_bird_feathers_hesitate.wav"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\Stage2");
+		std::vector<GameEngineFile> AllSoundFile = Dir.GetAllFile({ ".wav" });
+		for (GameEngineFile _File : AllSoundFile)
+		{
+			GameEngineSound::Load(_File.GetFullPath());
+		}
+	}
+	++LoadFuncCount;
+
+}
+
 void LoadingDeathResultSprite(GameEngineThread* Thread)
 {
 	GameEngineDirectory Dir;
@@ -572,6 +590,12 @@ void LoadingWallyLevel4(GameEngineThread* Thread)
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Regurgitate\\Heart\\Heart").GetFullPath(), "Wally3_Heart");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Regurgitate\\Heart\\Mouse_Attack").GetFullPath(), "Wally3_Mouse_Attack");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Regurgitate\\Heart\\Mouse_Idle").GetFullPath(), "Wally3_Mouse_Idle");
+
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\A\\Bullet").GetFullPath(), "BlimpEnemy_BulletA");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\B\\Bullet").GetFullPath(), "BlimpEnemy_BulletB");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\C\\Bullet").GetFullPath(), "BlimpEnemy_BulletC");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\Pink\\A").GetFullPath(), "BlimpEnemy_BulletPinkA");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage1\\Boss\\Hilda\\BlimpEnemy\\Bullet\\Pink\\B").GetFullPath(), "BlimpEnemy_BulletPinkB");
 	++LoadFuncCount;
 
 }
@@ -790,7 +814,7 @@ void LoadingLevel::Update(float _DeltaTime)
 		}
 		break;
 	case CupheadLevel::WALLY:
-		if (11 == LoadFuncCount)
+		if (12 == LoadFuncCount)
 		{
 			GameEngineCore::ChangeLevel("WallyLevel");
 		}
@@ -888,6 +912,7 @@ void LoadingLevel::LevelChangeStart()
 		GameEngineCore::JobQueue.Work(LoadingPlayerUI2);
 		GameEngineCore::JobQueue.Work(LoadingDeathResultSprite);
 		GameEngineCore::JobQueue.Work(LoadingPlayerSound);
+		GameEngineCore::JobQueue.Work(LoadingWallySound);
 
 		break;
 	case CupheadLevel::OVERWORLD:

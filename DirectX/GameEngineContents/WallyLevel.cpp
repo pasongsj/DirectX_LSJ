@@ -364,6 +364,11 @@ void WallyLevel::UnLoadSprite()
 	GameEngineSprite::UnLoad("shmup_super_explode");
 	GameEngineSprite::UnLoad("Super_FX");
 	GameEngineSprite::UnLoad("Cuphead_AirPlane_ExBullet");
+	GameEngineSprite::UnLoad("BlimpEnemy_BulletA");
+	GameEngineSprite::UnLoad("BlimpEnemy_BulletB");
+	GameEngineSprite::UnLoad("BlimpEnemy_BulletC");
+	GameEngineSprite::UnLoad("BlimpEnemy_BulletPinkA");
+	GameEngineSprite::UnLoad("BlimpEnemy_BulletPinkB");
 
 	// playerUI
 	{
