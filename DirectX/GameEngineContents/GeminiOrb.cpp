@@ -56,6 +56,7 @@ void GeminiOrb::Start()
 	OrbAttackEffect->Off();
 
 	GetTransform()->SetLocalPosition(float4(0, 0, 500));
+	GameEngineSound::Play("blimp_gemini_sphere_reappear_01.wav");
 
 }
 
@@ -73,6 +74,9 @@ void GeminiOrb::Update(float _DeltaTime)
 		isLoop = true;
 		Orb->ChangeAnimation("AttackLoop");
 		OrbAttackEffect->On();
+		ScatterSound = GameEngineSound::Play("blimp_gemini_projectile.wav");
+		ScatterSound.SetLoop(-1);
+		GameEngineSound::Play("blimp_gemini_sphere_attack.wav").SetVolume(0.5f);
 		return;
 	}
 	else if (true == isLoop && false == isEnd)
@@ -97,6 +101,7 @@ void GeminiOrb::Update(float _DeltaTime)
 	else if (true == isEnd)
 	{
 		Orb->ChangeAnimation("AttackLeave");
+		ScatterSound.Stop();
 		Death();
 	}
 

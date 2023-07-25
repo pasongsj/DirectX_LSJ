@@ -61,7 +61,6 @@ void Moon::SettingRender()
 	BossRender->CreateAnimation({ .AnimationName = "Attack",  .SpriteName = "Moon_Attack", .FrameInter = 0.08f, .Loop = true ,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Attack_Outtro",  .SpriteName = "Moon_Attack_Outro", .FrameInter = 0.05f, .Loop = false ,.ScaleToTexture = true });
 	BossRender->CreateAnimation({ .AnimationName = "Death",  .SpriteName = "Moon_Death", .FrameInter = 0.08f, .Loop = true ,.ScaleToTexture = true });
-	BossRender->ChangeAnimation("Intro0");
 }
 
 void Moon::SettingCollision()
@@ -111,6 +110,7 @@ void Moon::Start()
 	{
 		GameEngineInput::CreateKey("SpaceBar", VK_SPACE);
 	}
+	Intro_Start();
 }
 
 void Moon::Update(float _DeltaTime)
@@ -172,6 +172,7 @@ void Moon::Intro_Start()
 	BossRender->ChangeAnimation("Intro0");
 	IntroAnimationIndex = 0;
 	IntroAnimationTimer = 2.0f;
+	GameEngineSound::Play("blimp_transform_moon.wav").SetPosition(2.0f);
 }
 
 void Moon::Intro_Update(float _DeltaTime)
@@ -278,6 +279,7 @@ void Moon::Attack_Start()
 	DestPos = float4(240, -20, 600);
 	BossCollision->GetTransform()->SetLocalPosition(float4(-100, 0));
 	ResetLiveTime();
+	GameEngineSound::Play("blimp_moon_face_extends_gears_out_01.wav");
 }
 void Moon::Attack_Update(float _DeltaTime)
 {
@@ -290,6 +292,9 @@ void Moon::Attack_Update(float _DeltaTime)
 		{
 			BossRender->ChangeAnimation("Attack");
 			isAttackIntroDone = true;
+			GameEngineSound::Play("blimp_moon_attack_anticipation_loop.wav");
+			LoopSound = GameEngineSound::Play("blimp_moon_gears_loop.wav");
+			LoopSound.SetLoop(-1);
 		}
 	}
 	else
@@ -303,6 +308,7 @@ void Moon::Attack_Update(float _DeltaTime)
 				StartPos = GetTransform()->GetLocalPosition();
 				DestPos = float4(320, -20, 600);
 				ResetLiveTime();
+				LoopSound.Stop();
 
 			}
 		}
@@ -316,6 +322,7 @@ void Moon::Attack_Update(float _DeltaTime)
 void Moon::Attack_End()
 {
 	DestPos = float4(320, -20, 600);
+	GameEngineSound::Play("blimp_moon_gears_to_idle_01.wav");
 }
 
 void Moon::Death_Start()
@@ -323,6 +330,7 @@ void Moon::Death_Start()
 	BossRender->ChangeAnimation("Death");
 	DeathWaiting = GetLiveTime() + 1.0f;
 	BossCollision->Off();
+	LoopSound.Stop();
 }
 void Moon::Death_Update(float _DeltaTime)
 {

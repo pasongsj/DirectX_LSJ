@@ -48,6 +48,7 @@ private:
 	bool isCharge = true;
 	float4 CurPos = float4::Zero;
 	float4 DestPos = float4::Zero;
+	float IdleSoundInterval = 3.0f;
 	
 	void UpdateState(float _DeltaTime);
 

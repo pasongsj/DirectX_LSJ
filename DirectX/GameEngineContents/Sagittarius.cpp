@@ -153,6 +153,7 @@ void Sagittarius::Attack_Start()
 	AttackInterval = GameEngineRandom::MainRandom.RandomFloat(5.0f, 8.0f);
 	isShoot = false;
 	ResetLiveTime();
+	GameEngineSound::Play("blimp_sagitarrius_attack_01.wav");
 }
 
 void Sagittarius::Attack_Update(float _DeltaTime)

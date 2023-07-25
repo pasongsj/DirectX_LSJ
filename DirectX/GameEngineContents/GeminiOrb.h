@@ -32,7 +32,7 @@ private:
 	void MakeSprite();
 
 
-
+	GameEngineSoundPlayer ScatterSound;
 	
 };
 

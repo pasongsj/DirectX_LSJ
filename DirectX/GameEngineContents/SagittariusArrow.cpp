@@ -56,9 +56,16 @@ void SagittariusArrow::Update(float _DeltaTime)
 		ArrowPos.y< -ScreenSize.hy() || ArrowPos.y >ScreenSize.hy())
 	{
 		Death();
+		return;
 		// 화면 밖으로 나감!
 	}
 
 	// 플레이어와 충돌 함
-	CollisionPlayer(ArrowCollision);
+	if (true && ArrowCollision->IsUpdate() && true == CollisionPlayer(ArrowCollision))
+	{
+		GameEngineSound::Play("blimp_sagittarius_attack_01.wav");
+		ArrowCollision->Off();
+		return;
+
+	}
 }

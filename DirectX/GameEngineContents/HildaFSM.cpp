@@ -89,7 +89,7 @@ void Hilda::ChangePhase_Start()
 	BossRender->ChangeAnimation("Dash");
 	//BossBodyCollision->Off();
 	BossLegCollision->Off();
-	GameEngineSound::Play("blimp_inhale.wav");
+	ChangePhaseSound = GameEngineSound::Play("blimp_pedal_loop.wav");
 }
 
 void Hilda::ChangePhase_Update(float _DeltaTime)
@@ -103,7 +103,9 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 		DestPos.x = - (GameEngineWindow::GetScreenSize().hx() + BossRender->GetTransform()->GetLocalScale().hx());
 		BossSmokeRender->ChangeAnimation("DashSmoke");
 		BossSmokeRender->On();
-		GameEngineSound::Play("blimp_exhale.wav");
+		GameEngineSound::Play("blimp_inhale.wav");
+		ChangePhaseSound.Stop();
+		ChangePhaseSound = GameEngineSound::Play("blimp_enemy_attack_01.wav");
 
 	}
 
@@ -118,6 +120,7 @@ void Hilda::ChangePhase_Update(float _DeltaTime)
 			isBackTurn = true;
 			WaitingTime = 0.0f;
 			BossSmokeRender->Off();
+			GameEngineSound::Play("blimp_exhale.wav");
 		}
 	}
 	else if(true == isDashBackTurn && true == isBackTurn)

@@ -101,7 +101,11 @@ void HIldaMoonUFO::Update(float _DeltaTime)
 		break;
 	}
 
-	CollisionPlayer(UFOBeamCollision);
+	if (true == UFOBeamCollision->IsUpdate() && true == CollisionPlayer(UFOBeamCollision))
+	{
+		UFOBeamCollision->Off();
+		GameEngineSound::Play("blimp_moon_ufo_laser_fire_01.wav");
+	}
 
 
 }

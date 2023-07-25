@@ -167,6 +167,7 @@ void Gemini::Attack_Start()
 	BossB->ChangeAnimation("AttackB");
 	Orb->ChangeAnimation("IdleLeave");
 	isAttack = true;
+	GameEngineSound::Play("flying_blimp_gemini_attack_01.wav");
 }
 
 void Gemini::Attack_Update(float _DeltaTime)

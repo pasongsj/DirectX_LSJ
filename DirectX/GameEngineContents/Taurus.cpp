@@ -126,6 +126,13 @@ void Taurus::Idle_Start()
 }
 void Taurus::Idle_Update(float _DeltaTime)
 {
+	IdleSoundInterval -= _DeltaTime;
+	if (IdleSoundInterval < 0)
+	{
+		GameEngineSound::Play("blimp_taurus_idle_01.wav");
+		IdleSoundInterval = 3.0f;
+	}
+
 	if (AttackInterval < GetLiveTime())
 	{
 		NextState = TaurusState::ATTACK;
@@ -148,6 +155,8 @@ void Taurus::Attack_Start()
 	CurPos = GetTransform()->GetLocalPosition();
 	DestPos = CurPos + float4(-500, 0);
 	isCharge = true;
+	GameEngineSound::Play("blimp_taurus_attack_01.wav");
+	IdleSoundInterval = 3.0f;
 }
 void Taurus::Attack_Update(float _DeltaTime)
 {

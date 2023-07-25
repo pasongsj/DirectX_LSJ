@@ -98,5 +98,7 @@ private:
 	std::function<void(float)> UpdateFuncPtr[static_cast<int>(HildaState::MAX)];
 	std::function<void()> EndFuncPtr[static_cast<int>(HildaState::MAX)];
 
+	GameEngineSoundPlayer ChangePhaseSound;
+
 };
 

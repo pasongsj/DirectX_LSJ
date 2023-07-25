@@ -40,7 +40,7 @@ void Constellation::Update(float _DeltaTime)
 {
 	ConstellationRender->ColorOptionValue.MulColor = float4::One;
 	ConstellationRender->ColorOptionValue.MulColor.w = GetLiveTime() * 0.8f;
-	if (GetLiveTime() > 2.5f)
+	if (GetLiveTime() > 1.8f)
 	{
 		Death();
 	}

@@ -182,7 +182,8 @@ void HildaBergLevel::BossSetting()
 		{
 			std::shared_ptr<Constellation> Constell = CreateActor<Constellation>(CupHeadActorOrder::UI);
 			Constell->SetConstellation("Taurus");
-
+			GameEngineSoundPlayer TransSound = GameEngineSound::Play("blimp_lady_constellation_transform.wav");
+			TransSound.SetPosition(1.7f);
 			Boss = CreateActor<Taurus>(CupHeadActorOrder::Boss);
 			Boss->SetPhase(2);
 			Boss->SetHP(468);
@@ -198,7 +199,8 @@ void HildaBergLevel::BossSetting()
 		case 4:
 		{
 			std::shared_ptr<Constellation> Constell = CreateActor<Constellation>(CupHeadActorOrder::UI);
-
+			GameEngineSoundPlayer TransSound = GameEngineSound::Play("blimp_lady_constellation_transform.wav");
+			TransSound.SetPosition(1.7f);
 			int RandomNum = GameEngineRandom::MainRandom.RandomInt(0, 1);
 			IsGemini = static_cast<bool>(RandomNum);
 			if (true == IsGemini)
@@ -331,6 +333,7 @@ void HildaBergLevel::LevelChangeEnd()
 	}
 	HildaBG.clear();
 	AllActorDestroy();
+	GameEngineSound::ResourcesClear();
 }
 
 void HildaBergLevel::UnLoadSprite()

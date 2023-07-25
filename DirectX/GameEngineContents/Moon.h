@@ -50,7 +50,7 @@ private:
 	float IntroAnimationTimer = 0.0f;
 
 	// idle 3√  attack 14√ 
-	float IntervalTimer = 3.0f;
+	float IntervalTimer = 7.0f;
 
 	// attack
 	bool isAttackIntroDone = false;
@@ -89,6 +89,7 @@ private:
 	std::function<void()> StartFuncPtr[static_cast<int>(MoonState::MAX)];
 	std::function<void(float)> UpdateFuncPtr[static_cast<int>(MoonState::MAX)];
 	std::function<void()> EndFuncPtr[static_cast<int>(MoonState::MAX)];
-
+	
+	GameEngineSoundPlayer LoopSound;
 };
 

@@ -93,8 +93,8 @@ void Hilda::SetPhase(int _Phase)
 	if (3 == _Phase || 5 == _Phase)
 	{
 		BossRender->ChangeAnimation("SecondIntro");
-		GameEngineSoundPlayer TransSound = GameEngineSound::Play("blimp_lady_constellation_transform.wav");
-		TransSound.SetPosition(1.2f);
+		//GameEngineSoundPlayer TransSound = GameEngineSound::Play("blimp_lady_constellation_transform.wav");
+		//TransSound.SetPosition(1.2f);
 	}
 }
 
