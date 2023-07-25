@@ -120,10 +120,20 @@ void PlayerOverWorldMode::CheckInteract()
 	if (nullptr != (Obj = PlayerCollision->Collision(CupHeadCollisionOrder::UI)))
 	{
 		ZRender->On();
+		if (false == isZRenderOn)
+		{
+			GameEngineSound::Play("WorldMap_LevelSelect_BubbleAppear.wav");
+			isZRenderOn = true;
+		}
 	}
 	else
 	{
 		ZRender->Off();
+		if (true == isZRenderOn)
+		{
+			GameEngineSound::Play("WorldMap_LevelSelect_BubbleDisappear.wav");
+			isZRenderOn = false;
+		}
 	}
 
 }

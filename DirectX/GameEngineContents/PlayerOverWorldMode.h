@@ -71,6 +71,8 @@ private:
 	std::function<void()> StartFuncPtr[static_cast<int>(PlayerOverWorldModeState::MAX)];
 	std::function<void(float)> UpdateFuncPtr[static_cast<int>(PlayerOverWorldModeState::MAX)];
 	std::function<void()> EndFuncPtr[static_cast<int>(PlayerOverWorldModeState::MAX)];
-
+	
+	float FootSoundInterval = 0.0f;
+	bool isZRenderOn = false;
 };
 

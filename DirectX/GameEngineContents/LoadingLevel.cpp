@@ -8,10 +8,26 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::WALLY;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::OVERWORLD;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
+
+void LoadingOverWorldSound(GameEngineThread* Thread)
+{
+	if (false == GameEngineSound::Find("WorldMap_Footstep_001.wav"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\OverWorld");
+		std::vector<GameEngineFile> AllSoundFile = Dir.GetAllFile({ ".wav" });
+		for (GameEngineFile _File : AllSoundFile)
+		{
+			GameEngineSound::Load(_File.GetFullPath());
+		}
+	}
+	++LoadFuncCount;
+}
 void LoadingPlayerSound(GameEngineThread* Thread)
 {
 	if (false == GameEngineSound::Find("player_plane_damaged_001.wav"))
@@ -820,7 +836,7 @@ void LoadingLevel::Update(float _DeltaTime)
 		}
 		break;
 	case CupheadLevel::OVERWORLD:
-		if (2 == LoadFuncCount)
+		if (3 == LoadFuncCount)
 		{
 			GameEngineCore::ChangeLevel("OverWorldLevel");
 		}
@@ -918,6 +934,7 @@ void LoadingLevel::LevelChangeStart()
 	case CupheadLevel::OVERWORLD:
 		GameEngineCore::JobQueue.Work(LoadingOverWorldLevel1);
 		GameEngineCore::JobQueue.Work(LoadingOverWorldLevel2);
+		GameEngineCore::JobQueue.Work(LoadingOverWorldSound);
 		break;
 	case CupheadLevel::TUTORIAL:
 		GameEngineCore::JobQueue.Work(LoadingTutorialLevel);

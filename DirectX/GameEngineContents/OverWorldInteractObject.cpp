@@ -44,6 +44,7 @@ void OverWorldInteractObject::Update(float _DeltaTime)
 		{
 			TitleCard->On();
 			isInteract = true;
+			GameEngineSound::Play("worldmap_menu_up.wav");
 		}
 		if (true == isInteract)
 		{
@@ -51,10 +52,12 @@ void OverWorldInteractObject::Update(float _DeltaTime)
 			{
 				TitleCard->Off();
 				isInteract = false;
+				GameEngineSound::Play("WorldMap_LevelSelect_BubbleDisappear.wav");
 			}
 			if (nullptr != EnterFucntion && true == isInteract && true == GameEngineInput::IsDown("EnterKey"))
 			{
 				EnterFucntion();
+				GameEngineSound::Play("WorldMap_LevelSelect_StartLevel.wav");
 				return;
 			}
 		}
