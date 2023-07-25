@@ -8,7 +8,7 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::OVERWORLD;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::WALLY;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
@@ -656,16 +656,72 @@ void LoadingWallyLevel4(GameEngineThread* Thread)
 
 }
 
-void LoadingStoryLevel(GameEngineThread* Thread)
+
+
+void LoadingStory0(GameEngineThread* Thread)
 {
 	GameEngineDirectory NewDir;
 	NewDir.MoveParentToDirectory("ContentResources");
 	NewDir.Move("ContentResources\\Texture");
-	for (int i = 0; i <= 10; i++)
+	for (int i = 0; i <= 1; i++)
 	{
 		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("story\\before\\Page" + std::to_string(i)).GetFullPath(), "story" + std::to_string(i));
 	}
+	++LoadFuncCount;
 
+
+}
+void LoadingStory1(GameEngineThread* Thread)
+{
+	GameEngineDirectory NewDir;
+	NewDir.MoveParentToDirectory("ContentResources");
+	NewDir.Move("ContentResources\\Texture");
+	for (int i = 2; i <= 3; i++)
+	{
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("story\\before\\Page" + std::to_string(i)).GetFullPath(), "story" + std::to_string(i));
+	}
+	++LoadFuncCount;
+
+}
+void LoadingStory2(GameEngineThread* Thread)
+{
+	GameEngineDirectory NewDir;
+	NewDir.MoveParentToDirectory("ContentResources");
+	NewDir.Move("ContentResources\\Texture");
+	for (int i = 4; i <= 5; i++)
+	{
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("story\\before\\Page" + std::to_string(i)).GetFullPath(), "story" + std::to_string(i));
+	}
+	++LoadFuncCount;
+
+}
+void LoadingStory3(GameEngineThread* Thread)
+{
+	GameEngineDirectory NewDir;
+	NewDir.MoveParentToDirectory("ContentResources");
+	NewDir.Move("ContentResources\\Texture");
+	for (int i = 6; i <= 7; i++)
+	{
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("story\\before\\Page" + std::to_string(i)).GetFullPath(), "story" + std::to_string(i));
+	}
+	++LoadFuncCount;
+
+}
+void LoadingStory4(GameEngineThread* Thread)
+{
+	GameEngineDirectory NewDir;
+	NewDir.MoveParentToDirectory("ContentResources");
+	NewDir.Move("ContentResources\\Texture");
+	for (int i = 8; i <= 9; i++)
+	{
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("story\\before\\Page" + std::to_string(i)).GetFullPath(), "story" + std::to_string(i));
+	}
+	++LoadFuncCount;
+
+}
+
+void LoadingStorySound(GameEngineThread* Thread)
+{
 	if (false == GameEngineSound::Find("cutscene_pageturn_01.wav"))
 	{
 		GameEngineDirectory Dir;
@@ -677,6 +733,17 @@ void LoadingStoryLevel(GameEngineThread* Thread)
 			GameEngineSound::Load(_File.GetFullPath());
 		}
 	}
+	GameEngineDirectory NewDir;
+	NewDir.MoveParentToDirectory("ContentResources");
+	NewDir.Move("ContentResources\\Texture");
+	GameEngineSprite::ReLoad(NewDir.GetPlusFileName("story\\before\\Page" + std::to_string(10)).GetFullPath(), "story" + std::to_string(10));
+	//for (int i = 0; i <= 10; i++)
+	//{
+
+	//	std::string NewPath = NewDir.GetPlusFileName("story\\before\\Page" + std::to_string(i)).GetFullPath();
+	//	GameEngineCore::JobQueue.Work(std::bind(LoadingStory, NewPath,"story" + std::to_string(i),);
+	//}
+
 	++LoadFuncCount;
 }
 
@@ -870,7 +937,7 @@ void LoadingLevel::Update(float _DeltaTime)
 	case CupheadLevel::NONE:
 		break;
 	case CupheadLevel::STORY:
-		if (1 == LoadFuncCount) 
+		if (6 == LoadFuncCount) 
 		{
 			GameEngineCore::ChangeLevel("StoryLevel");
 		}
@@ -952,7 +1019,12 @@ void LoadingLevel::LevelChangeStart()
 	case CupheadLevel::NONE:
 		break;
 	case CupheadLevel::STORY:
-		GameEngineCore::JobQueue.Work(LoadingStoryLevel);
+		GameEngineCore::JobQueue.Work(LoadingStory0);
+		GameEngineCore::JobQueue.Work(LoadingStory1);
+		GameEngineCore::JobQueue.Work(LoadingStory2);
+		GameEngineCore::JobQueue.Work(LoadingStory3);
+		GameEngineCore::JobQueue.Work(LoadingStory4);
+		GameEngineCore::JobQueue.Work(LoadingStorySound);
 		break;
 	case CupheadLevel::HILDA:
 		GameEngineCore::JobQueue.Work(LoadingHildaLevel0);
