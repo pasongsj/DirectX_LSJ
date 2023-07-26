@@ -1,6 +1,12 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+enum class BossType
+{
+	HILDA,
+	WALLY,
+};
+
 // Ό³Έν :
 class Result_DeathUI : public GameEngineActor
 {
@@ -17,6 +23,8 @@ public:
 
 	void SetReTryBtn(std::function<void()> _Func);
 	void SetCardUI(const std::string_view _Name);
+	void SetPhase(BossType _Type, int _Phase);
+
 
 
 protected:
@@ -35,6 +43,8 @@ private:
 	std::shared_ptr<class GameContentsButton> QuitBtn = nullptr;
 
 	std::shared_ptr<class GameContentsButton> HoverButton = nullptr;
+
+	std::shared_ptr<class ResultDeathCupheadCard> Cuphead = nullptr;
 
 };
 

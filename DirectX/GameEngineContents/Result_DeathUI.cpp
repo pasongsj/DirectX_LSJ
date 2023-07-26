@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 
 #include "GameContentsButton.h"
+#include "ResultDeathCupheadCard.h"
 #include "LoadingLevel.h"
 
 
@@ -61,7 +62,10 @@ void Result_DeathUI::Start()
 		});
 	// 
 	// 
+	Cuphead = GetLevel()->CreateActor< ResultDeathCupheadCard>(CupHeadActorOrder::UI);
+	Cuphead->GetTransform()->SetParent(Pivot->GetTransform());
 	Pivot->GetTransform()->SetLocalRotation(float4{ 0,0, 5 });
+
 
 	{
 		if (false == GameEngineInput::IsKey("ChangeLevel"))
@@ -79,6 +83,57 @@ void Result_DeathUI::Start()
 	}
 	GetTransform()->SetLocalPosition(float4(0, 0, 0));
 }
+
+void Result_DeathUI::SetPhase(BossType _Type, int _Phase)
+{
+	if(BossType::HILDA == _Type)
+	{
+		switch (_Phase)
+		{
+		case 2:
+			Cuphead->GetTransform()->SetLocalPosition(float4(-200, -40, 0));
+			break;
+		case 3:
+			Cuphead->GetTransform()->SetLocalPosition(float4(-120, -40, 0));
+			break;
+		case 4:
+			Cuphead->GetTransform()->SetLocalPosition(float4(-60, -40, 0));
+			break;
+		case 5:
+			Cuphead->GetTransform()->SetLocalPosition(float4(10, -40, 0));
+			break;
+		case 6:
+			Cuphead->GetTransform()->SetLocalPosition(float4(60, -40, 0));
+			break;
+		case 7:
+			Cuphead->GetTransform()->SetLocalPosition(float4(180, -40, 0));
+			break;
+
+		default:
+			break;
+		}
+	}
+	else
+	{
+		switch (_Phase)
+		{
+		case 2:
+			Cuphead->GetTransform()->SetLocalPosition(float4(-200, -40, 0));
+			break;
+		case 3:
+			Cuphead->GetTransform()->SetLocalPosition(float4(-20, -40, 0));
+			break;
+		case 4:
+			Cuphead->GetTransform()->SetLocalPosition(float4(120, -40, 0));
+
+			break;
+		default:
+			break;
+		}
+	}
+
+}
+
 
 void Result_DeathUI::Update(float _DeltaTime)
 {

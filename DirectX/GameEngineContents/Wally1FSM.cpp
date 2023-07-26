@@ -267,6 +267,7 @@ void Wally1::Pant_Start()
 
 void Wally1::Pant_Update(float _DeltaTime)
 {
+	FlappyBirdSpone(_DeltaTime);
 	if (PantLoopCount >= 3 && PantCount == 2)
 	{
 		NextState = Wally1State::CHANGEPHASE;

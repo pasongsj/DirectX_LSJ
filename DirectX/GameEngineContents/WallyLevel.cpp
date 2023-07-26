@@ -92,6 +92,7 @@ void WallyLevel::EndCheck()
 				LoadingLevel::SetLevel(CupheadLevel::WALLY);
 				GameEngineCore::ChangeLevel("LoadingLevel");
 				});
+			DeahtUI->SetPhase(BossType::WALLY, Phase);
 			EndTimer = 0.0f;
 		}
 		return;

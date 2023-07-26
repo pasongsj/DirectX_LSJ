@@ -135,6 +135,7 @@ void HildaBergLevel::EndCheck()
 				LoadingLevel::SetLevel(CupheadLevel::HILDA);
 				GameEngineCore::ChangeLevel("LoadingLevel");
 				});
+			DeahtUI->SetPhase(BossType::HILDA, Phase);
 			EndTimer = 0.0f;
 		}
 		return;
@@ -358,7 +359,6 @@ void HildaBergLevel::LevelChangeEnd()
 
 	BackGroundSound.Stop();
 	AnnouncerSound.Stop();
-	GameEngineSound::ResourcesClear();
 }
 
 void HildaBergLevel::UnLoadSprite()
