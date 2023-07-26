@@ -16,6 +16,8 @@
 
 #include "LoadingLevel.h"
 #include "ItemEffect.h"
+#include "ShopPurchaseEffect.h"
+#include "PurchaseSmokeEffect.h"
 
 
 std::vector<int> ShopLevel::SoldInex;
@@ -147,6 +149,18 @@ void ShopLevel::SelectUpdate()
 			SoldInex.push_back(CurItemIndex);
 			PigActor->SetState(PigState::NOD);
 			GameEngineSound::Play("store_piggy_purchase_grunt.wav");
+			{
+				float4 ItemPos = Items[CurItemIndex]->GetTransform()->GetWorldPosition();
+				std::shared_ptr< ShopPurchaseEffect>  AEffect = CreateActor< ShopPurchaseEffect>(CupHeadActorOrder::UI);
+				AEffect->GetTransform()->SetLocalPosition(ItemPos + float4(0, 0, -100));				
+				
+				std::shared_ptr< ShopPurchaseEffect>  BEffect = CreateActor< ShopPurchaseEffect>(CupHeadActorOrder::UI);
+				BEffect->GetTransform()->SetLocalPosition(ItemPos + float4(0, 0, -100));
+				BEffect->SetBType();
+
+				std::shared_ptr<GameEngineActor > SMoke = CreateActor< PurchaseSmokeEffect>(CupHeadActorOrder::UI);
+				SMoke->GetTransform()->SetLocalPosition(ItemPos + float4(0, 0, +200));
+			}
 		}
 		return;
 	}
@@ -296,6 +310,10 @@ void ShopLevel::LevelChangeEnd()
 	GameEngineSprite::UnLoad("Shop_Pig_nod");
 	GameEngineSprite::UnLoad("Shop_Pig_Welcome");
 	GameEngineSprite::UnLoad("Shop_Coin");
+
+	GameEngineSprite::UnLoad("Purchase_CoinA");
+	GameEngineSprite::UnLoad("Purchase_CoinB");
+	GameEngineSprite::UnLoad("Purchase_Effect");
 
 	{
 		GameEngineDirectory GoldDir;

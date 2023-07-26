@@ -307,6 +307,15 @@
     <ClInclude Include="ShoCoinObject.h">
       <Filter>Object\Shop</Filter>
     </ClInclude>
+    <ClInclude Include="ShopPurchaseEffect.h">
+      <Filter>Object\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultDeathCupheadCard.h">
+      <Filter>Object\ResultPage\death</Filter>
+    </ClInclude>
+    <ClInclude Include="PurchaseSmokeEffect.h">
+      <Filter>Object\Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -634,6 +643,15 @@
       <Filter>Object\Shop</Filter>
     </ClCompile>
     <ClCompile Include="ShoCoinObject.cpp">
+      <Filter>Object\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopPurchaseEffect.cpp">
+      <Filter>Object\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultDeathCupheadCard.cpp">
+      <Filter>Object\ResultPage\death</Filter>
+    </ClCompile>
+    <ClCompile Include="PurchaseSmokeEffect.cpp">
       <Filter>Object\Shop</Filter>
     </ClCompile>
   </ItemGroup>

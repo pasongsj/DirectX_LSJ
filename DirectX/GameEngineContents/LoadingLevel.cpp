@@ -9,7 +9,7 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::OVERWORLD;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::SHOP;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
@@ -296,6 +296,10 @@ void LoadingShopLevel(GameEngineThread* Thread)
 			}
 		}
 	}
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("PurchaseCoin\\A").GetFullPath(), "Purchase_CoinA");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("PurchaseCoin\\B").GetFullPath(), "Purchase_CoinB");
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Smoke").GetFullPath(), "Purchase_Effect");
+
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Coin").GetFullPath(), "Shop_Coin");
 
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\glow").GetFullPath(), "Item_Coffee_Glow");

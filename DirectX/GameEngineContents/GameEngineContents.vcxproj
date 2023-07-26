@@ -284,6 +284,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PurchaseSmokeEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ResultDeathCupheadCard.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Result_DeathUI.h">
       <SubType>
       </SubType>
@@ -297,6 +305,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="ShopLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ShopPurchaseEffect.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -753,6 +765,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PurchaseSmokeEffect.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ResultDeathCupheadCard.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Result_DeathUI.cpp">
       <SubType>
       </SubType>
@@ -766,6 +786,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ShopLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ShopPurchaseEffect.cpp">
       <SubType>
       </SubType>
     </ClCompile>
