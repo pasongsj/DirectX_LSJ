@@ -19,6 +19,7 @@
 
 #include "GameEnemy.h"
 #include "ResultBoard.h"
+#include "ItemEffect.h"
 
 PlayerAirPlaneMode::PlayerAirPlaneMode() 
 {
@@ -288,16 +289,26 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 		NextState = PlayerAirPlaneModeState::IDLE;
 	}
 
-	// 강제 state변환
-	if (true == GameEngineInput::IsDown("PlayerOriginMode"))
+	//// 강제 state변환
+	//if (true == GameEngineInput::IsDown("PlayerOriginMode"))
+	//{
+	//	ChangeMode("Origin");
+	//	NextState = PlayerAirPlaneModeState::INTRO;
+	//}
+	//if (true == GameEngineInput::IsDown("PlayerShmUpMode"))
+	//{
+	//	ChangeMode("Super");
+	//	NextState = PlayerAirPlaneModeState::INTRO;
+	//}
+
+	if (true == ItemEffect::COFFEE)
 	{
-		ChangeMode("Origin");
-		NextState = PlayerAirPlaneModeState::INTRO;
-	}
-	if (true == GameEngineInput::IsDown("PlayerShmUpMode"))
-	{
-		ChangeMode("Super");
-		NextState = PlayerAirPlaneModeState::INTRO;
+		CoffeeEnergy += _DeltaTime * 3;
+		if (CoffeeEnergy > 1.0f)
+		{
+			SuperModeEnergy++;
+			CoffeeEnergy -= 1.0f;
+		}
 	}
 
 	if (true == GameEngineInput::IsDown("PlayerInvincibleMode"))
@@ -605,7 +616,7 @@ void PlayerAirPlaneMode::SuperModeBoomAttack()
 		std::shared_ptr<GameEnemy> ColActor = _Col->GetActor()->DynamicThis<GameEnemy>();
 		if (PlayerPos.XYDistance(ColActor->GetTransform()->GetWorldPosition()) < 640.0f)
 		{
-			ColActor->Attack(20);
+			ColActor->Attack(static_cast<int>(BoomDmg * ItemEffect::DMGPERC));
 		}
 	}
 }

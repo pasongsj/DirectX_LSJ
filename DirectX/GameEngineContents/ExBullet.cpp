@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineCamera.h>
 
 #include "GameEnemy.h"
+#include "ItemEffect.h"
 
 ExBullet::ExBullet()
 {
@@ -45,7 +46,7 @@ void ExBullet::Update(float _DeltaTime)
 			if (nullptr != ColActor)
 			{
 				// 적에게 영향
-				ColActor->Attack(Dmg);
+				ColActor->Attack(static_cast<int>(Dmg * ItemEffect::DMGPERC));
 				Death();
 				return;
 			}

@@ -239,6 +239,9 @@ void LoadingShopLevel(GameEngineThread* Thread)
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_drawer_left.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("shop_drawer_right.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("ConfirmBack.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("hp1_explain.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("hp2_explain.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("coffee_explain.png").GetFullPath());
 	}
 	else
 	{
@@ -250,6 +253,9 @@ void LoadingShopLevel(GameEngineThread* Thread)
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_drawer_left.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("shop_drawer_right.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("ConfirmBack.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("hp1_explain.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("hp2_explain.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("coffee_explain.png").GetFullPath());
 	}
 
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\glow").GetFullPath(), "Item_Coffee_Glow");

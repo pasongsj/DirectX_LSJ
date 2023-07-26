@@ -4,6 +4,7 @@
 // Ό³Έν :
 class ShopLevel : public GameEngineLevel
 {
+	static std::vector<int> SoldInex;
 public:
 	// constrcuter destructer
 	ShopLevel();

@@ -7,6 +7,8 @@
 #include "GameEnemy.h"
 #include "PeashotFX.h"
 #include "Player.h"
+
+#include "ItemEffect.h"
 PeaShooter::PeaShooter() 
 {
 }
@@ -70,7 +72,7 @@ void PeaShooter::Update(float _DeltaTime)
 			if (nullptr != ColActor)
 			{
 				// 적에게 영향
-				ColActor->Attack(Dmg);
+				ColActor->Attack(static_cast<int>(Dmg * ItemEffect::DMGPERC));
 				// 플레이어에 영향
 				Player::MainPlayer->SuperModeEnergy += 10;
 				//이펙트 만들기

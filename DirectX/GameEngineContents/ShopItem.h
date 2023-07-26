@@ -25,6 +25,10 @@ public:
 	std::shared_ptr< GameEngineSpriteRenderer> GetItemRender()
 	{
 		return ItemRender;
+	}	
+	std::shared_ptr< GameEngineSpriteRenderer> GetExplainRender()
+	{
+		return ExplainRender;
 	}
 
 	void SetState(ItemState _State);
@@ -33,13 +37,28 @@ public:
 		return CurState;
 	}
 
+	void SetPurchaseFunc(std::function<void()> _Func)
+	{
+		Purchase = _Func;
+	}
+
+	void DoPurchase()
+	{
+		if (ItemState::SOLD != CurState && nullptr != Purchase)
+		{
+			Purchase();
+		}
+	}
+
 protected:
 	void Start() override;
 	
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> ItemRender = nullptr;
+	std::shared_ptr<class GameEngineSpriteRenderer> ExplainRender = nullptr;
 	ItemState CurState = ItemState::DIM;
+	std::function<void()> Purchase = nullptr;
 
 
 };

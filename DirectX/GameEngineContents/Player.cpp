@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "Player.h"
 #include <GameEnginePlatform/GameEngineInput.h>
+#include "ItemEffect.h"
 
 Player* Player::MainPlayer = nullptr;
 
@@ -28,5 +29,9 @@ void Player::Start()
 		GameEngineInput::CreateKey("PlayerShmUpMode", VK_NUMPAD2);
 		GameEngineInput::CreateKey("PlayerShrinkMode", VK_SHIFT);
 		GameEngineInput::CreateKey("PlayerInvincibleMode", 'I');
+	}
+	if (ItemEffect::MAXHP > 3)
+	{
+		PlayerHP = ItemEffect::MAXHP;
 	}
 }

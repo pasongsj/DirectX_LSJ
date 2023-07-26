@@ -301,6 +301,9 @@
     <ClInclude Include="OverWorldDustEffect.h">
       <Filter>Object\Player\PlayerFX</Filter>
     </ClInclude>
+    <ClInclude Include="ItemEffect.h">
+      <Filter>Object\Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -623,6 +626,9 @@
     </ClCompile>
     <ClCompile Include="OverWorldDustEffect.cpp">
       <Filter>Object\Player\PlayerFX</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemEffect.cpp">
+      <Filter>Object\Shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

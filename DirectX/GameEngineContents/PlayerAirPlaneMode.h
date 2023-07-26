@@ -42,6 +42,9 @@ private:
 	float  MoveSpeed = 500.0f;
 	float4 MoveVec = float4::Zero;
 	float4 MaxPlayerSize = float4(115, 102);
+	int BoomDmg = 50;
+
+	float CoffeeEnergy = 0.0f;
 
 	std::shared_ptr<class GameEngineSpriteRenderer> PlayerRender = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> Spark = nullptr;
