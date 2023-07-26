@@ -6,6 +6,7 @@ class ShopLevel : public GameEngineLevel
 {
 	static std::vector<int> SoldInex;
 public:
+	static int CoinCount;
 	// constrcuter destructer
 	ShopLevel();
 	~ShopLevel();

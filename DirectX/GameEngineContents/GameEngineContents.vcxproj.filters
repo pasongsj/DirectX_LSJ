@@ -304,6 +304,9 @@
     <ClInclude Include="ItemEffect.h">
       <Filter>Object\Shop</Filter>
     </ClInclude>
+    <ClInclude Include="ShoCoinObject.h">
+      <Filter>Object\Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -628,6 +631,9 @@
       <Filter>Object\Player\PlayerFX</Filter>
     </ClCompile>
     <ClCompile Include="ItemEffect.cpp">
+      <Filter>Object\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="ShoCoinObject.cpp">
       <Filter>Object\Shop</Filter>
     </ClCompile>
   </ItemGroup>

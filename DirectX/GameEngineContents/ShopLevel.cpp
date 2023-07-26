@@ -8,6 +8,7 @@
 #include "Shop_Pig.h"
 #include "Drawer_L.h"
 #include "ShopItem.h"
+#include "ShoCoinObject.h"
 
 //effect
 #include "OldFilmEffect.h"
@@ -128,12 +129,15 @@ void ShopLevel::SelectUpdate()
 {
 	if (true == GameEngineInput::IsDown("EnterKey"))
 	{
-		if(SoldInex.end() == find(SoldInex.begin(), SoldInex.end(), CurItemIndex))
+		if(SoldInex.end() == find(SoldInex.begin(), SoldInex.end(), CurItemIndex) && CoinCount>= Items[CurItemIndex]->GetPrice())
 		{
 			Items[CurItemIndex]->DoPurchase();
 			Items[CurItemIndex]->SetState(ItemState::SOLD);
+			CoinCount -= Items[CurItemIndex]->GetPrice();
 			GameEngineSound::Play("store_purchase.wav");
 			SoldInex.push_back(CurItemIndex);
+			PigActor->SetState(PigState::NOD);
+			GameEngineSound::Play("store_piggy_purchase_grunt.wav");
 		}
 		return;
 	}
@@ -221,15 +225,25 @@ void ShopLevel::LevelChangeStart()
 		Table->GetTransform()->SetLocalPosition(Shop_Table_Pos);
 	}
 
+	// 피그(판매상)
 	PigActor = CreateActor<Shop_Pig>(CupHeadActorOrder::BackGround);
+	// 아이템
 	SetItems();
 
 	{
+		//나가기 UI
 		std::shared_ptr<GameEngineActor> ConfirmBack = CreateActor< GameEngineActor>(CupHeadActorOrder::UI);
 		std::shared_ptr< GameEngineUIRenderer> Render = ConfirmBack->CreateComponent<GameEngineUIRenderer>(CupHeadRendererOrder::UI);
 		Render->SetScaleToTexture("ConfirmBack.png");
 		ConfirmBack->GetTransform()->AddLocalPosition(float4{ 435,-332 });
 	}
+	{
+		// CoinUI
+		std::shared_ptr<GameEngineActor> CoinUI = CreateActor< ShoCoinObject>(CupHeadActorOrder::UI);
+		CoinUI->GetTransform()->SetLocalPosition(float4(-570 ,300));
+	}
+
+
 	FadeEffect->SetFade(CircleTransOption::FadeOut);
 	BackGroundSound = GameEngineSound::Play("bgm_shop_pig.wav");
 	BackGroundSound.SetLoop(-1);
@@ -271,6 +285,22 @@ void ShopLevel::LevelChangeEnd()
 	GameEngineSprite::UnLoad("Shop_Pig_Idle");
 	GameEngineSprite::UnLoad("Shop_Pig_nod");
 	GameEngineSprite::UnLoad("Shop_Pig_Welcome");
+	GameEngineSprite::UnLoad("Shop_Coin");
+
+	{
+		GameEngineDirectory GoldDir;
+		GoldDir.MoveParentToDirectory("ContentResources");
+		GoldDir.Move("ContentResources\\Texture\\Shop\\GoldNumber");
+		std::vector<GameEngineFile> numbertex = GoldDir.GetAllFile({ ".png" });
+		if (nullptr != GameEngineTexture::Find("ch_world_map_gold_number_0.png"))
+		{
+			for (GameEngineFile _File : numbertex)
+			{
+				GameEngineTexture::UnLoad(_File.GetFileName());
+
+			}
+		}
+	}
 	BackGroundSound.Stop();
 }
 
@@ -290,6 +320,7 @@ void ShopLevel::SetItems()
 		Item->GetItemRender()->CreateAnimation({ .AnimationName = dim,.SpriteName = "Item_Coffee_Dim",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
 		Item->GetItemRender()->CreateAnimation({ .AnimationName = sold,.SpriteName = "Item_Coffee_Sold",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
 		Item->SetState(ItemState::DIM);
+		Item->SetPrice(3);
 
 		Item->GetExplainRender()->SetScaleToTexture("coffee_explain.png");
 		const float4 Shop_Board_Letter_Pos = float4{ -320, -240, 1000 };
@@ -308,6 +339,7 @@ void ShopLevel::SetItems()
 		Item->GetItemRender()->CreateAnimation({ .AnimationName = dim,.SpriteName = "Item_Hp2_Dim",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
 		Item->GetItemRender()->CreateAnimation({ .AnimationName = sold,.SpriteName = "Item_Hp2_Sold",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
 		Item->SetState(ItemState::DIM);
+		Item->SetPrice(5);
 
 		Item->GetExplainRender()->SetScaleToTexture("hp2_explain.png");
 		const float4 Shop_Board_Letter_Pos = float4{ -320, -240, 1000 };
@@ -328,6 +360,8 @@ void ShopLevel::SetItems()
 		Item->GetItemRender()->CreateAnimation({ .AnimationName = dim,.SpriteName = "Item_Hp1_Dim",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
 		Item->GetItemRender()->CreateAnimation({ .AnimationName = sold,.SpriteName = "Item_Hp1_Sold",.FrameInter = 0.1f,.Loop = false, .ScaleToTexture = true });
 		Item->SetState(ItemState::DIM);
+		Item->SetPrice(3);
+
 		Item->GetExplainRender()->SetScaleToTexture("hp1_explain.png");
 		const float4 Shop_Board_Letter_Pos = float4{ -320, -240, 1000 };
 		Item->GetExplainRender()->GetTransform()->SetWorldPosition(Shop_Board_Letter_Pos);

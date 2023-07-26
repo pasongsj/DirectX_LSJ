@@ -50,6 +50,16 @@ public:
 		}
 	}
 
+	inline void SetPrice(int _Pr)
+	{
+		Price = _Pr;
+	}
+
+	int GetPrice()
+	{
+		return Price;
+	}
+
 protected:
 	void Start() override;
 	
@@ -59,6 +69,7 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> ExplainRender = nullptr;
 	ItemState CurState = ItemState::DIM;
 	std::function<void()> Purchase = nullptr;
+	int Price;
 
 
 };

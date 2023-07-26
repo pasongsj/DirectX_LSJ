@@ -257,6 +257,29 @@ void LoadingShopLevel(GameEngineThread* Thread)
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("hp2_explain.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("coffee_explain.png").GetFullPath());
 	}
+	{
+		GameEngineDirectory GoldDir;
+		GoldDir.MoveParentToDirectory("ContentResources");
+		GoldDir.Move("ContentResources\\Texture\\Shop\\GoldNumber");
+		std::vector<GameEngineFile> numbertex = GoldDir.GetAllFile({".png"});
+		if (nullptr == GameEngineTexture::Find("ch_world_map_gold_number_0.png"))
+		{
+			for (GameEngineFile _File : numbertex)
+			{
+				GameEngineTexture::Load(_File.GetFullPath());
+
+			}
+		}
+		else
+		{
+			for (GameEngineFile _File : numbertex)
+			{
+				GameEngineTexture::ReLoad(_File.GetFullPath());
+
+			}
+		}
+	}
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Coin").GetFullPath(), "Shop_Coin");
 
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\glow").GetFullPath(), "Item_Coffee_Glow");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("Items\\Coffee\\dim").GetFullPath(), "Item_Coffee_Dim");

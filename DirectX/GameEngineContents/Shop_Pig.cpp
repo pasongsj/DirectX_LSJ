@@ -66,10 +66,10 @@ void Shop_Pig::SetState(PigState _State)
 		break;
 	case PigState::CLOCK:
 		PigRender->ChangeAnimation("Clock");
-
 		break;
 	case PigState::NOD:
-		PigRender->ChangeAnimation("Nod");
+		PigRender->ChangeAnimation("nod");
+		isWelcomeDone = false;
 		break;
 	case PigState::GOODBYE:
 		PigRender->ChangeAnimation("GoodBye");

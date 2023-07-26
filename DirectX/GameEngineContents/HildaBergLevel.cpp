@@ -262,7 +262,7 @@ void HildaBergLevel::LevelChangeStart()
 	IsGemini = false;
 	isEffectOn = false;
 	LastBossPos = float4::Zero;
-
+	DeathCard = false;
 
 
 	// effect
@@ -340,6 +340,8 @@ void HildaBergLevel::LevelChangeEnd()
 	}
 	HildaBG.clear();
 	AllActorDestroy();
+	GetLastTarget()->ReleaseEffect(FEffect);
+	FEffect = nullptr;
 	GameEngineSound::ResourcesClear();
 }
 
