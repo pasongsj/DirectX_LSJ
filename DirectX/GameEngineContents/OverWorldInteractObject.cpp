@@ -18,7 +18,7 @@ void OverWorldInteractObject::Start()
 
 	InteractCollision = CreateComponent< GameEngineCollision>(CupHeadCollisionOrder::UI);
 	InteractCollision->SetColType(ColType::SPHERE2D);
-	InteractCollision->GetTransform()->SetLocalScale({ 200 ,0 });
+	InteractCollision->GetTransform()->SetLocalScale({ 150 ,0 });
 
 	TitleCard = CreateComponent<GameEngineUIRenderer>(CupHeadRendererOrder::UI);
 	TitleCard->GetTransform()->SetWorldPosition(float4::Zero);
