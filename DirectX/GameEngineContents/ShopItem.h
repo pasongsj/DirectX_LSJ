@@ -28,6 +28,10 @@ public:
 	}
 
 	void SetState(ItemState _State);
+	ItemState GetState()
+	{
+		return CurState;
+	}
 
 protected:
 	void Start() override;
@@ -35,6 +39,7 @@ protected:
 
 private:
 	std::shared_ptr<class GameEngineSpriteRenderer> ItemRender = nullptr;
+	ItemState CurState = ItemState::DIM;
 
 
 };

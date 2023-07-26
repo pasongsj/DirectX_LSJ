@@ -72,7 +72,7 @@ void PeaShooter::Update(float _DeltaTime)
 				// 적에게 영향
 				ColActor->Attack(Dmg);
 				// 플레이어에 영향
-				Player::MainPlayer->SuperModeEnergy += 30;
+				Player::MainPlayer->SuperModeEnergy += 10;
 				//이펙트 만들기
 				std::shared_ptr<PeashotFX> FX = GetLevel()->CreateActor<PeashotFX>(CupHeadActorOrder::PlayerEffect);
 				float4 Pos = GetTransform()->GetWorldPosition();

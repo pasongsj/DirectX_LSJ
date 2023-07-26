@@ -17,5 +17,10 @@ void ShopItem::Start()
 
 void ShopItem::SetState(ItemState _State)
 {
+	if (ItemState::SOLD == CurState)
+	{
+		return;
+	}
+	CurState = _State;
 	ItemRender->ChangeAnimation(std::to_string(static_cast<int>(_State)));
 }

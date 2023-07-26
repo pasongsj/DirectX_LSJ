@@ -35,5 +35,7 @@ private:
 	int CurItemIndex = 0;
 	
 	GameEngineSoundPlayer BackGroundSound;
+
+	void SelectUpdate();
 };
 

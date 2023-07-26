@@ -86,6 +86,10 @@ void ShopLevel::Start()
 	{
 		GameEngineInput::CreateKey("ESC_Buttion", VK_ESCAPE);
 	}
+	if (false == GameEngineInput::IsKey("EnterKey"))
+	{
+		GameEngineInput::CreateKey("EnterKey", VK_RETURN);
+	}
 }
 
 void ShopLevel::Update(float _DeltaTime)
@@ -106,8 +110,16 @@ void ShopLevel::Update(float _DeltaTime)
 		GameEngineCore::ChangeLevel("LoadingLevel");
 	}
 
-	if (true == GameEngineInput::IsDown("PressI"))
+	SelectUpdate();
+}
+
+void ShopLevel::SelectUpdate()
+{
+	if (true == GameEngineInput::IsDown("EnterKey"))
 	{
+		Items[CurItemIndex]->SetState(ItemState::SOLD);
+		GameEngineSound::Play("store_purchase.wav");
+		return;
 	}
 	if (true == GameEngineInput::IsUp("Left_Buttion"))
 	{
@@ -125,7 +137,7 @@ void ShopLevel::Update(float _DeltaTime)
 
 	if (true == GameEngineInput::IsUp("Right_Buttion"))
 	{
-		if (CurItemIndex >= Items.size()-1)
+		if (CurItemIndex >= Items.size() - 1)
 		{
 			return;
 		}
