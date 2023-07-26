@@ -123,8 +123,6 @@ void ResultLevel::LevelChangeStart()
 
 void ResultLevel::LevelChangeEnd()
 {
-	FadeInEffect = nullptr;
-	FadeOutEffect = nullptr;
 	ResultBoardActor->StopSound();
 	ResultBoardActor = nullptr;
 
@@ -158,6 +156,8 @@ void ResultLevel::LevelChangeEnd()
 
 	GetLastTarget()->ReleaseEffect(FadeInEffect);
 	GetLastTarget()->ReleaseEffect(FadeOutEffect);
+	FadeInEffect = nullptr;
+	FadeOutEffect = nullptr;
 	BackGroundSound.Stop();
 
 }

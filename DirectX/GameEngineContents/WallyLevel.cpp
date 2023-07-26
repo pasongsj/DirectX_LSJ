@@ -231,6 +231,7 @@ void WallyLevel::BossSetting()
 			FEffect->FadeIn();
 			isEffectOn = true;
 			ResultBoard::ResultTime = Player::MainPlayer->GetLiveTime();
+			EndTimer = GetLiveTime() + 5.0f;
 		}
 
 	}
