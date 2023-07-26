@@ -24,6 +24,7 @@
 #include "GetReadyUI.h"
 #include "KnockOutUI.h"
 #include "YouDieUI.h"
+#include "Result_DeathUI.h"
 
 // Effect
 #include "OldFilmEffect.h"
@@ -65,27 +66,59 @@ void WallyLevel::Update(float _DeltaTime)
 void WallyLevel::EndCheck()
 {
 	// LevelEnd 체크
-	if (true == isEffectOn)
+	if (0 != EndTimer && EndTimer < GetLiveTime())
 	{
-		if (true == FEffect->IsEnd())
+		if (true == isEffectOn && true == FEffect->IsEnd())
 		{
 			LoadingLevel::SetLevel(CupheadLevel::RESULT);
 			GameEngineCore::ChangeLevel("LoadingLevel");
+			EndTimer = 0.0f;
+
+		}
+		if (true == DeathCard)
+		{
+			std::shared_ptr< Result_DeathUI> DeahtUI = CreateActor< Result_DeathUI>(CupHeadActorOrder::UI);
+			DeahtUI->SetCardUI("death_card_wally .png");
+			DeahtUI->SetReTryBtn([] {
+				LoadingLevel::SetLevel(CupheadLevel::WALLY);
+				GameEngineCore::ChangeLevel("LoadingLevel");
+				});
+			EndTimer = 0.0f;
 		}
 		return;
 
 	}
 
+	//if (true == isEffectOn)
+	//{
+	//	if (true == FEffect->IsEnd())
+	//	{
+	//		LoadingLevel::SetLevel(CupheadLevel::RESULT);
+	//		GameEngineCore::ChangeLevel("LoadingLevel");
+	//	}
+	//	return;
+
+	//}
+
 	// 플레이어가 죽어서 끝남
-	if (false == isEffectOn && Player::MainPlayer->GetHP() <= 0)
+	if (false == DeathCard && Player::MainPlayer->GetHP() <= 0)
 	{
+		EndTimer = GetLiveTime() + 3.0f;
+		DeathCard = true;
 		CreateActor<YouDieUI>(CupHeadActorOrder::UI);
-		FEffect->SetTakesTime(5.0f);
-		FEffect->FadeIn();
-		isEffectOn = true;
+
 		return;
 
 	}
+	//if (false == isEffectOn && Player::MainPlayer->GetHP() <= 0)
+	//{
+	//	CreateActor<YouDieUI>(CupHeadActorOrder::UI);
+	//	FEffect->SetTakesTime(5.0f);
+	//	FEffect->FadeIn();
+	//	isEffectOn = true;
+	//	return;
+
+	//}
 }
 
 
@@ -98,6 +131,14 @@ void WallyLevel::LevelChangeStart()
 	std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetCamera(100);
 	Camera->SetProjectionType(CameraType::Orthogonal);
 	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+
+	Phase = 1;
+	LastBossPos = float4::Zero;
+	isEffectOn = false;
+	DeathCard = false;
+	EndTimer = 0.0f;
+
+
 
 	if (nullptr == FEffect)
 	{
@@ -141,6 +182,7 @@ void WallyLevel::LevelChangeStart()
 
 	BackGroundSound = GameEngineSound::Play("MUS_AviaryAction.wav");
 	BackGroundSound.SetLoop(-1);
+	ResultBoard::ResultTime = 0.0f;
 
 }
 
@@ -188,7 +230,7 @@ void WallyLevel::BossSetting()
 			FEffect->SetTakesTime(5.0f);
 			FEffect->FadeIn();
 			isEffectOn = true;
-
+			ResultBoard::ResultTime = Player::MainPlayer->GetLiveTime();
 		}
 
 	}
@@ -220,10 +262,19 @@ void WallyLevel::BossSetting()
 }
 void WallyLevel::LevelChangeEnd()
 {
-	AllActorDestroy();
-	Player::MainPlayer = nullptr;
-
 	UnLoadSprite();
+	if (0.0f == ResultBoard::ResultTime) 
+	{
+		ResultBoard::ResultTime = Player::MainPlayer->GetLiveTime();
+	}
+	if (nullptr != Player::MainPlayer)
+	{
+		Player::MainPlayer = nullptr;
+	}
+	Boss = nullptr;
+	AllActorDestroy();
+
+
 }
 
 void WallyLevel::UnLoadSprite()
@@ -396,5 +447,15 @@ void WallyLevel::UnLoadSprite()
 	GameEngineSprite::UnLoad("Text_KO");
 	GameEngineSprite::UnLoad("CharacterRotateCard");
 	GameEngineSprite::UnLoad("CharacterFlipCard");
+
+	GameEngineSprite::UnLoad("deathcard_ch_run");
+	GameEngineTexture::UnLoad("death_card_wally .png");
+	GameEngineTexture::UnLoad("Death_Result_BG.png");
+	GameEngineTexture::UnLoad("ExitButton_hover.png");
+	GameEngineTexture::UnLoad("ExitButton_release.png");
+	GameEngineTexture::UnLoad("QuitButton_hover.png");
+	GameEngineTexture::UnLoad("QuitButton_release.png");
+	GameEngineTexture::UnLoad("RetryButton_hover.png");
+	GameEngineTexture::UnLoad("RetryButton_release.png");
 	BackGroundSound.Stop();
 }

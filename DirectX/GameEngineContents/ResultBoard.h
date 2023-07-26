@@ -56,5 +56,7 @@ private:
 	bool Banner = false;
 
 	GameEngineSoundPlayer ResultSound;
+
+	void ResultSetting();
 };
 

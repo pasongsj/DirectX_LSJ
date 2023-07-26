@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include "ResultBoard.h"
 
 // 설명 :
 class Player : public GameEngineActor
@@ -33,6 +34,7 @@ public:
 	{
 		if (InvincibleTime < 0)
 		{
+			ResultBoard::ResultHPCount--;
 			PlayerHP -= _Dmg;
 			InvincibleTime = 2.0f; // 2 초동안 무적 상태
 			GameEngineSound::Play("player_plane_damaged_001.wav");

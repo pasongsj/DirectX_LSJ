@@ -18,6 +18,7 @@
 #include "SupermodeShadowEffect.h"
 
 #include "GameEnemy.h"
+#include "ResultBoard.h"
 
 PlayerAirPlaneMode::PlayerAirPlaneMode() 
 {
@@ -271,6 +272,11 @@ void PlayerAirPlaneMode::Start()
 	PeaShootSoundPlayer.SetLoop(-1);
 	PeaShootSoundPlayer.SetPause(true);
 	PeaShootSoundPlayer.SetVolume(0.5f);
+	ResultBoard::ResultTime = 0.0f;
+	ResultBoard::ResultHPCount = 3;
+	ResultBoard::ResultParryCount = 0;
+	ResultBoard::ResultSuperMeter = 0;
+	ResultBoard::ResultSkillLevel = 3;
 }
 
 
@@ -293,11 +299,6 @@ void PlayerAirPlaneMode::Update(float _DeltaTime)
 		ChangeMode("Super");
 		NextState = PlayerAirPlaneModeState::INTRO;
 	}
-	//if (true == GameEngineInput::IsDown("PlayerShrinkMode"))
-	//{
-	//	ChangeMode("Shrink");
-	//	NextState = PlayerAirPlaneModeState::INTRO;
-	//}
 
 	if (true == GameEngineInput::IsDown("PlayerInvincibleMode"))
 	{
@@ -352,6 +353,7 @@ void PlayerAirPlaneMode::CheckPink()
 				GameEngineSound::Play("sfx_player_parry_slap_01.wav");
 				_Col->GetActor()->Death();
 				SuperModeEnergy += 100;
+				ResultBoard::ResultParryCount++;
 
 			}
 		}
@@ -365,6 +367,8 @@ void PlayerAirPlaneMode::CheckPink()
 			{
 				_Col->GetActor()->Death();
 				SuperModeEnergy += 100;
+				ResultBoard::ResultParryCount++;
+
 
 			}
 		}
@@ -394,12 +398,14 @@ void PlayerAirPlaneMode::CheckInput()
 			ChangeMode("Super");
 			NextState = PlayerAirPlaneModeState::INTRO;
 			SuperModeEnergy = 0;
+			ResultBoard::ResultSuperMeter += 5;
 			GameEngineSound::Play("sfx_player_plane_ex_end_01.wav");
 		}
 		else if (SuperModeEnergy >= 100)
 		{
 			NextState = PlayerAirPlaneModeState::SHOOT;
 			SuperModeEnergy -= 100;
+			ResultBoard::ResultSuperMeter ++;
 			GameEngineSound::Play("sfx_player_plane_weapon_special_fire_01.wav");
 		}
 		return;

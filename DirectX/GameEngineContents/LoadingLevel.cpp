@@ -8,7 +8,7 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::WALLY;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
@@ -120,6 +120,7 @@ void LoadingDeathResultSprite(GameEngineThread* Thread)
 	{
 		GameEngineTexture::Load(Dir.GetPlusFileName("Death_Result_BG.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("death_card_blimp.png").GetFullPath());
+		GameEngineTexture::Load(Dir.GetPlusFileName("death_card_wally .png").GetFullPath());
 
 		GameEngineTexture::Load(Dir.GetPlusFileName("RetryButton_hover.png").GetFullPath());
 		GameEngineTexture::Load(Dir.GetPlusFileName("RetryButton_release.png").GetFullPath());
@@ -131,6 +132,7 @@ void LoadingDeathResultSprite(GameEngineThread* Thread)
 	{
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("Death_Result_BG.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("death_card_blimp.png").GetFullPath());
+		GameEngineTexture::ReLoad(Dir.GetPlusFileName("death_card_wally .png").GetFullPath());
 
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("RetryButton_hover.png").GetFullPath());
 		GameEngineTexture::ReLoad(Dir.GetPlusFileName("RetryButton_release.png").GetFullPath());

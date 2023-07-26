@@ -11,10 +11,10 @@
 
 
 
-float ResultBoard::ResultTime = 200.0f;
+float ResultBoard::ResultTime = 0.0f;
 int ResultBoard::ResultHPCount = 3;
-int ResultBoard::ResultParryCount = 3;
-int ResultBoard::ResultSuperMeter = 6;
+int ResultBoard::ResultParryCount = 0;
+int ResultBoard::ResultSuperMeter = 0;
 int ResultBoard::ResultSkillLevel = 3;
 std::string_view ResultBoard::Rank = "B_Pluse";
 
@@ -34,9 +34,6 @@ void ResultBoard::MakeSprite()
 
 void ResultBoard::Start()
 {
-
-
-
 	// º¸µå
 	std::shared_ptr<GameEngineSpriteRenderer> BoardBG = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::UI);
 	BoardBG->SetScaleToTexture("winscreen_board_letter.png");
@@ -79,7 +76,33 @@ void ResultBoard::Start()
 
 	ResultSound = GameEngineSound::Play("win_time_loop.wav");
 	ResultSound.SetLoop(-1);
+
+
+	ResultSetting();
+
 }
+
+void ResultBoard::ResultSetting()
+{
+	if (ResultHPCount > 3)
+	{
+		ResultHPCount = 3;
+	}
+	if (ResultHPCount > 3)
+	{
+		ResultParryCount = 3;
+	}
+	if (ResultSuperMeter > 6)
+	{
+		ResultSuperMeter = 6;
+
+	}
+	if (ResultSkillLevel > 3)
+	{
+		ResultSkillLevel = 3;
+	}
+}
+
 
 void ResultBoard::Update(float _DeltaTime)
 {
@@ -114,7 +137,7 @@ void ResultBoard::Update(float _DeltaTime)
 		ChangeInterval -= _DeltaTime;
 		return;
 	}
-	if (CurHPCount < (ResultHPCount < 3 ? ResultHPCount : 3))
+	if (CurHPCount < ResultHPCount)
 	{
 		ResultSound.Stop();
 		HPRender->SetValue(std::to_string(++CurHPCount));
@@ -122,21 +145,21 @@ void ResultBoard::Update(float _DeltaTime)
 		GameEngineSound::Play("win_score_tick_01.wav");
 		return;																							//   d::ResultTime = 200.0f;
 	}																									//   :ResultHPCount = 3;
-	else if (CurParryCount < (ResultParryCount < 3 ? ResultParryCount : 3))															//   :ResultParryCount = 3;
+	else if (CurParryCount < ResultParryCount )															//   :ResultParryCount = 3;
 	{																									//   :ResultSuperMeter = 6;
 		ParryRender->SetValue(std::to_string(++CurParryCount));											//   :ResultSkillLevel = 2;
 		ChangeInterval = 0.3f;																			//    ResultBoard::Rank = "B_Pluse";
 		GameEngineSound::Play("win_score_tick_01.wav");
 		return;
 	}
-	else if (CurSuperMeter < (ResultSuperMeter < 3 ? ResultSuperMeter : 3))
+	else if (CurSuperMeter < ResultSuperMeter)
 	{
 		SuperMeterRender->SetValue(std::to_string(++CurSuperMeter));
 		ChangeInterval = 0.3f;
 		GameEngineSound::Play("win_score_tick_01.wav");
 		return;
 	}
-	else if (StarIndex < (ResultSkillLevel < 6 ? ResultSkillLevel : 6))
+	else if (StarIndex < ResultSkillLevel)
 	{
 		//RankStars[StarIndex++]->SetScaleToTexture("winscreen_main_star_a.png");
 		RankStars[StarIndex++]->ChangeAnimation("Appear");

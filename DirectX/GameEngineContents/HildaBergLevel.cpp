@@ -161,7 +161,7 @@ void HildaBergLevel::BossSetting()
 			FEffect->FadeIn();
 			isEffectOn = true;
 			EndTimer = GetLiveTime() + 5.0f;
-
+			ResultBoard::ResultTime = Player::MainPlayer->GetLiveTime();
 		}
 
 	}
@@ -317,11 +317,16 @@ void HildaBergLevel::LevelChangeStart()
 	GameEngineSound::Play("blimp_intro_start.wav");
 	BackrGroundSound = GameEngineSound::Play("bgm_level_flying_blimp.wav");
 	BackrGroundSound.SetLoop(-1);
+	ResultBoard::ResultTime = 0.0f;
 }
 
 void HildaBergLevel::LevelChangeEnd()
 {
 	UnLoadSprite();
+	if (0.0f == ResultBoard::ResultTime)
+	{
+		ResultBoard::ResultTime = Player::MainPlayer->GetLiveTime();
+	}
 	if (nullptr != Player::MainPlayer)
 	{
 		Player::MainPlayer->Death();

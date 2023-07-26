@@ -182,6 +182,7 @@ void Wally1::Steam_Start()
 
 void Wally1::Steam_Update(float _DeltaTime)
 {
+	FlappyBirdSpone(_DeltaTime);
 	if (true == HeadRender->IsAnimationEnd())
 	{
 		NextState = Wally1State::FLAP;
@@ -205,6 +206,7 @@ void Wally1::Flap_Start()
 
 void Wally1::Flap_Update(float _DeltaTime)
 {
+	FlappyBirdSpone(_DeltaTime);
 	if (false == isFlapIntroDone)
 	{
 		if(true == HouseRender->IsAnimationEnd())
@@ -287,7 +289,7 @@ void Wally1::ChangePhase_Start()
 	HeadRender->Off();
 	HouseRender->ChangeAnimation("Dead");
 	float4 Pos = HouseRender->GetTransform()->GetLocalPosition();
-	Pos.y += HouseRender->GetTransform()->GetLocalScale().hy();
+	Pos.y += HouseRender->GetTransform()->GetLocalScale().hy() - 50;
 	HouseRender->SetLocalSortPosition(Pos, SortRenderer::TOP);
 
 }

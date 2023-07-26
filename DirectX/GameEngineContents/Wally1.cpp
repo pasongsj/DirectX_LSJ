@@ -228,18 +228,18 @@ void Wally1::MoveUpdate(float _DeltaTime)
 void Wally1::MakeFeather()
 {
 	FeatherDegree = !FeatherDegree;
-	int degree = 0;
+	float degree = 0;
+	int FeatherCount = 15;
 	if (false == FeatherDegree)
 	{
-		degree = 20;
+		degree = 360.0f / FeatherCount/2;
 	}
-
-	for (int i = 0; i < 10; ++i) // 0 40 80 120 160 200 240 280 320 360
+	for (int i = 0; i < FeatherCount; ++i) // 0 40 80 120 160 200 240 280 320 360
 	{
 		std::shared_ptr< Wally1_Feather> Feat = GetLevel()->CreateActor< Wally1_Feather>(CupHeadActorOrder::EnemyWeapon);
 		float4 Pos = float4(-100, 0, 0);
-		Pos.RotaitonZDeg(static_cast<float>(i * 40 + degree));
-		Feat->SetDir(static_cast<float>(i * 40 + degree));
+		Pos.RotaitonZDeg(static_cast<float>(i * (360.0f/ FeatherCount) + degree));
+		Feat->SetDir(static_cast<float>(i * (360.0f/ FeatherCount) + degree));
 		Pos += GetTransform()->GetWorldPosition();
 		Pos.z = 550;
 		Feat->GetTransform()->SetLocalPosition(Pos);

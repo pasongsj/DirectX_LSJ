@@ -2,6 +2,7 @@
 #include "PlayerAirPlaneMode.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include "ResultBoard.h"
 
 
 void PlayerAirPlaneMode::Intro_Start()
@@ -180,6 +181,7 @@ void PlayerAirPlaneMode::Dead_Start()
 	PlayerRender->ChangeAnimation("Dead");
 	GameEngineSound::Play("player_death_01.wav");
 	PeaShootSoundPlayer.Stop();
+	ResultBoard::ResultTime = GetLiveTime();
 }
 
 void PlayerAirPlaneMode::Dead_Update(float _DeltaTime)

@@ -30,6 +30,9 @@ private:
 	//Effect
 	std::shared_ptr<class FadeEffect> FEffect = nullptr;
 	bool isEffectOn = false;
+	// player death
+	bool DeathCard = false;
+	float EndTimer = 0.0f;
 
 	void BackGroundSetting();
 	void BossSetting();
