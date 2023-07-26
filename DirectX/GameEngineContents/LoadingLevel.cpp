@@ -8,7 +8,7 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::HILDA;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::OVERWORLD;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
@@ -359,6 +359,8 @@ void LoadingOverWorldLevel2(GameEngineThread* Thread)
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Up_Move").GetFullPath(), "Up_Move");
 
 		GameEngineSprite::ReLoad(Dir.GetPlusFileName("InterAction_Win").GetFullPath(), "InterAction_Win");
+
+		GameEngineSprite::ReLoad(Dir.GetPlusFileName("Dust").GetFullPath(), "OverWorldDust");
 	}
 	++LoadFuncCount;
 }

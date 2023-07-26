@@ -74,5 +74,7 @@ private:
 	
 	float FootSoundInterval = 0.0f;
 	bool isZRenderOn = false;
+
+	float DustInterval = 0.5f;
 };
 

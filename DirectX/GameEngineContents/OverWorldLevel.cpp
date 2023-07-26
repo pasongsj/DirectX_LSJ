@@ -228,6 +228,7 @@ void OverWorldLevel::LevelChangeEnd()
 	GameEngineSprite::UnLoad("Up_Move");
 				
 	GameEngineSprite::UnLoad("InterAction_Win");
+	GameEngineSprite::UnLoad("OverWorldDust");
 
 	GameEngineSprite::UnLoad("OverWorld_To_Hilda");
 	GameEngineSprite::UnLoad("OverWorld_To_Wally");

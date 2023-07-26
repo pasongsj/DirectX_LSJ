@@ -272,6 +272,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="OverWorldDustEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="OverWorldInteractObject.h">
       <SubType>
       </SubType>
@@ -726,6 +730,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="OldFilmEffect.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="OverWorldDustEffect.cpp">
       <SubType>
       </SubType>
     </ClCompile>

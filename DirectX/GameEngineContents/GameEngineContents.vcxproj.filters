@@ -298,6 +298,9 @@
     <ClInclude Include="LoadingLevel.h">
       <Filter>Control</Filter>
     </ClInclude>
+    <ClInclude Include="OverWorldDustEffect.h">
+      <Filter>Object\Player\PlayerFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -617,6 +620,9 @@
     </ClCompile>
     <ClCompile Include="LoadingLevel.cpp">
       <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="OverWorldDustEffect.cpp">
+      <Filter>Object\Player\PlayerFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
