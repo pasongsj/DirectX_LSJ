@@ -46,7 +46,16 @@ void WallyLevel::Start()
 
 void WallyLevel::Update(float _DeltaTime)
 {
-
+	if (false == FirstSoundDone && true == AnnouncerSound.IsValid())
+	{
+		bool tmpCheck;
+		AnnouncerSound.isPlaying(&tmpCheck);
+		if (false == tmpCheck)
+		{
+			AnnouncerSound = GameEngineSound::Play("announcer_0002_e.wav");
+			FirstSoundDone = true;
+		}
+	}
 	if (true == GameEngineInput::IsDown("DebugRender"))
 	{
 		GameEngineLevel::IsDebugSwitch();
@@ -106,7 +115,7 @@ void WallyLevel::EndCheck()
 		EndTimer = GetLiveTime() + 3.0f;
 		DeathCard = true;
 		CreateActor<YouDieUI>(CupHeadActorOrder::UI);
-
+		AnnouncerSound = GameEngineSound::Play("vo_maus_fail_001.wav");
 		return;
 
 	}
@@ -183,7 +192,8 @@ void WallyLevel::LevelChangeStart()
 	BackGroundSound = GameEngineSound::Play("MUS_AviaryAction.wav");
 	BackGroundSound.SetLoop(-1);
 	ResultBoard::ResultTime = 0.0f;
-
+	FirstSoundDone = false;
+	AnnouncerSound = GameEngineSound::Play("announcer_0001_d.wav");
 }
 
 void WallyLevel::BackGroundSetting()
@@ -232,6 +242,7 @@ void WallyLevel::BossSetting()
 			isEffectOn = true;
 			ResultBoard::ResultTime = Player::MainPlayer->GetLiveTime();
 			EndTimer = GetLiveTime() + 5.0f;
+			AnnouncerSound = GameEngineSound::Play("announcer_knockout_0004.wav");
 		}
 
 	}
@@ -274,7 +285,8 @@ void WallyLevel::LevelChangeEnd()
 	}
 	Boss = nullptr;
 	AllActorDestroy();
-
+	BackGroundSound.Stop();
+	AnnouncerSound.Stop();
 
 }
 
@@ -458,5 +470,4 @@ void WallyLevel::UnLoadSprite()
 	GameEngineTexture::UnLoad("QuitButton_release.png");
 	GameEngineTexture::UnLoad("RetryButton_hover.png");
 	GameEngineTexture::UnLoad("RetryButton_release.png");
-	BackGroundSound.Stop();
 }

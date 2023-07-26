@@ -12,6 +12,20 @@ CupheadLevel LoadingLevel::NextLevel = CupheadLevel::OVERWORLD;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
+void LoadingAnnouncerSound()
+{
+	if (false == GameEngineSound::Find("announcer_0001_d.wav"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\Announcer");
+		std::vector<GameEngineFile> AllSoundFile = Dir.GetAllFile({ ".wav" });
+		for (GameEngineFile _File : AllSoundFile)
+		{
+			GameEngineSound::Load(_File.GetFullPath());
+		}
+	}
+}
 
 void LoadingResultSound(GameEngineThread* Thread)
 {
@@ -78,6 +92,7 @@ void LoadingPlayerSound(GameEngineThread* Thread)
 }
 void LoadingHildaSound(GameEngineThread* Thread)
 {
+	LoadingAnnouncerSound();
 	if (false == GameEngineSound::Find("blimp_cannon_ship_death_01.wav"))
 	{
 		GameEngineDirectory Dir;
@@ -95,6 +110,7 @@ void LoadingHildaSound(GameEngineThread* Thread)
 
 void LoadingWallySound(GameEngineThread* Thread)
 {
+	LoadingAnnouncerSound();
 	if (false == GameEngineSound::Find("flying_bird_bird_feathers_hesitate.wav"))
 	{
 		GameEngineDirectory Dir;

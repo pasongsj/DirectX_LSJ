@@ -41,5 +41,7 @@ private:
 	void UnLoadSprite();
 
 	GameEngineSoundPlayer BackGroundSound;
+	GameEngineSoundPlayer AnnouncerSound;
+	bool FirstSoundDone = false;
 };
 

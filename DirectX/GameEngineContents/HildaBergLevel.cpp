@@ -99,7 +99,16 @@ void HildaBergLevel::Update(float _DeltaTime)
 		return;
 	}
 
-
+	if (false == FirstSoundDone && true == AnnouncerSound.IsValid())
+	{
+		bool tmpCheck;
+		AnnouncerSound.isPlaying(&tmpCheck);
+		if (false == tmpCheck)
+		{
+			AnnouncerSound = GameEngineSound::Play("announcer_0002_e.wav");
+			FirstSoundDone = true;
+		}
+	}
 	EndCheck();
 	SponeEnemy(_DeltaTime);
 	BossSetting();
@@ -137,6 +146,7 @@ void HildaBergLevel::EndCheck()
 		EndTimer = GetLiveTime() + 3.0f;
 		DeathCard = true;
 		CreateActor<YouDieUI>(CupHeadActorOrder::UI);
+		AnnouncerSound = GameEngineSound::Play("vo_maus_fail_001.wav");
 
 		return;
 
@@ -162,6 +172,7 @@ void HildaBergLevel::BossSetting()
 			isEffectOn = true;
 			EndTimer = GetLiveTime() + 5.0f;
 			ResultBoard::ResultTime = Player::MainPlayer->GetLiveTime();
+			AnnouncerSound = GameEngineSound::Play("announcer_knockout_0004.wav");
 		}
 
 	}
@@ -315,9 +326,11 @@ void HildaBergLevel::LevelChangeStart()
 	CreateActor<GetReadyUI>(CupHeadActorOrder::UI);
 
 	GameEngineSound::Play("blimp_intro_start.wav");
-	BackrGroundSound = GameEngineSound::Play("bgm_level_flying_blimp.wav");
-	BackrGroundSound.SetLoop(-1);
+	BackGroundSound = GameEngineSound::Play("bgm_level_flying_blimp.wav");
+	BackGroundSound.SetLoop(-1);
 	ResultBoard::ResultTime = 0.0f;
+	FirstSoundDone = false;
+	AnnouncerSound = GameEngineSound::Play("announcer_0001_d.wav");
 }
 
 void HildaBergLevel::LevelChangeEnd()
@@ -342,6 +355,9 @@ void HildaBergLevel::LevelChangeEnd()
 	AllActorDestroy();
 	GetLastTarget()->ReleaseEffect(FEffect);
 	FEffect = nullptr;
+
+	BackGroundSound.Stop();
+	AnnouncerSound.Stop();
 	GameEngineSound::ResourcesClear();
 }
 
@@ -520,5 +536,5 @@ void HildaBergLevel::UnLoadSprite()
 	GameEngineTexture::UnLoad("QuitButton_release.png");	
 	GameEngineTexture::UnLoad("RetryButton_hover.png");
 	GameEngineTexture::UnLoad("RetryButton_release.png");
-	BackrGroundSound.Stop();
+
 }

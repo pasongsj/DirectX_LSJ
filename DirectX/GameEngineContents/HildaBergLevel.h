@@ -58,6 +58,8 @@ private:
 
 
 
-	GameEngineSoundPlayer BackrGroundSound;
+	GameEngineSoundPlayer BackGroundSound;
+	GameEngineSoundPlayer AnnouncerSound;
+	bool FirstSoundDone = false;
 };
 
