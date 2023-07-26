@@ -62,6 +62,7 @@ void ResultLevel::Update(float _DeltaTime)
 		if (false == didFadein)
 		{
 			FadeInEffect->SetFade(CircleTransOption::FadeIn);
+			BackGroundSound.SoundFadeOut(1.0f);
 			didFadein = true;
 		}
 		else if (true == FadeInEffect->IsEnd())

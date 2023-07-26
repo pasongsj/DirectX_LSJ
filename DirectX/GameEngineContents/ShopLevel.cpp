@@ -112,14 +112,23 @@ void ShopLevel::Update(float _DeltaTime)
 		{
 			PigActor->SetState(PigState::GOODBYE);
 			LeftDrawer->isClosed = true;
-			FadeEffect->SetFade(CircleTransOption::FadeIn);
+			BackGroundSound.SoundFadeOut(1.0f);
 			GameEngineSound::Play("store_panel_slide_close.wav");
+
 		}
 	}
-	if (nullptr != LeftDrawer && LeftDrawer->CloseTimer > 1.0f)
+	if (false == isColsedDone && nullptr != LeftDrawer && LeftDrawer->CloseTimer > 1.0f)
+	{
+		isColsedDone = true;
+		FadeEffect->SetFade(CircleTransOption::FadeIn);
+		GameEngineSound::Play("WorldMap_LevelSelect_StartLevel.wav");
+	}
+	if (true == isColsedDone && true == FadeEffect->IsEnd())
 	{
 		LoadingLevel::SetLevel(CupheadLevel::OVERWORLD);
 		GameEngineCore::ChangeLevel("LoadingLevel");
+		return;
+
 	}
 
 	SelectUpdate();
@@ -254,6 +263,7 @@ void ShopLevel::LevelChangeEnd()
 	LeftDrawer = nullptr;
 	PigActor = nullptr;
 	Items.clear();
+	isColsedDone = false;
 	AllActorDestroy();
 
 

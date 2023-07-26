@@ -42,7 +42,8 @@ void StoryLevel::Update(float _DeltaTime)
 	{
 		FadeEffect->SetFade(CircleTransOption::FadeIn);
 		LevelChangeTime = GetLiveTime() + 1.0f;
-		BackGroundSound.Stop();
+		GameEngineSound::Play("WorldMap_LevelSelect_StartLevel.wav");
+		BackGroundSound.SoundFadeOut(1.0f);
 
 
 	}

@@ -220,6 +220,7 @@ void PlayerOverWorldMode::MainCameraMove(float _DeltaTime)
 	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
 	float4 PlayerPos = GetTransform()->GetWorldPosition();
 	PlayerPos.y = PlayerPos.y > -375 ? -375 : PlayerPos.y;
+	PlayerPos.x = PlayerPos.x > 3355 ? 3355 : PlayerPos.x;
 	float4 NextPos = float4::Zero.LerpClamp(CamPos, PlayerPos, 3.0f * _DeltaTime);
 	NextPos.z = -1000.0f;
 	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(NextPos);

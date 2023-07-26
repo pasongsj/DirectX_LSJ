@@ -113,6 +113,7 @@ void TitleLevel::Update(float _DeltaTime)
 		{
 			CircleFadeOut = GetLastTarget()->CreateEffect< CircleTransEffect>();
 			CircleFadeOut->SetFade(CircleTransOption::FadeIn);
+			TitleSound.SoundFadeOut(1.0f);
 			isPressAnyKey = true;
 		}
 	}

@@ -90,5 +90,6 @@ private:
 	void SettingEggs();
 
 	GameEngineSoundPlayer EggSound;
+	GameEngineSoundPlayer CryingSound;
 };
 

@@ -102,7 +102,7 @@ void Wally2::Death_Start()
 	}
 	std::vector < std::shared_ptr<GameEngineActor>> Eggs;
 	EggSound.Stop();
-	GameEngineSound::Play("flying_bird_small_bird_death_cry.wav");
+	CryingSound = GameEngineSound::Play("flying_bird_small_bird_death_cry.wav");
 }
 
 void Wally2::Death_Update(float _DeltaTime)
@@ -118,6 +118,7 @@ void Wally2::Death_Update(float _DeltaTime)
 	}
 	if (false == GetLevel()->GetMainCamera()->IsView(BossRender->GetTransform()->GetTransDataRef()))
 	{
+		CryingSound.Stop();
 		isWallyDeath = true;
 		Death();
 		return;

@@ -34,8 +34,9 @@ protected:
 private:
 
 	float NextLevelTime = 0.0f;
-	std::shared_ptr<class GameEngineActor> BackGround = nullptr;
+	std::shared_ptr<class GameEngineActor> Glass = nullptr;
 
 	static CupheadLevel NextLevel;
+	GameEngineSoundPlayer BackGroundSound;
 
 };

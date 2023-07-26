@@ -38,6 +38,7 @@ private:
 	
 	GameEngineSoundPlayer BackGroundSound;
 
+	bool isColsedDone = false;
 	void SelectUpdate();
 };
 

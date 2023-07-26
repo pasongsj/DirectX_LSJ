@@ -3,6 +3,7 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineSprite.h>
 #include <GameEngineCore/GameEngineCore.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
 
 #include "LoadingBackGround.h"
 #include "FadeEffect.h"
@@ -1036,15 +1037,42 @@ void LoadingLevel::Start()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+	if (nullptr == GameEngineSprite::Find("LoadingHourGlass"))
+	{
+
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\Loading");
+		GameEngineTexture::Load(NewDir.GetPlusFileName("BlackBG.png").GetFullPath());
+
+		GameEngineSprite::LoadFolder("LoadingHourGlass", NewDir.GetPlusFileName("HourGlass").GetFullPath());
+	}
+	if (false == GameEngineSound::Find("sfx_noise_1920s_01.wav"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToDirectory("ContentResources");
+		Dir.Move("ContentResources\\Sound\\Loading");
+		std::vector<GameEngineFile> AllSoundFile = Dir.GetAllFile({ ".wav" });
+		for (GameEngineFile _File : AllSoundFile)
+		{
+			GameEngineSound::Load(_File.GetFullPath());
+		}
+	}
 
 }
 
 
 void LoadingLevel::LevelChangeStart()
 {
-	if (nullptr == BackGround)
+
 	{
-		BackGround = CreateActor<LoadingBackGround>(CupHeadActorOrder::BackGround);
+		std::shared_ptr<GameEngineActor> BG = CreateActor<GameEngineActor>(CupHeadActorOrder::BackGround);
+		std::shared_ptr<GameEngineSpriteRenderer> BlackBG = BG->CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
+		BlackBG->SetScaleToTexture("BlackBG.png");
+	}
+	if (nullptr == Glass && CupheadLevel::RESULT != NextLevel)
+	{
+		Glass = CreateActor<LoadingBackGround>(CupHeadActorOrder::BackGround);
 	}
 
 	if (nullptr == FEffect)
@@ -1126,8 +1154,18 @@ void LoadingLevel::LevelChangeStart()
 	default:
 		break;
 	}
+	BackGroundSound = GameEngineSound::Play("sfx_noise_1920s_01.wav");
+	BackGroundSound.SetLoop(-1);
+	BackGroundSound.SetVolume(0.5f);
 }
 
 void LoadingLevel::LevelChangeEnd()
 {
+	if (nullptr != Glass)
+	{
+		Glass->Death();
+		Glass = nullptr;
+
+	}
+	BackGroundSound.Stop();
 }
