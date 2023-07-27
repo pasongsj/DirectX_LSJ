@@ -190,6 +190,7 @@ void Wally1::Start()
 
 void Wally1::Update(float _DeltaTime)
 {
+	
 	if (GameEngineInput::IsPress("PressF"))
 	{
 		NextState = Wally1State::FLAP;

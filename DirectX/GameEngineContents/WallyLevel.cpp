@@ -73,7 +73,10 @@ void WallyLevel::Update(float _DeltaTime)
 			Boss->Attack(100);
 		}
 	}
-
+	if (true == GetMainCamera()->IsFreeCamera())
+	{
+		return;
+	}
 	EndCheck();
 	BossSetting();
 

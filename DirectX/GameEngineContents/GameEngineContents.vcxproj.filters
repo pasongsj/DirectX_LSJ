@@ -319,6 +319,9 @@
     <ClInclude Include="ContentsFxObject.h">
       <Filter>Object\Fx</Filter>
     </ClInclude>
+    <ClInclude Include="GameContentsController.h">
+      <Filter>Control</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -659,6 +662,9 @@
     </ClCompile>
     <ClCompile Include="ContentsFxObject.cpp">
       <Filter>Object\Fx</Filter>
+    </ClCompile>
+    <ClCompile Include="GameContentsController.cpp">
+      <Filter>Control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -88,6 +88,7 @@ void HildaBergLevel::SponeEnemy(float _DeltaTime)
 
 void HildaBergLevel::Update(float _DeltaTime)
 {
+
 	if (true == GameEngineInput::IsDown("DebugRender"))
 	{
 		GameEngineLevel::IsDebugSwitch();
@@ -108,6 +109,10 @@ void HildaBergLevel::Update(float _DeltaTime)
 			AnnouncerSound = GameEngineSound::Play("announcer_0002_e.wav");
 			FirstSoundDone = true;
 		}
+	}
+	if (true == GetMainCamera()->IsFreeCamera())
+	{
+		return;
 	}
 	EndCheck();
 	SponeEnemy(_DeltaTime);
