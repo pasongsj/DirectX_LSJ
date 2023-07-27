@@ -9,7 +9,7 @@
 #include "FadeEffect.h"
 
 
-CupheadLevel LoadingLevel::NextLevel = CupheadLevel::SHOP;
+CupheadLevel LoadingLevel::NextLevel = CupheadLevel::WALLY;
 std::atomic_bool isDone = false;
 std::atomic_int LoadFuncCount = 0;
 
@@ -569,6 +569,9 @@ void LoadingWallyLevel0(GameEngineThread* Thread)
 	// wally3 salt
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Death\\Salt\\A").GetFullPath(), "Wally3_Salt_A");
 	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Death\\Salt\\B").GetFullPath(), "Wally3_Salt_B");
+	// Fx
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Fx\\Heart_Fx").GetFullPath(), "Wally3_Heart_spit") ;
+	GameEngineSprite::ReLoad(Dir.GetPlusFileName("stage2\\Boss\\Wally\\Phase 3\\Fx\\Nurse_Fx").GetFullPath(), "nurse_bird_spit") ;
 
 
 	{

@@ -232,24 +232,6 @@
     <ClInclude Include="Wally3.h">
       <Filter>Object\Wally\Boss\Phase3</Filter>
     </ClInclude>
-    <ClInclude Include="Wally3_LeftBird.h">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClInclude>
-    <ClInclude Include="Wally3_RightBird.h">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClInclude>
-    <ClInclude Include="Wally3_Salt.h">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClInclude>
-    <ClInclude Include="Wally3_Pepper.h">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClInclude>
-    <ClInclude Include="Wally3_Pill.h">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClInclude>
-    <ClInclude Include="Wally3_Pill_Piece.h">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClInclude>
     <ClInclude Include="Wally3_Garbages.h">
       <Filter>Object\Wally\Boss\Phase3</Filter>
     </ClInclude>
@@ -315,6 +297,27 @@
     </ClInclude>
     <ClInclude Include="PurchaseSmokeEffect.h">
       <Filter>Object\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_LeftBird.h">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_Salt.h">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_Pill.h">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_Pill_Piece.h">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_Pepper.h">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClInclude>
+    <ClInclude Include="Wally3_RightBird.h">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsFxObject.h">
+      <Filter>Object\Fx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -570,24 +573,6 @@
     <ClCompile Include="Wally3FSM.cpp">
       <Filter>Object\Wally\Boss\Phase3</Filter>
     </ClCompile>
-    <ClCompile Include="Wally3_LeftBird.cpp">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClCompile>
-    <ClCompile Include="Wally3_RightBird.cpp">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClCompile>
-    <ClCompile Include="Wally3_Salt.cpp">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClCompile>
-    <ClCompile Include="Wally3_Pepper.cpp">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClCompile>
-    <ClCompile Include="Wally3_Pill.cpp">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClCompile>
-    <ClCompile Include="Wally3_Pill_Piece.cpp">
-      <Filter>Object\Wally\Boss\Phase3</Filter>
-    </ClCompile>
     <ClCompile Include="Wally3_Garbages.cpp">
       <Filter>Object\Wally\Boss\Phase3</Filter>
     </ClCompile>
@@ -653,6 +638,27 @@
     </ClCompile>
     <ClCompile Include="PurchaseSmokeEffect.cpp">
       <Filter>Object\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_LeftBird.cpp">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_Salt.cpp">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_Pill.cpp">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_Pill_Piece.cpp">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_Pepper.cpp">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClCompile>
+    <ClCompile Include="Wally3_RightBird.cpp">
+      <Filter>Object\Wally\Boss\Phase3\nurse</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentsFxObject.cpp">
+      <Filter>Object\Fx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -769,6 +775,12 @@
     </Filter>
     <Filter Include="Control">
       <UniqueIdentifier>{29f99ec4-c00d-4333-896a-480b19374a2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Wally\Boss\Phase3\nurse">
+      <UniqueIdentifier>{a99e3317-c7d8-4d07-b426-18eaa3fd4b57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Fx">
+      <UniqueIdentifier>{b133482b-4fc7-44df-945c-88bcd6ea8eb4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

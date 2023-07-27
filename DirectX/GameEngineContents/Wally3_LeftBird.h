@@ -22,7 +22,7 @@ protected:
 
 private:
 	std::shared_ptr<class ContentsSortRenderer> BirdRender = nullptr;
-	float AttackInterval = 10.0f;
+	float AttackInterval = 5.0f;
 	bool isAttackAnimation = false;
 	void MakeSprite();
 };

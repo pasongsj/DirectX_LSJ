@@ -12,6 +12,7 @@
 #include "Wally3_Pepper.h"
 #include "Wally3_Garbages.h"
 #include "Wally3_Heart.h"
+#include "ContentsFxObject.h"
 
 Wally3::Wally3()
 {
@@ -69,10 +70,17 @@ void Wally3::SettingRender()
 	BossRender->CreateAnimation({ .AnimationName = "Regurgitate_Intro", .SpriteName = "Wally3_Regurgitate_Intro",.FrameInter = 0.05f,.Loop = false, .ScaleToTexture = true });
 	BossRender->SetAnimationStartEvent("Regurgitate_Intro", 17, [this]
 		{
-			std::shared_ptr< Wally3_Heart> Heart = GetLevel()->CreateActor< Wally3_Heart>(CupHeadActorOrder::EnemyWeapon);
 			float4 BossPos = GetTransform()->GetWorldPosition();
+			std::shared_ptr< Wally3_Heart> Heart = GetLevel()->CreateActor< Wally3_Heart>(CupHeadActorOrder::EnemyWeapon);
 			BossPos.z = 550;
 			Heart->SetStartPosition(BossPos + float4(200, 150));
+
+			std::shared_ptr<ContentsFxObject> Fx = GetLevel()->CreateActor< ContentsFxObject>(CupHeadActorOrder::EnemyEffect);
+			Fx->SetRenderType(CupHeadRendererOrder::EnemyEffect);
+			std::shared_ptr < GameEngineSpriteRenderer> FxRender = Fx->GetFxRender();
+			FxRender->CreateAnimation({ .AnimationName = "FxIdle",.SpriteName = "Wally3_Heart_spit",.FrameInter = 0.03f,.Loop = false,.ScaleToTexture = true });
+			FxRender->ChangeAnimation("FxIdle");
+			Fx->GetTransform()->SetLocalPosition(BossPos + float4(200, 150, -100));
 		});
 	BossRender->CreateAnimation({ .AnimationName = "Regurgitate_Loop", .SpriteName = "Wally3_Regurgitate_Loop",.FrameInter = 0.05f,.Loop = true, .ScaleToTexture = true });
 	BossRender->SetAnimationStartEvent("Regurgitate_Loop", 4, [this] {++RegurgitateCount; });

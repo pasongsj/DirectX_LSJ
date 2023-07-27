@@ -4,7 +4,7 @@
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include "ContentsSortRenderer.h"
 #include "Wally3_Pill.h"
-
+#include "ContentsFxObject.h"
 Wally3_LeftBird::Wally3_LeftBird() 
 {
 }
@@ -40,6 +40,15 @@ void Wally3_LeftBird::Start()
 			BirdPos.z = 500;
 			std::shared_ptr<GameEngineActor>Pill = GetLevel()->CreateActor<Wally3_Pill>(CupHeadActorOrder::EnemyWeapon);
 			Pill->GetTransform()->SetLocalPosition(BirdPos + float4(0, 100));
+
+			std::shared_ptr<ContentsFxObject> Fx = GetLevel()->CreateActor< ContentsFxObject>(CupHeadActorOrder::EnemyEffect);
+			Fx->SetRenderType(CupHeadRendererOrder::EnemyEffect);
+			std::shared_ptr < GameEngineSpriteRenderer> FxRender = Fx->GetFxRender();
+			FxRender->CreateAnimation({ .AnimationName = "FxIdle",.SpriteName = "nurse_bird_spit",.FrameInter = 0.03f,.Loop = false,.ScaleToTexture = true });
+			FxRender->ChangeAnimation("FxIdle");
+			float4 FxRenderPos = GetTransform()->GetWorldPosition();
+			Fx->GetTransform()->SetLocalPosition(FxRenderPos + float4(0, 150, -100));
+
 		});
 	BirdRender->ChangeAnimation("Idle");
 	BirdRender->SetLocalSortPosition(float4(0,-100),SortRenderer::BOT);

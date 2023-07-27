@@ -66,7 +66,13 @@ void WallyLevel::Update(float _DeltaTime)
 		GameEngineCore::ChangeLevel("LoadingLevel");
 		return;
 	}
-
+	if (true == GameEngineInput::IsDown("Key_K"))
+	{
+		if (nullptr != Boss)
+		{
+			Boss->Attack(100);
+		}
+	}
 
 	EndCheck();
 	BossSetting();
@@ -99,16 +105,6 @@ void WallyLevel::EndCheck()
 
 	}
 
-	//if (true == isEffectOn)
-	//{
-	//	if (true == FEffect->IsEnd())
-	//	{
-	//		LoadingLevel::SetLevel(CupheadLevel::RESULT);
-	//		GameEngineCore::ChangeLevel("LoadingLevel");
-	//	}
-	//	return;
-
-	//}
 
 	// 플레이어가 죽어서 끝남
 	if (false == DeathCard && Player::MainPlayer->GetHP() <= 0)
@@ -120,15 +116,6 @@ void WallyLevel::EndCheck()
 		return;
 
 	}
-	//if (false == isEffectOn && Player::MainPlayer->GetHP() <= 0)
-	//{
-	//	CreateActor<YouDieUI>(CupHeadActorOrder::UI);
-	//	FEffect->SetTakesTime(5.0f);
-	//	FEffect->FadeIn();
-	//	isEffectOn = true;
-	//	return;
-
-	//}
 }
 
 
@@ -142,7 +129,7 @@ void WallyLevel::LevelChangeStart()
 	Camera->SetProjectionType(CameraType::Orthogonal);
 	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
-	Phase = 1;
+	Phase = 3;
 	LastBossPos = float4::Zero;
 	isEffectOn = false;
 	DeathCard = false;
@@ -166,6 +153,10 @@ void WallyLevel::LevelChangeStart()
 	if (false == GameEngineInput::IsKey("ChangeLevel"))
 	{
 		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
+	}	
+	if (false == GameEngineInput::IsKey("Key_K"))
+	{
+		GameEngineInput::CreateKey("Key_K", 'K');
 	}
 
 	if (nullptr == GameEngineTexture::Find("birdhouse_bg_0006.png"))
@@ -461,6 +452,9 @@ void WallyLevel::UnLoadSprite()
 	GameEngineSprite::UnLoad("Text_KO");
 	GameEngineSprite::UnLoad("CharacterRotateCard");
 	GameEngineSprite::UnLoad("CharacterFlipCard");
+
+	GameEngineSprite::UnLoad("Wally3_Heart_spit");			
+	GameEngineSprite::UnLoad("nurse_bird_spit");			
 
 	GameEngineSprite::UnLoad("deathcard_ch_run");
 	GameEngineTexture::UnLoad("death_card_wally .png");

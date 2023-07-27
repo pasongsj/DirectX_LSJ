@@ -116,6 +116,10 @@ void ShopLevel::Update(float _DeltaTime)
 			LeftDrawer->isClosed = true;
 			BackGroundSound.SoundFadeOut(1.0f);
 			GameEngineSound::Play("store_panel_slide_close.wav");
+			for (std::shared_ptr<ShopItem> EachItem: Items)
+			{
+				EachItem->SetState(ItemState::DIM);
+			}
 
 		}
 	}
