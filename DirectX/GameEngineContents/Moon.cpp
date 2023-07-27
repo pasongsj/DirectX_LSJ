@@ -15,6 +15,7 @@ Moon::Moon()
 
 Moon::~Moon()
 {
+	LoopSound.Stop();
 }
 
 void Moon::MakeSprite()

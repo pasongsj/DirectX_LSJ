@@ -26,7 +26,6 @@ public:
 
 	void Attack(int _Dmg) override;
 
-
 protected:
 
 	void Start() override;

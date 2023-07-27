@@ -132,7 +132,7 @@ void WallyLevel::LevelChangeStart()
 	Camera->SetProjectionType(CameraType::Orthogonal);
 	Camera->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
 
-	Phase = 3;
+	Phase = 1;
 	LastBossPos = float4::Zero;
 	isEffectOn = false;
 	DeathCard = false;
@@ -238,6 +238,7 @@ void WallyLevel::BossSetting()
 			ResultBoard::ResultTime = Player::MainPlayer->GetLiveTime();
 			EndTimer = GetLiveTime() + 5.0f;
 			AnnouncerSound = GameEngineSound::Play("announcer_knockout_0004.wav");
+			BackGroundSound.SoundFadeOut(1.0f);
 		}
 
 	}

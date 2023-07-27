@@ -88,7 +88,7 @@ void ResultBoard::ResultSetting()
 	{
 		ResultHPCount = 3;
 	}
-	if (ResultHPCount > 3)
+	if (ResultParryCount > 3)
 	{
 		ResultParryCount = 3;
 	}
