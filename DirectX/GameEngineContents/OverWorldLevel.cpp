@@ -140,6 +140,11 @@ void OverWorldLevel::Update(float _DeltaTime)
 	{
 		FadeEffect->SetFade(CircleTransOption::FadeOut);
 	}
+	if (true == GameEngineInput::IsDown("ExitGame"))
+	{
+		GameEngineWindow::AppOff();
+		return;
+	}
 }
 
 void OverWorldLevel::LevelChangeStart()
@@ -181,6 +186,10 @@ void OverWorldLevel::LevelChangeStart()
 	if (false == GameEngineInput::IsKey("DebugRender"))
 	{
 		GameEngineInput::CreateKey("DebugRender", VK_F3);
+	}
+	if (false == GameEngineInput::IsKey("ExitGame"))
+	{
+		GameEngineInput::CreateKey("ExitGame", VK_F9);
 	}
 	BackGroundSound = GameEngineSound::Play("bgm_map_world_1.wav");
 }
