@@ -99,7 +99,13 @@ void HildaBergLevel::Update(float _DeltaTime)
 		GameEngineCore::ChangeLevel("LoadingLevel");
 		return;
 	}
-
+	if (true == GameEngineInput::IsDown("Key_K"))
+	{
+		if (nullptr != Boss)
+		{
+			Boss->Attack(100);
+		}
+	}
 	if (false == FirstSoundDone && true == AnnouncerSound.IsValid())
 	{
 		bool tmpCheck;
@@ -300,6 +306,10 @@ void HildaBergLevel::LevelChangeStart()
 	if (false == GameEngineInput::IsKey("ChangeLevel"))
 	{
 		GameEngineInput::CreateKey("ChangeLevel", VK_F4);
+	}
+	if (false == GameEngineInput::IsKey("Key_K"))
+	{
+		GameEngineInput::CreateKey("Key_K", 'K');
 	}
 
 	if (nullptr == GameEngineTexture::Find("blimp_clouds_0001.png"))

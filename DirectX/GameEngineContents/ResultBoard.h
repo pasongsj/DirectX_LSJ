@@ -10,7 +10,7 @@ public:
 	static int ResultParryCount;
 	static int ResultSuperMeter;
 	static int ResultSkillLevel;
-	static std::string_view Rank;
+	static std::string Rank;
 
 	// constrcuter destructer
 	ResultBoard();

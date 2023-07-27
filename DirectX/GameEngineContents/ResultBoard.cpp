@@ -16,7 +16,7 @@ int ResultBoard::ResultHPCount = 3;
 int ResultBoard::ResultParryCount = 0;
 int ResultBoard::ResultSuperMeter = 0;
 int ResultBoard::ResultSkillLevel = 3;
-std::string_view ResultBoard::Rank = "B_Pluse";
+std::string ResultBoard::Rank = "B_Pluse";
 
 ResultBoard::ResultBoard() 
 {
@@ -24,6 +24,7 @@ ResultBoard::ResultBoard()
 
 ResultBoard::~ResultBoard() 
 {
+	ResultSound.Stop();
 }
 
 void ResultBoard::MakeSprite()
@@ -101,6 +102,33 @@ void ResultBoard::ResultSetting()
 	{
 		ResultSkillLevel = 3;
 	}
+
+	std::string NewRank;
+	if (ResultHPCount >=3)
+	{
+		NewRank = "S_Zero";
+	}
+	else
+	{
+		if (ResultHPCount >= 2)
+		{
+			NewRank = "A_";
+		}
+		else
+		{
+			NewRank = "B_";
+		}
+
+		if (ResultParryCount + ResultSuperMeter > 4)
+		{
+			NewRank += "Pluse";
+		}
+		else
+		{
+			NewRank += "Zero";
+		}
+	}
+	Rank = NewRank;
 }
 
 

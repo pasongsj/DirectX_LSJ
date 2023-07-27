@@ -97,6 +97,7 @@ void StoryLevel::LevelChangeStart()
 
 	BackGroundSound = GameEngineSound::Play("MUS_Intro.wav");
 	BackGroundSound.SetLoop(-1);
+	BackGroundSound.SetVolume(0.5f);
 }
 void StoryLevel::LevelChangeEnd()
 {

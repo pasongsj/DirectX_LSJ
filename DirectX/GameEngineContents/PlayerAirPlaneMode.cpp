@@ -278,6 +278,7 @@ void PlayerAirPlaneMode::Start()
 	ResultBoard::ResultParryCount = 0;
 	ResultBoard::ResultSuperMeter = 0;
 	ResultBoard::ResultSkillLevel = 3;
+	ResultBoard::Rank = "S_Zero";
 }
 
 
@@ -458,14 +459,17 @@ void PlayerAirPlaneMode::CheckInput()
 		ChangeMode("Shrink");
 		NextState = PlayerAirPlaneModeState::INTRO;
 		GameEngineSound::Play("player_plane_shrink_01.wav");
+		PlayerCollision->GetTransform()->SetLocalScale(float4(50, 10));
+		PlayerCollision->SetColType(ColType::AABBBOX2D);
 		return;
 
 	}
 	else if ("Shrink" == CurMode && false == GameEngineInput::IsPress("PlayerShrinkMode"))
 	{
-
 		ChangeMode("Origin");
 		GameEngineSound::Play("player_plane_expand_01.wav");
+		PlayerCollision->GetTransform()->SetLocalScale(float4(100, 0));
+		PlayerCollision->SetColType(ColType::SPHERE2D);
 		return;
 	}
 }

@@ -12,6 +12,7 @@ GeminiOrb::GeminiOrb()
 
 GeminiOrb::~GeminiOrb()
 {
+	ScatterSound.Stop();
 }
 
 void GeminiOrb::MakeSprite()
@@ -109,72 +110,3 @@ void GeminiOrb::Update(float _DeltaTime)
 
 	
 }
-//
-//
-//void GeminiOrb::Idle_Start()
-//{
-//	isLoop = false;
-//	isLeaveAnimation = false;
-//	Orb->ChangeAnimation("IdleIntro");
-//}
-//void GeminiOrb::Idle_Update(float _DeltaTime)
-//{
-//	if (false == isLoop && true == Orb->IsAnimationEnd())
-//	{
-//		isLoop = true;
-//		Orb->ChangeAnimation("IdleLoop");
-//	}
-//	if (true == isAttack && false == isLeaveAnimation)
-//	{
-//		Orb->ChangeAnimation("IdleLeave");
-//		isLeaveAnimation = true;
-//	}
-//	if (true == isLeaveAnimation && true == Orb->IsAnimationEnd())
-//	{
-//		NextState = OrbState::ATTACK;
-//
-//	}
-//}
-//void GeminiOrb::Idle_End()
-//{
-//	Orb->Off();
-//}
-//
-//void GeminiOrb::Attack_Start()
-//{
-//	Orb->On();
-//	isLoop = false;
-//	GetTransform()->SetLocalPosition(float4(-300, 0));
-//	Orb->ChangeAnimation("AttackIntro");
-//	ResetLiveTime();
-//}
-//void GeminiOrb::Attack_Update(float _DeltaTime)
-//{
-//	ScatterInterval -= _DeltaTime;
-//	if (false == isLoop && true == Orb->IsAnimationEnd())
-//	{
-//		isLoop = true;
-//		Orb->ChangeAnimation("AttackLoop");
-//		OrbAttackEffect->On();
-//	}
-//	if (ScatterInterval < 0 /*&& GetLiveTime() < 6.5f*/)
-//	{
-//		std::shared_ptr<GeminiOrbScatter> Scatter = GetLevel()->CreateActor<GeminiOrbScatter>(CupHeadActorOrder::Enemy);
-//
-//		float Theta = -GetLiveTime() * 1.5f + 45;
-//		float4 Dir = float4(cosf(Theta), sinf(Theta));
-//		Scatter->GetTransform()->SetLocalPosition(GetTransform()->GetWorldPosition() + Dir * 200);
-//		Scatter->GetTransform()->AddLocalRotation(float4(0, 0, (Theta)*GameEngineMath::RadToDeg));
-//		Scatter->SetDir(Dir);
-//		ScatterInterval += 0.15f;
-//	}
-//	if (GetLiveTime() > 8.0f)
-//	{
-//		// юс╫ц
-//		//Death();
-//	}
-//}
-//void GeminiOrb::Attack_End()
-//{
-//	Orb->ChangeAnimation("AttackLeave");
-//}

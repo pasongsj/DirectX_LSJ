@@ -88,7 +88,7 @@ void TitleLevel::Update(float _DeltaTime)
 		{
 			if (true == TitleSound.IsValid())
 			{
-				TitleSound.Stop();
+				TitleSound.SoundFadeOut(1.0f);
 			}
 			LoadingLevel::SetLevel(CupheadLevel::STORY);
 			GameEngineCore::ChangeLevel("LoadingLevel");
@@ -113,7 +113,6 @@ void TitleLevel::Update(float _DeltaTime)
 		{
 			CircleFadeOut = GetLastTarget()->CreateEffect< CircleTransEffect>();
 			CircleFadeOut->SetFade(CircleTransOption::FadeIn);
-			TitleSound.SoundFadeOut(1.0f);
 			isPressAnyKey = true;
 		}
 	}
@@ -273,6 +272,7 @@ void TitleLevel::LevelChangeStart()
 				CircleFadeOut->SetFade(CircleTransOption::FadeIn);
 				isChangeLevel = true;
 				GameEngineSound::Play("Menu_Category_Select.wav");
+				TitleSound.SoundFadeOut(1.0f);
 			}});
 		StartButton->Off();
 
