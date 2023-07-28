@@ -71,7 +71,7 @@ void HildaBergLevel::Start()
 
 void HildaBergLevel::SponeEnemy(float _DeltaTime)
 {
-	// ÀÜÃ¬ÀÌ ¼ÒÈ¯
+	// ì”ì±™ì´ ì†Œí™˜
 	if (GetLiveTime() > NextSponeTime)
 	{
 		if (Phase < 7)
@@ -116,10 +116,10 @@ void HildaBergLevel::Update(float _DeltaTime)
 			FirstSoundDone = true;
 		}
 	}
-	if (true == GetMainCamera()->IsFreeCamera())
-	{
-		return;
-	}
+	//if (true == GetMainCamera()->IsFreeCamera())
+	//{
+	//	return;
+	//}
 	EndCheck();
 	SponeEnemy(_DeltaTime);
 	BossSetting();
@@ -128,7 +128,7 @@ void HildaBergLevel::Update(float _DeltaTime)
 
 void HildaBergLevel::EndCheck()
 {
-	// LevelEnd Ã¼Å©
+	// LevelEnd ì²´í¬
 	if (0 != EndTimer && EndTimer < GetLiveTime())
 	{
 		if (true == isEffectOn && true == FEffect->IsEnd())
@@ -152,7 +152,7 @@ void HildaBergLevel::EndCheck()
 		return;
 
 	}
-	// ÇÃ·¹ÀÌ¾î°¡ Á×¾î¼­ ³¡³²
+	// í”Œë ˆì´ì–´ê°€ ì£½ì–´ì„œ ëë‚¨
 	if (false == DeathCard && Player::MainPlayer->GetHP() <= 0)
 	{
 		EndTimer = GetLiveTime() + 3.0f;
@@ -168,15 +168,15 @@ void HildaBergLevel::EndCheck()
 
 void HildaBergLevel::BossSetting()
 {
-	// Hilda Boss Ã¼Å©
+	// Hilda Boss ì²´í¬
 	if (nullptr != Boss)
 	{
-		if (true == Boss->IsDeath()) // Hilda°¡ Á×Àº »óÅÂÀÎÁö Ã¼Å©
+		if (true == Boss->IsDeath()) // Hildaê°€ ì£½ì€ ìƒíƒœì¸ì§€ ì²´í¬
 		{
 			LastBossPos = Boss->GetTransform()->GetWorldPosition();
 			Boss = nullptr;
 		}
-		else if (false == isEffectOn && true == Boss->isHildaDeath) // ¸¶Áö¸· ÆäÀÌÁî
+		else if (false == isEffectOn && true == Boss->isHildaDeath) // ë§ˆì§€ë§‰ í˜ì´ì¦ˆ
 		{
 			CreateActor<KnockOutUI>(CupHeadActorOrder::UI);
 			FEffect->SetTakesTime(5.0f);
