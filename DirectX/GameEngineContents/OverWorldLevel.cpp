@@ -142,7 +142,8 @@ void OverWorldLevel::Update(float _DeltaTime)
 	}
 	if (true == GameEngineInput::IsDown("ExitGame"))
 	{
-		GameEngineWindow::AppOff();
+		FadeEffect->SetFade(CircleTransOption::FadeIn);
+		BackGroundSound.SoundFadeOut(1.0f);
 		return;
 	}
 }
