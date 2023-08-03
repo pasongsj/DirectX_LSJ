@@ -1015,7 +1015,7 @@ void LoadingLevel::Update(float _DeltaTime)
 		}
 		break;
 	case CupheadLevel::TUTORIAL:
-		if (4 == LoadFuncCount)
+		if (6 == LoadFuncCount)
 		{
 			GameEngineCore::ChangeLevel("TutorialLevel");
 		}
@@ -1146,6 +1146,8 @@ void LoadingLevel::LevelChangeStart()
 		GameEngineCore::JobQueue.Work(LoadingPlayer1);
 		GameEngineCore::JobQueue.Work(LoadingPlayer2);
 		GameEngineCore::JobQueue.Work(LoadingPlayerSound);
+		GameEngineCore::JobQueue.Work(LoadingPlayerUI1);
+		GameEngineCore::JobQueue.Work(LoadingPlayerUI2);
 
 		break;
 	case CupheadLevel::SHOP:

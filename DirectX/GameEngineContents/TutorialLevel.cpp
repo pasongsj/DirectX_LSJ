@@ -2,7 +2,9 @@
 #include "TutorialLevel.h"
 #include <GameEngineCore/GameEngineSprite.h>
 #include "TutorialBackGround.h"
+#include "PinkSphere.h"
 #include "PlayerAirPlaneMode.h"
+#include "PlayerUI.h"
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineActor.h>
@@ -78,7 +80,28 @@ void TutorialLevel::UnLoadSprite()
 	GameEngineSprite::UnLoad("Super_FX");
 	GameEngineSprite::UnLoad("Cuphead_AirPlane_ExBullet");
 
+	// playerUI
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("ContentResources");
+		NewDir.Move("ContentResources\\Texture\\PlayerUI\\HPBar");
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		if (nullptr != GameEngineTexture::Find("hud_hp_1.png"))
+		{
+			for (size_t i = 0; i < File.size(); i++)
+			{
+				GameEngineTexture::UnLoad(File[i].GetFileName());
+			}
+		}
+	}
+	GameEngineTexture::UnLoad("hud_ch_card_Back.png");
+	GameEngineTexture::UnLoad("hud_ch_card_front.png");
 
+	GameEngineSprite::UnLoad("Text_GetReady");
+	GameEngineSprite::UnLoad("Text_YouDied");
+	GameEngineSprite::UnLoad("Text_KO");
+	GameEngineSprite::UnLoad("CharacterRotateCard");
+	GameEngineSprite::UnLoad("CharacterFlipCard");
 }
 
 
@@ -97,12 +120,14 @@ void TutorialLevel::LevelChangeStart()
 
 
 	CreateActor<TutorialBackGround>(CupHeadActorOrder::BackGround);
+	//CreateActor<PinkSphere>(CupHeadActorOrder::BackGround);
 	std::shared_ptr<PlayerAirPlaneMode> NewPlayer7 = CreateActor<PlayerAirPlaneMode>(CupHeadActorOrder::Player);
 
 
 
 	BackGroundSound = GameEngineSound::Play("MUS_Tutorial.wav");
 	BackGroundSound.SetLoop(-1);
+	CreateActor<PlayerUI>(CupHeadActorOrder::UI);
 }
 void TutorialLevel::LevelChangeEnd()
 {

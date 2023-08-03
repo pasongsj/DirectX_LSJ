@@ -6,7 +6,7 @@
 //#include <GameEngineCore/GameEngineButton.h>
 #include "GameContentsButton.h"
 #include "LoadingLevel.h"
-
+#include "PinkSphere.h"
 
 
 TutorialBackGround::TutorialBackGround() 
@@ -74,10 +74,21 @@ void TutorialBackGround::Update(float _DeltaTime)
 		shmup_tutorial_linework->SetScaleToTexture("shmup_tutorial_linework.png");
 		shmup_tutorial_linework->GetTransform()->SetLocalPosition(float4(0, 0, 900));
 
-		std::shared_ptr<GameEngineSpriteRenderer> pink_shpere = CreateComponent<GameEngineSpriteRenderer>(CupHeadRendererOrder::BackGround);
-		pink_shpere->SetScaleToTexture("tutorial_pink_sphere_1.png");
-		pink_shpere->GetTransform()->SetLocalPosition(float4(386, -46, 890));
+		PinkObj = GetLevel()->CreateActor<PinkSphere>(CupHeadActorOrder::BackGround);
+		PinkObjTImer = 1.0f;
 
 
+	}
+	if (true == isBGAnimationEnd && nullptr != PinkObj && true == PinkObj->IsDeath())
+	{
+		if (PinkObjTImer > 0)
+		{
+			PinkObjTImer -= _DeltaTime;
+		}
+		else
+		{
+			PinkObj = GetLevel()->CreateActor<PinkSphere>(CupHeadActorOrder::BackGround);
+			PinkObjTImer = 1.0f;
+		}
 	}
 }

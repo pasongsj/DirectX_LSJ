@@ -25,6 +25,9 @@ private:
 	void MakeSprite();
 	bool isBGAnimationEnd = false;
 
+	std::shared_ptr<class PinkSphere> PinkObj = nullptr;
+	float PinkObjTImer = 0.0f;
+
 
 };
 

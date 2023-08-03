@@ -322,6 +322,9 @@
     <ClInclude Include="GameContentsController.h">
       <Filter>Control</Filter>
     </ClInclude>
+    <ClInclude Include="PinkSphere.h">
+      <Filter>Object\Tutorial</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
@@ -665,6 +668,9 @@
     </ClCompile>
     <ClCompile Include="GameContentsController.cpp">
       <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="PinkSphere.cpp">
+      <Filter>Object\Tutorial</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
